@@ -1,7 +1,7 @@
 {
-  "name": "tfg",
-  "version": "0.0.0",
-  "license": "MIT",
+  "name": "TFG-frontend",
+  "author": "Julio Gracia Gutierrez",
+  "version": "0.0.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

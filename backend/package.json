@@ -1,5 +1,7 @@
 {
-  "name": "node-authentication",
+  "name": "TFG-server",
+  "author": "Julio Gracia Gutierrez",
+  "version": "0.0.1",
   "main": "server.js",
   "scripts": {
     "start": "nodemon server.js"
