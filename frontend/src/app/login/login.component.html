@@ -1,0 +1,24 @@
+<form style="flex-direction: column; display: flex; justify-content: center; height: 94%">
+  <div style="margin: 30px; display: flex; justify-content: space-around;">
+    <div style="display: flex; flex-direction: column; width: 70%">
+      <div style="margin-top: 20px; margin: 10px; display: flex; flex-direction: column">
+        Usuario:
+        <input type="text" name="user" [(ngModel)]="username"> 
+      </div>
+      <div style="margin: 10px; margin-bottom: 20px; display: flex; flex-direction: column">
+        Contraseña:
+        <input type="password" [(ngModel)]="password" name="pass">
+      </div>
+      <div style="margin: 10px; margin-bottom:0px">
+        <button type="button" style="width: 100%" (click)="login()">Entrar</button>
+      </div>
+    </div>
+  </div>
+  <div style="display: flex; justify-content: center; margin: 30px">
+    <!--<button routerLink="/theory" routerLinkActive="active">Entrar como anónimo</button>-->
+    <button type="button" (click)="doSome()">Entrar como anónimo</button>
+  </div>
+</form>
+<footer>
+  <app-footer></app-footer>
+</footer>

@@ -1,0 +1,50 @@
+<header style="height: 10%; padding-right: 15px; padding-left: 15px">
+  <app-header></app-header>
+</header>
+<div style="height: 80%; padding-right: 15px; padding-left: 15px; margin-bottom: 5px">
+  <div style="display: flex; justify-content: space-between; margin-bottom: 10px; padding: 5px">
+    <input type="search" style="width: 90%">
+    <button style="width: 9%">Buscar</button>
+  </div>
+  <div style="display: flex; margin-top: 10px; margin-bottom: 10px; padding: 5px">
+    <select style="padding :5px; width: 100%">
+      <option ngFor="let i of themes">{{i}}</option>
+    </select>
+  </div>
+
+  <div style="height: 80%; display: flex; justify-content: space-around; flex-direction: column">
+    <div style="display: flex; justify-content: space-between; margin-top: 10px; margin-bottom: 10px; height: 75%; padding: 5px">
+      <div style="width: 20%; border: 1px black solid; padding: 5px; overflow: auto">
+        1
+      </div>
+      <div style="width: 75%; border: 1px black solid; padding: 5px; overflow: auto">
+      </div>
+    </div>
+    
+    <div style="display: flex; margin-top: 10px; padding: 5px; flex-direction: column" *ngIf="isAlumn">
+      <button style="width: 100%; padding: 5px">Tengo dudas</button>
+    </div>
+
+    <div style="display: flex; margin-top: 10px; padding: 5px; flex-direction: column" *ngIf="!isAlumn">
+      <div style="width: 100%; display: flex; justify-content: space-around; margin-bottom: 10px">
+        <div style="width: 100%; margin-right: 10px">
+           <button style="width: 100%; padding: 5px">Ver dudas</button>
+        </div>
+        <div style="width: 100%; margin-right: 5px; margin-left: 5px">
+           <button style="width: 100%; padding: 5px">Editar</button>
+        </div>
+        <div style="width: 100%; margin-left: 5px">
+           <button style="width: 100%; padding: 5px">Borrar</button>
+        </div>
+      </div>
+      <div style="width: 100%">
+        <button style="width: 100%; padding: 5px" routerLink="/theory-editor" routerLinkActive="active">Añadir</button>
+      </div>
+    </div>-->
+    
+  </div>
+</div>
+
+<footer style="padding: 5px; height: 5%">
+  <app-footer></app-footer>
+</footer>
