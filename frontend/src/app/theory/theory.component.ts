@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
-import { SessionService } from '../core/session/session.service'
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
-//import { THEMES } from '../conf'
+import { SessionService } from 'app/core/session/session.service';
 
 @Component({
   selector: 'app-theory',
@@ -11,20 +10,28 @@ import { SessionService } from '../core/session/session.service'
 })
 export class TheoryComponent implements OnInit {
 
-  id;
   isAlumn;
-  isTeacher;
+  username;
 
-  constructor(private sessionService: SessionService, private route: ActivatedRoute,
-    ) { }
+  constructor(private sessionService: SessionService, private router: Router) { }
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
-      this.id = params['id'];
-      this.sessionService.checkIsAlumn(this.id).then( (res) =>{
-        this.isAlumn = res;
-      })
-    });
+    if(this.sessionService.session){
+      this.sessionService.session.subscribe(
+        session => {
+          console.log(session);
+          this.isAlumn = session.isAlumn;
+          this.username = session.username;
+        },
+        error => {
+          console.log(error);
+          this.router.navigate(['/login']);
+        }
+      )
+    }
+    else{
+      this.router.navigate(['/login']);
+    }
   }
-
+  
 }

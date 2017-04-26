@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { SessionService} from '../core/session/session.service'
-import { Session } from '../core/session/session'
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/map';
+
+import { SessionService} from 'app/core/session/session.service'
+import { Session } from 'app/core/session/session'
 
 @Component({
   selector: 'app-login',
@@ -10,25 +14,36 @@ import { Session } from '../core/session/session'
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  errorMessage: string;
   username: String;
   password: String;
 
-  doSome = () => {
-    
+  doSome(){
+    console.log(this.errorMessage);
   };
-
-  login = () => {
-    this.sessionService.login(this.username, this.password).then( (res) => {
-      //console.log(res);
-      this.router.navigate(['./theory', this.username]);
-    }).catch( (e) => {
-      console.log(e);
-    });
+  
+  login(){
+    this.sessionService.login(this.username, this.password).subscribe(
+      (session) => {
+        console.log(session);
+        this.router.navigate(['/theory']);
+      },
+      error => console.log(error)
+    )
   }
 
   constructor(private sessionService: SessionService, private router: Router) { }
 
   ngOnInit() {
+    if(this.sessionService.session){
+      this.sessionService.session.subscribe(
+        session => {
+          console.log(session);
+          this.router.navigate(['/theory']);
+        },
+        error => console.log(error)
+      )
+    }
   }
 
 }

@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
+import { CookieModule } from 'ngx-cookie';
+
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
@@ -28,7 +30,8 @@ import { Session } from './core/session/session';
     BrowserModule,
     FormsModule,
     HttpModule, 
-    AppRoutingModule
+    AppRoutingModule,
+    CookieModule.forRoot()
   ],
   providers: [SessionService],
   bootstrap: [AppComponent]

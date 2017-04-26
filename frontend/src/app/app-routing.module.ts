@@ -7,7 +7,7 @@ import { TheoryEditorComponent} from './theory/theory-editor/theory-editor.compo
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login',  component: LoginComponent },
-  { path: 'theory/:id', component: TheoryComponent },
+  { path: 'theory', component: TheoryComponent },
   { path: 'theory-editor', component: TheoryEditorComponent}
 ];
 @NgModule({

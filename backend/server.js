@@ -13,16 +13,18 @@ app.use(session({
   saveUninitialized: false,
   rolling: true,
   cookie: {
-    maxAge: 1000 * 60 * 30/*30 mins*/
+    maxAge: 1000 * 60 * 30/*30 mins*/,
+    httpOnly: false
   },
+  name: "session",
   store: new MySQLStore(require('./config/database'))
 }));
 
-
 //For logging and parsing
-app.use(require('morgan')('combined'));
+//app.use(require('morgan')('combined'));
 app.use(require('body-parser').urlencoded({ extended: true }));
 
+/*
 //CHARGE LODASH
 let _      = require('lodash');
 _          = require('lodash/core');
@@ -31,13 +33,7 @@ let array  = require('lodash/array');
 let object = require('lodash/fp/object');
 let at     = require('lodash/at');
 let curryN = require('lodash/fp/curryN');
-
-//Allow to send petitions to another host
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*")
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
-  next()
-});
+*/
 
 // Segregate routes
 let routes = require('./routes')(app);

@@ -1,5 +1,5 @@
-var Strategy = require('../app/core/customStrategy').Strategy;
-var users = require('../app/users');
+var Strategy = require('../src/core/customStrategy').Strategy;
+var users = require('../src/users');
 
 module.exports = function(passport) {
   

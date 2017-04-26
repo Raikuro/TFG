@@ -1,6 +1,6 @@
 module.exports = (app, login) => {
   let router = require('express').Router();
-  let uvaAuth = require('../app/uva-auth');
+  let uvaAuth = require('../src/uva-auth');
   let passport = require('passport');
   require('../config/passport')(passport);
   app.use(passport.initialize());
@@ -8,6 +8,30 @@ module.exports = (app, login) => {
 
   app.set('views', __dirname + '/../views');
   app.set('view engine', 'ejs');
+
+  router.post('/login',
+    uvaAuth.authenticate(),
+    passport.authenticate('custom'),
+    function(req, res) {
+      res.send({username: req.session.passport.user, isAlumn: req.session.isAlumn});
+    }
+  );
+
+  router.get('/session',
+    login.ensureLoggedIn(),
+    function(req, res){
+      res.send({username: req.session.passport.user, isAlumn: req.session.isAlumn});
+    })
+    
+  router.get('/logout',
+    function(req, res){
+      req.session.destroy(err => {
+        res.status(204).send();
+      })
+    }
+  );
+
+  //LEGADO
 
   router.get('/',
     function(req, res) {
@@ -20,22 +44,6 @@ module.exports = (app, login) => {
       res.render('login');
     }
   );
-    
-  router.post('/login',
-    uvaAuth.authenticate(),
-    passport.authenticate('custom', { failureRedirect: '/login',
-                                    successReturnToOrRedirect: '/'}),
-    function(req, res) {
-      res.redirect('/');
-    }
-  );
-    
-  router.get('/logout',
-    function(req, res){
-      req.logout();
-      res.redirect('/');
-    }
-  );
 
   router.get('/profile',
     login.ensureLoggedIn(),
@@ -43,6 +51,8 @@ module.exports = (app, login) => {
       res.render('profile', { user: req.user });
     }
   );
+
+  //LEGADO - FIN
 
   app.use('/', router);
   

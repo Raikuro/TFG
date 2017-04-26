@@ -1,22 +1,31 @@
-exports.existAtCollege = (user, pass) => {
-  return _existAtCollege(user, pass);
-}
-
-_existAtCollege = (user, pass) => {
-  return (req, res, next) => {
-    let collegeUsers = getCollegeUsers();
-    let userFind = collegeUsers.find( (e) => {
-      return (e.username === user && e.password === pass)
-    })
-    if(userFind !== undefined){
-      next();
+exports.getCollegeUser = (user, pass) => {
+  let collegeUsers = getCollegeAlumns();
+  let userFind = collegeUsers.find( (element) => {
+    return (element.username === user && element.password === pass)
+  });
+  if(userFind){
+    userFind.isAlumn = true;
+  }
+  else{
+    collegeUsers = getCollegeTeachers();
+    userFind = collegeUsers.find( (element) => {
+      return (element.username === user && element.password === pass)
+    });
+    if(userFind){
+      userFind.isAlumn = false;
     }
   }
+  return userFind;
 }
 
-getCollegeUsers = () => {
+getCollegeAlumns = () => {
   return [
-    { username: "asd", password: "asd"},
+    { username: "asd", password: "asd"}
+  ]
+}
+
+getCollegeTeachers = () => {
+  return [
     { username: "qwe", password: "qwe"}
   ]
 }
