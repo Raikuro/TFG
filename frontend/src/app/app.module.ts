@@ -15,6 +15,7 @@ import { TheoryComponent } from './theory/theory.component';
 import { TheoryEditorComponent } from './theory/theory-editor/theory-editor.component';
 import { SessionService} from './core/session/session.service';
 import { Session } from './core/session/session';
+import { TheoryService } from "app/theory/theory.service";
 
 
 @NgModule({
@@ -33,7 +34,7 @@ import { Session } from './core/session/session';
     AppRoutingModule,
     CookieModule.forRoot()
   ],
-  providers: [SessionService],
+  providers: [SessionService, TheoryService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

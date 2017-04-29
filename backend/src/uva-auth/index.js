@@ -1,2 +1,2 @@
-var uvaAuth = require('./uva-auth');
-exports = module.exports = uvaAuth;
+var uvaAuth = require('./uva-auth')
+exports = module.exports = uvaAuth

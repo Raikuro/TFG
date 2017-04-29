@@ -35,15 +35,17 @@ export class LoginComponent implements OnInit {
   constructor(private sessionService: SessionService, private router: Router) { }
 
   ngOnInit() {
-    if(this.sessionService.session){
-      this.sessionService.session.subscribe(
-        session => {
-          console.log(session);
-          this.router.navigate(['/theory']);
-        },
-        error => console.log(error)
-      )
+    let session = this.sessionService.session;
+    if(session){
+      if ((<Observable<Session>> session).subscribe){
+        (<Observable<Session>> session).subscribe(
+          session => {
+            this.sessionService.updateSession(session);
+            this.router.navigate(['/theory']);
+          },
+          error => console.log(error)
+        )
+      }
     }
   }
-
 }
