@@ -9,19 +9,25 @@ import 'rxjs/add/observable/throw';
 
 import { RequestOptions, Headers, Http, Response } from "@angular/http/";
 
-import { ADDRESS } from '../config/server';
+import { ADDRESS } from 'app/config/server';
+
+const ADD = 0;
+const EDIT = 1;
 
 @Injectable()
 export class TheoryService {
 
-  private headers = new Headers();
-  private options = new RequestOptions({ headers: this.headers, withCredentials: true });
-
+  private headers;
+  private options;
   private _index: Theory;
+  private _sectionsCache;
+  private _preparedData;
 
-  private _sectionsCache = new Array<Array<Section>>();
-
-  constructor(private http: Http) { }
+  constructor(private http: Http) {
+    this._sectionsCache = new Array<Array<Section>>();
+    this.headers = new Headers();
+    this.options = new RequestOptions({ headers: this.headers, withCredentials: true });
+  }
 
   get index(){
     if(this._index === undefined){
@@ -30,8 +36,34 @@ export class TheoryService {
     return this._index;
   }
 
-  setIndex(index:Theory){
-    this._index = index;
+  sendData(data){
+    let body = new URLSearchParams();
+    body.append('mode', data.mode);
+    body.append('section', data.section);
+    if(data.mode === ADD){
+       return this.http.post(ADDRESS + '/index/' + data.theme.id + '/' + data.section.id, body, this.options)
+      .map(this.extractData)
+      .catch((error:any) => {
+        return Observable.throw(error.json().error || 'Server error')})
+    }
+    if(data.mode === EDIT){
+      return this.http.put(ADDRESS + '/index/' + data.theme.id + '/' + data.section.id, body, this.options)
+      .map(this.extractData)
+      .catch((error:any) => {
+        return Observable.throw(error.json().error || 'Server error')})
+    }
+  }
+  
+  prepareData(mode, theme, section){
+    this._preparedData = {
+      'mode': mode,
+      'theme': theme,
+      'section': section
+    }
+  }
+
+  get preparedData(){
+    return this._preparedData;
   }
 
   get sectionsCache(){
@@ -56,7 +88,7 @@ export class TheoryService {
   }
   
   private getSectionData(themeId: number, sectionId: number):Observable<Section>{
-    return this.http.get(ADDRESS + '/section/' + themeId + '/' + sectionId, this.options)
+    return this.http.get(ADDRESS + '/index/' + themeId + '/' + sectionId, this.options)
       .map(this.extractData)
       .catch((error:any) => {
         return Observable.throw(error.json().error || 'Server error')})

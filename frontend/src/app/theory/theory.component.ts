@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { SessionService } from 'app/core/session/session.service';
-import { TheoryService } from 'app/theory/theory.service'
+import { TheoryService } from 'app/theory/core/theory.service'
 
 import { Session } from 'app/core/session/session'
 
 import { Observable } from "rxjs/Observable";
-import { Theory } from "app/theory/theory";
-import { Section } from "app/theory/section";
+import { Theory } from "app/theory/core/theory";
+import { Section } from "app/theory/core/section";
 
 @Component({
   selector: 'app-theory',
@@ -25,7 +25,9 @@ export class TheoryComponent implements OnInit {
   private section;
   private sectionData;
 
-  constructor(private sessionService: SessionService, private router: Router, private theoryService: TheoryService) { }
+  constructor(private sessionService: SessionService,
+              private router: Router,
+              private theoryService: TheoryService) { }
 
   onThemeSeletorChange(theme){
     this.theme = theme;
@@ -37,21 +39,21 @@ export class TheoryComponent implements OnInit {
   }
 
   goToTheoryEditorEdit(){
-    this.router.navigate(['/theory-editor', {theme: this.theme, section: this.section}]);
+    this.router.navigate(['/theory-editor', {themeId: this.theme.id, sectionId: this.section.id}]);
   }
 
   goToTheoryEditorAdd(){
-    this.router.navigate(['/theory-editor']);
+    this.router.navigate(['/theory-editor', {themeId: this.theme.id}]);
   }
 
   selectSection(section){
     this.section = section;
-    let content = this.theoryService.getSection(this.theme.id, this.section.id)
-    if((<Observable<Section>>content).subscribe){
-      (<Observable<Section>>content).subscribe(
+    let sectionData = this.theoryService.getSection(this.theme.id, this.section.id)
+    if((<Observable<Section>>sectionData).subscribe){
+      (<Observable<Section>>sectionData).subscribe(
         sectionData => {
-          this.sectionData = sectionData['body'];
-          this.theoryService.updateSectionsCache(this.sectionData, this.theme.id, this.section.id)
+          this.sectionData = sectionData.content;
+          this.theoryService.updateSectionsCache(sectionData, this.theme.id, this.section.id)
         },
         error => {
           console.log(error);
@@ -61,11 +63,15 @@ export class TheoryComponent implements OnInit {
       )
     }
     else{
-      this.sectionData = content;
+      this.sectionData = sectionData.content;
     }
   }
 
   ngOnInit() {
+    this.standartOnInit();
+  }
+
+  standartOnInit(){
     let session = this.sessionService.session;
     if(session){
       if((<Observable<Session>> session).subscribe){

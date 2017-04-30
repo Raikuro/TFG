@@ -15,8 +15,9 @@ import { TheoryComponent } from './theory/theory.component';
 import { TheoryEditorComponent } from './theory/theory-editor/theory-editor.component';
 import { SessionService} from './core/session/session.service';
 import { Session } from './core/session/session';
-import { TheoryService } from "app/theory/theory.service";
+import { TheoryService } from "app/theory/core/theory.service";
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { ConfirmChangesComponent } from './theory/confirm-changes/confirm-changes.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     HeaderComponent,
     TheoryComponent,
     TheoryEditorComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    ConfirmChangesComponent
   ],
   imports: [
     BrowserModule,

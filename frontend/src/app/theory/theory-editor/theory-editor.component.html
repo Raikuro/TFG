@@ -4,7 +4,7 @@
 <div style="height: 80%; padding-right: 15px; padding-left: 15px; margin-bottom: 5px">
   
   <div style="display: flex; margin-top: 10px; margin-bottom: 10px; padding: 5px">
-    <select style="padding :5px; width: 100%" [ngModel]="theme" (ngModelChange)=onThemeSeletorChange($event)>
+    <select style="padding :5px; width: 100%" [ngModel]="theme" (ngModelChange)="theme ? theme = $event : null">
       <option [ngValue]="theme" *ngFor="let theme of themes">
         {{theme.name}}
         </option>
@@ -13,29 +13,26 @@
   
   <div style="display: flex; justify-content: space-between; margin-bottom: 10px; padding: 5px">
     <div style="width: 9%">Titulo:</div>
-    <input type="search" style="width: 90%" [ngModel] = "section?.name" (ngModelChange)="model ? model.name = $event : null">
+    <input type="search" style="width: 90%" [ngModel]="section?.name" (ngModelChange)="section ? section.name = $event : null">
   </div>
   
 
   <div style="height: 80%; display: flex; justify-content: space-around; flex-direction: column; padding: 10px">
     <div style="display: flex; flex-direction: column; justify-content: space-around; margin-bottom: 10px; padding: 5px; height: 75%">
     <div>Contenido:</div>
-    <textarea type="search" style="width: 100%; height: inherit"></textarea>
+    <textarea type="search" style="width: 100%; height: inherit" [ngModel]="section?.content" (ngModelChange)="section ? section.content = $event : null"></textarea>
   </div>
   <div style="display: flex; flex-direction: column; justify-content: space-around; margin-bottom: 10px; padding: 5px; height: 25%">
     <div>Palabras relacionadas:</div>
-    <textarea type="search" style="width: 100%; height: inherit"></textarea>
+    <textarea type="search" style="width: 100%; height: inherit"[ngModel]="section?.related" (ngModelChange)="section ? section.related = $event : null"></textarea>
   </div>
     
-    <!--<div style="display: flex; margin-top: 10px; padding: 5px; flex-direction: column">
-      <button style="width: 100%; padding: 5px">Tengo dudas</button>
-    </div>-->
-
-    <div style="display: flex; margin-top: 10px; padding: 5px; flex-direction: column">
-      <div style="width: 100%">
-        <button style="width: 100%; padding: 5px" (click)="doSome()">Añadir</button>
-      </div>
+  <div style="display: flex; margin-top: 10px; padding: 5px; flex-direction: column">
+    <div style="width: 100%">
+      <button style="width: 100%; padding: 5px" *ngIf="mode === 0" (click)="goToConfirmation()" [disabled]="!isReadyToSend()">Añadir</button>
+      <button *ngIf="mode === 1;" style="width: 100%; padding: 5px" (click)="goToConfirmation()" [disabled]="!isReadyToSend()">Editar</button>
     </div>
+  </div>
     
   </div>
 </div>
