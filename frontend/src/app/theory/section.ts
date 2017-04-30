@@ -1,4 +1,8 @@
 export class Section{
-  private name: String
+  private _name: String
   private id: Number
+
+  get name(){
+    return this._name;
+  }
 }

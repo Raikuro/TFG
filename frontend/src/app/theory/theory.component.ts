@@ -8,6 +8,7 @@ import { Session } from 'app/core/session/session'
 
 import { Observable } from "rxjs/Observable";
 import { Theory } from "app/theory/theory";
+import { Section } from "app/theory/section";
 
 @Component({
   selector: 'app-theory',
@@ -32,14 +33,22 @@ export class TheoryComponent implements OnInit {
   }
 
   doSome(some){
-    console.log(some);
+    console.log(this.section);
+  }
+
+  goToTheoryEditorEdit(){
+    this.router.navigate(['/theory-editor', {theme: this.theme, section: this.section}]);
+  }
+
+  goToTheoryEditorAdd(){
+    this.router.navigate(['/theory-editor']);
   }
 
   selectSection(section){
     this.section = section;
     let content = this.theoryService.getSection(this.theme.id, this.section.id)
-    if(content['subscribe']){
-      content['subscribe'](
+    if((<Observable<Section>>content).subscribe){
+      (<Observable<Section>>content).subscribe(
         sectionData => {
           this.sectionData = sectionData['body'];
           this.theoryService.updateSectionsCache(this.sectionData, this.theme.id, this.section.id)
@@ -57,10 +66,35 @@ export class TheoryComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.allOnInit(this.onInitTasks(this.theoryService));
+    let session = this.sessionService.session;
+    if(session){
+      if((<Observable<Session>> session).subscribe){
+        (<Observable<Session>> session).subscribe(
+          session => {
+            this.isAlumn = session.isAlumn;
+            this.username = session.username;
+            this.sessionService.updateSession(session);
+            this.onInitTasks();
+          },
+          error => {
+            console.log(error);
+            this.sessionService.logout();
+            this.router.navigate(['/login']);
+          }
+        )
+      }
+      else{
+        this.isAlumn = (<Session> session).isAlumn;
+        this.username = (<Session> session).username;
+        this.onInitTasks();
+      }
+    }
+    else{
+      this.router.navigate(['/login']);
+    }
   }
 
-  onInitTasks(theoryService: TheoryService){
+  onInitTasks(){
     let index = this.theoryService.index;
     if((<Observable<Theory>> index).subscribe){
       (<Observable<Theory>> index).subscribe(
@@ -82,34 +116,5 @@ export class TheoryComponent implements OnInit {
       this.sections = this.theme.sections;
     }
   }
-
-  allOnInit(next){
-    let session = this.sessionService.session;
-    if(session){
-      if((<Observable<Session>> session).subscribe){
-        (<Observable<Session>> session).subscribe(
-          session => {
-            this.isAlumn = session.isAlumn;
-            this.username = session.username;
-            this.sessionService.updateSession(session);
-            if(next){
-              next()
-            }
-          },
-          error => {
-            console.log(error);
-            this.sessionService.logout();
-            this.router.navigate(['/login']);
-          }
-        )
-      }
-      else{
-        this.isAlumn = (<Session> session).isAlumn;
-        this.username = (<Session> session).username;
-      }
-    }
-    else{
-      this.router.navigate(['/login']);
-    }
-  }
+    
 }

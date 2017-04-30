@@ -16,6 +16,7 @@ import { TheoryEditorComponent } from './theory/theory-editor/theory-editor.comp
 import { SessionService} from './core/session/session.service';
 import { Session } from './core/session/session';
 import { TheoryService } from "app/theory/theory.service";
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { TheoryService } from "app/theory/theory.service";
     FooterComponent,
     HeaderComponent,
     TheoryComponent,
-    TheoryEditorComponent
+    TheoryEditorComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
