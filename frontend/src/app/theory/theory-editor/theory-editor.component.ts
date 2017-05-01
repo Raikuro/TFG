@@ -109,7 +109,8 @@ export class TheoryEditorComponent implements OnInit {
   onInitTaskNext(){
       this.route.params.subscribe(
       params => {
-        this.lesson = this.lessons[params.lessonId];
+        this.lesson = this.lessons[params.lessonId-1];
+        console.log(this.lesson);
         let sectionId = params.sectionId;
         if(this.lesson){
           if(sectionId){

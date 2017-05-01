@@ -14,9 +14,8 @@ import { ADDRESS } from '../../config/server';
 
 @Injectable()
 export class SessionService {
-
-  private headers = new Headers();
-  private options = new RequestOptions({ headers: this.headers, withCredentials: true });
+  private headers;
+  private options;
   private _session: Session;
 
   get session(){
@@ -32,7 +31,11 @@ export class SessionService {
     this._session = session;
   }
   
-  constructor(private http: Http, private cookieService:CookieService) { }
+  constructor(private http: Http, private cookieService:CookieService) {
+    this.headers = new Headers();
+    this.headers.append('Content-Type', 'application/x-www-form-urlencoded');
+    this.options = new RequestOptions({ headers: this.headers, withCredentials: true });
+  }
 
   login(username, password): Observable<Session> {
     let body = new URLSearchParams();

@@ -3,13 +3,11 @@ let app = express()
 let port = process.env.PORT || 3000
 
 // CHARGE SESSION
-let mysql = require('mysql')
 let session = require('express-session')
 // let flash = require('connect-flash')
 
 let MySQLStore = require('express-mysql-session')(session)
-let dbconfig = require('./config/database')
-let connection = mysql.createConnection(dbconfig)
+
 app.use(session({
   secret: 'keyboard cat',
   resave: false,
@@ -20,12 +18,11 @@ app.use(session({
     httpOnly: false
   },
   name: 'session',
-  store: new MySQLStore(dbconfig)
+  store: new MySQLStore(require('./config/database'))
 }))
-connection.connect()
 
 // For logging and parsing
-app.use(require('morgan')('combined'))
+// app.use(require('morgan')('combined'))
 app.use(require('body-parser').urlencoded({ extended: true }))
 
 /*
@@ -40,7 +37,7 @@ let curryN = require('lodash/fp/curryN');
 */
 
 // Segregate routes
-let routes = require('./routes')(app, connection)
+let routes = require('./routes')(app/*, connection */)
 
 // launch ======================================================================
 app.listen(port, () => {

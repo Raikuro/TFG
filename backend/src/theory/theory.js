@@ -1,3 +1,6 @@
+let Lesson = require('./lesson')
+let Section = require('./section')
+
 class Theory {
   constructor (lessons) {
     if (lessons) {
@@ -6,29 +9,28 @@ class Theory {
       this.lessons = []
     }
   }
-}
 
-class Lesson {
-  constructor (id, title, sections) {
-    if (sections) {
-      this.sections = sections
-    } else {
-      this.sections = []
-    }
-    this.title = title
-    this.id = id
+  static getIndex (mysqlConnection) {
+    return new Promise((resolve, reject) => {
+      mysqlConnection.query('SELECT L.id, L.title FROM lessons L', (err, lessons) => {
+        if (err) { throw err }
+        let theory = new Theory()
+        lessons.map((lesson, index, array) => {
+          let lessonAux = new Lesson(lesson.id, lesson.title)
+          mysqlConnection.query('SELECT S.id, S.title FROM sections S WHERE S.lesson = ?', [lesson.id], (err, sections) => {
+            if (err) { throw err }
+            sections.map((section) => {
+              lessonAux.sections.push(new Section(section.id, section.title))
+            })
+            theory.lessons.push(lessonAux)
+            if (index === array.length - 1) {
+              resolve(theory)
+            }
+          })
+        })
+      })
+    })
   }
-}
 
-class Section {
-  constructor (id, title, content, keywords) {
-    this.title = title
-    this.id = id
-    this.content = content
-    this.keywords = keywords
-  }
 }
-
-exports.Theory = Theory
-exports.Lesson = Lesson
-exports.Section = Section
+module.exports = exports = Theory

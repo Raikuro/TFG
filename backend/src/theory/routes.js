@@ -1,29 +1,16 @@
-let Lesson = require('./theory').Lesson
-let Theory = require('./theory').Theory
-let Section = require('./theory').Section
+let Lesson = require('./lesson')
+let Theory = require('./theory')
+let Section = require('./section')
+let mysqlConnection = require('../core/mysqlConnection')
 
-module.exports = (app, login, mysqlConnection) => {
+module.exports = (app, login /* , mysqlConnection */) => {
   let router = require('express').Router()
 
   router.get('/index',
     login.ensureLoggedIn(),
     (req, res) => {
-      mysqlConnection.query('SELECT L.id, L.title FROM lessons L', (err, lessons) => {
-        if (err) { throw err }
-        let theory = new Theory()
-        lessons.map((lesson, index, array) => {
-          let lessonAux = new Lesson(lesson.id, lesson.title)
-          mysqlConnection.query('SELECT S.id, S.title FROM sections S WHERE S.lesson = ?', [lesson.id], (err, sections) => {
-            if (err) { throw err }
-            sections.map((section) => {
-              lessonAux.sections.push(new Section(section.id, section.title))
-            })
-            theory.lessons.push(lessonAux)
-            if (index === array.length - 1) {
-              res.status(200).send(theory)
-            }
-          })
-        })
+      Theory.getIndex(mysqlConnection).then((index) => {
+        res.status(200).send(index)
       })
     })
 
@@ -44,15 +31,16 @@ module.exports = (app, login, mysqlConnection) => {
   router.post('/index/:lessonId',
   login.ensureLoggedIn(),
   (req, res) => {
-    console.log(req.body)
+    let section = JSON.parse(req.body.section)
+    new Section(section.id, section.title, section.content, section.keywords).save(req.params.lessonId)
     res.status(204).send()
   })
 
   router.put('/index/:lessonId/:sectionId',
   login.ensureLoggedIn(),
   (req, res) => {
-    console.log(req.body)
-
+    let section = JSON.parse(req.body.section)
+    new Section(section.id, section.title, section.content, section.keywords).save(req.params.lessonId)
     res.status(204).send()
   })
 

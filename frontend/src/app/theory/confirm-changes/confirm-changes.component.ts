@@ -61,7 +61,10 @@ export class ConfirmChangesComponent implements OnInit {
   }
 
   sendData(){
-    this.theoryService.sendData(this.data);
+    this.theoryService.sendData(this.data).subscribe(
+      null,
+      error => {console.log('ASD');this.router.navigate(['/server-error', error])}
+    );
   }
 
 }

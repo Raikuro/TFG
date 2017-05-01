@@ -7,7 +7,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
 
-import { RequestOptions, Headers, Http, Response } from "@angular/http/";
+import { RequestOptions, Headers, Http, Response, URLSearchParams} from "@angular/http/";
 
 import { ADDRESS } from 'app/config/server';
 
@@ -26,6 +26,8 @@ export class TheoryService {
   constructor(private http: Http) {
     this._sectionsCache = new Array<Array<Section>>();
     this.headers = new Headers();
+    this.headers.append('Content-Type', 'application/x-www-form-urlencoded');
+    
     this.options = new RequestOptions({ headers: this.headers, withCredentials: true });
   }
 
@@ -38,15 +40,19 @@ export class TheoryService {
 
   sendData(data){
     let body = new URLSearchParams();
-    body.append('mode', data.mode);
-    body.append('section', data.section);
+    body.append('section', JSON.stringify(data.section));
+
     if(data.mode === ADD){
-      console.log(ADDRESS + '/index/' + data.lesson.id);
-      this.http.post(ADDRESS + '/index/' + data.lesson.id, body, this.options);
+      return this.http.post(ADDRESS + '/index/' + data.lesson.id, body, this.options)
+      .map(this.extractData)
+      .catch((error:any) => {
+        return Observable.throw(error.json().error || 'Server error')})
     }
     if(data.mode === EDIT){
-      console.log(ADDRESS + '/index/' + data.lesson.id + '/' + data.section.id);
-      this.http.put(ADDRESS + '/index/' + data.lesson.id + '/' + data.section.id, body, this.options);
+      return this.http.put(ADDRESS + '/index/' + data.lesson.id + '/' + data.section.id, body, this.options)
+      .map(this.extractData)
+      .catch((error:any) => {
+        return Observable.throw(error.json().error || 'Server error')})
     }
   }
   
