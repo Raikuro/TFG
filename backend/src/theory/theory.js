@@ -1,40 +1,34 @@
 class Theory {
-  constructor (themes) {
-    this.themes = themes
-  }
-
-  set themes (themes) {
-    this.themes = themes
+  constructor (lessons) {
+    if (lessons) {
+      this.lessons = lessons
+    } else {
+      this.lessons = []
+    }
   }
 }
 
-class Theme {
-  constructor (name, id, sections) {
-    this.name = name
+class Lesson {
+  constructor (id, title, sections) {
+    if (sections) {
+      this.sections = sections
+    } else {
+      this.sections = []
+    }
+    this.title = title
     this.id = id
-    this.sections = sections
-  }
-
-  set sections (sections) {
-    this.sections = sections
   }
 }
 
 class Section {
-  constructor (name, id) {
-    this.name = name
+  constructor (id, title, content, keywords) {
+    this.title = title
     this.id = id
-  }
-
-  set name (name) {
-    this.name = name
-  }
-
-  set id (id) {
-    this.id = id
+    this.content = content
+    this.keywords = keywords
   }
 }
 
 exports.Theory = Theory
-exports.Theme = Theme
+exports.Lesson = Lesson
 exports.Section = Section

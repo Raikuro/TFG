@@ -41,23 +41,19 @@ export class TheoryService {
     body.append('mode', data.mode);
     body.append('section', data.section);
     if(data.mode === ADD){
-       return this.http.post(ADDRESS + '/index/' + data.theme.id + '/' + data.section.id, body, this.options)
-      .map(this.extractData)
-      .catch((error:any) => {
-        return Observable.throw(error.json().error || 'Server error')})
+      console.log(ADDRESS + '/index/' + data.lesson.id);
+      this.http.post(ADDRESS + '/index/' + data.lesson.id, body, this.options);
     }
     if(data.mode === EDIT){
-      return this.http.put(ADDRESS + '/index/' + data.theme.id + '/' + data.section.id, body, this.options)
-      .map(this.extractData)
-      .catch((error:any) => {
-        return Observable.throw(error.json().error || 'Server error')})
+      console.log(ADDRESS + '/index/' + data.lesson.id + '/' + data.section.id);
+      this.http.put(ADDRESS + '/index/' + data.lesson.id + '/' + data.section.id, body, this.options);
     }
   }
   
-  prepareData(mode, theme, section){
+  prepareData(mode, lesson, section){
     this._preparedData = {
       'mode': mode,
-      'theme': theme,
+      'lesson': lesson,
       'section': section
     }
   }
@@ -70,25 +66,25 @@ export class TheoryService {
     return this._sectionsCache;
   }
 
-  updateSectionsCache(sectionData: Section, themeId: number, sectionId: number){
-    this._sectionsCache[themeId][sectionId] = sectionData;
+  updateSectionsCache(sectionData: Section, lessonId: number, sectionId: number){
+    this._sectionsCache[lessonId][sectionId] = sectionData;
   }
 
-  getSection(themeId: number, sectionId: number){
-    if(this._sectionsCache[themeId]){
-      if(this._sectionsCache[themeId][sectionId] === undefined){
-        return this.getSectionData(themeId, sectionId);
+  getSection(lessonId: number, sectionId: number){
+    if(this._sectionsCache[lessonId]){
+      if(this._sectionsCache[lessonId][sectionId] === undefined){
+        return this.getSectionData(lessonId, sectionId);
        }
     }
     else{
-      this.sectionsCache[themeId] = new Array<Section>();
-      return this.getSectionData(themeId, sectionId);
+      this.sectionsCache[lessonId] = new Array<Section>();
+      return this.getSectionData(lessonId, sectionId);
     }
-    return this._sectionsCache[themeId][sectionId];
+    return this._sectionsCache[lessonId][sectionId];
   }
   
-  private getSectionData(themeId: number, sectionId: number):Observable<Section>{
-    return this.http.get(ADDRESS + '/index/' + themeId + '/' + sectionId, this.options)
+  private getSectionData(lessonId: number, sectionId: number):Observable<Section>{
+    return this.http.get(ADDRESS + '/index/' + lessonId + '/' + sectionId, this.options)
       .map(this.extractData)
       .catch((error:any) => {
         return Observable.throw(error.json().error || 'Server error')})

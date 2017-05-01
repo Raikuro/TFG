@@ -19,9 +19,9 @@ export class TheoryComponent implements OnInit {
 
   private isAlumn;
   private username;
-  private themes;
+  private lessons;
   private sections;
-  private theme;
+  private lesson;
   private section;
   private sectionData;
 
@@ -29,9 +29,9 @@ export class TheoryComponent implements OnInit {
               private router: Router,
               private theoryService: TheoryService) { }
 
-  onThemeSeletorChange(theme){
-    this.theme = theme;
-    this.sections = this.theme.sections;
+  onLessonSeletorChange(lesson){
+    this.lesson = lesson;
+    this.sections = this.lesson.sections;
   }
 
   doSome(some){
@@ -39,31 +39,31 @@ export class TheoryComponent implements OnInit {
   }
 
   goToTheoryEditorEdit(){
-    this.router.navigate(['/theory-editor', {themeId: this.theme.id, sectionId: this.section.id}]);
+    this.router.navigate(['/theory-editor', {lessonId: this.lesson.id, sectionId: this.section.id}]);
   }
 
   goToTheoryEditorAdd(){
-    this.router.navigate(['/theory-editor', {themeId: this.theme.id}]);
+    this.router.navigate(['/theory-editor', {lessonId: this.lesson.id}]);
   }
 
   selectSection(section){
     this.section = section;
-    let sectionData = this.theoryService.getSection(this.theme.id, this.section.id)
-    if((<Observable<Section>>sectionData).subscribe){
-      (<Observable<Section>>sectionData).subscribe(
-        sectionData => {
-          this.sectionData = sectionData.content;
-          this.theoryService.updateSectionsCache(sectionData, this.theme.id, this.section.id)
+    let response = this.theoryService.getSection(this.lesson.id, this.section.id)
+    if((<Observable<Section>>response).subscribe){
+      (<Observable<Section>>response).subscribe(
+        section => {
+          console.log(section)
+          this.section.content = section.content;
+          this.section.keywords = section.keywords;
+          this.theoryService.updateSectionsCache(section, this.lesson.id, this.section.id)
         },
         error => {
-          console.log(error);
-          this.sessionService.logout();
-          this.router.navigate(['/login']);
+          this.router.navigate(['/server-error', error]);
         }
       )
     }
     else{
-      this.sectionData = sectionData.content;
+      this.section.content = response.content;
     }
   }
 
@@ -84,8 +84,7 @@ export class TheoryComponent implements OnInit {
           },
           error => {
             console.log(error);
-            this.sessionService.logout();
-            this.router.navigate(['/login']);
+            this.router.navigate(['/server-error', error]);
           }
         )
       }
@@ -105,21 +104,20 @@ export class TheoryComponent implements OnInit {
     if((<Observable<Theory>> index).subscribe){
       (<Observable<Theory>> index).subscribe(
         index => {
-          this.themes = index.themes;
-          this.theme = this.themes[0];
-          this.sections = this.theme.sections;
+          this.lessons = index.lessons;
+          this.lesson = this.lessons[0];
+          this.sections = this.lesson.sections;
         },
         error => {
           console.log(error);
-          this.sessionService.logout();
-          this.router.navigate(['/login']);
+          this.router.navigate(['/server-error', error]);
         }
       )
     }
     else{
-      this.themes = (<Theory> index).themes;
-      this.theme = this.themes[0];
-      this.sections = this.theme.sections;
+      this.lessons = (<Theory> index).lessons;
+      this.lesson = this.lessons[0];
+      this.sections = this.lesson.sections;
     }
   }
     

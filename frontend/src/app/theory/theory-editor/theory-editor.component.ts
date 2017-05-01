@@ -21,9 +21,9 @@ export class TheoryEditorComponent implements OnInit {
 
   private isAlumn;
   private username;
-  private themes;
+  private lessons;
   private mode;
-  private theme;
+  private lesson;
   private section;
   private ready;
   
@@ -35,7 +35,7 @@ export class TheoryEditorComponent implements OnInit {
     ) { }
   
   goToConfirmation(){
-    this.theoryService.prepareData(this.mode, this.theme, this.section);
+    this.theoryService.prepareData(this.mode, this.lesson, this.section);
     this.router.navigate(['/theory-change-confirmation']);
   }
 
@@ -78,7 +78,7 @@ export class TheoryEditorComponent implements OnInit {
 
   isReadyToSend(){
     if(this.section){
-      return this.section.name.length > 0 && this.section.content.length > 0;
+      return this.section.title.length > 0 && this.section.content.length > 0;
     }
     return false;
   }
@@ -93,14 +93,14 @@ export class TheoryEditorComponent implements OnInit {
       if((<Observable<Theory>>index).subscribe){
         (<Observable<Theory>>index).subscribe(
           index => {
-            this.themes = index.themes;
+            this.lessons = index.lessons;
             this.onInitTaskNext()
           },
           error => console.log(error)
         )
       }
       else{
-        this.themes = (<Theory>index).themes;
+        this.lessons = (<Theory>index).lessons;
         this.onInitTaskNext()
       }
     }
@@ -109,12 +109,12 @@ export class TheoryEditorComponent implements OnInit {
   onInitTaskNext(){
       this.route.params.subscribe(
       params => {
-        this.theme = this.themes[params.themeId];
+        this.lesson = this.lessons[params.lessonId];
         let sectionId = params.sectionId;
-        if(this.theme){
+        if(this.lesson){
           if(sectionId){
             this.mode = EDIT;
-            let section = this.theoryService.getSection(this.theme.id, sectionId)
+            let section = this.theoryService.getSection(this.lesson.id, sectionId)
             if((<Observable<Section>>section).subscribe){
               (<Observable<Section>>section).subscribe(
                 section => {
@@ -132,7 +132,7 @@ export class TheoryEditorComponent implements OnInit {
           }
         }
         else{
-          this.theme = this.themes[0];
+          this.lesson = this.lessons[0];
         }
       },
       error => console.log(error)

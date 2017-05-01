@@ -1,4 +1,4 @@
-exports.themes = 
+exports.lessons = 
 [
   {
     'name': 'TEMA 1',

@@ -1,9 +1,9 @@
-import { Theme } from './theme'
+import { Lesson } from './lesson'
 
 export class Theory{
-  private _themes: Theme[];
+  private _lessons: Lesson[];
 
-  get themes(){
-    return this._themes;
+  get lessons(){
+    return this._lessons;
   }
 }

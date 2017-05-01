@@ -1,4 +1,4 @@
-module.exports = (app) => {
+module.exports = (app, mysqlConnection) => {
   // Allow to receive petitions from another host
   app.use(function (req, res, next) {
     // clientAddress = require('../config/client').ADDRESS
@@ -10,5 +10,5 @@ module.exports = (app) => {
 
   let login = require('../src/core/ensureLogin')
   let routes = require('./routes')(app, login)
-  let theoryRoutes = require('../src/theory/routes')(app, login)
+  let theoryRoutes = require('../src/theory/routes')(app, login, mysqlConnection)
 }
