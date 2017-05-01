@@ -41,7 +41,7 @@ module.exports = (app, login, mysqlConnection) => {
     })
   })
 
-  router.post('/index/:lessonId/',
+  router.post('/index/:lessonId',
   login.ensureLoggedIn(),
   (req, res) => {
     console.log(req.body)
@@ -52,7 +52,8 @@ module.exports = (app, login, mysqlConnection) => {
   login.ensureLoggedIn(),
   (req, res) => {
     console.log(req.body)
-    res.status(200).send("ASD")
+
+    res.status(204).send()
   })
 
   app.use('/', router)
