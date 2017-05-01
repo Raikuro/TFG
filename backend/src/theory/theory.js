@@ -1,5 +1,5 @@
 let Lesson = require('./lesson')
-let Section = require('./section')
+let mysqlConnection = require('../core/mysqlConnection')
 
 class Theory {
   constructor (lessons) {
@@ -10,21 +10,16 @@ class Theory {
     }
   }
 
-  static getIndex (mysqlConnection) {
+  static getIndex () {
     return new Promise((resolve, reject) => {
       mysqlConnection.query('SELECT L.id, L.title FROM lessons L', (err, lessons) => {
         if (err) { throw err }
-        let theory = new Theory()
+        let lessonAux = []
         lessons.map((lesson, index, array) => {
-          let lessonAux = new Lesson(lesson.id, lesson.title)
-          mysqlConnection.query('SELECT S.id, S.title FROM sections S WHERE S.lesson = ?', [lesson.id], (err, sections) => {
-            if (err) { throw err }
-            sections.map((section) => {
-              lessonAux.sections.push(new Section(section.id, section.title))
-            })
-            theory.lessons.push(lessonAux)
+          Lesson.getAllSections(lesson.id).then(sections => {
+            lessonAux.push(new Lesson(lesson.id, lesson.title, sections))
             if (index === array.length - 1) {
-              resolve(theory)
+              resolve(new Theory(lessonAux))
             }
           })
         })

@@ -39,7 +39,7 @@ INSERT INTO sections(lesson, title, content) VALUES
   (1, "2.1.1 Operaciones. Propiedades", "Contenido de operaciones. Propiedades"),
   (2, "3.1 Operaciones con relaciones", "Contenido de operaciones con relaciones"),
   (2, "3.2 Propiedades de las relaciones binarias en A", "Contenido de propiedades de las relaciones binarias en A");
-INSERT INTO keywords(keyword) VALUES
+INSERT INTO keywords VALUES
   ("conjunto"),
   ("elemento"),
   ("universal"),
