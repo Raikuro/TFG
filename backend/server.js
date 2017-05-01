@@ -37,7 +37,7 @@ let curryN = require('lodash/fp/curryN');
 */
 
 // Segregate routes
-let routes = require('./routes')(app/*, connection */)
+let routes = require('./routes')(app)
 
 // launch ======================================================================
 app.listen(port, () => {
