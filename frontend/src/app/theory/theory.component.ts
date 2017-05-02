@@ -42,11 +42,11 @@ export class TheoryComponent implements OnInit {
   }
 
   goToTheoryEditorEdit(){
-    this.router.navigate(['/theory-editor', {lessonId: this.lesson.id, sectionId: this.section.id}]);
+    this.router.navigate(['/theory/editor', {lessonId: this.lesson.id, sectionId: this.section.id}]);
   }
 
   goToTheoryEditorAdd(){
-    this.router.navigate(['/theory-editor', {lessonId: this.lesson.id}]);
+    this.router.navigate(['/theory/editor', {lessonId: this.lesson.id}]);
   }
 
   selectSection(section){
@@ -128,7 +128,7 @@ export class TheoryComponent implements OnInit {
 
   goToConfirmation(){
     this.theoryService.prepareData(DELETE, this.lesson, this.section);
-    this.router.navigate(['/theory-change-confirmation']);
+    this.router.navigate(['/theory/change-confirmation']);
   }
     
 }

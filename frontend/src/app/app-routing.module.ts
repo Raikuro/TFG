@@ -11,8 +11,8 @@ const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login',  component: LoginComponent },
   { path: 'theory', component: TheoryComponent },
-  { path: 'theory-editor', component: TheoryEditorComponent},
-  { path: 'theory-change-confirmation', component: ConfirmChangesComponent},
+  { path: 'theory/editor', component: TheoryEditorComponent},
+  { path: 'theory/change-confirmation', component: ConfirmChangesComponent},
   { path: 'server-error/:error', component: ServerErrorComponent},
   { path: '**', component: PageNotFoundComponent }
 ];

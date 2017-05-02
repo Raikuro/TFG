@@ -18,6 +18,10 @@ export class HeaderComponent implements OnInit {
     );
   }
 
+  goToTheory(){
+    this.router.navigate(['/theory'])
+  }
+
   ngOnInit() {
   }
 
