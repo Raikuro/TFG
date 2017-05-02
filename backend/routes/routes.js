@@ -6,9 +6,6 @@ module.exports = (app, login) => {
   app.use(passport.initialize())
   app.use(passport.session())
 
-  /* app.set('views', __dirname + '/../views');
-  app.set('view engine', 'ejs'); */
-
   router.post('/login',
     uvaAuth.authenticate(),
     passport.authenticate('custom'),
@@ -31,30 +28,6 @@ module.exports = (app, login) => {
       })
     }
   )
-
-  // LEGADO
-
-  /* router.get('/',
-    function(req, res) {
-      res.render('home', { user: req.user });
-    }
-  );
-
-  router.get('/login',
-    function(req, res){
-      res.render('login');
-    }
-  );
-
-  router.get('/profile',
-    login.ensureLoggedIn(),
-    function(req, res){
-      res.render('profile', { user: req.user });
-    }
-  );
-
-  //LEGADO - FIN
-  */
 
   app.use('/', router)
 }

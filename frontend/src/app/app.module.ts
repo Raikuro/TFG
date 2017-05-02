@@ -15,7 +15,10 @@ import { TheoryComponent } from './theory/theory.component';
 import { TheoryEditorComponent } from './theory/theory-editor/theory-editor.component';
 import { SessionService} from './core/session/session.service';
 import { Session } from './core/session/session';
-import { TheoryService } from "app/theory/theory.service";
+import { TheoryService } from "app/theory/core/theory.service";
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { ConfirmChangesComponent } from './theory/confirm-changes/confirm-changes.component';
+import { ServerErrorComponent } from './core/server-error/server-error.component';
 
 
 @NgModule({
@@ -25,7 +28,10 @@ import { TheoryService } from "app/theory/theory.service";
     FooterComponent,
     HeaderComponent,
     TheoryComponent,
-    TheoryEditorComponent
+    TheoryEditorComponent,
+    PageNotFoundComponent,
+    ConfirmChangesComponent,
+    ServerErrorComponent
   ],
   imports: [
     BrowserModule,

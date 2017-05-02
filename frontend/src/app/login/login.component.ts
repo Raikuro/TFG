@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
         console.log(session);
         this.router.navigate(['/theory']);
       },
-      error => console.log(error)
+      error => this.router.navigate(['/server-error', error])
     )
   }
 
@@ -43,8 +43,11 @@ export class LoginComponent implements OnInit {
             this.sessionService.updateSession(session);
             this.router.navigate(['/theory']);
           },
-          error => console.log(error)
+          error => this.router.navigate(['/server-error', error])
         )
+      }
+      else{
+        this.sessionService.logout();
       }
     }
   }

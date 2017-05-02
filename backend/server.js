@@ -7,6 +7,7 @@ let session = require('express-session')
 // let flash = require('connect-flash')
 
 let MySQLStore = require('express-mysql-session')(session)
+
 app.use(session({
   secret: 'keyboard cat',
   resave: false,
@@ -21,7 +22,7 @@ app.use(session({
 }))
 
 // For logging and parsing
-app.use(require('morgan')('combined'))
+// app.use(require('morgan')('combined'))
 app.use(require('body-parser').urlencoded({ extended: true }))
 
 /*

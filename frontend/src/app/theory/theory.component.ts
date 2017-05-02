@@ -2,12 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { SessionService } from 'app/core/session/session.service';
-import { TheoryService } from 'app/theory/theory.service'
+import { TheoryService } from 'app/theory/core/theory.service'
 
 import { Session } from 'app/core/session/session'
 
 import { Observable } from "rxjs/Observable";
-import { Theory } from "app/theory/theory";
+import { Theory } from "app/theory/core/theory";
+import { Section } from "app/theory/core/section";
+
+
+const DELETE=2;
 
 @Component({
   selector: 'app-theory',
@@ -16,100 +20,115 @@ import { Theory } from "app/theory/theory";
 })
 export class TheoryComponent implements OnInit {
 
-  private isAlumn;
-  private username;
-  private themes;
+  //private isAlumn;
+  //private username;
+  private session;
+  private lessons;
   private sections;
-  private theme;
+  private lesson;
   private section;
-  private sectionData;
 
-  constructor(private sessionService: SessionService, private router: Router, private theoryService: TheoryService) { }
+  constructor(private sessionService: SessionService,
+              private router: Router,
+              private theoryService: TheoryService) { }
 
-  onThemeSeletorChange(theme){
-    this.theme = theme;
-    this.sections = this.theme.sections;
+  onLessonSeletorChange(lesson){
+    this.lesson = lesson;
+    this.sections = this.lesson.sections;
   }
 
   doSome(some){
-    console.log(some);
+    console.log(this.section);
+  }
+
+  goToTheoryEditorEdit(){
+    this.router.navigate(['/theory-editor', {lessonId: this.lesson.id, sectionId: this.section.id}]);
+  }
+
+  goToTheoryEditorAdd(){
+    this.router.navigate(['/theory-editor', {lessonId: this.lesson.id}]);
   }
 
   selectSection(section){
     this.section = section;
-    let content = this.theoryService.getSection(this.theme.id, this.section.id)
-    if(content['subscribe']){
-      content['subscribe'](
-        sectionData => {
-          this.sectionData = sectionData['body'];
-          this.theoryService.updateSectionsCache(this.sectionData, this.theme.id, this.section.id)
+    let response = this.theoryService.getSection(this.lesson.id, this.section.id)
+    if((<Observable<Section>>response).subscribe){
+      (<Observable<Section>>response).subscribe(
+        section => {
+          console.log(section)
+          this.section.content = section.content;
+          this.section.keywords = section.keywords;
+          //this.theoryService.updateSectionsCache(section, this.lesson.id, this.section.id)
         },
         error => {
-          console.log(error);
-          this.sessionService.logout();
-          this.router.navigate(['/login']);
+          this.router.navigate(['/server-error', error]);
         }
       )
     }
-    else{
-      this.sectionData = content;
-    }
+    /*else{
+      this.section.content = response.content;
+    }*/
   }
 
   ngOnInit() {
-    this.allOnInit(this.onInitTasks(this.theoryService));
+    this.standartOnInit();
   }
 
-  onInitTasks(theoryService: TheoryService){
-    let index = this.theoryService.index;
-    if((<Observable<Theory>> index).subscribe){
-      (<Observable<Theory>> index).subscribe(
-        index => {
-          this.themes = index.themes;
-          this.theme = this.themes[0];
-          this.sections = this.theme.sections;
-        },
-        error => {
-          console.log(error);
-          this.sessionService.logout();
-          this.router.navigate(['/login']);
-        }
-      )
-    }
-    else{
-      this.themes = (<Theory> index).themes;
-      this.theme = this.themes[0];
-      this.sections = this.theme.sections;
-    }
-  }
-
-  allOnInit(next){
+  standartOnInit(){
     let session = this.sessionService.session;
     if(session){
       if((<Observable<Session>> session).subscribe){
         (<Observable<Session>> session).subscribe(
           session => {
-            this.isAlumn = session.isAlumn;
-            this.username = session.username;
+            //this.isAlumn = session.isAlumn;
+            //this.username = session.username;
+            this.session = session;
             this.sessionService.updateSession(session);
-            if(next){
-              next()
-            }
+            this.onInitTasks();
           },
           error => {
             console.log(error);
-            this.sessionService.logout();
-            this.router.navigate(['/login']);
+            this.router.navigate(['/server-error', error]);
           }
         )
       }
       else{
-        this.isAlumn = (<Session> session).isAlumn;
-        this.username = (<Session> session).username;
+        //this.isAlumn = (<Session> session).isAlumn;
+        //this.username = (<Session> session).username;
+        this.session = session;
+        this.onInitTasks();
       }
     }
     else{
       this.router.navigate(['/login']);
     }
   }
+
+  onInitTasks(){
+    let index = this.theoryService.index;
+    if((<Observable<Theory>> index).subscribe){
+      (<Observable<Theory>> index).subscribe(
+        index => {
+          this.lessons = index.lessons;
+          this.lesson = this.lessons[0];
+          this.sections = this.lesson.sections;
+        },
+        error => {
+          console.log(error);
+          this.router.navigate(['/login']);
+        }
+      )
+    }
+    /*else{
+      this.lessons = (<Theory> index).lessons;
+      this.lesson = this.lessons[0];
+      this.sections = this.lesson.sections;
+    }*/
+  }
+
+  goToConfirmation(){
+    this.theoryService.prepareData(DELETE, this.lesson, this.section);
+    this.router.navigate(['/theory-change-confirmation']);
+  }
+    
 }

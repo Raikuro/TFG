@@ -1,40 +1,25 @@
+let Lesson = require('./lesson')
+let mysqlConnection = require('../core/mysqlConnection')
+
 class Theory {
-  constructor (themes) {
-    this.themes = themes
+  constructor (lessons) {
+    this.lessons = lessons || []
   }
 
-  set themes (themes) {
-    this.themes = themes
+  static getIndex () {
+    return new Promise((resolve, reject) => {
+      mysqlConnection.query('SELECT L.id, L.title FROM lessons L', (err, lessons) => {
+        if (err) { reject(err) }
+        let lessonAux = []
+        lessons.map((lesson, index, array) => {
+          Lesson.getAllSections(lesson.id).then(sections => {
+            lessonAux.push(new Lesson(lesson.id, lesson.title, sections))
+            if (index === array.length - 1) { resolve(new Theory(lessonAux)) }
+          }).catch((err) => reject(err))
+        })
+      })
+    })
   }
+
 }
-
-class Theme {
-  constructor (name, id, sections) {
-    this.name = name
-    this.id = id
-    this.sections = sections
-  }
-
-  set sections (sections) {
-    this.sections = sections
-  }
-}
-
-class Section {
-  constructor (name, id) {
-    this.name = name
-    this.id = id
-  }
-
-  set name (name) {
-    this.name = name
-  }
-
-  set id (id) {
-    this.id = id
-  }
-}
-
-exports.Theory = Theory
-exports.Theme = Theme
-exports.Section = Section
+module.exports = exports = Theory
