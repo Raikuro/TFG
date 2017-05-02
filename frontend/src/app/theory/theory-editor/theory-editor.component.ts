@@ -19,8 +19,6 @@ const EDIT = 1;
 })
 export class TheoryEditorComponent implements OnInit {
 
-  //private isAlumn;
-  //private username;
   private session;
   private lessons;
   private mode;
@@ -37,7 +35,7 @@ export class TheoryEditorComponent implements OnInit {
   
   goToConfirmation(){
     this.theoryService.prepareData(this.mode, this.lesson, this.section);
-    this.router.navigate(['/theory-change-confirmation']);
+    this.router.navigate(['/theory/change-confirmation']);
   }
 
   doSome(a){
@@ -54,8 +52,6 @@ export class TheoryEditorComponent implements OnInit {
       if((<Observable<Session>> session).subscribe){
         (<Observable<Session>> session).subscribe(
           session => {
-            //this.isAlumn = session.isAlumn;
-            //this.username = session.username;
             this.session = session;
             this.sessionService.updateSession(session);
             this.onInitTasks();
@@ -68,8 +64,6 @@ export class TheoryEditorComponent implements OnInit {
         )
       }
       else{
-        //this.isAlumn = (<Session> session).isAlumn;
-        //this.username = (<Session> session).username;
         this.session = session;
         this.onInitTasks();
       }
@@ -83,7 +77,6 @@ export class TheoryEditorComponent implements OnInit {
     if(this.section && this.section.title && this.section.content){
       return this.section.title.length > 0 && this.section.content.length > 0;
     }
-    return false;
   }
   
   onInitTasks(){
