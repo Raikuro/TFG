@@ -90,21 +90,16 @@ class Section {
 
   save (lessonId) {
     return this.id ? this._update(lessonId) : this._add(lessonId)
-    /* if (this.id) {
-      return this._update(lessonId)
-    } else {
-      return this._add(lessonId)
-    } */
   }
 
   delete () {
     return new Promise((resolve, reject) => {
       this._deleteAllKeyRelations()
-      .then(() => {
-        this._deleteBasics()
-        .then(() => resolve())
-        .catch((err) => reject(err))
-      }).catch((err) => reject(err))
+        .then(() => {
+          this._deleteBasics()
+            .then(() => resolve())
+            .catch((err) => reject(err))
+        }).catch((err) => reject(err))
     })
   }
 
@@ -122,7 +117,7 @@ class Section {
     return new Promise((resolve, reject) => {
       this.keywords.map((keyword, index, array) => {
         this._deleteKeyRelation(keyword)
-        .then().catch((err) => reject(err))
+          .then().catch((err) => reject(err))
         if (index === array.length - 1) { resolve() }
       })
     })

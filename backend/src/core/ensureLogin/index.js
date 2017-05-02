@@ -1,2 +1,2 @@
-var ensureLogin = require('./ensureLogin')
+let ensureLogin = require('./ensureLogin')
 exports = module.exports = ensureLogin

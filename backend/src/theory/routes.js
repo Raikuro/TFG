@@ -1,54 +1,33 @@
-let Theory = require('./theory')
-let Section = require('./section')
+let theoryController = require('./theoryController')
+let sectionController = require('./sectionController')
 
 module.exports = (app, login) => {
   let router = require('express').Router()
 
   router.get('/index',
     login.ensureLoggedIn(),
-    (req, res) => {
-      Theory.getIndex()
-      .then((index) => { res.status(200).send(index) })
-      .catch((e) => { res.status(500).send(e) })
-    })
+    theoryController.getIndex
+  )
 
   router.get('/index/:lessonId/:sectionId',
-  login.ensureLoggedIn(),
-  (req, res) => {
-    Section.getSection(req.params.sectionId)
-    .then((section) => { res.status(200).send(section) })
-    .catch((e) => { res.status(500).send(e) })
-  })
+    login.ensureLoggedIn(),
+    sectionController.getSection
+  )
 
   router.post('/index/:lessonId',
-  login.ensureLoggedIn(),
-  (req, res) => {
-    let section = JSON.parse(req.body.section)
-    new Section(section.id, section.title, section.content, section.keywords)
-    .save(req.params.lessonId)
-    .then(() => { res.status(204).send() })
-    .catch((e) => { res.status(500).send(e) })
-  })
+    login.ensureLoggedIn(),
+    sectionController.saveNewSection
+  )
 
   router.put('/index/:lessonId/:sectionId',
-  login.ensureLoggedIn(),
-  (req, res) => {
-    let section = JSON.parse(req.body.section)
-    new Section(section.id, section.title, section.content, section.keywords)
-    .save(req.params.lessonId)
-    .then(() => { res.status(204).send() })
-    .catch((e) => { res.status(500).send(e) })
-  })
+    login.ensureLoggedIn(),
+    sectionController.updateSection
+  )
 
   router.delete('/index/:lessonId/:sectionId',
-  login.ensureLoggedIn(),
-  (req, res) => {
-    let section = JSON.parse(req.body.section)
-    new Section(section.id, section.title, section.content, section.keywords)
-    .delete()
-    .then(() => { res.status(204).send() })
-    .catch((e) => { res.status(500).send(e) })
-  })
+    login.ensureLoggedIn(),
+    sectionController.deleteSection
+  )
 
   app.use('/', router)
 }

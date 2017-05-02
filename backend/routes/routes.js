@@ -6,27 +6,21 @@ module.exports = (app, login) => {
   app.use(passport.initialize())
   app.use(passport.session())
 
+  let sessionController = require('./sessionController')
+
   router.post('/login',
     uvaAuth.authenticate(),
     passport.authenticate('custom'),
-    (req, res) => {
-      res.send({username: req.session.passport.user, isAlumn: req.session.isAlumn})
-    }
+    sessionController.getUser
   )
 
   router.get('/session',
     login.ensureLoggedIn(),
-    (req, res) => {
-      res.send({username: req.session.passport.user, isAlumn: req.session.isAlumn})
-    }
+    sessionController.getUser
   )
 
   router.get('/logout',
-    (req, res) => {
-      req.session.destroy(() => {
-        res.status(204).send()
-      })
-    }
+    sessionController.logout
   )
 
   app.use('/', router)
