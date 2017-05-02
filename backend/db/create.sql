@@ -19,13 +19,13 @@ CREATE TABLE sections (
 );
 
 CREATE TABLE keywords (
-  keyword VARCHAR(30),
+  keyword VARCHAR(30) NOT NULL,
   PRIMARY KEY (keyword)
 );
 
 CREATE TABLE keywordRelations (
   section INTEGER UNSIGNED NOT NULL,
-  keyword VARCHAR(30),
+  keyword VARCHAR(30) NOT NULL,
   PRIMARY KEY (section, keyword),
   FOREIGN KEY (section) REFERENCES sections(id),
   FOREIGN KEY (keyword) REFERENCES keywords(keyword)

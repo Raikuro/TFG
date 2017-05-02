@@ -10,6 +10,9 @@ import { Observable } from "rxjs/Observable";
 import { Theory } from "app/theory/core/theory";
 import { Section } from "app/theory/core/section";
 
+
+const DELETE=2;
+
 @Component({
   selector: 'app-theory',
   templateUrl: './theory.component.html',
@@ -17,13 +20,13 @@ import { Section } from "app/theory/core/section";
 })
 export class TheoryComponent implements OnInit {
 
-  private isAlumn;
-  private username;
+  //private isAlumn;
+  //private username;
+  private session;
   private lessons;
   private sections;
   private lesson;
   private section;
-  private sectionData;
 
   constructor(private sessionService: SessionService,
               private router: Router,
@@ -55,16 +58,16 @@ export class TheoryComponent implements OnInit {
           console.log(section)
           this.section.content = section.content;
           this.section.keywords = section.keywords;
-          this.theoryService.updateSectionsCache(section, this.lesson.id, this.section.id)
+          //this.theoryService.updateSectionsCache(section, this.lesson.id, this.section.id)
         },
         error => {
           this.router.navigate(['/server-error', error]);
         }
       )
     }
-    else{
+    /*else{
       this.section.content = response.content;
-    }
+    }*/
   }
 
   ngOnInit() {
@@ -77,8 +80,9 @@ export class TheoryComponent implements OnInit {
       if((<Observable<Session>> session).subscribe){
         (<Observable<Session>> session).subscribe(
           session => {
-            this.isAlumn = session.isAlumn;
-            this.username = session.username;
+            //this.isAlumn = session.isAlumn;
+            //this.username = session.username;
+            this.session = session;
             this.sessionService.updateSession(session);
             this.onInitTasks();
           },
@@ -89,8 +93,9 @@ export class TheoryComponent implements OnInit {
         )
       }
       else{
-        this.isAlumn = (<Session> session).isAlumn;
-        this.username = (<Session> session).username;
+        //this.isAlumn = (<Session> session).isAlumn;
+        //this.username = (<Session> session).username;
+        this.session = session;
         this.onInitTasks();
       }
     }
@@ -110,15 +115,20 @@ export class TheoryComponent implements OnInit {
         },
         error => {
           console.log(error);
-          this.router.navigate(['/server-error', error]);
+          this.router.navigate(['/login']);
         }
       )
     }
-    else{
+    /*else{
       this.lessons = (<Theory> index).lessons;
       this.lesson = this.lessons[0];
       this.sections = this.lesson.sections;
-    }
+    }*/
+  }
+
+  goToConfirmation(){
+    this.theoryService.prepareData(DELETE, this.lesson, this.section);
+    this.router.navigate(['/theory-change-confirmation']);
   }
     
 }

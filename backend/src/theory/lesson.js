@@ -3,11 +3,7 @@ let mysqlConnection = require('../core/mysqlConnection')
 
 class Lesson {
   constructor (id, title, sections) {
-    if (sections) {
-      this.sections = sections
-    } else {
-      this.sections = []
-    }
+    this.sections = sections || []
     this.title = title
     this.id = id
   }
@@ -15,9 +11,9 @@ class Lesson {
   static getAllSections (id) {
     return new Promise((resolve, reject) => {
       mysqlConnection.query('SELECT S.id, S.title FROM sections S WHERE S.lesson = ?', [id], (err, sections) => {
-        if (err) { throw err }
-        sections.map((section) => {
-          section = new Section(section.id, section.title)
+        if (err) { reject(err) }
+        sections = sections.map((section) => {
+          return new Section(section.id, section.title)
         })
         resolve(sections)
       })

@@ -19,8 +19,9 @@ const EDIT = 1;
 })
 export class TheoryEditorComponent implements OnInit {
 
-  private isAlumn;
-  private username;
+  //private isAlumn;
+  //private username;
+  private session;
   private lessons;
   private mode;
   private lesson;
@@ -40,7 +41,7 @@ export class TheoryEditorComponent implements OnInit {
   }
 
   doSome(a){
-    console.log(this.section);
+    console.log(this.section, this.isReadyToSend());
   }
 
   ngOnInit() {
@@ -53,8 +54,9 @@ export class TheoryEditorComponent implements OnInit {
       if((<Observable<Session>> session).subscribe){
         (<Observable<Session>> session).subscribe(
           session => {
-            this.isAlumn = session.isAlumn;
-            this.username = session.username;
+            //this.isAlumn = session.isAlumn;
+            //this.username = session.username;
+            this.session = session;
             this.sessionService.updateSession(session);
             this.onInitTasks();
           },
@@ -66,8 +68,9 @@ export class TheoryEditorComponent implements OnInit {
         )
       }
       else{
-        this.isAlumn = (<Session> session).isAlumn;
-        this.username = (<Session> session).username;
+        //this.isAlumn = (<Session> session).isAlumn;
+        //this.username = (<Session> session).username;
+        this.session = session;
         this.onInitTasks();
       }
     }
@@ -77,7 +80,7 @@ export class TheoryEditorComponent implements OnInit {
   }
 
   isReadyToSend(){
-    if(this.section){
+    if(this.section && this.section.title && this.section.content){
       return this.section.title.length > 0 && this.section.content.length > 0;
     }
     return false;
@@ -85,7 +88,7 @@ export class TheoryEditorComponent implements OnInit {
   
   onInitTasks(){
     this.ready = false;
-    if(this.isAlumn){
+    if(this.session.isAlumn){
       this.location.back();
     }
     else{
@@ -100,7 +103,7 @@ export class TheoryEditorComponent implements OnInit {
         )
       }
       else{
-        this.lessons = (<Theory>index).lessons;
+        //this.lessons = (<Theory>index).lessons;
         this.onInitTaskNext()
       }
     }
@@ -125,11 +128,13 @@ export class TheoryEditorComponent implements OnInit {
               )
             }
             else{
-              this.section = (<Section>section);
+              //this.section = (<Section>section);
             }
           }
           else{
             this.mode = ADD;
+            //console.log(this.section)
+            this.section = {}
           }
         }
         else{

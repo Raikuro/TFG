@@ -13,18 +13,19 @@ import { ADDRESS } from 'app/config/server';
 
 const ADD = 0;
 const EDIT = 1;
+const DELETE = 2;
 
 @Injectable()
 export class TheoryService {
 
   private headers;
   private options;
-  private _index: Theory;
-  private _sectionsCache;
+  //private _index: Theory;
+  //private _sectionsCache;
   private _preparedData;
 
   constructor(private http: Http) {
-    this._sectionsCache = new Array<Array<Section>>();
+    //this._sectionsCache = new Array<Array<Section>>();
     this.headers = new Headers();
     this.headers.append('Content-Type', 'application/x-www-form-urlencoded');
     
@@ -32,10 +33,11 @@ export class TheoryService {
   }
 
   get index(){
-    if(this._index === undefined){
+    /*if(this._index === undefined){
       return this.getIndexData();
     }
-    return this._index;
+    return this._index;*/
+    return this.getIndexData();
   }
 
   sendData(data){
@@ -54,6 +56,14 @@ export class TheoryService {
       .catch((error:any) => {
         return Observable.throw(error.json().error || 'Server error')})
     }
+
+    if(data.mode === DELETE){
+      this.options.body = body
+      return this.http.delete(ADDRESS + '/index/' + data.lesson.id + '/' + data.section.id, this.options)
+      .map(this.extractData)
+      .catch((error:any) => {
+        return Observable.throw(error.json().error || 'Server error')})
+    }
   }
   
   prepareData(mode, lesson, section){
@@ -68,16 +78,16 @@ export class TheoryService {
     return this._preparedData;
   }
 
-  get sectionsCache(){
+  /*get sectionsCache(){
     return this._sectionsCache;
-  }
+  }*/
 
-  updateSectionsCache(sectionData: Section, lessonId: number, sectionId: number){
+  /*updateSectionsCache(sectionData: Section, lessonId: number, sectionId: number){
     this._sectionsCache[lessonId][sectionId] = sectionData;
-  }
+  }*/
 
   getSection(lessonId: number, sectionId: number){
-    if(this._sectionsCache[lessonId]){
+    /*if(this._sectionsCache[lessonId]){
       if(this._sectionsCache[lessonId][sectionId] === undefined){
         return this.getSectionData(lessonId, sectionId);
        }
@@ -86,7 +96,8 @@ export class TheoryService {
       this.sectionsCache[lessonId] = new Array<Section>();
       return this.getSectionData(lessonId, sectionId);
     }
-    return this._sectionsCache[lessonId][sectionId];
+    return this._sectionsCache[lessonId][sectionId];*/
+    return this.getSectionData(lessonId, sectionId);
   }
   
   private getSectionData(lessonId: number, sectionId: number):Observable<Section>{

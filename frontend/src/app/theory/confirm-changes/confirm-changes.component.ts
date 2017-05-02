@@ -5,15 +5,19 @@ import { Router } from "@angular/router";
 import { Observable } from "rxjs/Observable";
 import { Session } from "app/core/session/session";
 
+const ADD = 0;
+const EDIT = 1;
+const DELETE = 2;
+
 @Component({
   selector: 'app-confirm-changes',
   templateUrl: './confirm-changes.component.html',
   styleUrls: ['./confirm-changes.component.css']
 })
+
 export class ConfirmChangesComponent implements OnInit {
 
-  private username;
-  private isAlumn;
+  private session;
   private data;
 
   constructor(private theoryService:TheoryService,
@@ -30,8 +34,7 @@ export class ConfirmChangesComponent implements OnInit {
       if((<Observable<Session>> session).subscribe){
         (<Observable<Session>> session).subscribe(
           session => {
-            this.isAlumn = session.isAlumn;
-            this.username = session.username;
+            this.session = session
             this.sessionService.updateSession(session);
             this.onInitTasks();
           },
@@ -43,13 +46,26 @@ export class ConfirmChangesComponent implements OnInit {
         )
       }
       else{
-        this.isAlumn = (<Session> session).isAlumn;
-        this.username = (<Session> session).username;
+        this.session = session;
         this.onInitTasks();
       }
     }
     else{
       this.router.navigate(['/login']);
+    }
+  }
+
+  getMode(){
+    if(this.data){
+      if(this.data.mode === ADD){
+        return 'AÑADIR';
+      }
+      if(this.data.mode === EDIT){
+        return 'EDITAR';
+      }
+      if(this.data.mode === DELETE){
+        return 'BORRAR';
+      }
     }
   }
 
@@ -62,7 +78,7 @@ export class ConfirmChangesComponent implements OnInit {
 
   sendData(){
     this.theoryService.sendData(this.data).subscribe(
-      null,
+      () => this.router.navigate(['/theory']),
       error => {console.log('ASD');this.router.navigate(['/server-error', error])}
     );
   }
