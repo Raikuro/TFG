@@ -6,26 +6,15 @@ class User {
 
   static findByUsername (username, cb) {
     process.nextTick(() => {
-      let records = User._getUserList()
-      for (var i = 0, len = records.length; i < len; i++) {
-        var record = records[i]
-        if (record.username === username) {
-          return cb(null, record)
-        }
-      }
-      return cb(null, null)
+      let user = User._getUserList().find((user) => {
+        return user.username === username
+      })
+      return user !== [] ? cb(null, user) : cb(null, null)
     })
   }
 
   static _getUserList () {
-    return [
-      {
-        username: 'asd', displayName: 'yopasd'
-      },
-      {
-        username: 'qwe', displayName: 'yopqwe'
-      }
-    ]
+    return [new User('asd', 'yopasd'), new User('qwe', 'yopqwe')]
   }
 }
 module.exports = exports = User
