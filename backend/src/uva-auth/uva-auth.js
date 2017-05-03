@@ -4,8 +4,6 @@ exports.authenticate = () => {
     if (user) {
       req.session.isAlumn = user.isAlumn
       next()
-    } else {
-      res.status(401).send({error: 'User or password is incorrect'})
-    }
+    } else { res.status(401).send({error: 'User or password is incorrect'}) }
   }
 }

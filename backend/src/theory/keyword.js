@@ -10,9 +10,9 @@ class Keyword {
       if (this.word !== '') {
         mysqlConnection.query('INSERT INTO keywords VALUES (?)', [this.word],
         () => {
-          this._saveKeyRelation(sectionId).then(() => {
-            resolve()
-          }).catch((err) => reject(err))
+          this._saveKeyRelation(sectionId)
+            .then(() => { resolve() })
+            .catch((err) => reject(err))
         })
       }
     })
