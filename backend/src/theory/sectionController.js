@@ -6,6 +6,14 @@ exports.getSection = (req, res) => {
     .catch((e) => { res.status(500).send(e) })
 }
 
+exports.getSectionsByKeyword = (req, res) => {
+  Section.findByKeyword(req.params.query)
+  .then((sections) => {
+    res.status(200).send(sections)
+  })
+  .catch((e) => { res.status(500).send(e) })
+}
+
 exports.saveNewSection = (req, res) => {
   let section = JSON.parse(req.body.section)
   new Section(section.id, section.title, section.content, section.keywords)

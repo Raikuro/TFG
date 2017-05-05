@@ -2,18 +2,20 @@ DROP TABLE IF EXISTS keywordRelations;
 DROP TABLE IF EXISTS keywords;
 DROP TABLE IF EXISTS sections;
 DROP TABLE IF EXISTS lessons;
+DROP TABLE IF EXISTS uvaUsers;
+DROP TABLE IF EXISTS users;
 
 CREATE TABLE lessons (
   id INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
-  title VARCHAR(200),
+  title VARCHAR(200) NOT NULL,
   PRIMARY KEY (id)
 );
 
 CREATE TABLE sections (
   id INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
   lesson INTEGER UNSIGNED NOT NULL, 
-  title VARCHAR(200),
-  content TEXT,
+  title VARCHAR(200) NOT NULL,
+  content TEXT NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (lesson) REFERENCES lessons(id)
 );
@@ -29,6 +31,20 @@ CREATE TABLE keywordRelations (
   PRIMARY KEY (section, keyword),
   FOREIGN KEY (section) REFERENCES sections(id),
   FOREIGN KEY (keyword) REFERENCES keywords(keyword)
+);
+
+CREATE TABLE uvaUsers (
+  id INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  username VARCHAR(30) NOT NULL,
+  password VARCHAR(30) NOT NULL,
+  isAlumn BIT(1) NOT NULL,
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE users (
+  id INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  username VARCHAR(30) NOT NULL,
+  PRIMARY KEY (id)
 );
 
 INSERT INTO lessons(title) VALUES
@@ -58,3 +74,10 @@ INSERT INTO keywordRelations VALUES
   (3, "compuesta"),
   (4, "reflexiva"),
   (4, "antirreflexiva");
+INSERT INTO uvaUsers(username, password, isAlumn) VALUES
+  ("asd", "asd", 1),
+  ("qwe", "qwe", 0),
+  ("zxc", "zxc", 1);
+INSERT INTO users(username) VALUES
+  ("asd"),
+  ("qwe");

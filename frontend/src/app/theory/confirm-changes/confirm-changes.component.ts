@@ -4,6 +4,7 @@ import { SessionService } from "app/core/session/session.service";
 import { Router } from "@angular/router";
 import { Observable } from "rxjs/Observable";
 import { Session } from "app/core/session/session";
+import { ComponentWithSession } from "app/theory/core/componentWithSession";
 
 const ADD = 0;
 const EDIT = 1;
@@ -15,45 +16,15 @@ const DELETE = 2;
   styleUrls: ['./confirm-changes.component.css']
 })
 
-export class ConfirmChangesComponent implements OnInit {
+export class ConfirmChangesComponent extends ComponentWithSession {
 
-  private session;
   private data;
 
   constructor(private theoryService:TheoryService,
-              private sessionService: SessionService,
-              private router: Router) { }
-
-  ngOnInit() {
-    this.standartOnInit()
-  }
-
-  standartOnInit(){
-    let session = this.sessionService.session;
-    if(session){
-      if((<Observable<Session>> session).subscribe){
-        (<Observable<Session>> session).subscribe(
-          session => {
-            this.session = session
-            this.sessionService.updateSession(session);
-            this.onInitTasks();
-          },
-          error => {
-            console.log(error);
-            this.sessionService.logout();
-            this.router.navigate(['/login']);
-          }
-        )
-      }
-      else{
-        this.session = session;
-        this.onInitTasks();
-      }
-    }
-    else{
-      this.router.navigate(['/login']);
-    }
-  }
+              sessionService: SessionService,
+              router: Router) {
+                super(sessionService, router)
+              }
 
   getMode(){
     if(this.data){
@@ -78,8 +49,12 @@ export class ConfirmChangesComponent implements OnInit {
 
   sendData(){
     this.theoryService.sendData(this.data).subscribe(
-      () => this.router.navigate(['/theory']),
-      error => {console.log('ASD');this.router.navigate(['/server-error', error])}
+      () => {
+        this.theoryService.deleteTheoryCache().then(() => {
+          this.router.navigate(['/theory']);
+        })
+      },
+      error => {this.router.navigate(['/server-error', error])}
     );
   }
 

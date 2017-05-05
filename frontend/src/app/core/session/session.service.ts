@@ -27,8 +27,8 @@ export class SessionService {
     return this._session;
   }
 
-  updateSession(session: Session){
-    this._session = session;
+  set session(session: Session | Observable<Session>){
+    if(<Session>session){ this._session = <Session>session; }
   }
   
   constructor(private http: Http, private cookieService:CookieService) {
@@ -50,7 +50,7 @@ export class SessionService {
 
   logout(){
     return new Promise((resolve, reject)=>{
-      this.updateSession(undefined);
+      this.session = undefined;
       this.cookieService.remove("session");
       this.http.get(ADDRESS + '/logout', this.options)
       .subscribe(

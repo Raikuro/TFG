@@ -1,36 +1,22 @@
+let mysqlConnection = require('../src/core/mysqlConnection')
+
 class UvaUser {
-  constructor (username, pass) {
+  constructor (username, pass, isAlumn) {
     this.username = username
     this.pass = pass
+    this.isAlumn = isAlumn
   }
 
-  static _getCollegeAlumns () {
-    return [
-      new UvaUser('asd', 'asd')
-    ]
-  }
-
-  static _getCollegeTeachers () {
-    return [new UvaUser('qwe', 'qwe')]
-  }
-
-  static getCollegeUser (user, pass) {
-    let collegeUsers = UvaUser._getCollegeAlumns()
-    let userFind = collegeUsers.find((element) => {
-      return (element.username === user && element.pass === pass)
-    })
-    if (userFind) {
-      userFind.isAlumn = true
-    } else {
-      collegeUsers = UvaUser._getCollegeTeachers()
-      userFind = collegeUsers.find((element) => {
-        return (element.username === user && element.pass === pass)
+  static getCollegeUser (username, pass) {
+    return new Promise((resolve, reject) => {
+      mysqlConnection.query('SELECT * FROM uvaUsers WHERE username = ? AND password = ?', [username, pass],
+      (err, uvaUsers) => {
+        if (err) { reject(null) }
+        if (uvaUsers[0]) {
+          resolve(new UvaUser(username, pass, uvaUsers[0].isAlumn))
+        } else { resolve(null) }
       })
-      if (userFind) {
-        userFind.isAlumn = false
-      }
-    }
-    return userFind
+    })
   }
 }
 

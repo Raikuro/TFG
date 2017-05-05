@@ -17,7 +17,8 @@ class Section {
 
   _deleteKeyRelation (word) {
     return new Promise((resolve, reject) => {
-      mysqlConnection.query('DELETE FROM keywordRelations WHERE keyword = ? AND section = ?', [word, this.id], (err, keyword) => {
+      mysqlConnection.query('DELETE FROM keywordRelations WHERE keyword = ? AND section = ?',
+      [word, this.id], (err, keyword) => {
         if (err) { reject(err) }
         resolve()
       })
@@ -64,7 +65,8 @@ class Section {
 
   _getKeywords () {
     return new Promise((resolve, reject) => {
-      mysqlConnection.query('SELECT K.keyword FROM keywordRelations K WHERE K.section = ?', [this.id], (err, keywords) => {
+      mysqlConnection.query('SELECT K.keyword FROM keywordRelations K WHERE K.section = ?',
+      [this.id], (err, keywords) => {
         if (err) { reject(err) }
         keywords = keywords.map((element) => { return element.keyword })
         resolve(keywords)
@@ -106,7 +108,7 @@ class Section {
   _deleteBasics () {
     return new Promise((resolve, reject) => {
       mysqlConnection.query('DELETE FROM sections WHERE id = ?', [this.id],
-      (err, keyword) => {
+      (err) => {
         if (err) { reject(err) }
         resolve()
       })
@@ -123,12 +125,39 @@ class Section {
     })
   }
 
+  static findByKeyword (keyword) {
+    return new Promise((resolve, reject) => {
+      mysqlConnection.query(
+        'SELECT S.* FROM keywordRelations K, sections S WHERE K.section = S.id AND K.keyword LIKE ?',
+        [keyword + '%'], (err, sections) => {
+          if (err) { reject(err) }
+          let auxSections = []
+          if (sections[0]) {
+            sections.map((section, i, arr) => {
+              return new Promise((resolve, reject) => {
+                section = new Section(section.id, section.title, section.content)
+                section._getKeywords().then((keywords) => {
+                  section.keywords = keywords
+                  auxSections.push(section)
+                  if (i === arr.length - 1) { resolve(auxSections) }
+                }).catch((err) => reject(err))
+              }).then((result) => { resolve(result) })
+              .catch((err) => { reject(err) })
+            })
+          } else { resolve(auxSections) }
+        }
+      )
+    })
+  }
+
   static getSection (sectionId) {
     return new Promise((resolve, reject) => {
-      mysqlConnection.query('SELECT S.title, S.content FROM sections S WHERE S.id = ?', [sectionId], (err, section) => {
+      mysqlConnection.query('SELECT S.title, S.content FROM sections S WHERE S.id = ?',
+      [sectionId], (err, section) => {
         if (err) { reject(err) }
         section = section[0]
-        mysqlConnection.query('SELECT K.keyword FROM keywordRelations K WHERE K.section = ?', [sectionId], (err, keywords) => {
+        mysqlConnection.query('SELECT K.keyword FROM keywordRelations K WHERE K.section = ?',
+        [sectionId], (err, keywords) => {
           if (err) { reject(err) }
           keywords = keywords.map((element) => { return element.keyword })
           let sectionAux = new Section(sectionId, section.title, section.content)

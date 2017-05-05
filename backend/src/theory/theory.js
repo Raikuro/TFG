@@ -12,8 +12,10 @@ class Theory {
         if (err) { reject(err) }
         let lessonAux = []
         lessons.map((lesson, index, array) => {
-          Lesson.getAllSections(lesson.id).then(sections => {
-            lessonAux.push(new Lesson(lesson.id, lesson.title, sections))
+          lesson = new Lesson(lesson.id, lesson.title)
+          lesson.getAllSections().then(sections => {
+            lesson.setSections(sections)
+            lessonAux.push(lesson)
             if (index === array.length - 1) { resolve(new Theory(lessonAux)) }
           }).catch((err) => reject(err))
         })
