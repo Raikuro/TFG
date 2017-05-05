@@ -9,6 +9,11 @@ module.exports = (app, login) => {
     theoryController.getIndex
   )
 
+  router.get('/index/search/:query',
+    login.ensureLoggedIn(),
+    sectionController.getSectionsByKeyword
+  )
+
   router.get('/index/:lessonId/:sectionId',
     login.ensureLoggedIn(),
     sectionController.getSection

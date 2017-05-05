@@ -12,7 +12,7 @@ class UvaUser {
       mysqlConnection.query('SELECT * FROM uvaUsers WHERE username = ? AND password = ?', [username, pass],
       (err, uvaUsers) => {
         if (err) { reject(null) }
-        if (uvaUsers && uvaUsers.length > 0) {
+        if (uvaUsers[0]) {
           resolve(new UvaUser(username, pass, uvaUsers[0].isAlumn))
         } else { resolve(null) }
       })

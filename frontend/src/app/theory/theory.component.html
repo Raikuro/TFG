@@ -3,30 +3,13 @@
 </header>
 <div style="height: 80%; padding-right: 15px; padding-left: 15px; margin-bottom: 5px">
   <div style="display: flex; justify-content: space-between; margin-bottom: 10px; padding: 5px">
-    <input type="search" style="width: 90%">
+    <input type="search" style="width: 90%" [(ngModel)]="searchText">
     <button style="width: 9%" (click)="doSome()">Buscar</button>
   </div>
-  <div style="display: flex; margin-top: 10px; margin-bottom: 10px; padding: 5px">
-    <select style="padding :5px; width: 100%" [ngModel]="lesson" (ngModelChange)=onLessonSeletorChange($event)>
-      <option [ngValue]="lesson" *ngFor="let lesson of lessons">
-        {{lesson.title}}
-      </option>
-    </select>
-  </div>
 
-  <div style="height: 80%; display: flex; justify-content: space-around; flex-direction: column">
-    <div style="display: flex; justify-content: space-between; margin-top: 10px; margin-bottom: 10px; height: 75%; padding: 5px">
-      <div style="width: 20%; border: 1px black solid; overflow: auto">
-        <div *ngFor="let section of sections" style="padding: 5px" (click)="selectSection(section)">
-          {{section.title}}
-        </div>
-      </div>
-      <div style="width: 75%; border: 1px black solid; padding: 5px; overflow: auto">
-        <div>{{section?.content}}</div>
-        <hr>
-        <div *ngFor='let keyword of section?.keywords'>{{keyword}}</div>
-      </div>
-    </div>
+  <div style="height: 95%;">
+    <app-index-theory *ngIf="!searchActive()" (onKeywordClick)="onKeywordClick($event)"></app-index-theory>
+    <app-search-theory [searchQuery] = "searchText" (onKeywordClick)="onKeywordClick($event)" *ngIf="searchActive()"></app-search-theory>
     
     <div style="display: flex; margin-top: 10px; padding: 5px; flex-direction: column" *ngIf="session?.isAlumn">
       <button style="width: 100%; padding: 5px" [disabled]="!section">Tengo dudas</button>

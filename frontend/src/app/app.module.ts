@@ -19,6 +19,8 @@ import { TheoryService } from "app/theory/core/theory.service";
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ConfirmChangesComponent } from './theory/confirm-changes/confirm-changes.component';
 import { ServerErrorComponent } from './core/server-error/server-error.component';
+import { SearchTheoryComponent } from './theory/search-theory/search-theory.component';
+import { IndexTheoryComponent } from './theory/index-theory/index-theory.component';
 
 
 @NgModule({
@@ -31,7 +33,9 @@ import { ServerErrorComponent } from './core/server-error/server-error.component
     TheoryEditorComponent,
     PageNotFoundComponent,
     ConfirmChangesComponent,
-    ServerErrorComponent
+    ServerErrorComponent,
+    SearchTheoryComponent,
+    IndexTheoryComponent
   ],
   imports: [
     BrowserModule,

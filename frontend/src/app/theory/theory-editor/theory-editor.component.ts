@@ -7,7 +7,8 @@ import { Router, ActivatedRoute, Params } from "@angular/router";
 import { TheoryService } from "app/theory/core/theory.service";
 import { Theory } from "app/theory/core/theory";
 import { Section } from "app/theory/core/section";
-import {Location} from '@angular/common';
+import { Location } from '@angular/common';
+import { ComponentWithSession } from "app/theory/core/componentWithSession";
 
 const ADD = 0;
 const EDIT = 1;
@@ -17,9 +18,8 @@ const EDIT = 1;
   templateUrl: './theory-editor.component.html',
   styleUrls: ['./theory-editor.component.css']
 })
-export class TheoryEditorComponent implements OnInit {
+export class TheoryEditorComponent extends ComponentWithSession {
 
-  private session;
   private lessons;
   private mode;
   private lesson;
@@ -27,11 +27,11 @@ export class TheoryEditorComponent implements OnInit {
   private ready;
   
   constructor(private theoryService:TheoryService,
-              private sessionService: SessionService,
-              private router: Router,
+              sessionService: SessionService,
+              router: Router,
               private route: ActivatedRoute,
               private location: Location
-    ) { }
+    ) {super(sessionService, router)}
   
   goToConfirmation(){
     this.theoryService.prepareData(this.mode, this.lesson, this.section);
@@ -40,37 +40,6 @@ export class TheoryEditorComponent implements OnInit {
 
   doSome(a){
     console.log(this.section, this.isReadyToSend());
-  }
-
-  ngOnInit() {
-    this.standartOnInit()
-  }
-
-  standartOnInit(){
-    let session = this.sessionService.session;
-    if(session){
-      if((<Observable<Session>> session).subscribe){
-        (<Observable<Session>> session).subscribe(
-          session => {
-            this.session = session;
-            this.sessionService.updateSession(session);
-            this.onInitTasks();
-          },
-          error => {
-            console.log(error);
-            this.sessionService.logout();
-            this.router.navigate(['/login']);
-          }
-        )
-      }
-      else{
-        this.session = session;
-        this.onInitTasks();
-      }
-    }
-    else{
-      this.router.navigate(['/login']);
-    }
   }
 
   isReadyToSend(){

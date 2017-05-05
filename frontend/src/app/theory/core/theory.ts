@@ -6,4 +6,6 @@ export class Theory{
   get lessons(){
     return this._lessons;
   }
+
+  
 }

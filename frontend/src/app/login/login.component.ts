@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
   login(){
     this.sessionService.login(this.username, this.password).subscribe(
       (session) => {
-        console.log(session);
+        this.sessionService.session = session
         this.router.navigate(['/theory']);
       },
       error => this.router.navigate(['/server-error', error])
@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
       if ((<Observable<Session>> session).subscribe){
         (<Observable<Session>> session).subscribe(
           session => {
-            this.sessionService.updateSession(session);
+            this.sessionService.session = session;
             this.router.navigate(['/theory']);
           },
           error => this.router.navigate(['/server-error', error])
