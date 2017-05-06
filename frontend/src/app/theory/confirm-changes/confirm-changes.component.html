@@ -1,0 +1,17 @@
+<p>
+  ACCION: {{getMode()}}
+</p>
+<p>
+  Titulo del tema: {{data?.lesson?.title}}
+</p>
+<p>
+  Titulo de la seccion: {{data?.section?.title}}
+</p>
+<p>
+  Contenido: {{data?.section?.content}}
+</p>
+<p>
+  Palabras relacionadas: {{data?.section?.keywords}}
+</p>
+
+<button (click)="sendData()">Confirmar</button>

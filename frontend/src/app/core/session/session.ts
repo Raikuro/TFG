@@ -1,9 +1,9 @@
 export class Session{
-    username: String;
-    isAlumno: Boolean;
+  username: String;
+  isAlumn: Boolean;
 
-    constructor(username: String, isAlumno: Boolean){
-        this.username = username;
-        this.isAlumno = isAlumno;
-    }
+  constructor(username: String, isAlumn: Boolean){
+    this.username = username;
+    this.isAlumn = isAlumn;
+  }
 }

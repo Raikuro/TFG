@@ -1,22 +1,23 @@
-exports.existAtCollege = (user, pass) => {
-  return _existAtCollege(user, pass);
-}
+let mysqlConnection = require('../src/core/mysqlConnection')
 
-_existAtCollege = (user, pass) => {
-  return (req, res, next) => {
-    let collegeUsers = getCollegeUsers();
-    let userFind = collegeUsers.find( (e) => {
-      return (e.username === user && e.password === pass)
+class UvaUser {
+  constructor (username, pass, isAlumn) {
+    this.username = username
+    this.pass = pass
+    this.isAlumn = isAlumn
+  }
+
+  static getCollegeUser (username, pass) {
+    return new Promise((resolve, reject) => {
+      mysqlConnection.query('SELECT * FROM uvaUsers WHERE username = ? AND password = ?', [username, pass],
+      (err, uvaUsers) => {
+        if (err) { reject(null) }
+        if (uvaUsers[0]) {
+          resolve(new UvaUser(username, pass, uvaUsers[0].isAlumn))
+        } else { resolve(null) }
+      })
     })
-    if(userFind !== undefined){
-      next();
-    }
   }
 }
 
-getCollegeUsers = () => {
-  return [
-    { username: "asd", password: "asd"},
-    { username: "qwe", password: "qwe"}
-  ]
-}
+module.exports = exports = UvaUser

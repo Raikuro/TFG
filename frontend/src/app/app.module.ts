@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
+import { CookieModule } from 'ngx-cookie';
+
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
@@ -13,6 +15,13 @@ import { TheoryComponent } from './theory/theory.component';
 import { TheoryEditorComponent } from './theory/theory-editor/theory-editor.component';
 import { SessionService} from './core/session/session.service';
 import { Session } from './core/session/session';
+import { TheoryService } from "app/theory/core/theory.service";
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { ConfirmChangesComponent } from './theory/confirm-changes/confirm-changes.component';
+import { ServerErrorComponent } from './core/server-error/server-error.component';
+import { SearchTheoryComponent } from './theory/search-theory/search-theory.component';
+import { IndexTheoryComponent } from './theory/index-theory/index-theory.component';
+import { QuestionsComponent } from './questions/questions.component';
 
 
 @NgModule({
@@ -22,15 +31,22 @@ import { Session } from './core/session/session';
     FooterComponent,
     HeaderComponent,
     TheoryComponent,
-    TheoryEditorComponent
+    TheoryEditorComponent,
+    PageNotFoundComponent,
+    ConfirmChangesComponent,
+    ServerErrorComponent,
+    SearchTheoryComponent,
+    IndexTheoryComponent,
+    QuestionsComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule, 
-    AppRoutingModule
+    AppRoutingModule,
+    CookieModule.forRoot()
   ],
-  providers: [SessionService],
+  providers: [SessionService, TheoryService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
