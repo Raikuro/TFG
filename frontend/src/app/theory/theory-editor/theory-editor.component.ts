@@ -65,7 +65,7 @@ export class TheoryEditorComponent extends ComponentWithSession {
         )
       }
       else{
-        //this.lessons = (<Theory>index).lessons;
+        this.lessons = (<Theory>index).lessons;
         this.onInitTaskNext()
       }
     }
@@ -75,7 +75,6 @@ export class TheoryEditorComponent extends ComponentWithSession {
       this.route.params.subscribe(
       params => {
         this.lesson = this.lessons[params.lessonId-1];
-        console.log(this.lesson);
         let sectionId = params.sectionId;
         if(this.lesson){
           if(sectionId){
@@ -90,12 +89,11 @@ export class TheoryEditorComponent extends ComponentWithSession {
               )
             }
             else{
-              //this.section = (<Section>section);
+              this.section = (<Section>section);
             }
           }
           else{
             this.mode = ADD;
-            //console.log(this.section)
             this.section = {}
           }
         }

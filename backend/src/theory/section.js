@@ -125,11 +125,11 @@ class Section {
     })
   }
 
-  static findByKeyword (keyword) {
+  static findByKeyword (keyword, lessonId) {
     return new Promise((resolve, reject) => {
       mysqlConnection.query(
-        'SELECT S.* FROM keywordRelations K, sections S WHERE K.section = S.id AND K.keyword LIKE ?',
-        [keyword + '%'], (err, sections) => {
+        'SELECT S.* FROM keywordRelations K, sections S WHERE K.section = S.id AND S.lesson = ? AND K.keyword LIKE ?',
+        [lessonId, keyword + '%'], (err, sections) => {
           if (err) { reject(err) }
           let auxSections = []
           if (sections[0]) {
@@ -148,6 +148,10 @@ class Section {
         }
       )
     })
+  }
+
+  search (query) {
+
   }
 
   static getSection (sectionId) {

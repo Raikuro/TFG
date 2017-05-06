@@ -8,8 +8,8 @@
   </div>
 
   <div style="height: 95%;">
-    <app-index-theory *ngIf="!searchActive()" (onKeywordClick)="onKeywordClick($event)"></app-index-theory>
-    <app-search-theory [searchQuery] = "searchText" (onKeywordClick)="onKeywordClick($event)" *ngIf="searchActive()"></app-search-theory>
+    <app-index-theory *ngIf="!searchActive()" (onKeywordClick)="onKeywordClick($event)" (onLessonChange)="onLessonChange($event)" (onSectionClick)="onSectionClick($event)"></app-index-theory>
+    <app-search-theory [searchQuery] = "searchText" (onKeywordClick)="onKeywordClick($event)" (onSectionClick)="onSectionClick($event)" *ngIf="searchActive()"></app-search-theory>
     
     <div style="display: flex; margin-top: 10px; padding: 5px; flex-direction: column" *ngIf="session?.isAlumn">
       <button style="width: 100%; padding: 5px" [disabled]="!section">Tengo dudas</button>
