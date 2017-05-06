@@ -1,4 +1,12 @@
-<div style="height: 80%; display: flex; flex-direction: column">
+<div style="display: flex; margin-top: 10px; margin-bottom: 10px; padding: 5px">
+  <select style="padding :5px; width: 100%" [ngModel]="lesson" (ngModelChange)=onLessonSeletorChange($event)>
+    <option [ngValue]="lesson" *ngFor="let lesson of lessons">
+      {{lesson.title}}
+    </option>
+  </select>
+</div>
+
+<div style="height: 70%; display: flex; flex-direction: column">
   <div style="display: flex; justify-content: space-between; margin-top: 10px; margin-bottom: 10px; height: 100%; padding: 5px">
     <div style="width: 20%; border: 1px black solid; overflow: auto">
       <div *ngFor="let section of sections" style="padding: 5px" (click)="selectSection(section)">
@@ -12,3 +20,5 @@
     </div>
   </div>
 </div>
+
+<button (click)="doSome()">AAAAA</button>

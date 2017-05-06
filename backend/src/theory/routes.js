@@ -11,7 +11,7 @@ module.exports = (app, login) => {
 
   router.get('/index/search/:query',
     login.ensureLoggedIn(),
-    sectionController.getSectionsByKeyword
+    theoryController.search
   )
 
   router.get('/index/:lessonId/:sectionId',

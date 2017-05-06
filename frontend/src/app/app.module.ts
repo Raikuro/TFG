@@ -21,6 +21,7 @@ import { ConfirmChangesComponent } from './theory/confirm-changes/confirm-change
 import { ServerErrorComponent } from './core/server-error/server-error.component';
 import { SearchTheoryComponent } from './theory/search-theory/search-theory.component';
 import { IndexTheoryComponent } from './theory/index-theory/index-theory.component';
+import { QuestionsComponent } from './questions/questions.component';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { IndexTheoryComponent } from './theory/index-theory/index-theory.compone
     ConfirmChangesComponent,
     ServerErrorComponent,
     SearchTheoryComponent,
-    IndexTheoryComponent
+    IndexTheoryComponent,
+    QuestionsComponent
   ],
   imports: [
     BrowserModule,

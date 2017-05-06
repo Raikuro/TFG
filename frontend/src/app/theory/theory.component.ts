@@ -22,14 +22,22 @@ export class TheoryComponent extends ComponentWithSession {
     
   onInitTasks() {}
 
-  private lessons;
-  private sections;
+  //private lessons;
+  //private sections;
   private lesson;
   private section;
   private searchText;
 
   onKeywordClick(searchText) {
     this.searchText = searchText;
+  }
+
+  onLessonChange(lesson) {
+    this.lesson = JSON.parse(lesson);
+  }
+
+  onSectionClick(section) {
+    this.section = JSON.parse(section);
   }
 
   constructor(sessionService: SessionService,
@@ -44,6 +52,10 @@ export class TheoryComponent extends ComponentWithSession {
 
   doSome(some){
     console.log(this.searchText);
+  }
+
+  goToQuestions(){
+    this.router.navigate(['/questions', {lessonId: this.lesson.id, sectionId: this.section.id}]);
   }
 
   goToTheoryEditorEdit(){

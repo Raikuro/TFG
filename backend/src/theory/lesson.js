@@ -8,6 +8,17 @@ class Lesson {
     this.id = id
   }
 
+  search (query) {
+    return new Promise((resolve, reject) => {
+      mysqlConnection.query('SELECT S.id, S.title FROM sections S WHERE S.lesson = ?', [this.id], (err, sections) => {
+        if (err) { reject(err) }
+        Section.findByKeyword(query, this.id).then((result) => {
+          resolve(result)
+        })
+      })
+    })
+  }
+
   getAllSections () {
     return new Promise((resolve, reject) => {
       mysqlConnection.query('SELECT S.id, S.title FROM sections S WHERE S.lesson = ?', [this.id], (err, sections) => {

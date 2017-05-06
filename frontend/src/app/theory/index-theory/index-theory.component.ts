@@ -20,6 +20,8 @@ export class IndexTheoryComponent implements OnInit {
   private lesson;
   private section;
   @Output() onKeywordClick = new EventEmitter<String>();
+  @Output() onSectionClick = new EventEmitter<String>();
+  @Output() onLessonChange = new EventEmitter<String>();
 
   constructor(private router: Router,
               private theoryService: TheoryService) {}
@@ -29,9 +31,7 @@ export class IndexTheoryComponent implements OnInit {
     if((<Observable<Theory>> index).subscribe){
       (<Observable<Theory>> index).subscribe(
         index => {
-          this.lessons = index.lessons;
-          this.lesson = this.lessons[0];
-          this.sections = this.lesson.sections;
+          this.assignLessons(index)
           this.theoryService.index = index
         },
         error => {
@@ -41,10 +41,21 @@ export class IndexTheoryComponent implements OnInit {
       )
     }
     else{
-      this.lessons = (<Theory> index).lessons;
-      this.lesson = this.lessons[0];
-      this.sections = this.lesson.sections;
+      this.assignLessons(index)
     }
+  }
+
+  assignLessons(index){
+    this.lessons = index.lessons;
+    this.lesson = this.lessons[0];
+    this.onLessonChange.emit(JSON.stringify(this.lesson))
+    this.sections = this.lesson.sections;
+  }
+
+  assignSection(section){
+    this.section.content = section.content;
+    this.section.keywords = section.keywords;
+    this.onSectionClick.emit(JSON.stringify(section))
   }
 
   selectSection(section){
@@ -53,9 +64,8 @@ export class IndexTheoryComponent implements OnInit {
     if((<Observable<Section>>response).subscribe){
       (<Observable<Section>>response).subscribe(
         section => {
-          this.section.content = section.content;
-          this.section.keywords = section.keywords;
-          this.theoryService.updateSectionsCache(section, this.lesson.id, this.section.id)
+          this.assignSection(section);
+          this.theoryService.updateSectionsCache(section, this.lesson.id, this.section.id);
         },
         error => {
           this.router.navigate(['/server-error', error]);
@@ -63,13 +73,13 @@ export class IndexTheoryComponent implements OnInit {
       )
     }
     else{
-      this.section.content = response.content;
-      this.section.keywords = response.keywords;
+      this.assignSection(response);
     }
   }
 
   onLessonSeletorChange(lesson){
     this.lesson = lesson;
+    this.onLessonChange.emit(JSON.stringify(this.lesson))
     this.sections = this.lesson.sections;
   }
 }
