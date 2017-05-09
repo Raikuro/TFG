@@ -12,13 +12,13 @@
     <app-search-theory [searchQuery] = "searchText" (onKeywordClick)="onKeywordClick($event)" (onSectionClick)="onSectionClick($event)" *ngIf="searchActive()"></app-search-theory>
     
     <div style="display: flex; margin-top: 10px; padding: 5px; flex-direction: column" *ngIf="session?.isAlumn">
-      <button style="width: 100%; padding: 5px" [disabled]="!section">Tengo dudas</button>
+      <button style="width: 100%; padding: 5px" (click)="goToQuestions()" [disabled]="!section">Tengo dudas</button>
     </div>
 
     <div style="display: flex; margin-top: 10px; padding: 5px; flex-direction: column" *ngIf="!session?.isAlumn">
       <div style="width: 100%; display: flex; justify-content: space-around; margin-bottom: 10px">
         <div style="width: 100%; margin-right: 10px">
-           <button style="width: 100%; padding: 5px" [disabled]="!section">Ver dudas</button>
+           <button style="width: 100%; padding: 5px" (click)="goToQuestions()" [disabled]="!section">Ver dudas</button>
         </div>
         <div style="width: 100%; margin-right: 5px; margin-left: 5px">
            <button style="width: 100%; padding: 5px" (click)="goToTheoryEditorEdit()" [disabled]="!section">Editar</button>

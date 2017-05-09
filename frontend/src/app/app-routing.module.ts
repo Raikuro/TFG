@@ -6,7 +6,7 @@ import { TheoryEditorComponent } from 'app/theory/theory-editor/theory-editor.co
 import { PageNotFoundComponent } from 'app/page-not-found/page-not-found.component';
 import { ConfirmChangesComponent } from 'app/theory/confirm-changes/confirm-changes.component';
 import { ServerErrorComponent } from 'app/core/server-error/server-error.component' 
-import { QuestionsComponent } from "app/questions/questions.component";
+import { QuestionsComponent } from "app/theory/questions/questions.component";
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },

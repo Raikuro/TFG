@@ -60,7 +60,7 @@ export class TheoryService {
   }
 
   deleteSectionsCache(){
-    this._sectionsCache = undefined
+    this._sectionsCache = new Array<Array<Section>>();
   }
 
   deleteSearchCache(){
@@ -125,17 +125,18 @@ export class TheoryService {
   getSection(lessonId: number, sectionId: number){
     if(this._sectionsCache[lessonId]){
       if(this._sectionsCache[lessonId][sectionId] === undefined){
-        return this.getSectionData(lessonId, sectionId);
+        return this._getSectionData(lessonId, sectionId);
        }
     }
     else{
       this.sectionsCache[lessonId] = new Array<Section>();
-      return this.getSectionData(lessonId, sectionId);
+      return this._getSectionData(lessonId, sectionId);
     }
+    console.log("ASD")
     return this._sectionsCache[lessonId][sectionId];
   }
   
-  private getSectionData(lessonId: number, sectionId: number):Observable<Section>{
+  private _getSectionData(lessonId: number, sectionId: number):Observable<Section>{
     return this.http.get(ADDRESS + '/index/' + lessonId + '/' + sectionId, this.options)
       .map(this.extractData)
       .catch((error:any) => {

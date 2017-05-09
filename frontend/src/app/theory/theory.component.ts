@@ -22,8 +22,6 @@ export class TheoryComponent extends ComponentWithSession {
     
   onInitTasks() {}
 
-  //private lessons;
-  //private sections;
   private lesson;
   private section;
   private searchText;

@@ -14,34 +14,6 @@ import { Section } from "app/theory/core/section";
 })
 export class SearchTheoryComponent implements OnChanges {
 
-  /*private data;
-  private section;
-  private lesson;
-  @Input('searchQuery') private searchQuery;
-  @Output() onKeywordClick = new EventEmitter<String>();
-  @Output() onSearchSectionClick = new EventEmitter<String>();
-  @Output() onLessonChange = new EventEmitter<String>();
-
-  constructor(private router: Router,
-              private theoryService: TheoryService) {}
-
-  ngOnChanges(changes: any) {
-    this.theoryService.search(changes.searchQuery.currentValue).subscribe(
-      (result) => { this.data = result },
-      (error) => { this.router.navigate(['/server-error', error]) }
-    )
-  }
-
-  selectSection(element){
-    this.section = element.section;
-    this.onSearchSectionClick.emit(JSON.stringify(element))
-  }
-
-  /*selectSection(section){
-    this.section = section;
-    this.assignSection(section)
-  }*/
-
   private lessons;
   private sections;
   private lesson;
@@ -82,6 +54,6 @@ export class SearchTheoryComponent implements OnChanges {
   }
 
   doSome(){
-    console.log(this)
+    console.log(this.theoryService.getSection(this.lesson.id,this.section.id))
   }
 }

@@ -21,7 +21,8 @@ import { ConfirmChangesComponent } from './theory/confirm-changes/confirm-change
 import { ServerErrorComponent } from './core/server-error/server-error.component';
 import { SearchTheoryComponent } from './theory/search-theory/search-theory.component';
 import { IndexTheoryComponent } from './theory/index-theory/index-theory.component';
-import { QuestionsComponent } from './questions/questions.component';
+import { QuestionsComponent } from './theory/questions/questions.component';
+import { QuestionsService } from './theory/questions/core/questions.service';
 
 
 @NgModule({
@@ -46,7 +47,7 @@ import { QuestionsComponent } from './questions/questions.component';
     AppRoutingModule,
     CookieModule.forRoot()
   ],
-  providers: [SessionService, TheoryService],
+  providers: [SessionService, TheoryService, QuestionsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
