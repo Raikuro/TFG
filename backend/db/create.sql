@@ -1,9 +1,10 @@
+DROP TABLE IF EXISTS questions;
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS uvaUsers;
 DROP TABLE IF EXISTS keywordRelations;
 DROP TABLE IF EXISTS keywords;
 DROP TABLE IF EXISTS sections;
 DROP TABLE IF EXISTS lessons;
-DROP TABLE IF EXISTS uvaUsers;
-DROP TABLE IF EXISTS users;
 
 CREATE TABLE lessons (
   id INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -47,6 +48,18 @@ CREATE TABLE users (
   PRIMARY KEY (id)
 );
 
+CREATE TABLE questions (
+  id INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  username INTEGER UNSIGNED NOT NULL,
+  dateOfQuestion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  section INTEGER UNSIGNED NOT NULL,
+  title VARCHAR(200),
+  content TEXT,
+  PRIMARY KEY (id),
+  FOREIGN KEY (username) REFERENCES users(id),
+  FOREIGN KEY (section) REFERENCES sections(id)
+);
+
 INSERT INTO lessons(title) VALUES
   ("TEMA 2: Combinatoria"),
   ("TEMA 3: Relaciones");
@@ -81,3 +94,8 @@ INSERT INTO uvaUsers(username, password, isAlumn) VALUES
 INSERT INTO users(username) VALUES
   ("asd"),
   ("qwe");
+INSERT INTO questions(username, section, title, content) VALUES
+  (1, 1, "duda1", "contenido duda1"),
+  (1, 2, "duda2", "contenido duda2"),
+  (1, 3, "duda3", "contenido duda3"),
+  (1, 1, "duda4", "contenido duda4");

@@ -34,5 +34,10 @@ module.exports = (app, login) => {
     sectionController.deleteSection
   )
 
+  router.get('/questions/:lessonId/:sectionId',
+    login.ensureLoggedIn(),
+    sectionController.getSectionQuestions
+  )
+
   app.use('/', router)
 }

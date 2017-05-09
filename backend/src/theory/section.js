@@ -2,11 +2,12 @@ let mysqlConnection = require('../core/mysqlConnection')
 let Keyword = require('./keyword')
 
 class Section {
-  constructor (id, title, content, keywords) {
+  constructor (id, title, content, keywords, questions) {
     this.title = title
     this.id = id
     this.content = content
     this.keywords = keywords
+    this.questions = questions
   }
 
   _diffBtwArrays (arr1, arr2) {
@@ -79,11 +80,12 @@ class Section {
       this._addBasics(lessonId).then((id) => {
         if (this.keywords) {
           let keyAux = this.keywords.split ? this.keywords.split(',') : this.keywords
-          keyAux.map((keyword) => {
-            new Keyword(keyword).save(id)
-            .then(() => { resolve() })
-            .catch((err) => { reject(err) })
-          })
+          Promise.all(
+            keyAux.map((keyword) => {
+              return new Keyword(keyword).save(id)
+            })
+          ).then(() => { resolve() })
+          .catch((err) => { reject(err) })
         }
         resolve()
       })
@@ -150,8 +152,16 @@ class Section {
     })
   }
 
-  search (query) {
-
+  _getQuestions () {
+    return new Promise((resolve, reject) => {
+      mysqlConnection.query('SELECT DISTINCT U.username, Q.dateOfQuestion, Q.section, Q.title, Q.content ' +
+      'FROM questions Q, sections S, users U WHERE Q.section = ? AND  U.id = Q.username',
+      [this.id], (err, questions) => {
+        if (err) { reject(err) }
+        questions = questions.map((element) => { return element })
+        resolve(questions)
+      })
+    })
   }
 
   static getSection (sectionId) {
@@ -159,17 +169,15 @@ class Section {
       mysqlConnection.query('SELECT S.title, S.content FROM sections S WHERE S.id = ?',
       [sectionId], (err, section) => {
         if (err) { reject(err) }
-        section = section[0]
-        mysqlConnection.query('SELECT K.keyword FROM keywordRelations K WHERE K.section = ?',
-        [sectionId], (err, keywords) => {
-          if (err) { reject(err) }
-          keywords = keywords.map((element) => { return element.keyword })
-          let sectionAux = new Section(sectionId, section.title, section.content)
-          sectionAux._getKeywords().then((keywords) => {
-            sectionAux.keywords = keywords
+        let sectionAux = new Section(sectionId, section[0].title, section[0].content)
+        Promise.all([sectionAux._getKeywords(), sectionAux._getQuestions()])
+          .then((values) => {
+            sectionAux.keywords = values[0]
+            sectionAux.questions = values[1]
             resolve(sectionAux)
-          }).catch((err) => reject(err))
-        })
+          })
+          .catch((err) => reject(err)
+        )
       })
     })
   }

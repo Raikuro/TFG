@@ -43,3 +43,9 @@ exports.getIndex = (req, res) => {
     .then((section) => { res.status(200).send(section) })
     .catch((e) => { res.status(500).send(e) })
 }
+
+exports.getSectionQuestions = (req, res) => {
+  Section.getSection(req.params.sectionId)
+    .then((section) => { res.status(200).send(section.questions) })
+    .catch((e) => { res.status(500).send(e) })
+}
