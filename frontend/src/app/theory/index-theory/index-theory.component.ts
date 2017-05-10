@@ -6,7 +6,7 @@ import { Theory } from "app/theory/core/theory";
 import { Section } from "app/theory/core/section";
 import { SessionService } from "app/core/session/session.service";
 import { Session } from "app/core/session/session";
-import { ComponentWithSession } from "app/theory/core/componentWithSession";
+import { ComponentWithSession } from "app//core/session/componentWithSession";
 
 @Component({
   selector: 'app-index-theory',

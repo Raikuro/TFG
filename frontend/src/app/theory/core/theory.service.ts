@@ -94,8 +94,9 @@ export class TheoryService {
     }
 
     if(data.mode === DELETE){
-      this.options.body = body
-      return this.http.delete(ADDRESS + '/index/' + data.lesson.id + '/' + data.section.id, this.options)
+      let optionAux = this.options;
+      optionAux.body = body
+      return this.http.delete(ADDRESS + '/index/' + data.lesson.id + '/' + data.section.id, optionAux)
       .map(this.extractData)
       .catch((error:any) => {
         return Observable.throw(error.json().error || 'Server error')})
@@ -132,7 +133,6 @@ export class TheoryService {
       this.sectionsCache[lessonId] = new Array<Section>();
       return this._getSectionData(lessonId, sectionId);
     }
-    console.log("ASD")
     return this._sectionsCache[lessonId][sectionId];
   }
   

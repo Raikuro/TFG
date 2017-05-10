@@ -98,7 +98,7 @@ class Section {
 
   delete () {
     return new Promise((resolve, reject) => {
-      this._deleteAllKeyRelations()
+      Promise.all([this._deleteAllKeyRelations(), this._deleteAllQuestions()])
         .then(() => {
           this._deleteBasics()
             .then(() => resolve())
@@ -107,10 +107,21 @@ class Section {
     })
   }
 
+  _deleteAllQuestions () {
+    return new Promise((resolve, reject) => {
+      mysqlConnection.query('DELETE FROM questions WHERE section = ?', [this.id],
+        (err) => {
+          if (err) { reject(err) }
+          resolve()
+        })
+    })
+  }
+
   _deleteBasics () {
     return new Promise((resolve, reject) => {
       mysqlConnection.query('DELETE FROM sections WHERE id = ?', [this.id],
       (err) => {
+        console.log(err)
         if (err) { reject(err) }
         resolve()
       })
@@ -119,11 +130,12 @@ class Section {
 
   _deleteAllKeyRelations () {
     return new Promise((resolve, reject) => {
-      this.keywords.map((keyword, index, array) => {
-        this._deleteKeyRelation(keyword)
-          .then().catch((err) => reject(err))
-        if (index === array.length - 1) { resolve() }
-      })
+      Promise.all(
+        this.keywords.map((keyword) => {
+          return this._deleteKeyRelation(keyword)
+        })
+      ).then(() => resolve())
+      .catch((err) => reject(err))
     })
   }
 
@@ -181,5 +193,21 @@ class Section {
       })
     })
   }
+
+  addQuestion (question) {
+    return new Promise((resolve, reject) => {
+      mysqlConnection.query('SELECT DISTINCT U.id FROM users U WHERE U.username = ?',
+      [question.username], (err, result) => {
+        if (err) { reject(err) }
+        let usernameId = result[0].id
+        mysqlConnection.query('INSERT INTO questions(username, section, title, content) VALUES (?,?,?,?)',
+        [usernameId, this.id, question.title, question.content], (err, res) => {
+          if (err) { reject(err) }
+          resolve(res)
+        })
+      })
+    })
+  }
+
 }
 module.exports = exports = Section

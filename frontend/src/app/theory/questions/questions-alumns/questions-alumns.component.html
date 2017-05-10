@@ -1,4 +1,4 @@
-<!--<input type="search" style="width: 100%" [(ngModel)]="searchText">
+<input type="search" style="width: 100%" [(ngModel)]="searchText">
 
 <ngb-accordion>
   <ngb-panel *ngFor="let question of getQuestions()" id={{question.title}}>
@@ -34,6 +34,4 @@
   </div>
   <button (click)="sendForm()">Enviar</button>
   <div (click)="closeForm()">Cerrar</div>
-</div>-->
-<app-questions-alumns *ngIf="session?.isAlumn"></app-questions-alumns>
-<app-questions-teacher *ngIf="!session?.isAlumn"></app-questions-teacher>
+</div>

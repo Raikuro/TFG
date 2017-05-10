@@ -24,6 +24,10 @@ import { IndexTheoryComponent } from './theory/index-theory/index-theory.compone
 import { QuestionsComponent } from './theory/questions/questions.component';
 import { QuestionsService } from './theory/questions/core/questions.service';
 
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { QuestionConfirmationComponent } from './theory/questions/question-confirmation/question-confirmation.component';
+import { QuestionsAlumnsComponent } from './theory/questions/questions-alumns/questions-alumns.component';
+import { QuestionsTeacherComponent } from './theory/questions/questions-teacher/questions-teacher.component';
 
 @NgModule({
   declarations: [
@@ -38,14 +42,18 @@ import { QuestionsService } from './theory/questions/core/questions.service';
     ServerErrorComponent,
     SearchTheoryComponent,
     IndexTheoryComponent,
-    QuestionsComponent
+    QuestionsComponent,
+    QuestionConfirmationComponent,
+    QuestionsAlumnsComponent,
+    QuestionsTeacherComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule, 
     AppRoutingModule,
-    CookieModule.forRoot()
+    CookieModule.forRoot(),
+    NgbModule.forRoot()
   ],
   providers: [SessionService, TheoryService, QuestionsService],
   bootstrap: [AppComponent]

@@ -1,20 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Session } from "app/core/session/session";
+import { Question } from "app/theory/core/question";
 import { ComponentWithSession } from "app/core/session/componentWithSession";
 import { Router, ActivatedRoute } from "@angular/router";
 import { SessionService } from "app/core/session/session.service";
 import { QuestionsService } from "app/theory/questions/core/questions.service";
-import { Observable } from "rxjs/Observable";
-import { Session } from "app/core/session/session";
-import { Question } from "app/theory/core/question";
-
 
 @Component({
-  selector: 'app-questions',
-  templateUrl: './questions.component.html',
-  styleUrls: ['./questions.component.css']
+  selector: 'app-questions-alumns',
+  templateUrl: './questions-alumns.component.html',
+  styleUrls: ['./questions-alumns.component.css']
 })
-export class QuestionsComponent extends ComponentWithSession {
-  
+export class QuestionsAlumnsComponent extends ComponentWithSession {
+
   protected session: Session
   private questions: Question[]
   private searchText: string

@@ -9,7 +9,7 @@ import { Session } from 'app/core/session/session'
 import { Observable } from "rxjs/Observable";
 import { Theory } from "app/theory/core/theory";
 import { Section } from "app/theory/core/section";
-import { ComponentWithSession } from "app/theory/core/componentWithSession";
+import { ComponentWithSession } from "app/core/session/componentWithSession";
 
 const DELETE = 2;
 
@@ -49,7 +49,7 @@ export class TheoryComponent extends ComponentWithSession {
   }
 
   doSome(some){
-    console.log(this.searchText);
+    console.log(this.session.isAlumn);
   }
 
   goToQuestions(){

@@ -7,6 +7,7 @@ import { PageNotFoundComponent } from 'app/page-not-found/page-not-found.compone
 import { ConfirmChangesComponent } from 'app/theory/confirm-changes/confirm-changes.component';
 import { ServerErrorComponent } from 'app/core/server-error/server-error.component' 
 import { QuestionsComponent } from "app/theory/questions/questions.component";
+import { QuestionConfirmationComponent } from "app/theory/questions/question-confirmation/question-confirmation.component";
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'theory/editor', component: TheoryEditorComponent},
   { path: 'theory/change-confirmation', component: ConfirmChangesComponent},
   { path: 'questions', component: QuestionsComponent},
+  { path: 'questions/confirmation', component: QuestionConfirmationComponent},
   { path: 'server-error/:error', component: ServerErrorComponent},
   { path: '**', component: PageNotFoundComponent }
 ];

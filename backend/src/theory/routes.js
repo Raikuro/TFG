@@ -1,5 +1,6 @@
 let theoryController = require('./theoryController')
 let sectionController = require('./sectionController')
+let questionController = require('./questionController')
 
 module.exports = (app, login) => {
   let router = require('express').Router()
@@ -37,6 +38,16 @@ module.exports = (app, login) => {
   router.get('/questions/:lessonId/:sectionId',
     login.ensureLoggedIn(),
     sectionController.getSectionQuestions
+  )
+
+  router.post('/questions/:lessonId/:sectionId',
+    login.ensureLoggedIn(),
+    sectionController.addSectionQuestions
+  )
+
+  router.delete('/questions/',
+    login.ensureLoggedIn(),
+    questionController.delete
   )
 
   app.use('/', router)

@@ -4,7 +4,7 @@ import { SessionService } from "app/core/session/session.service";
 import { TheoryService } from "app/theory/core/theory.service";
 import { Observable } from "rxjs/Observable";
 import { Theory } from "app/theory/core/theory";
-import { ComponentWithSession } from "app/theory/core/componentWithSession";
+import { ComponentWithSession } from "app//core/session/componentWithSession";
 import { Section } from "app/theory/core/section";
 
 @Component({
@@ -36,10 +36,17 @@ export class SearchTheoryComponent implements OnChanges {
   }
   
   assignLessons(index){
-    this.lessons = index.lessons;
-    this.lesson = this.lessons[0];
-    this.onLessonChange.emit(JSON.stringify(this.lesson))
-    this.sections = this.lesson.sections;
+    console.log("1", index.lessons.length)
+    if(index.lessons.length > 0){
+      this.lessons = index.lessons;
+      this.lesson = this.lessons[0];
+      this.onLessonChange.emit(JSON.stringify(this.lesson))
+      this.sections = this.lesson.sections
+    }
+    else{
+      this.lessons = []
+      this.sections = []
+    }
   }
 
   selectSection(section){

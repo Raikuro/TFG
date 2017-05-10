@@ -1,21 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Session } from "app/core/session/session";
+import { Question } from "app/theory/core/question";
 import { ComponentWithSession } from "app/core/session/componentWithSession";
 import { Router, ActivatedRoute } from "@angular/router";
 import { SessionService } from "app/core/session/session.service";
 import { QuestionsService } from "app/theory/questions/core/questions.service";
-import { Observable } from "rxjs/Observable";
-import { Session } from "app/core/session/session";
-import { Question } from "app/theory/core/question";
-
 
 @Component({
-  selector: 'app-questions',
-  templateUrl: './questions.component.html',
-  styleUrls: ['./questions.component.css']
+  selector: 'app-questions-teacher',
+  templateUrl: './questions-teacher.component.html',
+  styleUrls: ['./questions-teacher.component.css']
 })
-export class QuestionsComponent extends ComponentWithSession {
-  
-  protected session: Session
+export class QuestionsTeacherComponent extends ComponentWithSession {
+
+    protected session: Session
   private questions: Question[]
   private searchText: string
   private newQuestion;
@@ -30,6 +28,7 @@ export class QuestionsComponent extends ComponentWithSession {
         this.sectionId = params.sectionId;
         this.questionsService.getQuestions(this.lessonId, this.sectionId).subscribe(
           questions => {
+            console.log(questions)
             this.questions = questions;
           },
           error => {this.router.navigate(['/server-error', error])}
@@ -75,6 +74,13 @@ export class QuestionsComponent extends ComponentWithSession {
 
   doSome(){
     console.log("ASD")
+  }
+
+  deleteQuestion(question){
+    this.questionsService.deleteQuestion(question).subscribe(
+      () => {this.router.navigate(['/theory'])},
+      (error) => {this.router.navigate(['/server-error', error])}
+    )
   }
 
 }
