@@ -4,5 +4,8 @@
 <p>
   Contenido: {{question?.content}}
 </p>
+<p *ngIf="question.response">
+  Respuesta: {{question?.response}}
+</p>
 
 <button (click)="send()">Confirmar</button>

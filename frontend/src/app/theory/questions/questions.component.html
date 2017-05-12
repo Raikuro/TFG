@@ -1,4 +1,4 @@
-<!--<input type="search" style="width: 100%" [(ngModel)]="searchText">
+<input type="search" style="width: 100%" [(ngModel)]="searchText">
 
 <ngb-accordion>
   <ngb-panel *ngFor="let question of getQuestions()" id={{question.title}}>
@@ -8,12 +8,22 @@
      </div>
     </ng-template>
     <ng-template ngbPanelContent>
-      {{question.content}}
+      <div>
+        {{question.content}}
+      </div>
+      <div>
+        {{question.response}}
+      </div>
+      <button *ngIf="!session.isAlumn" (click)="deleteQuestion(question)">
+        Borrar
+      </button>
     </ng-template>
   </ngb-panel>
 </ngb-accordion>
 
-<div (click)="openForm()" *ngIf="!newQuestion">Añadir nueva</div>
+<div (click)="openForm()" *ngIf="!newQuestion">
+  Añadir nueva
+</div>
 
 <div *ngIf="newQuestion">
   <div>
@@ -32,8 +42,18 @@
       <textarea style="width: 100%" [ngModel]="newQuestion?.content" (ngModelChange)="newQuestion ? newQuestion.content = $event : null"></textarea>
     </div>
   </div>
-  <button (click)="sendForm()">Enviar</button>
-  <div (click)="closeForm()">Cerrar</div>
-</div>-->
-<app-questions-alumns *ngIf="session?.isAlumn"></app-questions-alumns>
-<app-questions-teacher *ngIf="!session?.isAlumn"></app-questions-teacher>
+  <div *ngIf="!session.isAlumn">
+    <div>
+      Respuesta:
+    </div>
+    <div>
+      <textarea style="width: 100%" [ngModel]="newQuestion?.response" (ngModelChange)="newQuestion ? newQuestion.response = $event : null"></textarea>
+    </div>
+  </div>
+  <button (click)="sendForm()">
+    Enviar
+  </button>
+  <div (click)="closeForm()">
+    Cerrar
+  </div>
+</div>

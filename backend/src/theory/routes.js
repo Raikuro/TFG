@@ -45,9 +45,19 @@ module.exports = (app, login) => {
     sectionController.addSectionQuestions
   )
 
-  router.delete('/questions/',
+  router.delete('/questions',
     login.ensureLoggedIn(),
     questionController.delete
+  )
+
+  router.get('/questions/unresponded',
+    login.ensureLoggedIn(),
+    questionController.getUnrespondedQuestions
+  )
+
+  router.post('/questions/report',
+    login.ensureLoggedIn(),
+    questionController.reportAQuestion
   )
 
   app.use('/', router)

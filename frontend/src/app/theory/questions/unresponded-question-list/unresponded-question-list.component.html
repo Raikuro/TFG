@@ -1,0 +1,22 @@
+<ngb-accordion *ngIf="thereAreUnrespondedQuestions()">
+  <ngb-panel *ngFor="let question of questions" id={{question.title}}>
+    <ng-template ngbPanelTitle>
+     <div style="width: 100%; height: 100%" class="acordionSection">
+       {{question.title}}
+     </div>
+    </ng-template>
+    <ng-template ngbPanelContent>
+      <div>
+        {{question.content}}
+      </div>
+      <button *ngIf="!session.isAlumn" (click)="reportQuestion(question)">
+        Reportar
+      </button>
+      <button *ngIf="!session.isAlumn" (click)="respondQuestion(question)">
+        Responder
+      </button>
+    </ng-template>
+  </ngb-panel>
+</ngb-accordion>
+
+<div *ngIf="!thereAreUnrespondedQuestions()">Ya no hay mas</div>

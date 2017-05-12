@@ -68,13 +68,20 @@ export class QuestionsComponent extends ComponentWithSession {
   }
 
   sendForm(){
-    let question = new Question(this.newQuestion.title, this.session.username, this.newQuestion.content, undefined)
+    let question = new Question(this.newQuestion.title, this.session.username, this.newQuestion.content, this.newQuestion.response, undefined)
     this.questionsService.prepareData(question);
     this.router.navigate(['/questions/confirmation',{lessonId: this.lessonId, sectionId: this.sectionId}])
   }
 
   doSome(){
     console.log("ASD")
+  }
+
+  deleteQuestion(question){
+    this.questionsService.deleteQuestion(question).subscribe(
+      () => {this.router.navigate(['/theory'])},
+      (error) => {this.router.navigate(['/server-error', error])}
+    )
   }
 
 }

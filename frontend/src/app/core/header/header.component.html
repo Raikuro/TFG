@@ -4,7 +4,7 @@
       Teoría
     </div>
   </div>
-  <div style="width: 100%; display: flex; justify-content: center" *ngIf="!session?.isAlumn">
+  <div style="width: 100%; display: flex; justify-content: center" *ngIf="!session?.isAlumn" (click)="goToQuestions()">
     <div style="display: flex; flex-direction: column; justify-content: center">
       Dudas
     </div>

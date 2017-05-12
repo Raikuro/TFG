@@ -1,0 +1,42 @@
+<header style="height: 10%; padding-right: 15px; padding-left: 15px">
+  <app-header></app-header>
+</header>
+<div style="height: 80%; padding-right: 15px; padding-left: 15px; margin-bottom: 5px">
+  
+  <div style="display: flex; margin-top: 10px; margin-bottom: 10px; padding: 5px">
+    <select style="padding :5px; width: 100%" [ngModel]="lesson" (ngModelChange)="lesson ? lesson = $event : null">
+      <option [ngValue]="lesson" *ngFor="let lesson of lessons">
+        {{lesson.title}}
+        </option>
+    </select>
+  </div>
+  
+  <div style="display: flex; justify-content: space-between; margin-bottom: 10px; padding: 5px">
+    <div style="width: 9%">Titulo:</div>
+    <input type="search" style="width: 90%" [ngModel]="section?.title" (ngModelChange)="section ? section.title = $event : null">
+  </div>
+  
+
+  <div style="height: 80%; display: flex; justify-content: space-around; flex-direction: column; padding: 10px">
+    <div style="display: flex; flex-direction: column; justify-content: space-around; margin-bottom: 10px; padding: 5px; height: 75%">
+    <div>Contenido:</div>
+    <textarea type="search" style="width: 100%; height: inherit" [ngModel]="section?.content" (ngModelChange)="section ? section.content = $event : null"></textarea>
+  </div>
+  <div style="display: flex; flex-direction: column; justify-content: space-around; margin-bottom: 10px; padding: 5px; height: 25%">
+    <div>Palabras relacionadas:</div>
+    <textarea type="search" style="width: 100%; height: inherit"[ngModel]="section?.keywords" (ngModelChange)="section ? section.keywords = $event : null"></textarea>
+  </div>
+    
+  <div style="display: flex; margin-top: 10px; padding: 5px; flex-direction: column">
+    <div style="width: 100%">
+      <button style="width: 100%; padding: 5px" *ngIf="mode === 0" (click)="goToConfirmation()" [disabled]="!isReadyToSend()">Añadir</button>
+      <button *ngIf="mode === 1;" style="width: 100%; padding: 5px" (click)="goToConfirmation()" [disabled]="!isReadyToSend()">Editar</button>
+    </div>
+  </div>
+    
+  </div>
+</div>
+
+<footer style="padding: 5px; height: 5%">
+  <app-footer></app-footer>
+</footer>

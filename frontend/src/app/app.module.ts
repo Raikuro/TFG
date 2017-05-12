@@ -26,8 +26,8 @@ import { QuestionsService } from './theory/questions/core/questions.service';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { QuestionConfirmationComponent } from './theory/questions/question-confirmation/question-confirmation.component';
-import { QuestionsAlumnsComponent } from './theory/questions/questions-alumns/questions-alumns.component';
-import { QuestionsTeacherComponent } from './theory/questions/questions-teacher/questions-teacher.component';
+import { RespondQuestionComponent } from './theory/questions/respond-question/respond-question.component';
+import { UnrespondedQuestionListComponent } from './theory/questions/unresponded-question-list/unresponded-question-list.component';
 
 @NgModule({
   declarations: [
@@ -44,8 +44,8 @@ import { QuestionsTeacherComponent } from './theory/questions/questions-teacher/
     IndexTheoryComponent,
     QuestionsComponent,
     QuestionConfirmationComponent,
-    QuestionsAlumnsComponent,
-    QuestionsTeacherComponent,
+    RespondQuestionComponent,
+    UnrespondedQuestionListComponent,
   ],
   imports: [
     BrowserModule,

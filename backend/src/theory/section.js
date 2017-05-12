@@ -166,7 +166,7 @@ class Section {
 
   _getQuestions () {
     return new Promise((resolve, reject) => {
-      mysqlConnection.query('SELECT DISTINCT U.username, Q.dateOfQuestion, Q.section, Q.title, Q.content ' +
+      mysqlConnection.query('SELECT DISTINCT U.username, Q.dateOfQuestion, Q.section, Q.title, Q.content, Q.response ' +
       'FROM questions Q, sections S, users U WHERE Q.section = ? AND  U.id = Q.username',
       [this.id], (err, questions) => {
         if (err) { reject(err) }
@@ -200,11 +200,19 @@ class Section {
       [question.username], (err, result) => {
         if (err) { reject(err) }
         let usernameId = result[0].id
-        mysqlConnection.query('INSERT INTO questions(username, section, title, content) VALUES (?,?,?,?)',
-        [usernameId, this.id, question.title, question.content], (err, res) => {
-          if (err) { reject(err) }
-          resolve(res)
-        })
+        if (question.response) {
+          mysqlConnection.query('INSERT INTO questions(username, section, title, content, response) VALUES (?,?,?,?)',
+          [usernameId, this.id, question.title, question.content, question.response], (err, res) => {
+            if (err) { reject(err) }
+            resolve(res)
+          })
+        } else {
+          mysqlConnection.query('INSERT INTO questions(username, section, title, content) VALUES (?,?,?,?)',
+          [usernameId, this.id, question.title, question.content], (err, res) => {
+            if (err) { reject(err) }
+            resolve(res)
+          })
+        }
       })
     })
   }

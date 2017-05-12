@@ -28,4 +28,8 @@ export class HeaderComponent extends ComponentWithSession {
     this.router.navigate(['/theory'])
   }
 
+  goToQuestions(){
+    this.router.navigate(['questions/unresponded'])
+  }
+
 }

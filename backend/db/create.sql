@@ -49,13 +49,14 @@ CREATE TABLE users (
 );
 
 CREATE TABLE questions (
-  id INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
   username INTEGER UNSIGNED NOT NULL,
   dateOfQuestion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   section INTEGER UNSIGNED NOT NULL,
-  title VARCHAR(200),
-  content TEXT,
-  PRIMARY KEY (id),
+  title VARCHAR(200) NOT NULL,
+  content TEXT NOT NULL,
+  response TEXT,
+  reported BIT(1) DEFAULT 0,
+  PRIMARY KEY (section, title),
   FOREIGN KEY (username) REFERENCES users(id),
   FOREIGN KEY (section) REFERENCES sections(id)
 );
@@ -94,8 +95,9 @@ INSERT INTO uvaUsers(username, password, isAlumn) VALUES
 INSERT INTO users(username) VALUES
   ("asd"),
   ("qwe");
-INSERT INTO questions(username, section, title, content) VALUES
-  (1, 1, "duda1", "contenido duda1"),
-  (1, 2, "duda2", "contenido duda2"),
-  (1, 3, "duda3", "contenido duda3"),
-  (1, 1, "duda4", "contenido duda4");
+INSERT INTO questions(username, section, title, content, response) VALUES
+  (1, 1, "duda1", "contenido duda1", "respuesta duda1"),
+  (1, 2, "duda2", "contenido duda2", "respuesta duda2"),
+  (1, 3, "duda3", "contenido duda3", "respuesta duda3"),
+  (1, 1, "duda4", "contenido duda4", "respuesta duda4"),
+  (1, 1, "duda5", "contenido duda5", null);

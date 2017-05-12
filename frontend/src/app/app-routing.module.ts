@@ -8,6 +8,8 @@ import { ConfirmChangesComponent } from 'app/theory/confirm-changes/confirm-chan
 import { ServerErrorComponent } from 'app/core/server-error/server-error.component' 
 import { QuestionsComponent } from "app/theory/questions/questions.component";
 import { QuestionConfirmationComponent } from "app/theory/questions/question-confirmation/question-confirmation.component";
+import { RespondQuestionComponent } from './theory/questions/respond-question/respond-question.component';
+import { UnrespondedQuestionListComponent,} from './theory/questions/unresponded-question-list/unresponded-question-list.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -17,6 +19,8 @@ const routes: Routes = [
   { path: 'theory/change-confirmation', component: ConfirmChangesComponent},
   { path: 'questions', component: QuestionsComponent},
   { path: 'questions/confirmation', component: QuestionConfirmationComponent},
+  { path: 'questions/respond', component: RespondQuestionComponent},
+  { path: 'questions/unresponded', component: UnrespondedQuestionListComponent },
   { path: 'server-error/:error', component: ServerErrorComponent},
   { path: '**', component: PageNotFoundComponent }
 ];
