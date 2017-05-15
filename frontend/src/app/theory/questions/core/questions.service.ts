@@ -70,10 +70,19 @@ export class QuestionsService {
   }
 
   reportQuestion(question){
+    let body = new URLSearchParams();
+    body.append('question', JSON.stringify(question));
+    return this.http.post(ADDRESS + '/question/report', body, this._options)
+      .map(this.extractData)
+      .catch((error:any) => {
+        return Observable.throw(error.json().error || 'Server error')})
+  }
+
+  respondQuestion(question){
     console.log(JSON.stringify(question))
     let body = new URLSearchParams();
     body.append('question', JSON.stringify(question));
-    return this.http.post(ADDRESS + '/questions/report', body, this._options)
+    return this.http.post(ADDRESS + '/question/respond', body, this._options)
       .map(this.extractData)
       .catch((error:any) => {
         return Observable.throw(error.json().error || 'Server error')})

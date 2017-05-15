@@ -42,7 +42,7 @@ export class QuestionConfirmationComponent extends ComponentWithSession {
   }
 
   send() {
-    this.questionsService.sendData(this.question, this.lessonId, this.sectionId).subscribe(
+    this.questionsService.respondQuestion(this.question).subscribe(
       () => { this.router.navigate(['/theory']) },
       (error) => {this.router.navigate(['/server-error', error])}
     )

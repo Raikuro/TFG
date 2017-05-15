@@ -21,3 +21,13 @@ exports.reportAQuestion = (req, res) => {
       .then(() => { res.status(204).send() })
       .catch((err) => res.status(500).send(err))
 }
+
+exports.respondAQuestion = (req, res) => {
+  let question = JSON.parse(req.body.question)
+  console.log(question)
+  new Question(question.title, question.content, question.username,
+  question.response, question.reported, question.date).addResponse()
+      .then(() => { res.status(204).send() })
+      .catch((err) => res.status(500).send(err))
+  //res.send("ASD")
+}

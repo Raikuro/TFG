@@ -46,6 +46,21 @@ class Question {
     })
   }
 
+  addResponse () {
+    let starttime = new Date(this.date)
+    let isotime = new Date((new Date(starttime)).toISOString())
+    let fixedtime = new Date(isotime.getTime() - (starttime.getTimezoneOffset() * 60000))
+    let formatedMysqlString = fixedtime.toISOString().slice(0, 19).replace('T', ' ')
+    return new Promise((resolve, reject) => {
+      mysqlConnection.query('UPDATE questions SET response = ? WHERE username = ? ' +
+      'AND dateOfQuestion = ? AND title = ? AND content = ?',
+      [this.response, this.username, formatedMysqlString, this.title, this.content], (err, questions) => {
+        if (err) { reject(err) }
+        resolve()
+      })
+    })
+  }
+
   static getUnresponded () {
     return new Promise((resolve, reject) => {
       mysqlConnection.query('SELECT * FROM questions WHERE response IS NULL AND reported IS NOT TRUE',

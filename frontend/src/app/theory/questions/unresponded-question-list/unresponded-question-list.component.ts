@@ -31,18 +31,19 @@ export class UnrespondedQuestionListComponent extends ComponentWithSession {
   getUnrespondedQuestions(){
     this.questionService.getUnrespondedQuestions().subscribe(
       questions => {this.questions = questions },
-      error => { console.log(error) }
+      error => { this.router.navigate(['/server-error', error]) }
     )
   }
 
   respondQuestion(question){
     this.questionService.prepareData(question)
+    this.router.navigate(['/questions/respond'])
   }
 
   reportQuestion(question){
     this.questionService.reportQuestion(question).subscribe(
       res => { this.reloadPage() },
-      error => { console.log(error) }
+      error => { this.router.navigate(['/server-error', error]) }
     )
   }
 
