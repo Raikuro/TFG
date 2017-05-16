@@ -31,6 +31,7 @@ export class IndexTheoryComponent implements OnInit {
     if((<Observable<Theory>> index).subscribe){
       (<Observable<Theory>> index).subscribe(
         index => {
+          console.log(index)
           this.assignLessons(index)
           this.theoryService.index = index
         },

@@ -2,10 +2,11 @@ let Section = require('./section')
 let mysqlConnection = require('../core/mysqlConnection')
 
 class Lesson {
-  constructor (id, title, sections) {
+  constructor (id, title, sections, testQuestions) {
     this.sections = sections || []
     this.title = title
     this.id = id
+    this.testQuestions = testQuestions
   }
 
   search (query) {

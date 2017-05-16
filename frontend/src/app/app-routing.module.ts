@@ -10,6 +10,7 @@ import { QuestionsComponent } from "app/theory/questions/questions.component";
 import { QuestionConfirmationComponent } from "app/theory/questions/question-confirmation/question-confirmation.component";
 import { RespondQuestionComponent } from './theory/questions/respond-question/respond-question.component';
 import { UnrespondedQuestionListComponent,} from './theory/questions/unresponded-question-list/unresponded-question-list.component';
+import { TestComponent } from "app/test/test.component";
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'questions/confirmation', component: QuestionConfirmationComponent},
   { path: 'questions/respond', component: RespondQuestionComponent},
   { path: 'questions/unresponded', component: UnrespondedQuestionListComponent },
+  { path: 'test', component: TestComponent },
   { path: 'server-error/:error', component: ServerErrorComponent},
   { path: '**', component: PageNotFoundComponent }
 ];

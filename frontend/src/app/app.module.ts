@@ -28,6 +28,9 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { QuestionConfirmationComponent } from './theory/questions/question-confirmation/question-confirmation.component';
 import { RespondQuestionComponent } from './theory/questions/respond-question/respond-question.component';
 import { UnrespondedQuestionListComponent } from './theory/questions/unresponded-question-list/unresponded-question-list.component';
+import { TestComponent } from './test/test.component';
+import { TestIndexAlumnComponent } from './test/test-index-alumn/test-index-alumn.component';
+import { TestIndexTeacherComponent } from './test/test-index-teacher/test-index-teacher.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +49,9 @@ import { UnrespondedQuestionListComponent } from './theory/questions/unresponded
     QuestionConfirmationComponent,
     RespondQuestionComponent,
     UnrespondedQuestionListComponent,
+    TestComponent,
+    TestIndexAlumnComponent,
+    TestIndexTeacherComponent,
   ],
   imports: [
     BrowserModule,
