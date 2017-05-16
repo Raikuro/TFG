@@ -21,8 +21,13 @@ import { ConfirmChangesComponent } from './theory/confirm-changes/confirm-change
 import { ServerErrorComponent } from './core/server-error/server-error.component';
 import { SearchTheoryComponent } from './theory/search-theory/search-theory.component';
 import { IndexTheoryComponent } from './theory/index-theory/index-theory.component';
-import { QuestionsComponent } from './questions/questions.component';
+import { QuestionsComponent } from './theory/questions/questions.component';
+import { QuestionsService } from './theory/questions/core/questions.service';
 
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { QuestionConfirmationComponent } from './theory/questions/question-confirmation/question-confirmation.component';
+import { RespondQuestionComponent } from './theory/questions/respond-question/respond-question.component';
+import { UnrespondedQuestionListComponent } from './theory/questions/unresponded-question-list/unresponded-question-list.component';
 
 @NgModule({
   declarations: [
@@ -37,16 +42,20 @@ import { QuestionsComponent } from './questions/questions.component';
     ServerErrorComponent,
     SearchTheoryComponent,
     IndexTheoryComponent,
-    QuestionsComponent
+    QuestionsComponent,
+    QuestionConfirmationComponent,
+    RespondQuestionComponent,
+    UnrespondedQuestionListComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule, 
     AppRoutingModule,
-    CookieModule.forRoot()
+    CookieModule.forRoot(),
+    NgbModule.forRoot()
   ],
-  providers: [SessionService, TheoryService],
+  providers: [SessionService, TheoryService, QuestionsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

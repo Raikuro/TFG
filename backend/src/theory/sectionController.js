@@ -1,4 +1,5 @@
 let Section = require('./section')
+let Question = require('./question')
 
 exports.getSection = (req, res) => {
   Section.getSection(req.params.sectionId)
@@ -42,4 +43,20 @@ exports.getIndex = (req, res) => {
   Section.getSection(req.params.sectionId)
     .then((section) => { res.status(200).send(section) })
     .catch((e) => { res.status(500).send(e) })
+}
+
+exports.getSectionQuestions = (req, res) => {
+  Section.getSection(req.params.sectionId)
+    .then((section) => { res.status(200).send(section.questions) })
+    .catch((e) => { res.status(500).send(e) })
+}
+
+exports.addSectionQuestions = (req, res) => {
+  Section.getSection(req.params.sectionId).then((section) => {
+    let question = JSON.parse(req.body.question)
+    question = new Question(question._title, question._content, question._username)
+    section.addQuestion(question)
+      .then(() => { res.status(204).send() })
+      .catch((e) => { res.status(500).send(e) })
+  })
 }

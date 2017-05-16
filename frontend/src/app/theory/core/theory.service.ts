@@ -60,7 +60,7 @@ export class TheoryService {
   }
 
   deleteSectionsCache(){
-    this._sectionsCache = undefined
+    this._sectionsCache = new Array<Array<Section>>();
   }
 
   deleteSearchCache(){
@@ -94,8 +94,9 @@ export class TheoryService {
     }
 
     if(data.mode === DELETE){
-      this.options.body = body
-      return this.http.delete(ADDRESS + '/index/' + data.lesson.id + '/' + data.section.id, this.options)
+      let optionAux = this.options;
+      optionAux.body = body
+      return this.http.delete(ADDRESS + '/index/' + data.lesson.id + '/' + data.section.id, optionAux)
       .map(this.extractData)
       .catch((error:any) => {
         return Observable.throw(error.json().error || 'Server error')})
@@ -125,17 +126,17 @@ export class TheoryService {
   getSection(lessonId: number, sectionId: number){
     if(this._sectionsCache[lessonId]){
       if(this._sectionsCache[lessonId][sectionId] === undefined){
-        return this.getSectionData(lessonId, sectionId);
+        return this._getSectionData(lessonId, sectionId);
        }
     }
     else{
       this.sectionsCache[lessonId] = new Array<Section>();
-      return this.getSectionData(lessonId, sectionId);
+      return this._getSectionData(lessonId, sectionId);
     }
     return this._sectionsCache[lessonId][sectionId];
   }
   
-  private getSectionData(lessonId: number, sectionId: number):Observable<Section>{
+  private _getSectionData(lessonId: number, sectionId: number):Observable<Section>{
     return this.http.get(ADDRESS + '/index/' + lessonId + '/' + sectionId, this.options)
       .map(this.extractData)
       .catch((error:any) => {

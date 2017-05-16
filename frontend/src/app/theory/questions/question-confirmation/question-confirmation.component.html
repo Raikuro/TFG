@@ -1,0 +1,11 @@
+<p>
+  Titulo de la duda: {{question?.title}}
+</p>
+<p>
+  Contenido: {{question?.content}}
+</p>
+<p *ngIf="question.response">
+  Respuesta: {{question?.response}}
+</p>
+
+<button (click)="send()">Confirmar</button>

@@ -15,7 +15,9 @@ class Theory {
           lesson = new Lesson(lesson.id, lesson.title)
           return lesson.search(query).then(sections => {
             lesson.setSections(sections)
-            lessonAux.push(lesson)
+            if (lesson.sections.length > 0) {
+              lessonAux.push(lesson)
+            }
           }).catch((err) => reject(err))
         })).then((e) => resolve(new Theory(lessonAux)))
       })

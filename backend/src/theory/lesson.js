@@ -21,7 +21,7 @@ class Lesson {
 
   getAllSections () {
     return new Promise((resolve, reject) => {
-      mysqlConnection.query('SELECT S.id, S.title FROM sections S WHERE S.lesson = ?', [this.id], (err, sections) => {
+      mysqlConnection.query('SELECT S.id, S.title FROM sections S WHERE S.lesson = ?', [this.id],(err, sections) => {
         if (err) { reject(err) }
         sections = sections.map((section) => {
           return new Section(section.id, section.title)
