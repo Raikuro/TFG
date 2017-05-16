@@ -4,12 +4,7 @@
       Teoría
     </div>
   </div>
-  <div style="width: 100%; display: flex; justify-content: center">
-    <div style="display: flex; flex-direction: column; justify-content: center">
-      Herramientas
-    </div>
-  </div>
-  <div style="width: 100%; display: flex; justify-content: center">
+  <div style="width: 100%; display: flex; justify-content: center" *ngIf="!session?.isAlumn" (click)="goToQuestions()">
     <div style="display: flex; flex-direction: column; justify-content: center">
       Dudas
     </div>
@@ -19,7 +14,7 @@
       Estadisticas
     </div>
   </div>
-  <div style="width: 100%; display: flex; justify-content: center">
+  <div style="width: 100%; display: flex; justify-content: center" (click)="doSome()">
     <div style="display: flex; flex-direction: column; justify-content: center">
       Test
     </div>

@@ -2,11 +2,12 @@ let mysqlConnection = require('../core/mysqlConnection')
 let Keyword = require('./keyword')
 
 class Section {
-  constructor (id, title, content, keywords) {
+  constructor (id, title, content, keywords, questions) {
     this.title = title
     this.id = id
     this.content = content
     this.keywords = keywords
+    this.questions = questions
   }
 
   _diffBtwArrays (arr1, arr2) {
@@ -79,11 +80,12 @@ class Section {
       this._addBasics(lessonId).then((id) => {
         if (this.keywords) {
           let keyAux = this.keywords.split ? this.keywords.split(',') : this.keywords
-          keyAux.map((keyword) => {
-            new Keyword(keyword).save(id)
-            .then(() => { resolve() })
-            .catch((err) => { reject(err) })
-          })
+          Promise.all(
+            keyAux.map((keyword) => {
+              return new Keyword(keyword).save(id)
+            })
+          ).then(() => { resolve() })
+          .catch((err) => { reject(err) })
         }
         resolve()
       })
@@ -96,7 +98,7 @@ class Section {
 
   delete () {
     return new Promise((resolve, reject) => {
-      this._deleteAllKeyRelations()
+      Promise.all([this._deleteAllKeyRelations(), this._deleteAllQuestions()])
         .then(() => {
           this._deleteBasics()
             .then(() => resolve())
@@ -105,10 +107,21 @@ class Section {
     })
   }
 
+  _deleteAllQuestions () {
+    return new Promise((resolve, reject) => {
+      mysqlConnection.query('DELETE FROM questions WHERE section = ?', [this.id],
+        (err) => {
+          if (err) { reject(err) }
+          resolve()
+        })
+    })
+  }
+
   _deleteBasics () {
     return new Promise((resolve, reject) => {
       mysqlConnection.query('DELETE FROM sections WHERE id = ?', [this.id],
       (err) => {
+        console.log(err)
         if (err) { reject(err) }
         resolve()
       })
@@ -117,11 +130,12 @@ class Section {
 
   _deleteAllKeyRelations () {
     return new Promise((resolve, reject) => {
-      this.keywords.map((keyword, index, array) => {
-        this._deleteKeyRelation(keyword)
-          .then().catch((err) => reject(err))
-        if (index === array.length - 1) { resolve() }
-      })
+      Promise.all(
+        this.keywords.map((keyword) => {
+          return this._deleteKeyRelation(keyword)
+        })
+      ).then(() => resolve())
+      .catch((err) => reject(err))
     })
   }
 
@@ -150,8 +164,16 @@ class Section {
     })
   }
 
-  search (query) {
-
+  _getQuestions () {
+    return new Promise((resolve, reject) => {
+      mysqlConnection.query('SELECT DISTINCT U.username, Q.dateOfQuestion, Q.section, Q.title, Q.content, Q.response ' +
+      'FROM questions Q, sections S, users U WHERE Q.section = ? AND  U.id = Q.username',
+      [this.id], (err, questions) => {
+        if (err) { reject(err) }
+        questions = questions.map((element) => { return element })
+        resolve(questions)
+      })
+    })
   }
 
   static getSection (sectionId) {
@@ -159,19 +181,41 @@ class Section {
       mysqlConnection.query('SELECT S.title, S.content FROM sections S WHERE S.id = ?',
       [sectionId], (err, section) => {
         if (err) { reject(err) }
-        section = section[0]
-        mysqlConnection.query('SELECT K.keyword FROM keywordRelations K WHERE K.section = ?',
-        [sectionId], (err, keywords) => {
-          if (err) { reject(err) }
-          keywords = keywords.map((element) => { return element.keyword })
-          let sectionAux = new Section(sectionId, section.title, section.content)
-          sectionAux._getKeywords().then((keywords) => {
-            sectionAux.keywords = keywords
+        let sectionAux = new Section(sectionId, section[0].title, section[0].content)
+        Promise.all([sectionAux._getKeywords(), sectionAux._getQuestions()])
+          .then((values) => {
+            sectionAux.keywords = values[0]
+            sectionAux.questions = values[1]
             resolve(sectionAux)
-          }).catch((err) => reject(err))
-        })
+          })
+          .catch((err) => reject(err)
+        )
       })
     })
   }
+
+  addQuestion (question) {
+    return new Promise((resolve, reject) => {
+      mysqlConnection.query('SELECT DISTINCT U.id FROM users U WHERE U.username = ?',
+      [question.username], (err, result) => {
+        if (err) { reject(err) }
+        let usernameId = result[0].id
+        if (question.response) {
+          mysqlConnection.query('INSERT INTO questions(username, section, title, content, response) VALUES (?,?,?,?)',
+          [usernameId, this.id, question.title, question.content, question.response], (err, res) => {
+            if (err) { reject(err) }
+            resolve(res)
+          })
+        } else {
+          mysqlConnection.query('INSERT INTO questions(username, section, title, content) VALUES (?,?,?,?)',
+          [usernameId, this.id, question.title, question.content], (err, res) => {
+            if (err) { reject(err) }
+            resolve(res)
+          })
+        }
+      })
+    })
+  }
+
 }
 module.exports = exports = Section

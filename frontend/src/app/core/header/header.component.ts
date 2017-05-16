@@ -1,15 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { SessionService } from "app/core/session/session.service";
 import { Router } from "@angular/router";
+import { ComponentWithSession } from "app/core/session/componentWithSession";
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent extends ComponentWithSession {
+  onInitTasks() {}
 
-  constructor(private sessionService: SessionService, private router: Router) { }
+  private isAlumn;
+
+  constructor(sessionService: SessionService, router: Router) {
+    super(sessionService, router)
+  }
 
   logout(){
     this.sessionService.logout().then(
@@ -17,12 +23,13 @@ export class HeaderComponent implements OnInit {
       error => console.log(error)
     );
   }
-
+  
   goToTheory(){
     this.router.navigate(['/theory'])
   }
 
-  ngOnInit() {
+  goToQuestions(){
+    this.router.navigate(['questions/unresponded'])
   }
 
 }

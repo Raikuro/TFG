@@ -4,7 +4,8 @@ import { SessionService } from "app/core/session/session.service";
 import { Router } from "@angular/router";
 import { Observable } from "rxjs/Observable";
 import { Session } from "app/core/session/session";
-import { ComponentWithSession } from "app/theory/core/componentWithSession";
+import { ComponentWithSession } from "app/core/session/componentWithSession";
+import { Location } from '@angular/common';
 
 const ADD = 0;
 const EDIT = 1;
@@ -22,7 +23,8 @@ export class ConfirmChangesComponent extends ComponentWithSession {
 
   constructor(private theoryService:TheoryService,
               sessionService: SessionService,
-              router: Router) {
+              router: Router,
+              private location: Location) {
                 super(sessionService, router)
               }
 
@@ -43,7 +45,7 @@ export class ConfirmChangesComponent extends ComponentWithSession {
   onInitTasks(){
     this.data = this.theoryService.preparedData;
     if(this.data === undefined){
-      this.router.navigate(['/theory']);
+      this.location.back();
     }
   }
 

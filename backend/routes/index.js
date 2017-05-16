@@ -9,6 +9,6 @@ module.exports = (app, mysqlConnection) => {
   })
 
   let login = require('../src/core/ensureLogin')
-  let routes = require('./routes')(app, login)
-  let theoryRoutes = require('../src/theory/routes')(app, login, mysqlConnection)
+  require('./routes')(app, login)
+  require('../src/theory/routes')(app, login)
 }
