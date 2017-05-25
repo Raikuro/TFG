@@ -11,3 +11,15 @@ exports.search = (req, res) => {
     .then((result) => { res.status(200).send(result) })
     .catch((e) => { res.status(500).send(e) })
 }
+
+exports.getLessonsTitle = (req, res) => {
+  Theory.getLessonsTitle()
+    .then((result) => { res.status(200).send(result) })
+    .catch((e) => { res.status(500).send(e) })
+}
+
+exports.getTestQuestions = (req, res) => {
+  Theory.getTestQuestions()
+    .then((result) => { res.status(200).send(result) })
+    .catch((e) => { res.status(500).send(e) })
+}

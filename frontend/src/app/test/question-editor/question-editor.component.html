@@ -1,0 +1,42 @@
+<header style="height: 10%; padding-right: 15px; padding-left: 15px">
+  <app-header></app-header>
+</header>
+<div style="height: 80%; padding-right: 15px; padding-left: 15px; margin-bottom: 5px">
+  
+  <div style="display: flex; margin-top: 10px; margin-bottom: 10px; padding: 5px">
+    <select style="padding :5px; width: 100%" [ngModel]="lesson" (ngModelChange)="lesson ? lesson = $event : null">
+      <option [ngValue]="lesson" *ngFor="let lesson of lessons">
+        {{lesson.title}}
+        </option>
+    </select>
+  </div>
+  
+  <div style="display: flex; justify-content: space-between; margin-bottom: 10px; padding: 5px">
+    <div style="width: 9%" (click)="doSome()">Enunciado:</div>
+    <textarea type="search" style="width: 90%" [ngModel]="question?.wording" (ngModelChange)="question ? question.wording = $event : null"></textarea>
+  </div>
+  
+
+  <div style="height: 80%; display: flex; justify-content: space-around; flex-direction: column; padding: 10px">
+    <div style="display: flex; flex-direction: column; justify-content: space-around; margin-bottom: 10px; padding: 5px; height: 75%">
+    
+    <div>Opciones:</div>
+    <div *ngFor="let option of question?.testOptions">
+      <input [ngModel]="option?.answer" (ngModelChange)="option ? option.answer = $event : null">
+      <div (click)="changeBool(option)">{{option.isCorrect}}</div>
+      <div (click)="deleteOption(option)">X</div>
+    </div>
+    <button (click)="addOption()" *ngIf="allOptionsFilled()">Añadir opcion</button>
+  
+    <div style="display: flex; margin-top: 10px; padding: 5px; flex-direction: column">
+      <div style="width: 100%">
+        <button style="width: 100%; padding: 5px" (click)="goToConfirmation()" [disabled]="!isReadyToSend()">{{getAction()}}</button>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+<footer style="padding: 5px; height: 5%">
+  <app-footer></app-footer>
+</footer>

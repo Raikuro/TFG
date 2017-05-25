@@ -6,10 +6,7 @@ import { Observable } from "rxjs/Observable";
 import { Session } from "app/core/session/session";
 import { ComponentWithSession } from "app/core/session/componentWithSession";
 import { Location } from '@angular/common';
-
-const ADD = 0;
-const EDIT = 1;
-const DELETE = 2;
+import { ADD, EDIT, DELETE } from "app/core/utils/const";
 
 @Component({
   selector: 'app-confirm-changes',

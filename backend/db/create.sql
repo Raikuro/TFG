@@ -1,3 +1,5 @@
+DROP TABLE IF EXISTS testOptions;
+DROP TABLE IF EXISTS testQuestions;
 DROP TABLE IF EXISTS questions;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS uvaUsers;
@@ -61,6 +63,23 @@ CREATE TABLE questions (
   FOREIGN KEY (section) REFERENCES sections(id)
 );
 
+CREATE TABLE testQuestions (
+  id INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  lesson INTEGER UNSIGNED NOT NULL,
+  wording VARCHAR(255) NOT NULL,
+  UNIQUE (lesson, wording),
+  PRIMARY KEY (id),
+  FOREIGN KEY (lesson) REFERENCES lessons(id)
+);
+
+CREATE TABLE testOptions (
+  question INTEGER UNSIGNED NOT NULL,
+  answer VARCHAR(255) NOT NULL,
+  isCorrect BIT(1) NOT NULL,
+  PRIMARY KEY (question, answer),
+  FOREIGN KEY (question) REFERENCES testQuestions(id)
+);
+
 INSERT INTO lessons(title) VALUES
   ("TEMA 2: Combinatoria"),
   ("TEMA 3: Relaciones");
@@ -101,3 +120,20 @@ INSERT INTO questions(username, section, title, content, response) VALUES
   (1, 3, "duda3", "contenido duda3", "respuesta duda3"),
   (1, 1, "duda4", "contenido duda4", "respuesta duda4"),
   (1, 1, "duda5", "contenido duda5", null);
+INSERT INTO testQuestions(lesson, wording) VALUES
+  (1, "enunciado1"),
+  (1, "enunciado2"),
+  (2, "enunciado3");
+INSERT INTO testOptions(question, answer, isCorrect) VALUES
+  (1, "respuesta1T", 1),
+  (1, "respuesta2F", 0),
+  (1, "respuesta3F", 0),
+  (1, "respuesta4F", 0),
+  (2, "respuesta1T", 1),
+  (2, "respuesta2T", 1),
+  (2, "respuesta3F", 0),
+  (2, "respuesta4F", 0),
+  (3, "respuesta1T", 1),
+  (3, "respuesta2T", 1),
+  (3, "respuesta3T", 1),
+  (3, "respuesta4F", 0);

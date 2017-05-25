@@ -7,13 +7,10 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
 
-import { RequestOptions, Headers, Http, Response, URLSearchParams} from "@angular/http/";
+import { RequestOptions, Headers, Http, Response, URLSearchParams } from "@angular/http/";
 
 import { ADDRESS } from 'app/config/server';
-
-const ADD = 0;
-const EDIT = 1;
-const DELETE = 2;
+import { ADD, EDIT, DELETE } from "app/core/utils/const";
 
 @Injectable()
 export class TheoryService {

@@ -29,5 +29,4 @@ exports.respondAQuestion = (req, res) => {
   question.response, question.reported, question.date).addResponse()
       .then(() => { res.status(204).send() })
       .catch((err) => res.status(500).send(err))
-  //res.send("ASD")
 }

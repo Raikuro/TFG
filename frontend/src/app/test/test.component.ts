@@ -10,9 +10,7 @@ import { Router } from "@angular/router";
 })
 export class TestComponent extends ComponentWithSession {
   
-  onInitTasks() {
-    
-  }
+  onInitTasks() {}
 
   constructor(
     sessionService: SessionService,

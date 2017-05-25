@@ -1,0 +1,14 @@
+<p>
+  ACCION: {{getMode()}}
+</p>
+<p>
+  Enunciado: {{question.wording}}
+</p>
+<div>
+  Opciones:
+  <div *ngFor="let option of question.testOptions">
+    {{option.answer}}@@{{option.isCorrect}}
+  </div>
+</div>
+
+<button (click)="sendData()">Confirmar</button>

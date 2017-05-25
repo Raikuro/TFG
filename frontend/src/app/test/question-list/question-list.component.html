@@ -1,0 +1,24 @@
+<ngb-accordion>
+  <ngb-panel *ngFor="let question of shownQuestions" id={{question.id}}>
+    <ng-template ngbPanelTitle>
+     <div style="width: 100%; height: 100%" class="acordionSection">
+       {{question.wording}}
+     </div>
+    </ng-template>
+    <ng-template ngbPanelContent>
+      <div *ngFor="let option of question?.testOptions">
+        {{option.answer}} {{getSymbol(option)}}
+      </div>
+      <button *ngIf="!session.isAlumn" (click)="editQuestion(question)">
+        Editar
+      </button>
+      <button *ngIf="!session.isAlumn" (click)="deleteQuestion(question)">
+        Borrar
+      </button>
+    </ng-template>
+  </ngb-panel>
+</ngb-accordion>
+
+<ngb-pagination [collectionSize]="questions?.length" pageSize="2" [(page)]="page" aria-label="Default pagination" (pageChange)="changeShownQuestions($event)"></ngb-pagination>
+
+<button (click)="addQuestion()">Añadir</button>

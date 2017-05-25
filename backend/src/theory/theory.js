@@ -11,7 +11,7 @@ class Theory {
       mysqlConnection.query('SELECT L.id, L.title FROM lessons L', (err, lessons) => {
         if (err) { reject(err) }
         let lessonAux = []
-        Promise.all(lessons.map((lesson, index, array) => {
+        Promise.all(lessons.map((lesson) => {
           lesson = new Lesson(lesson.id, lesson.title)
           return lesson.search(query).then(sections => {
             lesson.setSections(sections)
@@ -28,15 +28,30 @@ class Theory {
     return new Promise((resolve, reject) => {
       mysqlConnection.query('SELECT L.id, L.title FROM lessons L', (err, lessons) => {
         if (err) { reject(err) }
-        let lessonAux = []
-        lessons.map((lesson, index, array) => {
+        let sectionsAux = []
+        lessons = lessons.map((lesson, index, array) => {
           lesson = new Lesson(lesson.id, lesson.title)
-          lesson.getAllSections().then(sections => {
-            lesson.setSections(sections)
-            lessonAux.push(lesson)
-            if (index === array.length - 1) { resolve(new Theory(lessonAux)) }
-          }).catch((err) => reject(err))
+          sectionsAux.push(lesson.getAllSections())
+          return lesson
         })
+        Promise.all(sectionsAux).then((sectionsArray) => {
+          sectionsArray.forEach((sections, index) => {
+            lessons[index].setSections(sections)
+          })
+          resolve(new Theory(lessons))
+        }).catch((err) => reject(err))
+      })
+    })
+  }
+
+  static getLessonsTitle () {
+    return new Promise((resolve, reject) => {
+      mysqlConnection.query('SELECT L.id, L.title FROM lessons L', (err, lessons) => {
+        if (err) { reject(err) }
+        lessons = lessons.map((lesson) => {
+          return new Lesson(lesson.id, lesson.title)
+        })
+        resolve(new Theory(lessons))
       })
     })
   }

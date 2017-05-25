@@ -1,6 +1,8 @@
 let theoryController = require('./theoryController')
 let sectionController = require('./sectionController')
 let questionController = require('./questionController')
+let lessonController = require('./lessonController')
+let testQuestionController = require('./testQuestionController')
 
 module.exports = (app, login) => {
   let router = require('express').Router()
@@ -8,6 +10,11 @@ module.exports = (app, login) => {
   router.get('/index',
     login.ensureLoggedIn(),
     theoryController.getIndex
+  )
+
+  router.get('/index/:lessonId/getTestQuestions',
+    login.ensureLoggedIn(),
+    lessonController.getLessonQuestions
   )
 
   router.get('/index/search/:query',
@@ -63,6 +70,26 @@ module.exports = (app, login) => {
   router.post('/question/respond',
     login.ensureLoggedIn(),
     questionController.respondAQuestion
+  )
+
+  router.get('/index/getTitles',
+    login.ensureLoggedIn(),
+    theoryController.getLessonsTitle
+  )
+
+  router.post('/testQuestion/:lessonId',
+    login.ensureLoggedIn(),
+    testQuestionController.saveNewQuestion
+  )
+
+  router.put('/testQuestion/:lessonId/:questionId',
+    login.ensureLoggedIn(),
+    testQuestionController.updateQuestion
+  )
+
+  router.delete('/testQuestion/:lessonId/:questionId',
+    login.ensureLoggedIn(),
+    testQuestionController.deleteQuestion
   )
 
   app.use('/', router)

@@ -10,8 +10,7 @@ import { Observable } from "rxjs/Observable";
 import { Theory } from "app/theory/core/theory";
 import { Section } from "app/theory/core/section";
 import { ComponentWithSession } from "app/core/session/componentWithSession";
-
-const DELETE = 2;
+import { DELETE } from "app/core/utils/const";
 
 @Component({
   selector: 'app-theory',
