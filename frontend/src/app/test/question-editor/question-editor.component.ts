@@ -6,6 +6,7 @@ import { TestService } from "app/test/test.service";
 import { TestOption } from "app/theory/core/testOption";
 import { TestQuestion } from "app/theory/core/testQuestion";
 import { EDIT, ADD } from "app/core/utils/const";
+import { TheoryService } from "app/theory/core/theory.service";
 
 @Component({
   selector: 'app-question-editor',
@@ -21,7 +22,7 @@ export class QuestionEditorComponent extends ComponentWithSession {
   private questionId;
 
   onInitTasks() {
-    this.testService.getLessonsTitle().subscribe(
+    this.theoryService.getLessonsTitle().subscribe(
       theory => {
         this.lessons = theory.lessons;
         this.lesson = this.lessons[0];
@@ -42,7 +43,8 @@ export class QuestionEditorComponent extends ComponentWithSession {
 
   constructor(sessionService: SessionService,
               router: Router,
-              private testService: TestService) {
+              private testService: TestService,
+              private theoryService: TheoryService) {
     super(sessionService, router);
   }
 

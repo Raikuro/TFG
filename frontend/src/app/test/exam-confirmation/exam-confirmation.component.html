@@ -1,0 +1,6 @@
+<div *ngFor="let question of test">
+  <div>{{test.indexOf(question) + 1}}</div>
+  <div>{{getState(question)}}</div>
+</div>
+<button (click)="back()">Volver</button>
+<button (click)="checkExam()">Confirmar</button>

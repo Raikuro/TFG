@@ -92,5 +92,25 @@ module.exports = (app, login) => {
     testQuestionController.deleteQuestion
   )
 
+  router.get('/test/concept/:concept/:size',
+    login.ensureLoggedIn(),
+    testQuestionController.getConceptTest
+  )
+
+  router.get('/test/lesson/:lessonId/:size',
+    login.ensureLoggedIn(),
+    testQuestionController.getLessonTest
+  )
+
+  router.get('/test/:size',
+    login.ensureLoggedIn(),
+    testQuestionController.getGeneralTest
+  )
+
+  router.post('/checkExam',
+    login.ensureLoggedIn(),
+    testQuestionController.checkExam
+  )
+
   app.use('/', router)
 }

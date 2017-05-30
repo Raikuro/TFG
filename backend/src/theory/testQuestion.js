@@ -21,6 +21,19 @@ class TestQuestion {
     })
   }
 
+  getAllOptionsForExam () {
+    return new Promise((resolve, reject) => {
+      mysqlConnection.query('SELECT DISTINCT T.answer FROM testOptions T WHERE T.question = ?',
+      [this.id], (err, options) => {
+        if (err) { reject(err) }
+        options = options.map((option) => {
+          return new TestOption(option.answer, option.isCorrect)
+        })
+        resolve(options)
+      })
+    })
+  }
+
   setOptions (options) {
     this.testOptions = options
   }
@@ -104,6 +117,111 @@ class TestQuestion {
         resolve()
       })
     })
+  }
+
+  static generateGeneralTest (size) {
+    let result = []
+    return new Promise((resolve, reject) => {
+      mysqlConnection.query('SELECT DISTINCT * FROM testQuestions', (err, questionList) => {
+        if (err) { reject(err) }
+        questionList = questionList.map(question => {
+          return new TestQuestion(question.id, question.wording)
+        })
+        for (let i = 0; i < size && questionList.length > 0; i++) {
+          let aux = Math.floor(Math.random() * questionList.length)
+          result.push(questionList[aux])
+          questionList.splice(aux, 1)
+        }
+        let promises = result.map(question => {
+          return question.getAllOptionsForExam()
+        })
+        Promise.all(promises).then((optionsList) => {
+          optionsList.forEach((options, i, arr) => {
+            result[i].testOptions = options
+          })
+          resolve(result)
+        })
+      })
+    })
+  }
+
+  static generateLessonTest (lessonId, size) {
+    let result = []
+    return new Promise((resolve, reject) => {
+      mysqlConnection.query('SELECT DISTINCT * FROM testQuestions WHERE lesson = ?', [lessonId],
+      (err, questionList) => {
+        if (err) { reject(err) }
+        questionList = questionList.map(question => {
+          return new TestQuestion(question.id, question.wording)
+        })
+        for (let i = 0; i < size && questionList.length > 0; i++) {
+          let aux = Math.floor(Math.random() * questionList.length)
+          result.push(questionList[aux])
+          questionList.splice(aux, 1)
+        }
+        let promises = result.map(question => {
+          return question.getAllOptionsForExam()
+        })
+        Promise.all(promises).then((optionsList) => {
+          optionsList.forEach((options, i, arr) => {
+            result[i].testOptions = options
+          })
+          resolve(result)
+        })
+      })
+    })
+  }
+
+  static generateConceptTest (concept, size) {
+    let result = []
+    return new Promise((resolve, reject) => {
+      mysqlConnection.query('SELECT DISTINCT * FROM testQuestions ' +
+      'WHERE wording REGEXP \'([[:blank:][:punct:]]|^)' + concept + '([[:blank:][:punct:]]|$)\'',
+      (err, questionList) => {
+        if (err) { reject(err) }
+        questionList = questionList.map(question => {
+          return new TestQuestion(question.id, question.wording)
+        })
+        for (let i = 0; i < size && questionList.length > 0; i++) {
+          let aux = Math.floor(Math.random() * questionList.length)
+          result.push(questionList[aux])
+          questionList.splice(aux, 1)
+        }
+        let promises = result.map(question => {
+          return question.getAllOptionsForExam()
+        })
+        Promise.all(promises).then((optionsList) => {
+          optionsList.forEach((options, i, arr) => {
+            result[i].testOptions = options
+          })
+          resolve(result)
+        })
+      })
+    })
+  }
+
+  static checkExam (exam) {
+    let result = exam.map((question) => {
+      console.log("----", question.testOptions)
+      let options = JSON.parse(question.testOptions).map((option) => {
+        return new TestOption(option.answer, option.isCorrect)
+      })
+      let questionAux = new TestQuestion(question.id, question.wording, options)
+      return questionAux.mark()
+    }).reduce((last, actual) => { return last + actual })
+    console.log(result)
+  }
+
+  mark () {
+    this.testOptions.forEach((option) => {
+
+    })
+    console.log(this.id)
+    if (this.id % 2 === 0) {
+      return 1
+    } else {
+      return -1
+    }
   }
 
 }

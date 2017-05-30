@@ -14,6 +14,9 @@ import { TestComponent } from "app/test/test.component";
 import { QuestionListComponent } from "app/test/question-list/question-list.component";
 import { QuestionEditorComponent } from "app/test/question-editor/question-editor.component";
 import { TestQuestionConfirmationComponent } from "app/test/test-question-confirmation/test-question-confirmation.component";
+import { ExamComponent } from "app/test/exam/exam.component";
+import { ExamConfirmationComponent } from "app/test/exam-confirmation/exam-confirmation.component";
+import { ExamResultComponent } from "app/test/exam-result/exam-result.component";
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -26,6 +29,9 @@ const routes: Routes = [
   { path: 'questions/respond', component: RespondQuestionComponent},
   { path: 'questions/unresponded', component: UnrespondedQuestionListComponent },
   { path: 'test', component: TestComponent },
+  { path: 'exam', component: ExamComponent },
+  { path: 'exam/confirmation', component: ExamConfirmationComponent },
+  { path: 'exam/result', component: ExamResultComponent },
   { path: 'test/:id/questions', component: QuestionListComponent },
   { path: 'test/questions/edit', component: QuestionEditorComponent },
   { path: 'test/questions/add', component: QuestionEditorComponent },

@@ -31,6 +31,15 @@ export class TheoryService {
     this.options = new RequestOptions({ headers: this.headers, withCredentials: true });
   }
 
+  getLessonsTitle(){
+    return this.http.get(ADDRESS + '/index/getTitles', this.options)
+      .map(this.extractData)
+      .catch((error:any) => {
+        console.log(error)
+        return Observable.throw(error.json().error || 'Server error')})
+  }
+
+
   get index(){
     if(this._index === undefined){
       return this.getIndexData();

@@ -4,10 +4,10 @@
       <div>
         Concepto: 
       </div>
-      <input>
+      <input [(ngModel)]="concept">
     </div>
     <div>
-      <button>Buscar test por concepto</button>
+      <button (click)="searchByConcept()">Buscar test por concepto</button>
     </div>
   </div>
   <hr>
@@ -16,21 +16,18 @@
       <div>
         Tema: 
       </div>
-      <select>
-        <option>
-          Tema 2
-        </option>
-        <option>
-          Tema 3
+      <select style="padding :5px; width: 100%" [ngModel]="lesson" (ngModelChange)=onLessonSelectorChange($event)>
+        <option [ngValue]="lesson" *ngFor="let lesson of lessons">
+          {{lesson.title}}
         </option>
       </select>
     </div>
     <div>
-      <button>Buscar test por temas</button>
+      <button (click)="searchByLesson()">Buscar test por temas</button>
     </div>
   </div>
   <hr>
   <div>
-    <button>Buscar test general</button>
+    <button (click)="searchGeneral()">Buscar test general</button>
   </div>
 </div>

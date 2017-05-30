@@ -22,7 +22,6 @@ export class TestQuestionConfirmationComponent extends ComponentWithSession {
     this.mode = data.mode;
     this.lessonId = data.lessonId;
     this.question = data.question;
-    console.log(this.mode, this.lessonId, this.question);
   }
 
   constructor(sessionService: SessionService, router: Router, private testService: TestService) {
@@ -43,8 +42,8 @@ export class TestQuestionConfirmationComponent extends ComponentWithSession {
 
   sendData(){
     this.testService.sendData(this.question, this.mode, this.lessonId).subscribe(
-      res => console.log(res),
-      error => console.log(error)
+      () => this.router.navigate(['/test']),
+      error => this.router.navigate(['/server-error', error])
     )
   }
 

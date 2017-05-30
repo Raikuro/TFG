@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { TestService } from "app/test/test.service";
 import { Router } from "@angular/router";
+import { TheoryService } from "app/theory/core/theory.service";
 
 @Component({
   selector: 'app-test-index-teacher',
@@ -12,10 +12,10 @@ export class TestIndexTeacherComponent implements OnInit {
   private lessons;
   private lesson;
 
-  constructor(private testService: TestService, private router: Router) { }
+  constructor(private theoryService: TheoryService, private router: Router) { }
 
   ngOnInit() {
-    this.testService.getLessonsTitle().subscribe(
+    this.theoryService.getLessonsTitle().subscribe(
       theory => {
         this.lessons = theory.lessons;
         this.lesson = this.lessons[0];
@@ -24,7 +24,7 @@ export class TestIndexTeacherComponent implements OnInit {
     )
   }
 
-  onLessonSeletorChange(lesson){
+  onLessonSelectorChange(lesson){
     this.lesson = lesson;
   }
 

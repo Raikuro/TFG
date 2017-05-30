@@ -1,0 +1,10 @@
+<div *ngFor="let question of test">
+  <div>{{question.wording}}</div>
+  <div class="btn-group" data-toggle="buttons">
+    <label *ngFor="let option of question.testOptions" class="btn btn-primary" [class.active]="option.isCorrect">
+      <input type="checkbox" [(ngModel)]="option.isCorrect"> {{option.answer}}
+    </label>
+  </div>
+</div>
+
+<button (click)="goToConfirmationExam()">Enviar</button>

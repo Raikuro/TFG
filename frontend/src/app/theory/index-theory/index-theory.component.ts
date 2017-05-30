@@ -76,7 +76,7 @@ export class IndexTheoryComponent implements OnInit {
     }
   }
 
-  onLessonSeletorChange(lesson){
+  onLessonSelectorChange(lesson){
     this.lesson = lesson;
     this.onLessonChange.emit(JSON.stringify(this.lesson))
     this.sections = this.lesson.sections;

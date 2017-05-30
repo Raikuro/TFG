@@ -35,6 +35,9 @@ import { TestService } from "app/test/test.service";
 import { QuestionListComponent } from './test/question-list/question-list.component';
 import { QuestionEditorComponent } from './test/question-editor/question-editor.component';
 import { TestQuestionConfirmationComponent } from './test/test-question-confirmation/test-question-confirmation.component';
+import { ExamComponent } from './test/exam/exam.component';
+import { ExamConfirmationComponent } from './test/exam-confirmation/exam-confirmation.component';
+import { ExamResultComponent } from './test/exam-result/exam-result.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +62,9 @@ import { TestQuestionConfirmationComponent } from './test/test-question-confirma
     QuestionListComponent,
     QuestionEditorComponent,
     TestQuestionConfirmationComponent,
+    ExamComponent,
+    ExamConfirmationComponent,
+    ExamResultComponent,
   ],
   imports: [
     BrowserModule,

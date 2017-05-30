@@ -1,4 +1,4 @@
-<select style="padding :5px; width: 100%" [ngModel]="lesson" (ngModelChange)=onLessonSeletorChange($event)>
+<select style="padding :5px; width: 100%" [ngModel]="lesson" (ngModelChange)=onLessonSelectorChange($event)>
     <option [ngValue]="lesson" *ngFor="let lesson of lessons">
       {{lesson.title}}
     </option>
