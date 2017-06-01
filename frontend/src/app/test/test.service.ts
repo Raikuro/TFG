@@ -18,7 +18,7 @@ export class TestService {
 
   private data;
 
-  private result;
+  private _examResult;
 
   private _test: TestQuestion[]
 
@@ -142,7 +142,11 @@ export class TestService {
   }
 
   saveResult(result){
-    console.log('guardando?' + result);
+    this._examResult = result;
+  }
+
+  getCorrectedData(){
+    return this._examResult
   }
 
 }

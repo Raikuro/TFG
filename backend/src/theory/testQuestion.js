@@ -174,6 +174,7 @@ class TestQuestion {
 
   static generateConceptTest (concept, size) {
     let result = []
+    size = 5
     return new Promise((resolve, reject) => {
       mysqlConnection.query('SELECT DISTINCT * FROM testQuestions ' +
       'WHERE wording REGEXP \'([[:blank:][:punct:]]|^)' + concept + '([[:blank:][:punct:]]|$)\'',
@@ -200,30 +201,61 @@ class TestQuestion {
     })
   }
 
-  static checkExam (exam) {
-    let result = exam.map((question) => {
-      console.log("----", question.testOptions)
-      let options = JSON.parse(question.testOptions).map((option) => {
-        return new TestOption(option.answer, option.isCorrect)
+  static getResponseOfExam (exam) {
+    return new Promise((resolve, reject) => {
+      let origin = exam.map((question) => {
+        let options = JSON.parse(question.testOptions).map((option) => {
+          return new TestOption(option.answer, option.isCorrect)
+        })
+        return new TestQuestion(question.id, question.wording, options)
       })
-      let questionAux = new TestQuestion(question.id, question.wording, options)
-      return questionAux.mark()
-    }).reduce((last, actual) => { return last + actual })
-    console.log(result)
-  }
 
-  mark () {
-    this.testOptions.forEach((option) => {
+      let solutions = origin.map((questionAux) => {
+        return questionAux.getAllOptions().then(solution => {
+          return solution
+        }).catch(error => reject(error))
+      })
 
+      Promise.all(solutions).then((solutions) => {
+        let marks = solutions.map((solution, i) => {
+          return origin[i].mark(solution)
+        })
+        let mark = marks.reduce((last, actual) => { return last + actual }) * 10 / exam.length
+        console.log(mark) 
+        resolve({'mark': Math.max(0, mark), 'origin': origin, 'solutions': solutions})
+      }).catch(error => reject(error))
+
+      /* let markPromises = origin.map((questionAux) => {
+        return questionAux.getAllOptions().then(solution => {
+          return questionAux.mark(solution)
+        }).catch(error => console.log("B", error))
+      }) */
+
+      /* Promise.all(markPromises).then(marks => {
+        console.log(marks)
+        let mark = marks.reduce((last, actual) => { return last + actual }) * 10 / exam.length
+        resolve(Math.max(0, mark), origin)
+        //return Math.max(0, result)
+      }) */
     })
-    console.log(this.id)
-    if (this.id % 2 === 0) {
-      return 1
-    } else {
-      return -1
-    }
   }
 
+  mark (solution) {
+    let nOfAnswers = solution.length
+    let nOfFails = 0
+    let responded = 0
+    this.testOptions.forEach((option, i) => {
+      if (option.isCorrect !== solution[i].isCorrect) {
+        nOfFails++
+      }
+      responded += option.isCorrect
+    })
+    if (responded < 1) { return 0 }
+    if (nOfFails === 0) { return 1 }
+    let nOfCorrect = nOfAnswers - nOfFails
+    if (nOfCorrect === 0) { return (1 - nOfAnswers) / nOfAnswers }
+    return (nOfCorrect / nOfAnswers) - (Math.pow(nOfFails / nOfAnswers, (1 + 1 / nOfFails)))
+  }
 }
 
 module.exports = exports = TestQuestion

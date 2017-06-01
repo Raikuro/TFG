@@ -36,20 +36,14 @@ export class ExamConfirmationComponent extends ComponentWithSession {
         this.testService.saveResult(result)
         this.router.navigate(['/exam/result'])
       },
-      error => this.goToErrorPage())
-  }
-
-  goToErrorPage(){
-    console.log('error')
+      error => this.goToErrorPage(error))
   }
   
   getState(question){
-    let aux = question.testOptions.map(option => {return option.isCorrect})
-    let stateAux = aux.reduce((last, actual, i) => {
-      console.log(question.id, "--->", last, ", ", actual, "@@@@", i, "#####", last + actual)
-      return last + actual;
-    })
-    if(stateAux > 0){return "Respondido"}
+    let aux = question.testOptions
+      .map(option => {return option.isCorrect})
+      .reduce((last, actual, i) => {return last + actual})
+    if(aux > 0){return "Respondido"}
     else{return "No respondido"}
   }
 

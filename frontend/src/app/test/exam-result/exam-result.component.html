@@ -1,3 +1,16 @@
 <p>
-  exam-result works!
+  Tu nota: {{mark}}
 </p>
+
+<div>
+  <div *ngFor="let question of exam;" [ngClass]="{true: 'full-right', null: 'parcial-right', false: 'wrong'}[question.isRight]">
+  <!--<div *ngFor="let question of exam" [ngClass]="{'full-right': isRight(question.testOptions, question.correctedAnswers, question.wording) === true, 'parcial-right': isRight(question.testOptions, question.correctedAnswers, question.wording) === null, 'wrong': isRight(question.testOptions, question.correctedAnswers, question.wording) === false}">-->
+    <div *ngFor="let option of question?.testOptions; let j = index">
+      {{getSymbol(option,question.correctedAnswers[j])}}-{{option.answer}}
+    </div>
+    <div>
+      ----------------------------------
+    </div>
+  </div>
+</div>
+<button (click)="goToIndex()">Volver</button>

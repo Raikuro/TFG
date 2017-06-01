@@ -55,6 +55,7 @@ exports.getConceptTest = (req, res) => {
 
 exports.checkExam = (req, res) => {
   let exam = JSON.parse(req.body.exam)
-  //console.log(exam)
-  TestQuestion.checkExam(exam)
+  TestQuestion.getResponseOfExam(exam)
+    .then(result => res.status(200).send(result))
+    .catch(error => res.status(500).send(error))
 }
