@@ -51,16 +51,28 @@ export class QuestionEditorComponent extends ComponentWithSession {
   private addOption(){
     if(this.question){
       if(this.question.testOptions){
-        console.log(this.question.testOptions)
+        window.location.hash = '';
         this.question.testOptions.push(new TestOption("", false))
-        console.log(this.question.testOptions)
-        
+        setTimeout(() => { window.location.hash = 'addOptionButton'; }, 1)
       }
     }
   }
 
+  private allOptionsAreDifferent(){
+    if(this.question.testOptions.length > 1){
+      let aux2 = this.question.testOptions.map((option, i, arr) => {
+        let aux =  (arr.filter((optionAux) => {
+          return optionAux.answer === option.answer
+        }).length <= 1)
+        return aux;
+      })
+      let aux3 = aux2.reduce((last, actual) => {return last && actual})
+      return aux3
+    }
+    return true
+  }
+
   private deleteOption(selectedOption){
-    console.log(selectedOption, "--->", this.question.testOptions)
     if(this.question){
       if(this.question.testOptions){
         this.question.testOptions = this.question.testOptions.filter((option) => {
@@ -73,9 +85,11 @@ export class QuestionEditorComponent extends ComponentWithSession {
   private allOptionsFilled(){
     if(this.question){
       if(this.question.testOptions){
-        return this.question.testOptions.every(option => {
-          return option.answer !== "" && option.answer !== undefined 
-        })
+        if(this.allOptionsAreDifferent()){
+          return this.question.testOptions.every(option => {
+            return option.answer !== "" && option.answer !== undefined 
+          })
+        }
       }
     }
   }
@@ -84,15 +98,17 @@ export class QuestionEditorComponent extends ComponentWithSession {
     let noFreeOptions = this.allOptionsFilled();
     let thereIsWording = this._thereIsWording();
     if(this.question){
-      if(this.question.testOptions){
-        let atleastOneCorrect = this.question.testOptions.filter(option => {
-          return option.isCorrect;
-        })
-        let atleastOneIncorrect = this.question.testOptions.filter(option => {
-          return !option.isCorrect;
-        })
-        return atleastOneIncorrect.length > 0 && noFreeOptions &&
-          atleastOneCorrect.length > 0 && thereIsWording;
+      if(this.allOptionsAreDifferent()){
+        if(this.question.testOptions){
+          let atleastOneCorrect = this.question.testOptions.filter(option => {
+            return option.isCorrect;
+          })
+          let atleastOneIncorrect = this.question.testOptions.filter(option => {
+            return !option.isCorrect;
+          })
+          return atleastOneIncorrect.length > 0 && noFreeOptions &&
+            atleastOneCorrect.length > 0 && thereIsWording;
+        }
       }
     }
   }

@@ -10,6 +10,7 @@
       </option>
     </select>
   </div>
+
   <div class="form-group">
     <label for="wording">Enunciado</label>
     <textarea class="form-control" name="wording" rows="3" [ngModel]="question?.wording" (ngModelChange)="question ? question.wording = $event : null"></textarea>
@@ -20,11 +21,17 @@
     <div class="card" *ngFor="let option of question?.testOptions">
       <div class="card-block row">
         <input class="form-control col-8" [ngModel]="option?.answer" (ngModelChange)="option ? option.answer = $event : null">
-        <div class="col-2 text-center" (click)="changeBool(option)">{{option.isCorrect}}</div>
-        <button class="col-2 btn btn-danger" style="width: 15%" (click)="deleteOption(option)">X</button>
+        <div class="col-2 text-center" (click)="changeBool(option)">
+          <!--{{option.isCorrect}}-->
+          <i class="fa fa-2x" aria-hidden="true" [ngClass]="{true: 'fa-check text-success', false: 'fa-times text-danger'}[option.isCorrect]"></i>
+        </div>
+        <button class="col-2 btn btn-danger" style="width: 15%" (click)="deleteOption(option)">Borrar</button>
       </div>
     </div>
-    <button class="btn btn-success" style="width: 100%; margin-top: 15px" (click)="addOption()" [disabled]="!allOptionsFilled()">Añadir opcion</button>
+    <button class="btn btn-success" style="width: 100%; margin-top: 15px" (click)="addOption()" [disabled]="!allOptionsFilled()" id="addOptionButton">Añadir opcion</button>
+  </div>
+  <div class="alert alert-warning" role="alert" *ngIf="!isReadyToSend()">
+    Todos los campos deben ser rellenados. No puede haber respuestas vacías o repetidas. Es necesario que haya al menos una verdadera y una falsa.
   </div>
   <button class="btn btn-warning" style="width: 100%;" (click)="goToConfirmation()" [disabled]="!isReadyToSend()" *ngIf="getAction()==='EDITAR'">{{getAction()}}</button>
   <button class="btn btn-success" style="width: 100%;" (click)="goToConfirmation()" [disabled]="!isReadyToSend()" *ngIf="getAction()==='AÑADIR'">{{getAction()}}</button>

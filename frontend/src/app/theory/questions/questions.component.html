@@ -45,7 +45,7 @@
 
         <form>
 
-          <div class="alert alert-info form-group" role="alert">
+          <div class="alert alert-info form-group" role="alert" *ngIf="!isReadyToSend()">
             Rellena todos los campos del formulario para continuar
           </div>
 
