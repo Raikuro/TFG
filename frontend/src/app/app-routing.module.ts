@@ -17,6 +17,7 @@ import { TestQuestionConfirmationComponent } from "app/test/test-question-confir
 import { ExamComponent } from "app/test/exam/exam.component";
 import { ExamConfirmationComponent } from "app/test/exam-confirmation/exam-confirmation.component";
 import { ExamResultComponent } from "app/test/exam-result/exam-result.component";
+import { UserNotLoggedComponent } from "app/user-not-logged/user-not-logged.component";
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -32,11 +33,12 @@ const routes: Routes = [
   { path: 'exam', component: ExamComponent },
   { path: 'exam/confirmation', component: ExamConfirmationComponent },
   { path: 'exam/result', component: ExamResultComponent },
-  { path: 'test/:id/questions', component: QuestionListComponent },
+  //{ path: 'test/:id/questions', component: QuestionListComponent },
   { path: 'test/questions/edit', component: QuestionEditorComponent },
   { path: 'test/questions/add', component: QuestionEditorComponent },
   { path: 'test/questions/confirmation', component: TestQuestionConfirmationComponent},
-  { path: 'server-error/:error', component: ServerErrorComponent},
+  { path: 'server-error/:error/:url', component: ServerErrorComponent},
+  { path: 'user-not-logged', component: UserNotLoggedComponent},
   { path: '**', component: PageNotFoundComponent }
 ];
 @NgModule({

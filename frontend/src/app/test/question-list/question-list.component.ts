@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ComponentWithSession } from "app/core/session/componentWithSession";
+import { ComponentWithSession } from "app/core/component/componentWithSession";
 import { SessionService } from "app/core/session/session.service";
 import { Router, ActivatedRoute } from "@angular/router/";
-import { TestService } from "app/test/test.service";
+import { TestService } from "app/test/core/test.service";
 import { TestQuestion } from "app/theory/core/testQuestion";
 import { TestOption } from "app/theory/core/testOption";
 import { DELETE } from "app/core/utils/const";
@@ -22,6 +22,7 @@ export class QuestionListComponent extends ComponentWithSession {
   private page = 1;
   private questionId;
   private lessonId;
+  private pagesize;
 
   onInitTasks() {
     this.route.params.subscribe(

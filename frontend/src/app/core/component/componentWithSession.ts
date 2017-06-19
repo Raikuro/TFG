@@ -29,7 +29,7 @@ export abstract class ComponentWithSession implements OnInit {
   protected abstract onInitTasks(): any;
 
   protected goToErrorPage(error){
-    this.router.navigate(['/server-error', error]);
+    this.router.navigate(['/server-error', error, this.router.url, this.session]);
   }
 
   ngOnInit(): void {
@@ -43,8 +43,7 @@ export abstract class ComponentWithSession implements OnInit {
             this.onInitTasks();
           },
           error => {
-            console.log(error);
-            this.router.navigate(['/server-error', error]);
+            this.goToErrorPage(error)
           }
         )
       }
@@ -54,7 +53,7 @@ export abstract class ComponentWithSession implements OnInit {
       }
     }
     else{
-      this.router.navigate(['/login']);
+      this.router.navigate(['/user-not-logged']);
     }
   }
 }

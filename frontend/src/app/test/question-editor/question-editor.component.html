@@ -1,7 +1,36 @@
-<header style="height: 10%; padding-right: 15px; padding-left: 15px">
+<header style="height: 10%;">
   <app-header></app-header>
 </header>
-<div style="height: 80%; padding-right: 15px; padding-left: 15px; margin-bottom: 5px">
+
+<div style="padding-right: 150px; padding-left: 150px;">
+  <div class="form-group">
+    <select class="form-control" name="lesson" [ngModel]="lesson" (ngModelChange)="lesson ? lesson = $event : null">
+      <option [ngValue]="lesson" *ngFor="let lesson of lessons">
+        {{lesson.title}}
+      </option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="wording">Enunciado</label>
+    <textarea class="form-control" name="wording" rows="3" [ngModel]="question?.wording" (ngModelChange)="question ? question.wording = $event : null"></textarea>
+  </div>
+
+  <div class="form-group">
+    <label for="options">Opciones: </label>
+    <div class="card" *ngFor="let option of question?.testOptions">
+      <div class="card-block row">
+        <input class="form-control col-8" [ngModel]="option?.answer" (ngModelChange)="option ? option.answer = $event : null">
+        <div class="col-2 text-center" (click)="changeBool(option)">{{option.isCorrect}}</div>
+        <button class="col-2 btn btn-danger" style="width: 15%" (click)="deleteOption(option)">X</button>
+      </div>
+    </div>
+    <button class="btn btn-success" style="width: 100%; margin-top: 15px" (click)="addOption()" [disabled]="!allOptionsFilled()">Añadir opcion</button>
+  </div>
+  <button class="btn btn-warning" style="width: 100%;" (click)="goToConfirmation()" [disabled]="!isReadyToSend()" *ngIf="getAction()==='EDITAR'">{{getAction()}}</button>
+  <button class="btn btn-success" style="width: 100%;" (click)="goToConfirmation()" [disabled]="!isReadyToSend()" *ngIf="getAction()==='AÑADIR'">{{getAction()}}</button>
+</div>
+
+<!--<div style="height: 80%; padding-right: 15px; padding-left: 15px; margin-bottom: 5px">
   
   <div style="display: flex; margin-top: 10px; margin-bottom: 10px; padding: 5px">
     <select style="padding :5px; width: 100%" [ngModel]="lesson" (ngModelChange)="lesson ? lesson = $event : null">
@@ -35,7 +64,7 @@
     </div>
     
   </div>
-</div>
+</div>-->
 
 <footer style="padding: 5px; height: 5%">
   <app-footer></app-footer>

@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ComponentWithSession } from "app/core/session/componentWithSession";
+import { ComponentWithSession } from "app/core/component/componentWithSession";
 import { Router } from "@angular/router";
 import { SessionService } from "app/core/session/session.service";
-import { TestService } from "app/test/test.service";
+import { TestService } from "app/test/core/test.service";
 import { EDIT, ADD, DELETE } from "app/core/utils/const";
+import { Location } from '@angular/common';
+
 
 @Component({
   selector: 'app-test-question-confirmation',
@@ -24,7 +26,10 @@ export class TestQuestionConfirmationComponent extends ComponentWithSession {
     this.question = data.question;
   }
 
-  constructor(sessionService: SessionService, router: Router, private testService: TestService) {
+  constructor(sessionService: SessionService,
+              router: Router,
+              private testService: TestService,
+              private location: Location) {
     super(sessionService, router)
   }
 
@@ -43,8 +48,12 @@ export class TestQuestionConfirmationComponent extends ComponentWithSession {
   sendData(){
     this.testService.sendData(this.question, this.mode, this.lessonId).subscribe(
       () => this.router.navigate(['/test']),
-      error => this.router.navigate(['/server-error', error])
+      error => this.goToErrorPage(error)
     )
+  }
+
+  goBack() {
+    this.location.back();
   }
 
 }

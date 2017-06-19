@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ComponentWithSession } from "app/core/session/componentWithSession";
+import { ComponentWithSession } from "app/core/component/componentWithSession";
 import { SessionService } from "app/core/session/session.service";
 import { Router } from "@angular/router";
-import { TestService } from "app/test/test.service";
-import {Location} from '@angular/common';
+import { TestService } from "app/test/core/test.service";
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-exam-confirmation',
@@ -15,8 +15,8 @@ export class ExamConfirmationComponent extends ComponentWithSession {
   private test;
 
   onInitTasks() {
-    this.test = this.testService.test
-    //console.log(this.test)
+    if(this.testService.test){ this.test = this.testService.test }
+    else{ this.back() }
   }
 
   constructor(sessionService: SessionService,

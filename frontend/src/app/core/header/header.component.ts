@@ -1,7 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { SessionService } from "app/core/session/session.service";
 import { Router } from "@angular/router";
-import { ComponentWithSession } from "app/core/session/componentWithSession";
+import { ComponentWithSession } from "app/core/component/componentWithSession";
+import { QuestionsService } from "app/theory/questions/core/questions.service";
+
+//import { Observable } from "rxjs/Observable";
 
 @Component({
   selector: 'app-header',
@@ -9,11 +12,18 @@ import { ComponentWithSession } from "app/core/session/componentWithSession";
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent extends ComponentWithSession {
-  onInitTasks() {}
+  
+  onInitTasks() {
+    this.questionService.getUnrespondedQuestions().subscribe(
+      questions => this.unrespondedQuestionsLength = questions.length
+    )
+  }
+
 
   private isAlumn;
+  @Input('unrespondedQuestionsLength') private unrespondedQuestionsLength;
 
-  constructor(sessionService: SessionService, router: Router) {
+  constructor(sessionService: SessionService, router: Router, private questionService: QuestionsService) {
     super(sessionService, router)
   }
 
@@ -29,11 +39,15 @@ export class HeaderComponent extends ComponentWithSession {
   }
 
   goToQuestions(){
-    this.router.navigate(['questions/unresponded'])
+    this.router.navigate(['/questions/unresponded'])
   }
 
   goToTest(){
-    this.router.navigate(['test'])
+    this.router.navigate(['/test'])
+  }
+
+  goToIndex(){
+    this.router.navigate(['/theory'])
   }
 
 }

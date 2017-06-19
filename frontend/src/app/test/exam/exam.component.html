@@ -1,10 +1,25 @@
-<div *ngFor="let question of test">
-  <div>{{question.wording}}</div>
-  <div class="btn-group" data-toggle="buttons">
-    <label *ngFor="let option of question.testOptions" class="btn btn-primary" [class.active]="option.isCorrect">
-      <input type="checkbox" [(ngModel)]="option.isCorrect"> {{option.answer}}
-    </label>
+<header style="height: 10%;">
+  <app-header></app-header>
+</header>
+<div style="padding-left: 150px; padding-right: 150px; ">
+  <div class="row">
+    <div class="col-3" style="position: fixed">
+      <button *ngFor="let question of test; let i = index" class="col-4 btn" [ngClass]="{ 'btn-secondary': !isQuestionAnswered(question), 'btn-primary': isQuestionAnswered(question)}" (click)="goToQuestion(i)">
+        {{i+1}}
+      </button>
+      <button class="btn btn-success" style="width:100%; margin-top: 10px" (click)="goToConfirmationExam()">Enviar</button>
+    </div>
+    <div class="offset-4 col-9">
+      <div *ngFor="let question of test; let i = index" class="card" style="margin-bottom: 15px; padding: 10px">
+        <div class="card-group" id="q{{i}}">
+         {{i+1}} - {{question.wording}}
+        </div>
+        <ul class="list-group card-group">
+          <li class="list-group-item" *ngFor="let option of question.testOptions" (click)="option.isCorrect = !option.isCorrect" [ngClass]="{ 'active': option.isCorrect}" ngDefaultControl>
+            {{option.answer}}
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
 </div>
-
-<button (click)="goToConfirmationExam()">Enviar</button>

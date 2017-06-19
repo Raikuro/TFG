@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ComponentWithSession } from "app/core/session/componentWithSession";
+import { ComponentWithSession } from "app/core/component/componentWithSession";
 import { SessionService } from "app/core/session/session.service";
 import { Router } from "@angular/router";
 

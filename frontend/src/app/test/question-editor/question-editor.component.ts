@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ComponentWithSession } from "app/core/session/componentWithSession";
+import { ComponentWithSession } from "app/core/component/componentWithSession";
 import { Router, ActivatedRoute } from "@angular/router";
 import { SessionService } from "app/core/session/session.service";
-import { TestService } from "app/test/test.service";
+import { TestService } from "app/test/core/test.service";
 import { TestOption } from "app/theory/core/testOption";
 import { TestQuestion } from "app/theory/core/testQuestion";
 import { EDIT, ADD } from "app/core/utils/const";
@@ -51,7 +51,10 @@ export class QuestionEditorComponent extends ComponentWithSession {
   private addOption(){
     if(this.question){
       if(this.question.testOptions){
+        console.log(this.question.testOptions)
         this.question.testOptions.push(new TestOption("", false))
+        console.log(this.question.testOptions)
+        
       }
     }
   }

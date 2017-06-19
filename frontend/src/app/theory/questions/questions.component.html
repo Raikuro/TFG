@@ -1,59 +1,74 @@
-<input type="search" style="width: 100%" [(ngModel)]="searchText">
-
-<ngb-accordion>
-  <ngb-panel *ngFor="let question of getQuestions()" id={{question.title}}>
-    <ng-template ngbPanelTitle>
-     <div style="width: 100%; height: 100%" class="acordionSection">
-       {{question.title}}
-     </div>
-    </ng-template>
-    <ng-template ngbPanelContent>
-      <div>
-        {{question.content}}
-      </div>
-      <div>
-        {{question.response}}
-      </div>
-      <button *ngIf="!session.isAlumn" (click)="deleteQuestion(question)">
-        Borrar
-      </button>
-    </ng-template>
-  </ngb-panel>
-</ngb-accordion>
-
-<div (click)="openForm()" *ngIf="!newQuestion">
-  Añadir nueva
-</div>
-
-<div *ngIf="newQuestion">
-  <div>
-    <div>
-      Título:
-    </div>
-    <div>
-      <input type="search" style="width: 100%" [ngModel]="newQuestion?.title" (ngModelChange)="newQuestion ? newQuestion.title = $event : null">
-    </div>
+<header style="height: 10%;">
+  <app-header></app-header>
+</header>
+<div style="padding-left: 150px; padding-right: 150px">
+  <span (click)="doSome()">Buscar por contenido:</span>
+  <input class="form-control" type="search" style="width: 100%;" [(ngModel)]="searchText">
+  
+  <div style="margin-bottom:15px; margin-top: 15px">
+    <ngb-accordion [closeOthers]="true">
+      <ngb-panel *ngFor="let question of getQuestions()" id={{question.title}}>
+        <ng-template ngbPanelTitle>
+        <div style="width: 100%; height: 100%" class="acordionSection">
+          {{question.title}}
+        </div>
+        </ng-template>
+        <ng-template ngbPanelContent>
+          <div class="card">
+            <div class="card-block">
+              <h6 class="card-text" style="font-style: italic; color: grey">"{{question.content}}"</h6>
+            </div>
+          </div>
+          <p *ngIf="question?.response" class="card-text" style="margin-top: 10px">{{question.response}}</p>
+          <div *ngIf="!question?.response" style="margin-top: 10px; display: flex; flex-direction: row; justify-content: space-between">
+            <p class="card-text" style="margin-top: 10px; color: red">Esta duda aun no ha sido resuelta</p>
+            <button class="btn btn-warning" *ngIf="!session.isAlumn" (click)="goToQuestions()">
+              Resolver
+            </button>
+          </div>
+          <button class="btn btn-danger" *ngIf="!session.isAlumn" (click)="deleteQuestion(question)">
+            Borrar
+          </button>
+        </ng-template>
+      </ngb-panel>
+    </ngb-accordion>
   </div>
-  <div>
-    <div>
-      Contenido:
-    </div>
-    <div>
-      <textarea style="width: 100%" [ngModel]="newQuestion?.content" (ngModelChange)="newQuestion ? newQuestion.content = $event : null"></textarea>
-    </div>
-  </div>
-  <div *ngIf="!session.isAlumn">
-    <div>
-      Respuesta:
-    </div>
-    <div>
-      <textarea style="width: 100%" [ngModel]="newQuestion?.response" (ngModelChange)="newQuestion ? newQuestion.response = $event : null"></textarea>
-    </div>
-  </div>
-  <button (click)="sendForm()">
-    Enviar
+
+  <button (click)="openForm()" *ngIf="!newQuestion" class="btn btn-success">
+    Añadir nueva
   </button>
-  <div (click)="closeForm()">
-    Cerrar
+
+  <div *ngIf="newQuestion">
+
+    <div class="card">
+      <div class="card-block">
+
+        <form>
+
+          <div class="alert alert-info form-group" role="alert">
+            Rellena todos los campos del formulario para continuar
+          </div>
+
+          <div class="form-group">
+            <label for="title">Titulo: </label>
+            <input type="text" name="title" class="form-control" [ngModel]="newQuestion?.title" (ngModelChange)="newQuestion ? newQuestion.title = $event : null">
+          </div>
+          <div class="form-group">
+            <label for="content">Contenido: </label>
+            <textarea type="text" name="content" class="form-control" [ngModel]="newQuestion?.content" (ngModelChange)="newQuestion ? newQuestion.content = $event : null"></textarea>
+          </div>
+          <div class="form-group" *ngIf="!session.isAlumn">
+            <label for="response">Respuesta: </label>
+            <textarea type="text" name="response" class="form-control" [ngModel]="newQuestion?.response" (ngModelChange)="newQuestion ? newQuestion.response = $event : null"></textarea>
+          </div>
+          <button class="btn btn-success" (click)="sendForm()" [disabled]="!isReadyToSend()">
+            Enviar
+          </button>
+          <button class="btn btn-danger" (click)="closeForm()" id="newForm">
+            Cerrar
+          </button>
+        </form>
+      </div>
+    </div>
   </div>
 </div>

@@ -11,24 +11,25 @@ import { RequestOptions, Headers, Http, Response, URLSearchParams } from "@angul
 
 import { ADDRESS } from 'app/config/server';
 import { ADD, EDIT, DELETE } from "app/core/utils/const";
+import { BaseService } from "app/core/service/baseService";
 
 @Injectable()
-export class TheoryService {
+export class TheoryService extends BaseService{
 
-  private headers;
-  private options;
+  //private headers;
+  //private options;
   private _index: Theory;
   private _sectionsCache;
   private _preparedData;
   private _searchCache;
 
-  constructor(private http: Http) {
-    this._sectionsCache = new Array<Array<Section>>();
-    this.headers = new Headers();
+  constructor(http: Http) {
+    super(http)
+    /*this.headers = new Headers();
     this.headers.append('Content-Type', 'application/x-www-form-urlencoded');
+    this.options = new RequestOptions({ headers: this.headers, withCredentials: true });*/
+    this._sectionsCache = new Array<Array<Section>>();
     this._searchCache = {}
-    
-    this.options = new RequestOptions({ headers: this.headers, withCredentials: true });
   }
 
   getLessonsTitle(){
@@ -36,7 +37,7 @@ export class TheoryService {
       .map(this.extractData)
       .catch((error:any) => {
         console.log(error)
-        return Observable.throw(error.json().error || 'Server error')})
+        return Observable.throw(this.extractError(error) || 'Server error')})
   }
 
 
@@ -56,7 +57,7 @@ export class TheoryService {
       return this.http.get(ADDRESS + '/index/search/' + query, this.options)
         .map(this.extractData)
         .catch((error:any) => {
-          return Observable.throw(error.json().error || 'Server error')})
+          return Observable.throw(this.extractError(error) || 'Server error')})
     }
     return this._searchCache[query];
   }
@@ -90,13 +91,13 @@ export class TheoryService {
       return this.http.post(ADDRESS + '/index/' + data.lesson.id, body, this.options)
       .map(this.extractData)
       .catch((error:any) => {
-        return Observable.throw(error.json().error || 'Server error')})
+        return Observable.throw(this.extractError(error) || 'Server error')})
     }
     if(data.mode === EDIT){
       return this.http.put(ADDRESS + '/index/' + data.lesson.id + '/' + data.section.id, body, this.options)
       .map(this.extractData)
       .catch((error:any) => {
-        return Observable.throw(error.json().error || 'Server error')})
+        return Observable.throw(this.extractError(error) || 'Server error')})
     }
 
     if(data.mode === DELETE){
@@ -105,7 +106,7 @@ export class TheoryService {
       return this.http.delete(ADDRESS + '/index/' + data.lesson.id + '/' + data.section.id, optionAux)
       .map(this.extractData)
       .catch((error:any) => {
-        return Observable.throw(error.json().error || 'Server error')})
+        return Observable.throw(this.extractError(error) || 'Server error')})
     }
   }
   
@@ -146,7 +147,7 @@ export class TheoryService {
     return this.http.get(ADDRESS + '/index/' + lessonId + '/' + sectionId, this.options)
       .map(this.extractData)
       .catch((error:any) => {
-        return Observable.throw(error.json().error || 'Server error')})
+        return Observable.throw(this.extractError(error) || 'Server error')})
   }
 
   private getIndexData():Observable<Theory>{
@@ -154,10 +155,10 @@ export class TheoryService {
       .map(this.extractData)
       .catch((error:any) => {
         console.log(error)
-        return Observable.throw(error.json().error || 'Server error')})
+        return Observable.throw(this.extractError(error) || 'Server error')})
   }
 
-  private extractData(res: Response) {
+  /*private extractData(res: Response) {
     return res['_body'] ? res.json() : {}
-  } 
+  } */
 }

@@ -1,22 +1,61 @@
 <div style="display: flex; margin-top: 10px; margin-bottom: 10px; padding: 5px">
-  <select style="padding :5px; width: 100%" [ngModel]="lesson" (ngModelChange)=onLessonSelectorChange($event)>
+  <select class="form-control" style="padding :5px; width: 100%" [ngModel]="lesson" (ngModelChange)=onLessonSelectorChange($event)>
     <option [ngValue]="lesson" *ngFor="let lesson of lessons">
       {{lesson.title}}
     </option>
   </select>
 </div>
 
-<div style="height: 70%; display: flex; flex-direction: column">
-  <div style="display: flex; justify-content: space-between; margin-top: 10px; margin-bottom: 10px; height: 100%; padding: 5px">
-    <div style="width: 20%; border: 1px black solid; overflow: auto">
+<div style="height: 80%; display: flex; flex-direction: column">
+  <div style="display: flex; justify-content: space-between; margin-bottom: 10px; height: 100%; padding: 5px">
+    <div style="width: 22%; border: 2px solid #d9d9db; border-radius: 5px; overflow: auto">
       <div *ngFor="let section of sections" style="padding: 5px" (click)="selectSection(section)">
         {{section.title}}
       </div>
     </div>
-    <div style="width: 75%; border: 1px black solid; padding: 5px; overflow: auto">
-      <div>{{section?.content}}</div>
-      <hr>
-      <div *ngFor='let keyword of section?.keywords' (click)="onKeywordClick.emit(keyword)">{{keyword}}</div>
+    <div style="display: flex; flex-direction: column; width: 77%">
+      <div style="height: 100%; border: 2px solid #d9d9db; border-radius: 5px; padding: 5px; overflow: auto">
+        <div>{{section?.content}}</div>
+        <hr>
+        <div *ngFor='let keyword of section?.keywords' (click)="onKeywordClick.emit(keyword)" >
+          <div class="btn-link">
+            {{keyword}}
+          </div>
+        </div>
+      </div>
+      <div *ngIf="isAlumn" style="padding-top: 5px">
+        <button class="btn btn-warning" [disabled]="!section" style="width: 100%; padding: 5px" (click)="goToQuestions()">Plantear duda</button>
+      </div>
+      <div *ngIf="!isAlumn" style="padding-top: 5px; display: flex; flex-direction: row">
+        <div style="width: 100%; padding-right: 5px; padding-left: 5px">
+          <button class="btn btn-warning" [disabled]="!section" style="width: 100%; padding: 5px" (click)="goToQuestions()">Plantear duda</button>
+        </div>
+        <div style="width: 100%; padding-right: 5px; padding-left: 5px">
+            <button class="btn btn-info" style="width: 100%; padding: 5px" (click)="goToTheoryEditorEdit()" [disabled]="!section">Editar</button>
+        </div>
+        <div style="width: 100%; padding-right: 5px; padding-left: 5px">
+            <button class="btn btn-danger" style="width: 100%; padding: 5px" [disabled]="!section" (click)="goToConfirmation()">Borrar</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
+
+<!--<div style="height: 70%; display: flex; flex-direction: column">
+  <div style="display: flex; justify-content: space-between; margin-top: 10px; margin-bottom: 10px; height: 100%; padding: 5px">
+    <div style="width: 22%; border: 2px solid #d9d9db; border-radius: 5px; overflow: auto">
+      <div *ngFor="let section of sections" style="padding: 5px" (click)="selectSection(section)">
+        {{section.title}}
+      </div>
+    </div>
+    <div style="width: 77%; border: 2px solid #d9d9db; border-radius: 5px; padding: 5px; overflow: auto">
+      <div>{{section?.content}}</div>
+      <hr>
+      <div *ngFor='let keyword of section?.keywords' (click)="onKeywordClick.emit(keyword)">
+        <div class="btn-link">
+          {{keyword}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>-->

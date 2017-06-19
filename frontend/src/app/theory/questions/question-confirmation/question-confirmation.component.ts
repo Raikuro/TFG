@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ComponentWithSession } from "app/core/session/componentWithSession";
+import { ComponentWithSession } from "app/core/component/componentWithSession";
 import { SessionService } from "app/core/session/session.service";
 import { Router, ActivatedRoute } from "@angular/router";
 import { QuestionsService } from "app/theory/questions/core/questions.service";
 import { Location } from '@angular/common';
 
 import { Observable } from "rxjs/Observable";
+import { EDIT, ADD } from "app/core/utils/const";
 
 
 @Component({
@@ -18,6 +19,7 @@ export class QuestionConfirmationComponent extends ComponentWithSession {
   private question;
   private lessonId;
   private sectionId;
+  private mode;
 
   constructor(sessionService: SessionService,
               router: Router,
@@ -37,15 +39,27 @@ export class QuestionConfirmationComponent extends ComponentWithSession {
         this.lessonId = params.lessonId;
         this.sectionId = params.sectionId;
       },
-      error => { this.router.navigate(['/server-error', error]) }
+      error => this.goToErrorPage(error)
     )
   }
 
   send() {
-    this.questionsService.respondQuestion(this.question).subscribe(
-      () => { this.router.navigate(['/theory']) },
-      (error) => {this.router.navigate(['/server-error', error])}
-    )
+    if(this.lessonId && this.sectionId){
+      this.questionsService.sendData(this.question, this.lessonId, this.sectionId).subscribe(
+        () => { this.router.navigate(['/theory']) },
+        (error) => this.goToErrorPage(error)
+      )
+    }
+    else{
+      this.questionsService.setQuestion(this.question).subscribe(
+          () => { this.router.navigate(['/theory']) },
+          (error) => this.goToErrorPage(error)
+      )
+    }
+  }
+
+  goBack() {
+    this.location.back();
   }
 
   isValid(question){

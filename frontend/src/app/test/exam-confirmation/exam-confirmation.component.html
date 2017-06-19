@@ -1,6 +1,17 @@
-<div *ngFor="let question of test">
-  <div>{{test.indexOf(question) + 1}}</div>
-  <div>{{getState(question)}}</div>
+<header style="height: 10%;">
+  <app-header></app-header>
+</header>
+<div style="padding-left: 150px; padding-right: 150px;">
+  <div *ngFor="let question of test">
+    <div class="card">
+      <div class="card-block row" style="padding-top: 5px; padding-bottom: 5px">
+        <div class="col-3">{{test.indexOf(question) + 1}}</div>
+        <div class="col-9">{{getState(question)}}</div>
+      </div>
+    </div>
+  </div>
+  <div style="margin-top: 10px">
+    <button class="btn btn-danger" (click)="back()">Volver</button>
+    <button class="btn btn-success" (click)="checkExam()">Confirmar</button>
+  </div>
 </div>
-<button (click)="back()">Volver</button>
-<button (click)="checkExam()">Confirmar</button>

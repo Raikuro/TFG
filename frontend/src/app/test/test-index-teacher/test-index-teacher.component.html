@@ -1,7 +1,50 @@
-<select style="padding :5px; width: 100%" [ngModel]="lesson" (ngModelChange)=onLessonSelectorChange($event)>
-    <option [ngValue]="lesson" *ngFor="let lesson of lessons">
-      {{lesson.title}}
-    </option>
-  </select>
+<div class="row justify-content-around">
+  <select class="form-control col-9" [ngModel]="lesson" (ngModelChange)=onLessonSelectorChange($event)>
+  <option [ngValue]="lesson" *ngFor="let lesson of lessons">
+    {{lesson.title}}
+  </option>
+</select>
 
-<button (click)="showQuestions()">Revisar</button>
+<button (click)="showQuestions()" class="btn btn-success col-off-1 col-2" style="width: 20%">Revisar</button>
+</div>
+
+<div *ngIf="shownQuestions" style="margin-top: 10px">
+  <ngb-accordion>
+    <ngb-panel *ngFor="let question of shownQuestions" id={{question.id}}>
+      <ng-template ngbPanelTitle>
+      <div style="width: 100%; height: 100%" class="acordionSection">
+        {{question.wording}}
+      </div>
+      </ng-template>
+      <ng-template ngbPanelContent>
+        <div *ngFor="let option of question?.testOptions">
+          <div class="card">
+            <div class="card-block">
+               <div class="row justify-content-around">
+                <div class="col-6">
+                  {{option.answer}}  
+                </div>
+                <div class="col-3 text-center">
+                  {{getSymbol(option)}}
+                </div>
+               </div>
+            </div>
+          </div>
+        </div>
+        <div class="row justify-content-around">
+          <button class="col-3 btn btn-warning" *ngIf="!session.isAlumn" (click)="editQuestion(question)">
+            Editar
+          </button>
+          <button class="col-3 btn btn-danger" *ngIf="!session.isAlumn" (click)="deleteQuestion(question)">
+            Borrar
+          </button>
+        </div>
+      </ng-template>
+    </ngb-panel>
+  </ngb-accordion>
+
+  <div style="margin-top: 10px">
+    <ngb-pagination [collectionSize]="lesson?.questions?.length" pageSize="{{PAGESIZE}}" [(page)]="page" aria-label="Default pagination" (pageChange)="changeShownQuestions($event)"></ngb-pagination>
+  </div>
+  <button class="btn btn-success" (click)="addQuestion()">Añadir</button>
+</div>

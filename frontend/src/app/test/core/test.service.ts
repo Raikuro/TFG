@@ -9,12 +9,13 @@ import { ADDRESS } from 'app/config/server';
 import { EDIT, ADD, DELETE } from "app/core/utils/const";
 import { TestQuestion } from "app/theory/core/testQuestion";
 import { TestOption } from "app/theory/core/testOption";
+import { BaseService } from "app/core/service/baseService";
 
 @Injectable()
-export class TestService {
+export class TestService extends BaseService{
 
-  private headers;
-  private options;
+  //private headers;
+  //private options;
 
   private data;
 
@@ -22,22 +23,23 @@ export class TestService {
 
   private _test: TestQuestion[]
 
-  constructor(private http: Http) {
-    this.headers = new Headers();
+  constructor(http: Http) {
+    super(http);
+    /*this.headers = new Headers();
     this.headers.append('Content-Type', 'application/x-www-form-urlencoded');
-    this.options = new RequestOptions({ headers: this.headers, withCredentials: true });
+    this.options = new RequestOptions({ headers: this.headers, withCredentials: true });*/
   }
 
-  private extractData(res: Response) {
+  /*private extractData(res: Response) {
     return res['_body'] ? res.json() : {}
-  }
+  }*/
 
   getQuestions(lessonId){
     return this.http.get(ADDRESS + '/index/' + lessonId + '/getTestQuestions', this.options)
       .map(this.extractData)
       .catch((error:any) => {
         console.log(error)
-        return Observable.throw(error.json().error || 'Server error')})
+        return Observable.throw(this.extractError(error) || 'Server error')})
   }
 
   saveData(data){
@@ -52,13 +54,13 @@ export class TestService {
       return this.http.post(ADDRESS + '/testquestion/' + lessonId, body, this.options)
       .map(this.extractData)
       .catch((error:any) => {
-        return Observable.throw(error.json().error || 'Server error')})
+        return Observable.throw(this.extractError(error) || 'Server error')})
     }
     if(mode === EDIT){
       return this.http.put(ADDRESS + '/testquestion/' + lessonId + '/' + question.id, body, this.options)
       .map(this.extractData)
       .catch((error:any) => {
-        return Observable.throw(error.json().error || 'Server error')})
+        return Observable.throw(this.extractError(error) || 'Server error')})
     }
     if(mode === DELETE){
       let optionAux = this.options;
@@ -66,7 +68,7 @@ export class TestService {
       return this.http.delete(ADDRESS + '/testquestion/' + lessonId + '/' + question.id, optionAux)
       .map(this.extractData)
       .catch((error:any) => {
-        return Observable.throw(error.json().error || 'Server error')})
+        return Observable.throw(this.extractError(error) || 'Server error')})
     }
   }
 
@@ -81,7 +83,7 @@ export class TestService {
       this.http.get(ADDRESS + '/test/concept/' + concept + '/' + size, this.options)
         .map(this.extractData)
         .catch((error:any) => {
-          return Observable.throw(error.json().error || 'Server error')}
+          return Observable.throw(this.extractError(error) || 'Server error')}
       )
     )
   }
@@ -91,7 +93,7 @@ export class TestService {
       this.http.get(ADDRESS + '/test/lesson/' + lessonId + '/' + size, this.options)
       .map(this.extractData)
       .catch((error:any) => {
-        return Observable.throw(error.json().error || 'Server error')}
+        return Observable.throw(this.extractError(error) || 'Server error')}
       )
     )
   }
@@ -101,7 +103,7 @@ export class TestService {
       this.http.get(ADDRESS + '/test/' + size, this.options)
       .map(this.extractData)
       .catch((error:any) => {
-        return Observable.throw(error.json().error || 'Server error')}
+        return Observable.throw(this.extractError(error) || 'Server error')}
       )
     )
   }
@@ -138,7 +140,7 @@ export class TestService {
     return this.http.post(ADDRESS + '/checkExam', body, this.options)
       .map(this.extractData)
       .catch((error:any) => {
-        return Observable.throw(error.json().error || 'Server error')})
+        return Observable.throw(this.extractError(error) || 'Server error')})
   }
 
   saveResult(result){
@@ -146,6 +148,7 @@ export class TestService {
   }
 
   getCorrectedData(){
+    this._test = undefined;
     return this._examResult
   }
 

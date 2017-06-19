@@ -12,10 +12,12 @@ import { Session } from './session';
 
 import { ADDRESS } from '../../config/server';
 
+import { BaseService } from '../service/baseService';
+
 @Injectable()
-export class SessionService {
-  private headers;
-  private options;
+export class SessionService extends BaseService{
+  //private headers;
+  //private options;
   private _session: Session;
 
   get session(){
@@ -31,10 +33,12 @@ export class SessionService {
     if(<Session>session){ this._session = <Session>session; }
   }
   
-  constructor(private http: Http, private cookieService:CookieService) {
-    this.headers = new Headers();
+  constructor(http: Http,
+              private cookieService:CookieService) {
+    /*this.headers = new Headers();
     this.headers.append('Content-Type', 'application/x-www-form-urlencoded');
-    this.options = new RequestOptions({ headers: this.headers, withCredentials: true });
+    this.options = new RequestOptions({ headers: this.headers, withCredentials: true });*/
+    super(http);
   }
 
   login(username, password): Observable<Session> {
@@ -45,15 +49,14 @@ export class SessionService {
     return this.http.post(ADDRESS + '/login', body, this.options)
       .map(this.extractData)
       .catch((error:any) => {
-        return Observable.throw(error.json().error || 'Server error')});
+        return Observable.throw(this.extractError(error) || 'Server error')});
   }
 
   logout(){
     return new Promise((resolve, reject)=>{
       this.session = undefined;
       this.cookieService.remove("session");
-      this.http.get(ADDRESS + '/logout', this.options)
-      .subscribe(
+      this.http.get(ADDRESS + '/logout', this.options).subscribe(
         resolve,
         reject
       );
@@ -64,11 +67,11 @@ export class SessionService {
     return this.http.get(ADDRESS + '/session', this.options)
       .map(this.extractData)
       .catch((error:any) => {
-        return Observable.throw(error.json().error || 'Server error')})
+        return Observable.throw(this.extractError(error) || 'Server error')})
   }
   
-  private extractData(res: Response) {
+  /*private extractData(res: Response) {
     let body = res.json();
     return body || { };
-  }  
+  } */ 
 }

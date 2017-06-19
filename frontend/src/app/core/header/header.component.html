@@ -1,27 +1,22 @@
-<div style="height: 100%; padding: 5px; display: flex; justify-content: space-around; align-items: stretch">
-  <div style="width: 100%; display: flex; justify-content: center;" (click)="goToTheory()">
-    <div style="display: flex; flex-direction: column; justify-content: center">
-      Teoría
+<nav class="navbar navbar-toggleable-sm navbar-light" style="background-color: #e3f2fd; padding-left: 155px;
+    padding-right: 155px;">
+    <button type="button" class="navbar-toggler navbar-toggler-right" (click)="isExpanded = !isExpanded" [attr.aria-expanded]="!isExpanded" aria-controls="navbarContent">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" (click)="goToIndex()">
+        <img src="assets/images/logo.jpg" height="30px">
+        <!--FOTOUVA-->
+    </a>
+
+    <div class="collapse navbar-collapse" id="navbarContent" [ngbCollapse]="!isExpanded">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item" style="cursor: pointer"><a class='nav-link' (click)="goToTheory()">Teoría</a></li>
+            <li class="nav-item" style="cursor: pointer" *ngIf="!session?.isAlumn"><a class='nav-link' (click)="goToQuestions()">Dudas<span style="margin-left: 2px" *ngIf="unrespondedQuestionsLength" class="badge badge-warning">{{unrespondedQuestionsLength}}</span></a></li>
+            <li class="nav-item" style="cursor: pointer"><a class='nav-link' (click)='signOut()'>Estadísticas</a></li>
+            <li class="nav-item" style="cursor: pointer"><a class='nav-link' (click)="goToTest()">Test</a></li>
+        </ul>
+        <ul class="navbar-nav navbar-right">
+            <li class="nav-item"><a class='nav-link' (click)="logout()" style='cursor: pointer;'>Salir</a></li>
+        </ul>
     </div>
-  </div>
-  <div style="width: 100%; display: flex; justify-content: center" *ngIf="!session?.isAlumn" (click)="goToQuestions()">
-    <div style="display: flex; flex-direction: column; justify-content: center">
-      Dudas
-    </div>
-  </div>
-  <div style="width: 100%; display: flex; justify-content: center">
-    <div style="display: flex; flex-direction: column; justify-content: center">
-      Estadisticas
-    </div>
-  </div>
-  <div style="width: 100%; display: flex; justify-content: center" (click)="goToTest()">
-    <div style="display: flex; flex-direction: column; justify-content: center">
-      Test
-    </div>
-  </div>
-  <div style="width: 100%;display: flex; justify-content: center;" (click)="logout()">
-    <div style="display: flex; flex-direction: column; justify-content: center">
-      Salir
-    </div>
-  </div>
-</div>
+</nav>

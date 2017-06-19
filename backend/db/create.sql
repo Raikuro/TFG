@@ -58,6 +58,7 @@ CREATE TABLE questions (
   content TEXT NOT NULL,
   response TEXT,
   reported BIT(1) DEFAULT 0,
+  ignored BIT(1) DEFAULT 0,
   PRIMARY KEY (section, title),
   FOREIGN KEY (username) REFERENCES users(id),
   FOREIGN KEY (section) REFERENCES sections(id)
@@ -114,12 +115,14 @@ INSERT INTO uvaUsers(username, password, isAlumn) VALUES
 INSERT INTO users(username) VALUES
   ("asd"),
   ("qwe");
-INSERT INTO questions(username, section, title, content, response) VALUES
-  (1, 1, "duda1", "contenido duda1", "respuesta duda1"),
-  (1, 2, "duda2", "contenido duda2", "respuesta duda2"),
-  (1, 3, "duda3", "contenido duda3", "respuesta duda3"),
-  (1, 1, "duda4", "contenido duda4", "respuesta duda4"),
-  (1, 1, "duda5", "contenido duda5", null);
+INSERT INTO questions(username, section, title, content, response, reported, ignored) VALUES
+  (1, 1, "duda1", "contenido duda1", "respuesta duda1", 0, 0),
+  (1, 2, "duda2", "contenido duda2", "respuesta duda2", 0, 0),
+  (1, 3, "duda3", "contenido duda3", "respuesta duda3", 0, 0),
+  (1, 1, "duda4", "contenido duda4", "respuesta duda4", 0, 0),
+  (1, 1, "duda5", "contenido duda5", null, 0, 0),
+  (1, 1, "duda6", "contenido duda6", null, 0, 0),
+  (1, 1, "duda7", "contenido duda7", null, 0, 0);
 INSERT INTO testQuestions(lesson, wording) VALUES
   (1, "enunciado 1"),
   (1, "enunciado 2"),

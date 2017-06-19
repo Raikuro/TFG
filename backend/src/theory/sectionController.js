@@ -54,7 +54,7 @@ exports.getSectionQuestions = (req, res) => {
 exports.addSectionQuestions = (req, res) => {
   Section.getSection(req.params.sectionId).then((section) => {
     let question = JSON.parse(req.body.question)
-    question = new Question(question._title, question._content, question._username)
+    question = new Question(question._title, question._content, question._username, question._response)
     section.addQuestion(question)
       .then(() => { res.status(204).send() })
       .catch((e) => { res.status(500).send(e) })

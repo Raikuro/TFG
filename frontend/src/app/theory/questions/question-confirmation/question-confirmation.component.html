@@ -1,3 +1,22 @@
+<header style="height: 10%;">
+  <app-header></app-header>
+</header>
+<div class="card" style="padding-left: 150px; padding-right: 150px;">
+  <div class="card-block">
+    <div class="card">
+      <div class="card-block">
+        <h4 class="card-title">{{question?.title}}</h4>
+        <h6 class="card-text" style="font-style: italic; color: grey">{{question?.content}}</h6>
+      </div>
+    </div>
+  </div>
+  <div class="card-block">
+    <p class="card-text" *ngIf="question.response">{{question?.response}}</p>
+    <button (click)="send()" class="btn btn-success">Confirmar</button>
+    <button (click)="goBack()" class="btn btn-danger">Cancelar</button>
+  </div>
+</div>
+<!--
 <p>
   Titulo de la duda: {{question?.title}}
 </p>
@@ -7,5 +26,5 @@
 <p *ngIf="question.response">
   Respuesta: {{question?.response}}
 </p>
-
 <button (click)="send()">Confirmar</button>
+-->

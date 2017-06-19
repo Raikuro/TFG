@@ -1,4 +1,25 @@
-<p>
+<header style="height: 10%;">
+  <app-header></app-header>
+</header>
+
+<div class="card" style="padding-left: 150px; padding-right: 150px">
+  <div class="card-block">
+    <h4 class="card-title"><strong>ACCIÓN: </strong>{{getMode()}}</h4>
+  </div>
+  <div class="card-block">
+    <h5 class="card-text"><strong>TITULO DEL TEMA: </strong>{{data?.lesson?.title}}</h5>
+    <h6 class="card-text"><strong>TITULO DE LA SECCIÓN: </strong>{{data?.section?.title}}</h6>
+  </div>
+  <div class="card-block" style="display: flex; flex-direction: column">
+    <span class="card-text"><strong>CONTENIDO: </strong>{{data?.section?.content}}</span>
+    <span class="card-text"><strong>PALABRAS CLAVE: </strong>{{data?.section?.keywords}}</span>
+  </div>
+  <div class="card-block">
+    <button class="btn btn-success" (click)="sendData()">Confirmar</button>
+    <button class="btn btn-danger" (click)="goBack()">Cancelar</button>
+  </div>
+</div>
+<!--<p>
   ACCION: {{getMode()}}
 </p>
 <p>
@@ -12,6 +33,4 @@
 </p>
 <p>
   Palabras relacionadas: {{data?.section?.keywords}}
-</p>
-
-<button (click)="sendData()">Confirmar</button>
+</p>-->

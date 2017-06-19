@@ -8,31 +8,37 @@ import 'rxjs/add/observable/throw';
 import { RequestOptions, Headers, Http, Response, URLSearchParams} from "@angular/http/";
 
 import { ADDRESS } from 'app/config/server';
+import { BaseService } from "app/core/service/baseService";
 
 
 @Injectable()
-export class QuestionsService {
+export class QuestionsService extends BaseService{
 
-  private _options;
-  private _headers;
+  //private _options;
+  //private _headers;
   private _preparedQuestion;
 
-  constructor(private http: Http) {
-    this._headers = new Headers();
+  constructor(http: Http) {
+    /*this._headers = new Headers();
     this._headers.append('Content-Type', 'application/x-www-form-urlencoded');
-    this._options = new RequestOptions({ headers: this._headers, withCredentials: true });
+    this._options = new RequestOptions({ headers: this._headers, withCredentials: true });*/
+    super(http)
   }
 
   getQuestions(lessonId, sectionId){
-    return this.http.get(ADDRESS + '/questions/' + lessonId + '/' + sectionId, this._options)
+    return this.http.get(ADDRESS + '/questions/' + lessonId + '/' + sectionId, this.options)
       .map(this.extractData)
       .catch((error:any) => {
-        return Observable.throw(error.json().error || 'Server error')})
+        return Observable.throw(this.extractError(error) || 'Server error')})
   }
 
-  private extractData(res: Response) {
+  /*private extractData(res: Response) {
     return res['_body'] ? res.json() : {}
   }
+
+  private extractError(err: Response) {
+    return err['_body'] ? err['_body'] : {}
+  }*/
 
   prepareData(question){
     this._preparedQuestion = question
@@ -45,47 +51,56 @@ export class QuestionsService {
   sendData(question, lessonId, sectionId){
     let body = new URLSearchParams();
     body.append('question', JSON.stringify(question));
-    return this.http.post(ADDRESS + '/questions/' + lessonId + '/' + sectionId, body, this._options)
+    return this.http.post(ADDRESS + '/questions/' + lessonId + '/' + sectionId, body, this.options)
       .map(this.extractData)
       .catch((error:any) => {
-        return Observable.throw(error.json().error || 'Server error')})
+        return Observable.throw(this.extractError(error) || 'Server error')})
   }
 
   deleteQuestion(question){
     let body = new URLSearchParams();
     body.append('question', JSON.stringify(question));
-    let optionAux = this._options;
+    let optionAux = this.options;
     optionAux.body = body
     return this.http.delete(ADDRESS + '/questions/', optionAux)
       .map(this.extractData)
       .catch((error:any) => {
-        return Observable.throw(error.json().error || 'Server error')})
+        return Observable.throw(this.extractError(error) || 'Server error')})
   }
 
   getUnrespondedQuestions(){
-    return this.http.get(ADDRESS + '/questions/unresponded', this._options)
+    return this.http.get(ADDRESS + '/questions/unresponded', this.options)
       .map(this.extractData)
       .catch((error:any) => {
-        return Observable.throw(error.json().error || 'Server error')})
+        return Observable.throw(this.extractError(error) || 'Server error')})
   }
 
   reportQuestion(question){
     let body = new URLSearchParams();
     body.append('question', JSON.stringify(question));
-    return this.http.post(ADDRESS + '/question/report', body, this._options)
+    return this.http.put(ADDRESS + '/question/report', body, this.options)
       .map(this.extractData)
       .catch((error:any) => {
-        return Observable.throw(error.json().error || 'Server error')})
+        return Observable.throw(this.extractError(error) || 'Server error')})
   }
 
-  respondQuestion(question){
+  ignoreQuestion(question){
+    let body = new URLSearchParams();
+    body.append('question', JSON.stringify(question));
+    return this.http.put(ADDRESS + '/question/ignore', body, this.options)
+      .map(this.extractData)
+      .catch((error:any) => {
+        return Observable.throw(this.extractError(error) || 'Server error')})
+  }
+
+  setQuestion(question){
     console.log(JSON.stringify(question))
     let body = new URLSearchParams();
     body.append('question', JSON.stringify(question));
-    return this.http.post(ADDRESS + '/question/respond', body, this._options)
+    return this.http.post(ADDRESS + '/question/respond', body, this.options)
       .map(this.extractData)
       .catch((error:any) => {
-        return Observable.throw(error.json().error || 'Server error')})
+        return Observable.throw(this.extractError(error) || 'Server error')})
   }
 
 }

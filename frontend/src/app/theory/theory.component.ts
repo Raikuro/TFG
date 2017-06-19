@@ -9,7 +9,7 @@ import { Session } from 'app/core/session/session'
 import { Observable } from "rxjs/Observable";
 import { Theory } from "app/theory/core/theory";
 import { Section } from "app/theory/core/section";
-import { ComponentWithSession } from "app/core/session/componentWithSession";
+import { ComponentWithSession } from "app/core/component/componentWithSession";
 import { DELETE } from "app/core/utils/const";
 
 @Component({

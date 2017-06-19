@@ -1,13 +1,14 @@
 let mysqlConnection = require('../core/mysqlConnection')
 class Question {
 
-  constructor (title, content, username, response, reported, date) {
+  constructor (title, content, username, response, reported, ignored, date) {
     this.username = username
     this.title = title
     this.content = content
     this.date = date
     this.response = response
     this.reported = reported
+    this.ignored = ignored
   }
 
   delete () {
@@ -46,8 +47,25 @@ class Question {
     })
   }
 
-  addResponse () {
+  ignore () {
     let starttime = new Date(this.date)
+    let isotime = new Date((new Date(starttime)).toISOString())
+    let fixedtime = new Date(isotime.getTime() - (starttime.getTimezoneOffset() * 60000))
+    let formatedMysqlString = fixedtime.toISOString().slice(0, 19).replace('T', ' ')
+    return new Promise((resolve, reject) => {
+      mysqlConnection.query('UPDATE questions SET ignored=true WHERE username = ? ' +
+      'AND dateOfQuestion = ? AND title = ? AND content = ?',
+      [this.username, formatedMysqlString, this.title, this.content], (err, questions) => {
+        if (err) { reject(err) }
+        resolve()
+      })
+    })
+  }
+
+  addResponse () {
+    if (this.date === undefined) { this.date = new Date() }
+    let starttime = new Date(this.date)
+    console.log("1->", this.date, "2->", new Date(this.date), "3->", new Date())
     let isotime = new Date((new Date(starttime)).toISOString())
     let fixedtime = new Date(isotime.getTime() - (starttime.getTimezoneOffset() * 60000))
     let formatedMysqlString = fixedtime.toISOString().slice(0, 19).replace('T', ' ')
@@ -63,11 +81,11 @@ class Question {
 
   static getUnresponded () {
     return new Promise((resolve, reject) => {
-      mysqlConnection.query('SELECT * FROM questions WHERE response IS NULL AND reported IS NOT TRUE',
+      mysqlConnection.query('SELECT * FROM questions WHERE response IS NULL AND reported IS NOT TRUE AND ignored IS NOT TRUE',
       (err, questions) => {
         if (err) { reject(err) }
         resolve(questions.map((question) => {
-          return new Question(question.title, question.content, question.username, question.response, question.reported, question.dateOfQuestion)
+          return new Question(question.title, question.content, question.username, question.response, question.reported, question.ignored, question.dateOfQuestion)
         }))
       })
     })

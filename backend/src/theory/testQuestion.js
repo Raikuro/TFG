@@ -221,8 +221,8 @@ class TestQuestion {
           return origin[i].mark(solution)
         })
         let mark = marks.reduce((last, actual) => { return last + actual }) * 10 / exam.length
-        console.log(mark) 
-        resolve({'mark': Math.max(0, mark), 'origin': origin, 'solutions': solutions})
+        let markErrorFix = (mark + 0.00000000000001).toFixed(2)
+        resolve({'mark': Math.max(0, markErrorFix), 'origin': origin, 'solutions': solutions})
       }).catch(error => reject(error))
 
       /* let markPromises = origin.map((questionAux) => {

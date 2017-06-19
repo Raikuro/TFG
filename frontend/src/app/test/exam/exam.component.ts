@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ComponentWithSession } from "app/core/session/componentWithSession";
+import { ComponentWithSession } from "app/core/component/componentWithSession";
 import { SessionService } from "app/core/session/session.service";
 import { Router } from "@angular/router";
-import { TestService } from "app/test/test.service";
-import {Location} from '@angular/common';
+import { TestService } from "app/test/core/test.service";
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -18,7 +18,7 @@ export class ExamComponent extends ComponentWithSession {
   onInitTasks() {
     this.test = this.testService.test
     if(this.test === undefined){
-      this.location.back();
+      this.router.navigate(['/test'])
     }
   }
 
@@ -32,6 +32,17 @@ export class ExamComponent extends ComponentWithSession {
   goToConfirmationExam(){
     this.testService.saveExamForConfirmation(this.test)
     this.router.navigate(['/exam/confirmation'])
+  }
+
+  isQuestionAnswered(question){
+    return question.testOptions.reduce((previous, current) => {
+      return typeof(previous) === 'object' ? previous.isCorrect + current.isCorrect :
+        previous + current.isCorrect
+    })
+  }
+
+  goToQuestion(index){
+    window.location.hash = 'q'+index;
   }
 
 }

@@ -1,22 +1,62 @@
-<ngb-accordion *ngIf="thereAreUnrespondedQuestions()">
-  <ngb-panel *ngFor="let question of questions" id={{question.title}}>
-    <ng-template ngbPanelTitle>
-     <div style="width: 100%; height: 100%" class="acordionSection">
-       {{question.title}}
-     </div>
-    </ng-template>
-    <ng-template ngbPanelContent>
-      <div>
-        {{question.content}}
-      </div>
-      <button *ngIf="!session.isAlumn" (click)="reportQuestion(question)">
-        Reportar
-      </button>
-      <button *ngIf="!session.isAlumn" (click)="respondQuestion(question)">
-        Responder
-      </button>
-    </ng-template>
-  </ngb-panel>
-</ngb-accordion>
+<header style="height: 10%;">
+  <app-header [unrespondedQuestionsLength]= questions?.length></app-header>
+</header>
 
-<div *ngIf="!thereAreUnrespondedQuestions()">Ya no hay mas</div>
+
+
+<div style="display: flex; justify-content: center; flex-direction: column; padding-right: 150px; padding-left: 150px;">
+
+
+<ngb-alert [dismissible]="false" *ngIf="!thereAreUnrespondedQuestions()" type="info">
+  <strong>
+    ¡No hay dudas por resolver!
+  </strong>
+</ngb-alert>
+
+<div *ngFor="let alert of alerts">
+  <ngb-alert [type]="alert.type" (close)="closeAlert(alert)">{{ alert.msg }}</ngb-alert>
+</div>
+
+<!--<div *ngIf="!thereAreUnrespondedQuestions()" class="alert alert-info" role="alert">
+  <strong>¡No hay dudas por resolver!</strong>
+</div>-->
+
+<!--<div class="alert alert-danger dismissible" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  <strong>¡Reportada!</strong> La duda ha sido reportada.
+</div>
+
+<div class="alert alert-warning dismissible" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  <strong>¡Repetido!</strong> Has marcado la duda como repetida 
+</div>-->
+
+<div>
+
+
+  <div style="width: 100%;">
+    <ngb-accordion *ngIf="thereAreUnrespondedQuestions()">
+      <ngb-panel *ngFor="let question of questions; let idx = index" id={{question.title}}>
+        <ng-template ngbPanelTitle>
+          <div style="width: 100%; height: 100%" class="acordionSection">
+            {{question.title}}
+          </div>
+          </ng-template>
+          <ng-template ngbPanelContent>
+            <div style="border: 2px solid #d9d9db; border-radius: 5px; overflow: auto; padding: 5px; margin-bottom: 5px">
+              {{question.content}}
+            </div>
+            <button class="btn btn-danger" *ngIf="!session.isAlumn" (click)="reportQuestion(question, idx)">
+              Reportar
+            </button>
+            <button class="btn btn-warning" *ngIf="!session.isAlumn" (click)="ignoreQuestion(question)">
+              Ignorar por repetido
+            </button>
+            <button class="btn btn-success" *ngIf="!session.isAlumn" (click)="respondQuestion(question)">
+              Responder
+            </button>
+          </ng-template>
+        </ngb-panel>
+      </ngb-accordion>
+    </div>
+  </div>

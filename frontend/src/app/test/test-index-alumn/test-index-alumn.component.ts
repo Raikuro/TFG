@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ComponentWithSession } from "app/core/session/componentWithSession";
+import { ComponentWithSession } from "app/core/component/componentWithSession";
 import { SessionService } from "app/core/session/session.service";
 import { Router } from "@angular/router";
-import { TestService } from "app/test/test.service";
+import { TestService } from "app/test/core/test.service";
 import { TheoryService } from "app/theory/core/theory.service";
 
 @Component({
@@ -45,7 +45,7 @@ export class TestIndexAlumnComponent extends ComponentWithSession {
   }
 
   goToErrorPage(error){
-    this.router.navigate(['/server-error', error])
+    this.goToErrorPage(error)
   }
 
   goToTestPage(){

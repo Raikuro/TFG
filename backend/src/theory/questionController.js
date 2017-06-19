@@ -3,7 +3,7 @@ let Question = require('./question')
 exports.delete = (req, res) => {
   let question = JSON.parse(req.body.question)
   new Question(question.title, question.content, question.username,
-  question.response, question.reported, question.date).delete()
+  question.response, question.reported, question.ignored, question.date).delete()
       .then(() => { res.status(204).send() })
       .catch((err) => res.status(500).send(err))
 }
@@ -17,16 +17,23 @@ exports.getUnrespondedQuestions = (req, res) => {
 exports.reportAQuestion = (req, res) => {
   let question = JSON.parse(req.body.question)
   new Question(question.title, question.content, question.username,
-  question.response, question.reported, question.date).report()
+  question.response, question.reported, question.ignored, question.date).report()
+      .then(() => { res.status(204).send() })
+      .catch((err) => res.status(500).send(err))
+}
+
+exports.ignoreAQuestion = (req, res) => {
+  let question = JSON.parse(req.body.question)
+  new Question(question.title, question.content, question.username,
+  question.response, question.reported, question.ignored, question.date).ignore()
       .then(() => { res.status(204).send() })
       .catch((err) => res.status(500).send(err))
 }
 
 exports.respondAQuestion = (req, res) => {
   let question = JSON.parse(req.body.question)
-  console.log(question)
   new Question(question.title, question.content, question.username,
-  question.response, question.reported, question.date).addResponse()
+  question.response, question.reported, question.ignored, question.date).addResponse()
       .then(() => { res.status(204).send() })
       .catch((err) => res.status(500).send(err))
 }

@@ -4,7 +4,7 @@ import { SessionService } from "app/core/session/session.service";
 import { Router } from "@angular/router";
 import { Observable } from "rxjs/Observable";
 import { Session } from "app/core/session/session";
-import { ComponentWithSession } from "app/core/session/componentWithSession";
+import { ComponentWithSession } from "app/core/component/componentWithSession";
 import { Location } from '@angular/common';
 import { ADD, EDIT, DELETE } from "app/core/utils/const";
 
@@ -42,8 +42,12 @@ export class ConfirmChangesComponent extends ComponentWithSession {
   onInitTasks(){
     this.data = this.theoryService.preparedData;
     if(this.data === undefined){
-      this.location.back();
+      this.goBack();
     }
+  }
+
+  goBack() {
+    this.location.back();
   }
 
   sendData(){
@@ -53,7 +57,7 @@ export class ConfirmChangesComponent extends ComponentWithSession {
           this.router.navigate(['/theory']);
         })
       },
-      error => {this.router.navigate(['/server-error', error])}
+      error => this.goToErrorPage(error)
     );
   }
 

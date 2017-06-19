@@ -2,27 +2,33 @@
   <app-header></app-header>
 </header>
 <div style="height: 80%; padding-right: 15px; padding-left: 15px; margin-bottom: 5px">
-  
+
+  <div class="card" style="padding: 10px">
+    <div class="card-block">
+      <h4 class="card-title">{{question?.title}}</h4>
+      <p class="card-text">{{question?.content}}</p>
+    </div>
+  </div>
+  <!--
   <div style="display: flex; justify-content: space-between; margin-bottom: 10px; padding: 5px">
     <div style="width: 9%">Titulo: {{question?.title}}</div>
-    <!--<input type="search" style="width: 90%" [ngModel]="section?.title" (ngModelChange)="section ? section.title = $event : null">-->
   </div>
-  
 
   <div style="height: 80%; display: flex; justify-content: space-around; flex-direction: column; padding: 10px">
     <div style="display: flex; flex-direction: column; justify-content: space-around; margin-bottom: 10px; padding: 5px; height: 75%">
     <div>Contenido:</div>
-    <textarea type="search" style="width: 100%; height: inherit" [ngModel]="question?.content"></textarea>
+    <textarea readonly type="search" style="width: 100%; height: inherit" [ngModel]="question?.content"></textarea>
   </div>
+  -->
   <div style="height: 80%; display: flex; justify-content: space-around; flex-direction: column; padding: 10px">
     <div style="display: flex; flex-direction: column; justify-content: space-around; margin-bottom: 10px; padding: 5px; height: 75%">
-    <div>Response:</div>
+    <div>Respuesta:</div>
     <textarea type="search" style="width: 100%; height: inherit" [ngModel]="question?.response" (ngModelChange)="question ? question.response = $event : null"></textarea>
   </div>
     
-  <div style="display: flex; margin-top: 10px; padding: 5px; flex-direction: column">
+  <div style="display: flex; padding: 5px; flex-direction: column">
     <div style="width: 100%">
-      <button style="width: 100%; padding: 5px" (click)="goToQuestionConfirmation()" [disabled]="!isReadyToSend()">Enviar</button>
+      <button class="btn btn-success" style="width: 100%; padding: 5px" (click)="goToQuestionConfirmation()" [disabled]="!isReadyToSend()">Enviar</button>
     </div>
   </div>
     

@@ -1,7 +1,7 @@
-<header style="height: 10%; padding-right: 15px; padding-left: 15px">
+<header style="height: 10%;">
   <app-header></app-header>
 </header>
-<div style="height: 80%; padding-right: 15px; padding-left: 15px; margin-bottom: 5px">
+<!--<div style="height: 80%; padding-right: 150px; padding-left: 150px; margin-bottom: 5px">
   
   <div style="display: flex; margin-top: 10px; margin-bottom: 10px; padding: 5px">
     <select style="padding :5px; width: 100%" [ngModel]="lesson" (ngModelChange)="lesson ? lesson = $event : null">
@@ -35,7 +35,42 @@
   </div>
     
   </div>
-</div>
+</div>-->
+
+<form style="height: 80%; padding-right: 150px; padding-left: 150px;">
+  <div class="form-group">
+    <select name="lesson" style="padding :5px; width: 100%" class="form-control" [ngModel]="lesson" (ngModelChange)="lesson ? lesson = $event : null">
+      <option [ngValue]="lesson" *ngFor="let lesson of lessons">
+        {{lesson.title}}
+        </option>
+    </select>
+  </div>
+  <!--<div style="display: flex; justify-content: space-between; margin-bottom: 10px; padding: 5px">-->
+  <div class="form-group">
+    <!--<div style="width: 9%">Titulo:</div>
+    <input type="search" style="width: 90%" [ngModel]="section?.title" (ngModelChange)="section ? section.title = $event : null">-->
+    <label for="title">Titulo: </label>
+    <input type="text" class="form-control" name="title" [ngModel]="section?.title" (ngModelChange)="section ? section.title = $event : null">
+  </div>
+
+  <div class="form-group">
+    <!--<div style="width: 9%">Titulo:</div>
+    <input type="search" style="width: 90%" [ngModel]="section?.title" (ngModelChange)="section ? section.title = $event : null">-->
+    <label for="content">Contenido: </label>
+    <textarea type="search" class="form-control" rows="7" style="width: 100%; resize: none" name="content" [ngModel]="section?.content" (ngModelChange)="section ? section.content = $event : null"></textarea>
+  </div>
+
+  <div class="form-group">
+    <!--<div style="width: 9%">Titulo:</div>
+    <input type="search" style="width: 90%" [ngModel]="section?.title" (ngModelChange)="section ? section.title = $event : null">-->
+    <label for="related">Palabras relacionadas: </label>
+    <textarea type="search" class="form-control" rows="2" name="related" style="width: 100%; resize: none" [ngModel]="section?.keywords" (ngModelChange)="section ? section.keywords = $event : null"></textarea>
+  </div>
+
+  <button style="width: 100%; padding: 5px" *ngIf="mode === 0" (click)="goToConfirmation()" class="btn btn-success" [disabled]="!isReadyToSend()">Añadir</button>
+  <button *ngIf="mode === 1;" style="width: 100%; padding: 5px;" class="btn btn-warning" (click)="goToConfirmation()" [disabled]="!isReadyToSend()">Editar</button>
+
+</form>
 
 <footer style="padding: 5px; height: 5%">
   <app-footer></app-footer>

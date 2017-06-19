@@ -121,7 +121,6 @@ class Section {
     return new Promise((resolve, reject) => {
       mysqlConnection.query('DELETE FROM sections WHERE id = ?', [this.id],
       (err) => {
-        console.log(err)
         if (err) { reject(err) }
         resolve()
       })
@@ -201,9 +200,9 @@ class Section {
         if (err) { reject(err) }
         let usernameId = result[0].id
         if (question.response) {
-          mysqlConnection.query('INSERT INTO questions(username, section, title, content, response) VALUES (?,?,?,?)',
+          mysqlConnection.query('INSERT INTO questions(username, section, title, content, response) VALUES (?,?,?,?,?)',
           [usernameId, this.id, question.title, question.content, question.response], (err, res) => {
-            if (err) { reject(err) }
+            if (err) { console.log(err); reject(err) }
             resolve(res)
           })
         } else {

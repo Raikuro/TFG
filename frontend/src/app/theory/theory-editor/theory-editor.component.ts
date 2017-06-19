@@ -8,7 +8,7 @@ import { TheoryService } from "app/theory/core/theory.service";
 import { Theory } from "app/theory/core/theory";
 import { Section } from "app/theory/core/section";
 import { Location } from '@angular/common';
-import { ComponentWithSession } from "app/core/session/componentWithSession";
+import { ComponentWithSession } from "app/core/component/componentWithSession";
 
 const ADD = 0;
 const EDIT = 1;

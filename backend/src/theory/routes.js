@@ -62,9 +62,14 @@ module.exports = (app, login) => {
     questionController.getUnrespondedQuestions
   )
 
-  router.post('/question/report',
+  router.put('/question/report',
     login.ensureLoggedIn(),
     questionController.reportAQuestion
+  )
+
+  router.put('/question/ignore',
+    login.ensureLoggedIn(),
+    questionController.ignoreAQuestion
   )
 
   router.post('/question/respond',

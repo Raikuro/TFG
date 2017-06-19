@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { TheoryService } from "app/theory/core/theory.service";
 import { Router } from "@angular/router";
 import { Observable } from "rxjs/Observable";
@@ -6,7 +6,7 @@ import { Theory } from "app/theory/core/theory";
 import { Section } from "app/theory/core/section";
 import { SessionService } from "app/core/session/session.service";
 import { Session } from "app/core/session/session";
-import { ComponentWithSession } from "app//core/session/componentWithSession";
+import { DELETE } from "app/core/utils/const";
 
 @Component({
   selector: 'app-index-theory',
@@ -19,6 +19,7 @@ export class IndexTheoryComponent implements OnInit {
   private sections;
   private lesson;
   private section;
+  @Input('isAlumn') private isAlumn;
   @Output() onKeywordClick = new EventEmitter<String>();
   @Output() onSectionClick = new EventEmitter<String>();
   @Output() onLessonChange = new EventEmitter<String>();
@@ -34,10 +35,7 @@ export class IndexTheoryComponent implements OnInit {
           this.assignLessons(index)
           this.theoryService.index = index
         },
-        error => {
-          this.router.navigate(['/server-error', error]);
-        }
-      )
+        error => this.router.navigate(['/server-error', error]))
     }
     else{
       this.assignLessons(index)
@@ -66,9 +64,7 @@ export class IndexTheoryComponent implements OnInit {
           this.assignSection(section);
           this.theoryService.updateSectionsCache(section, this.lesson.id, this.section.id);
         },
-        error => {
-          this.router.navigate(['/server-error', error]);
-        }
+        error => this.router.navigate(['/server-error', error])
       )
     }
     else{
@@ -80,5 +76,18 @@ export class IndexTheoryComponent implements OnInit {
     this.lesson = lesson;
     this.onLessonChange.emit(JSON.stringify(this.lesson))
     this.sections = this.lesson.sections;
+  }
+
+  goToQuestions(){
+    this.router.navigate(['/questions', {lessonId: this.lesson.id, sectionId: this.section.id}]);
+  }
+
+  goToTheoryEditorEdit(){
+    this.router.navigate(['/theory/editor', {lessonId: this.lesson.id, sectionId: this.section.id}]);
+  }
+
+  goToConfirmation(){
+    this.theoryService.prepareData(DELETE, this.lesson, this.section);
+    this.router.navigate(['/theory/change-confirmation']);
   }
 }
