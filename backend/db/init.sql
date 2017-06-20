@@ -1,0 +1,5 @@
+DROP DATABASE IF EXISTS TFG;
+CREATE DATABASE TFG;
+DROP USER IF EXISTS 'userDB'@'localhost';
+CREATE USER 'userDB'@'localhost' IDENTIFIED BY 'passDB';
+GRANT ALL ON TFG.* TO 'userDB'@'localhost';
