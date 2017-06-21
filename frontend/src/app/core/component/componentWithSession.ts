@@ -29,7 +29,8 @@ export abstract class ComponentWithSession implements OnInit {
   protected abstract onInitTasks(): any;
 
   protected goToErrorPage(error){
-    this.router.navigate(['/server-error', error, this.router.url, this.session]);
+    console.log(error)
+    this.router.navigate(['/server-error', error, this.router.url]);
   }
 
   ngOnInit(): void {

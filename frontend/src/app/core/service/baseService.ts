@@ -38,6 +38,25 @@ export abstract class BaseService {
   }
 
   protected extractError(err: Response) {
-    return err['_body'] ? err['_body'] : {}
+
+    /*if(err['_body']){
+      return typeof(err['_body']) === 'object' ? JSON.stringify(err['_body']) : err['_body']
+    }
+    else{
+      return {}
+    }*/
+
+    if ('_body' in err) {
+      switch(typeof(err['_body'])) {
+        case 'object':
+          return JSON.stringify(err['_body'])
+        default:
+          return err['_body']
+        }
+      }
+
+    return {}
+
+    //return err['_body'] ? (typeof(err['_body']) === 'object' ? JSON.stringify(err['_body']) : err['_body']) : {}
   }  
 }
