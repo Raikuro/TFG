@@ -141,7 +141,7 @@ class Section {
   static findByKeyword (keyword, lessonId) {
     return new Promise((resolve, reject) => {
       mysqlConnection.query(
-        'SELECT S.* FROM keywordRelations K, sections S WHERE K.section = S.id AND S.lesson = ? AND K.keyword LIKE ?',
+        'SELECT DISTINCT S.* FROM keywordRelations K, sections S WHERE K.section = S.id AND S.lesson = ? AND K.keyword LIKE ?',
         [lessonId, keyword + '%'], (err, sections) => {
           if (err) { reject(err) }
           let auxSections = []
