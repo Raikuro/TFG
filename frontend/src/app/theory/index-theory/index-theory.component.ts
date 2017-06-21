@@ -23,6 +23,7 @@ export class IndexTheoryComponent implements OnInit {
   @Output() onKeywordClick = new EventEmitter<String>();
   @Output() onSectionClick = new EventEmitter<String>();
   @Output() onLessonChange = new EventEmitter<String>();
+  @Output() onError = new EventEmitter<String>();
 
   constructor(private router: Router,
               private theoryService: TheoryService) {}
@@ -48,6 +49,10 @@ export class IndexTheoryComponent implements OnInit {
     this.onLessonChange.emit(JSON.stringify(this.lesson))
     this.sections = this.lesson.sections;
   }
+  
+  sendError(error){
+    this.onError.emit(error)
+  }
 
   assignSection(section){
     this.section.content = section.content;
@@ -64,7 +69,7 @@ export class IndexTheoryComponent implements OnInit {
           this.assignSection(section);
           this.theoryService.updateSectionsCache(section, this.lesson.id, this.section.id);
         },
-        error => this.router.navigate(['/server-error', error])
+        error => /*this.router.navigate(['/server-error', error])*/ this.sendError(error)
       )
     }
     else{

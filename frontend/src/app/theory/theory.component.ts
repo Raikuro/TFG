@@ -37,6 +37,10 @@ export class TheoryComponent extends ComponentWithSession {
     this.section = JSON.parse(section);
   }
 
+  onError(error){
+    this.goToErrorPage(error);
+  }
+
   constructor(sessionService: SessionService,
               router: Router,
               private theoryService: TheoryService){

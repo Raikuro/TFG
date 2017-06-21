@@ -22,6 +22,7 @@ export class SearchTheoryComponent implements OnChanges {
   @Output() onKeywordClick = new EventEmitter<String>();
   @Output() onSectionClick = new EventEmitter<String>();
   @Output() onLessonChange = new EventEmitter<String>();
+  @Output() onError = new EventEmitter<String>();
 
   constructor(private router: Router,
               private theoryService: TheoryService) {}
@@ -31,8 +32,12 @@ export class SearchTheoryComponent implements OnChanges {
     this.section = undefined;
     this.theoryService.search(changes.searchQuery.currentValue).subscribe(
       (result) => this.assignLessons(result),
-      (error) => this.router.navigate(['/server-error', error])
+      (error) => /*this.router.navigate(['/server-error', error])*/ this.sendError(error)
     )
+  }
+
+  sendError(error){
+    this.onError.emit(JSON.stringify(error))
   }
   
   assignLessons(index){
