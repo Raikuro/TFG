@@ -6,13 +6,13 @@ import { QuestionsService } from "app/theory/questions/core/questions.service";
 import { Question } from "app/theory/core/question";
 
 const REPORT_ALERT = {
-  msg: 'La duda ha sido reportada.',
+  msg: 'La duda va a ser reportada. Confirme',
   closable: true,
   type: 'danger'
 };
 
 const IGNORE_ALERT = {
-  msg: 'La duda ha sido marcada como repetida.',
+  msg: 'La duda va a ser marcada como repetida. Confirme',
   closable: true,
   type: 'warning'
 };
@@ -56,26 +56,54 @@ export class UnrespondedQuestionListComponent extends ComponentWithSession {
   }
 
   reportQuestion(question, index){
-    this.questionService.reportQuestion(question).subscribe(
+    this.addAlert(REPORT_ALERT, question, index)
+    /*this.questionService.reportQuestion(question).subscribe(
       res => {
         this.addAlert(REPORT_ALERT)
         this.questions.splice(index,1);
       },
       error => this.goToErrorPage(error)
-    )
+    )*/
+  }
+
+  confirmation(alert){
+    switch (alert.type){
+      case 'warning':
+        this.questionService.ignoreQuestion(alert.question).subscribe(
+        res => {
+          this.questions.splice(alert.index,1);
+        },
+        error => this.goToErrorPage(error)
+      )
+      break;
+      case 'danger':
+        this.questionService.reportQuestion(alert.question).subscribe(
+        res => {
+          this.questions.splice(alert.index,1);
+        },
+        error => this.goToErrorPage(error)
+      )
+      break;
+      default:
+    }
+    this.closeAlert(alert)
   }
 
   ignoreQuestion(question, index){
-    this.questionService.ignoreQuestion(question).subscribe(
+    this.addAlert(IGNORE_ALERT, question, index)
+        
+    /*this.questionService.ignoreQuestion(question).subscribe(
       res => {
         this.addAlert(IGNORE_ALERT)
         this.questions.splice(index,1);
       },
       error => this.goToErrorPage(error)
-    )
+    )*/
   }
 
-  addAlert(alert){
+  addAlert(alert, question, index){
+    alert.question = question;
+    alert.index = index;
     this.alerts.push(alert)
   }
 

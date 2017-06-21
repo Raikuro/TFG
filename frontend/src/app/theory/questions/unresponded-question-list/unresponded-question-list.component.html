@@ -14,7 +14,8 @@
 </ngb-alert>
 
 <div *ngFor="let alert of alerts">
-  <ngb-alert [type]="alert.type" (close)="closeAlert(alert)">{{ alert.msg }}</ngb-alert>
+  <ngb-alert [type]="alert.type" (close)="closeAlert(alert)">{{ alert.msg }} <button (click)="confirmation(alert)" class="btn btn-success">Confirmar</button> </ngb-alert>
+  
 </div>
 
 <!--<div *ngIf="!thereAreUnrespondedQuestions()" class="alert alert-info" role="alert">
