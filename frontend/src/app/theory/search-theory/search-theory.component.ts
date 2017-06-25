@@ -53,6 +53,13 @@ export class SearchTheoryComponent implements OnChanges {
     }
   }
 
+  imSelected(section){
+    if(this.section){
+      return this.section.id == section.id
+    }
+    return false
+  }
+
   selectSection(section){
     this.section = section;
     this.onSectionClick.emit(JSON.stringify(section))

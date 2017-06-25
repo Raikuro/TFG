@@ -54,9 +54,15 @@ export class IndexTheoryComponent implements OnInit {
     this.onError.emit(error)
   }
 
+  imSelected(section){
+    if(this.section){
+      return this.section.id == section.id
+    }
+    return false
+  }
+
   assignSection(section){
-    this.section.content = section.content;
-    this.section.keywords = section.keywords;
+    this.section = section
     this.onSectionClick.emit(JSON.stringify(section))
   }
 
