@@ -10,7 +10,7 @@
   </div>
 
   <div style="height: 90%;">
-    <app-index-theory [isAlumn] = "session?.isAlumn" *ngIf="!searchActive()" (onKeywordClick)="onKeywordClick($event)" (onLessonChange)="onLessonChange($event)" (onSectionClick)="onSectionClick($event)" (onError)="onError($event)"></app-index-theory>
+    <app-index-theory [initSectionId]="initSectionId" [isAlumn] = "session?.isAlumn" *ngIf="!searchActive()" (onKeywordClick)="onKeywordClick($event)" (onLessonChange)="onLessonChange($event)" (onSectionClick)="onSectionClick($event)" (onError)="onError($event)"></app-index-theory>
     <app-search-theory [isAlumn] = "session?.isAlumn" [searchQuery] = "searchText" (onKeywordClick)="onKeywordClick($event)" (onSectionClick)="onSectionClick($event)" (onError)="onError($event)" *ngIf="searchActive()"></app-search-theory>
     
     <!--<div style="display: flex; margin-top: 10px; padding: 5px; flex-direction: column" *ngIf="session?.isAlumn">

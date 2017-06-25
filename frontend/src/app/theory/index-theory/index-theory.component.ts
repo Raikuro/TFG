@@ -20,6 +20,7 @@ export class IndexTheoryComponent implements OnInit {
   private lesson;
   private section;
   @Input('isAlumn') private isAlumn;
+  @Input('initSectionId') private initSectionId;
   @Output() onKeywordClick = new EventEmitter<String>();
   @Output() onSectionClick = new EventEmitter<String>();
   @Output() onLessonChange = new EventEmitter<String>();
@@ -45,9 +46,25 @@ export class IndexTheoryComponent implements OnInit {
 
   assignLessons(index){
     this.lessons = index.lessons;
-    this.lesson = this.lessons[0];
-    this.onLessonChange.emit(JSON.stringify(this.lesson))
-    this.sections = this.lesson.sections;
+    this.changeLesson(this.lessons[0]);
+    if(this.initSectionId){
+      this.selectInitSection(this.initSectionId)
+    }
+    else{
+      this.selectSection(this.sections[0])
+    }
+  }
+
+  selectInitSection(sectionId){
+    let initSection
+    let initLesson = this.lessons.find((lesson)=>{
+      initSection = lesson.sections.find((section)=>{
+        return section.id == sectionId
+      })
+      return initSection;
+    })
+    this.changeLesson(initLesson)
+    this.selectSection(initSection)
   }
   
   sendError(error){
@@ -83,7 +100,7 @@ export class IndexTheoryComponent implements OnInit {
     }
   }
 
-  onLessonSelectorChange(lesson){
+  changeLesson(lesson){
     this.lesson = lesson;
     this.onLessonChange.emit(JSON.stringify(this.lesson))
     this.sections = this.lesson.sections;

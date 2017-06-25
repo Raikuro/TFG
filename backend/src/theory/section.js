@@ -165,7 +165,7 @@ class Section {
 
   _getQuestions () {
     return new Promise((resolve, reject) => {
-      mysqlConnection.query('SELECT DISTINCT U.username, Q.dateOfQuestion, Q.section, Q.title, Q.content, Q.response ' +
+      mysqlConnection.query('SELECT DISTINCT U.username, Q.dateOfQuestion, Q.section, Q.title, Q.content, Q.response, Q.ignored, Q.reported ' +
       'FROM questions Q, sections S, users U WHERE Q.section = ? AND  U.id = Q.username',
       [this.id], (err, questions) => {
         if (err) { reject(err) }

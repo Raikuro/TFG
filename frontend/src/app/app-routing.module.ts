@@ -23,6 +23,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login',  component: LoginComponent },
   { path: 'theory', component: TheoryComponent },
+  { path: 'theory/:init', component: TheoryComponent },
   { path: 'theory/editor', component: TheoryEditorComponent},
   { path: 'theory/change-confirmation', component: ConfirmChangesComponent},
   { path: 'questions', component: QuestionsComponent},

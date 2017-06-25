@@ -19,11 +19,14 @@ import { DELETE } from "app/core/utils/const";
 })
 export class TheoryComponent extends ComponentWithSession {
     
-  onInitTasks() {}
+  onInitTasks() {
+    this.route.params.subscribe((params) => this.initSectionId = params.init)
+  }
 
   private lesson;
   private section;
   private searchText;
+  private initSectionId;
 
   onKeywordClick(searchText) {
     this.searchText = searchText;
@@ -43,7 +46,8 @@ export class TheoryComponent extends ComponentWithSession {
 
   constructor(sessionService: SessionService,
               router: Router,
-              private theoryService: TheoryService){
+              private theoryService: TheoryService,
+              private route: ActivatedRoute){
                 super(sessionService, router)
               }
 

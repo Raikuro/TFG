@@ -47,8 +47,11 @@ exports.getIndex = (req, res) => {
 
 exports.getSectionQuestions = (req, res) => {
   Section.getSection(req.params.sectionId)
-    .then((section) => { res.status(200).send(section.questions) })
-    .catch((e) => { res.status(500).send(e) })
+    .then((section) => {
+      res.status(200).send(section.questions.filter((question) => {
+        return !(question.reported || question.ignored)
+      }))
+    }).catch((e) => { res.status(500).send(e) })
 }
 
 exports.addSectionQuestions = (req, res) => {

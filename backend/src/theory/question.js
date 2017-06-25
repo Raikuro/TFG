@@ -81,11 +81,14 @@ class Question {
 
   static getUnresponded () {
     return new Promise((resolve, reject) => {
-      mysqlConnection.query('SELECT * FROM questions WHERE response IS NULL AND reported IS NOT TRUE AND ignored IS NOT TRUE',
+      mysqlConnection.query('SELECT DISTINCT Q.*, S.title as sTitle, S.id as sId FROM questions Q, sections S WHERE Q.response IS NULL AND Q.reported IS NOT TRUE AND Q.ignored IS NOT TRUE AND Q.section = S.id',
       (err, questions) => {
         if (err) { reject(err) }
         resolve(questions.map((question) => {
-          return new Question(question.title, question.content, question.username, question.response, question.reported, question.ignored, question.dateOfQuestion)
+          return {
+            'associatedSection': {'title': question.sTitle, 'id': question.sId},
+            'question': new Question(question.title, question.content, question.username, question.response, question.reported, question.ignored, question.dateOfQuestion)
+          }
         }))
       })
     })

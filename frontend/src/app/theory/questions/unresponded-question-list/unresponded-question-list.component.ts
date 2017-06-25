@@ -50,6 +50,10 @@ export class UnrespondedQuestionListComponent extends ComponentWithSession {
     )
   }
 
+  goToTheoryRelated(section){
+    this.router.navigate(['/theory/'+section.id])
+  }
+
   respondQuestion(question){
     this.questionService.prepareData(question)
     this.router.navigate(['/questions/respond'])
