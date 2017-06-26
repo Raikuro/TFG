@@ -71,7 +71,7 @@ export class TestIndexTeacherComponent extends ComponentWithSession {
               //console.log(this.questions)
               this.page = 1;
               this.shownQuestions = this.lesson.questions.slice((this.page-1)*PAGESIZE, this.page*PAGESIZE);
-              console.log(this.shownQuestions)
+              //console.log(this.shownQuestions)
             },
             error => console.log("cc", error)
           )
@@ -99,7 +99,7 @@ export class TestIndexTeacherComponent extends ComponentWithSession {
   }
 
   editQuestion(question){
-    this.testService.saveData(question)
+    this.testService.data = question
     this.router.navigate(['/test/questions/edit'])
   }
 
@@ -108,7 +108,7 @@ export class TestIndexTeacherComponent extends ComponentWithSession {
   }
 
   deleteQuestion(question){
-    this.testService.saveData({lessonId: this.lesson.id, question: question, mode: DELETE})
+    this.testService.confirmationData = {lessonId: this.lesson.id, question: question, mode: DELETE}
     this.router.navigate(['/test/questions/confirmation'])
   }
 

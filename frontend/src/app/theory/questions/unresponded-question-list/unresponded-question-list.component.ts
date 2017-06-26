@@ -24,7 +24,10 @@ const IGNORE_ALERT = {
 })
 export class UnrespondedQuestionListComponent extends ComponentWithSession {
   
-  private questions: Question[];
+  private questionsData: {
+    associatedSection: {},
+    question: Question
+  }[];
 
   private alerts;
 
@@ -40,12 +43,12 @@ export class UnrespondedQuestionListComponent extends ComponentWithSession {
   }
 
   thereAreUnrespondedQuestions(){
-    return this.questions ? this.questions.length > 0 : false
+    return this.questionsData ? this.questionsData.length > 0 : false
   }
 
   getUnrespondedQuestions(){
     this.questionService.getUnrespondedQuestions().subscribe(
-      questions => { this.questions = questions },
+      questions => { this.questionsData = questions },
       error => this.goToErrorPage(error)
     )
   }
@@ -75,7 +78,7 @@ export class UnrespondedQuestionListComponent extends ComponentWithSession {
       case 'warning':
         this.questionService.ignoreQuestion(alert.question).subscribe(
         res => {
-          this.questions.splice(alert.index,1);
+          this.questionsData.splice(alert.index,1);
         },
         error => this.goToErrorPage(error)
       )
@@ -83,7 +86,7 @@ export class UnrespondedQuestionListComponent extends ComponentWithSession {
       case 'danger':
         this.questionService.reportQuestion(alert.question).subscribe(
         res => {
-          this.questions.splice(alert.index,1);
+          this.questionsData.splice(alert.index,1);
         },
         error => this.goToErrorPage(error)
       )

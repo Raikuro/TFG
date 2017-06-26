@@ -20,10 +20,15 @@ export class TestQuestionConfirmationComponent extends ComponentWithSession {
   private lessonId;
 
   onInitTasks() {
-    let data = this.testService.getData();
-    this.mode = data.mode;
-    this.lessonId = data.lessonId;
-    this.question = data.question;
+    let data = this.testService.confirmationData;
+    if(data){
+      this.mode = data.mode;
+      this.lessonId = data.lessonId;
+      this.question = data.question;
+    }
+    else{
+      this.location.back()
+    }
   }
 
   constructor(sessionService: SessionService,

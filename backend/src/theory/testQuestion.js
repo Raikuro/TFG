@@ -86,16 +86,38 @@ class TestQuestion {
     })
   }
 
-  save (lessonId) {
+  _saveBasics (lessonId) {
     return new Promise((resolve, reject) => {
-      this.testOptions.save(this.id).then(
-        mysqlConnection.query('INSERT INTO testQuestions(lesson, wording) VALUES (?,?)',
-        [lessonId, this.wording], (err) => {
-          if (err) { reject(err) }
-          resolve()
-        })
-      ).catch(error => reject(error))
+      mysqlConnection.query('INSERT INTO testQuestions(lesson, wording) VALUES (?,?)',
+        [lessonId, this.wording], (err, res) => {
+          if (err) {
+            reject(err)
+          } else {
+            resolve(res.insertId)
+          }
+        }
+      )
     })
+  }
+
+  save (lessonId) {
+    console.log(this, "@@@", lessonId)
+    return new Promise((resolve, reject) => {
+      this._saveBasics(lessonId).then((id) => {
+        let optionsPromises = this.testOptions.map((option) => {
+          return new TestOption(option.answer, option.isCorrect).save(id)
+        })
+        Promise.all(optionsPromises).then(() => resolve()).catch((err) => reject(err))
+      }).catch(err => reject(err))
+    })
+    /*return new Promise((resolve, reject) => {
+      this._saveBasics(lessonId).then((id) => {
+        //console.log("A", this.testOptions)
+        //let optionsPromises = this.testOptions.map((testOption) => { console.log(testOption, "&&"); return testOption.save(id) })
+        //Promise.all(optionsPromises).then(() => resolve()).catch((err) => reject(err))
+        resolve()
+      }).catch(error => reject(error))
+    })*/
   }
 
   delete () {

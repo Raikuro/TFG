@@ -3,9 +3,9 @@ let TestOption = require('./testOption')
 
 exports.saveNewQuestion = (req, res) => {
   let question = JSON.parse(req.body.question)
-  new TestQuestion(question.id, question.wording, question.testOptions).save()
+  new TestQuestion(question.id, question.wording, JSON.parse(question.testOptions)).save(req.params.lessonId)
   .then(res.status(204).send())
-  .catch(error => res.status(500).send(error))
+  .catch(error => { res.status(500).send(error) })
 }
 
 exports.updateQuestion = (req, res) => {

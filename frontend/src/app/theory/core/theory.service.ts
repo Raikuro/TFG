@@ -32,6 +32,10 @@ export class TheoryService extends BaseService{
     this._searchCache = {}
   }
 
+  deletePreparedData(){
+    this.preparedData = undefined
+  }
+
   getLessonsTitle(){
     return this.http.get(ADDRESS + '/index/getTitles', this.options)
       .map(this.extractData)
@@ -120,6 +124,10 @@ export class TheoryService extends BaseService{
 
   get preparedData(){
     return this._preparedData;
+  }
+
+  set preparedData(data){
+    this._preparedData = data;
   }
 
   get sectionsCache(){

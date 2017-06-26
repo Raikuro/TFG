@@ -5,16 +5,15 @@ import { SessionService } from "app/core/session/session.service";
 import { TestService } from "app/test/core/test.service";
 import { TestOption } from "app/theory/core/testOption";
 import { TestQuestion } from "app/theory/core/testQuestion";
-import { EDIT, ADD } from "app/core/utils/const";
+import { ADD } from "app/core/utils/const";
 import { TheoryService } from "app/theory/core/theory.service";
-import { Location } from '@angular/common';
 
 @Component({
-  selector: 'app-question-editor',
-  templateUrl: './question-editor.component.html',
-  styleUrls: ['./question-editor.component.css']
+  selector: 'app-question-add',
+  templateUrl: './question-add.component.html',
+  styleUrls: ['./question-add.component.css']
 })
-export class QuestionEditorComponent extends ComponentWithSession {
+export class QuestionAddComponent extends ComponentWithSession {
   
   private lessons;
   private lesson;
@@ -30,17 +29,14 @@ export class QuestionEditorComponent extends ComponentWithSession {
       },
       error => this.router.navigate(["/server-error", error])
     )
-    this.question = this.testService.data;
-    if(!this.question){
-      this.location.back()
-    }
+    this.question = new TestQuestion(undefined, "", [new TestOption("", false)]);
+    //this.addOption();
   }
 
   constructor(sessionService: SessionService,
               router: Router,
               private testService: TestService,
-              private theoryService: TheoryService,
-              private location: Location) {
+              private theoryService: TheoryService) {
     super(sessionService, router);
   }
 
@@ -55,21 +51,17 @@ export class QuestionEditorComponent extends ComponentWithSession {
   }
 
   private allOptionsAreDifferent(){
-    if(this.question){
-      if(this.question.testOptions){
-        if(this.question.testOptions.length > 1){
-          let aux2 = this.question.testOptions.map((option, i, arr) => {
-            let aux =  (arr.filter((optionAux) => {
-              return optionAux.answer === option.answer
-            }).length <= 1)
-            return aux;
-          })
-          let aux3 = aux2.reduce((last, actual) => {return last && actual})
-          return aux3
-        }
-        return true
-      }
+    if(this.question.testOptions.length > 1){
+      let aux2 = this.question.testOptions.map((option, i, arr) => {
+        let aux =  (arr.filter((optionAux) => {
+          return optionAux.answer === option.answer
+        }).length <= 1)
+        return aux;
+      })
+      let aux3 = aux2.reduce((last, actual) => {return last && actual})
+      return aux3
     }
+    return true
   }
 
   private deleteOption(selectedOption){
@@ -126,7 +118,7 @@ export class QuestionEditorComponent extends ComponentWithSession {
   }
 
   private goToConfirmation(){
-    this.testService.confirmationData = {lessonId: this.lesson.id, question: this.question, mode: EDIT}
+    this.testService.confirmationData = {lessonId: this.lesson.id, question: this.question, mode: ADD}
     this.router.navigate(['/test/questions/confirmation'])
   }
 
@@ -137,6 +129,9 @@ export class QuestionEditorComponent extends ComponentWithSession {
   /*private getAction(){
     if(this.mode === ADD){
       return 'AÑADIR';
+    }
+    if(this.mode === EDIT){
+      return 'EDITAR';
     }
   }*/
 

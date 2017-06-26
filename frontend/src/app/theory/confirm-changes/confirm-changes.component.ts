@@ -43,7 +43,7 @@ export class ConfirmChangesComponent extends ComponentWithSession {
     this.data = this.theoryService.preparedData;
     if(this.data === undefined){
       this.goBack();
-    }
+    } 
   }
 
   goBack() {

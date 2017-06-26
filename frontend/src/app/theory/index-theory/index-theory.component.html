@@ -15,7 +15,7 @@
     </div>
     <div style="display: flex; flex-direction: column; width: 77%">
       <div style="height: 100%; border: 2px solid #d9d9db; border-radius: 5px; padding: 5px; overflow: auto">
-        <div>{{section?.content}}</div>
+        <div style="white-space: pre-wrap;">{{section?.content}}</div>
         <hr>
         <div *ngFor='let keyword of section?.keywords' (click)="onKeywordClick.emit(keyword)" >
           <div class="btn-link">

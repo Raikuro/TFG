@@ -72,37 +72,54 @@ export class TheoryEditorComponent extends ComponentWithSession {
   }
 
   onInitTaskNext(){
+    let data = this.theoryService.preparedData
+    /*if(data){
+      this.mode = data.mode
+      this.lesson = data.lesson
+      this.section = data.section
+      console.log("AAA", this.lesson)
+    }
+    else{*/
       this.route.params.subscribe(
-      params => {
-        this.lesson = this.lessons[params.lessonId-1];
-        let sectionId = params.sectionId;
-        if(this.lesson){
-          if(sectionId){
-            this.mode = EDIT;
-            let section = this.theoryService.getSection(this.lesson.id, sectionId)
-            if((<Observable<Section>>section).subscribe){
-              (<Observable<Section>>section).subscribe(
-                section => {
-                  this.section = section;
-                },
-                error => console.log(error)
-              )
-            }
-            else{
-              this.section = (<Section>section);
-            }
+        params => {
+          this.lesson = this.lessons[params.lessonId-1];
+          if(data){
+            this.mode = data.mode
+            //this.lesson = data.lesson
+            this.section = data.section
+            this.theoryService.deletePreparedData();
+            //console.log("AAA", this.lesson)
           }
           else{
-            this.mode = ADD;
-            this.section = {}
+            let sectionId = params.sectionId;
+            if(this.lesson){
+              if(sectionId){
+                this.mode = EDIT;
+                let section = this.theoryService.getSection(this.lesson.id, sectionId)
+                if((<Observable<Section>>section).subscribe){
+                  (<Observable<Section>>section).subscribe(
+                    section => {
+                      this.section = section;
+                    },
+                    error => console.log(error)
+                  )
+                }
+                else{
+                  this.section = (<Section>section);
+                }
+              }
+              else{
+                this.mode = ADD;
+                this.section = {}
+              }
+            }
+            else{
+              this.lesson = this.lessons[0];
+            }
           }
-        }
-        else{
-          this.lesson = this.lessons[0];
-        }
-      },
-      error => console.log(error)
-    )
+        },
+        error => console.log(error)
+      )
+    //}
   }
-
 }

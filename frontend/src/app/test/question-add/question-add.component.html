@@ -33,7 +33,7 @@
   <div class="alert alert-warning" role="alert" *ngIf="!isReadyToSend()">
     Todos los campos deben ser rellenados. No puede haber respuestas vacías o repetidas. Es necesario que haya al menos una verdadera y una falsa.
   </div>
-  <button class="btn btn-warning" style="width: 100%;" (click)="goToConfirmation()" [disabled]="!isReadyToSend()">EDITAR</button>
+  <button class="btn btn-success" style="width: 100%;" (click)="goToConfirmation()" [disabled]="!isReadyToSend()">AÑADIR</button>
 </div>
 
 <!--<div style="height: 80%; padding-right: 15px; padding-left: 15px; margin-bottom: 5px">

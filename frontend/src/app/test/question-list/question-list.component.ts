@@ -61,7 +61,7 @@ export class QuestionListComponent extends ComponentWithSession {
   }
 
   editQuestion(question){
-    this.testService.saveData(question)
+    this.testService.data = question
     this.router.navigate(['/test/questions/edit'])
   }
 
@@ -70,7 +70,7 @@ export class QuestionListComponent extends ComponentWithSession {
   }
 
   deleteQuestion(question){
-    this.testService.saveData({lessonId: this.lessonId, question: question, mode: DELETE})
+    this.testService.confirmationData = {lessonId: this.lessonId, question: question, mode: DELETE}
     this.router.navigate(['/test/questions/confirmation'])
   }
 

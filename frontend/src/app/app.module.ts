@@ -39,6 +39,7 @@ import { ExamComponent } from './test/exam/exam.component';
 import { ExamConfirmationComponent } from './test/exam-confirmation/exam-confirmation.component';
 import { ExamResultComponent } from './test/exam-result/exam-result.component';
 import { UserNotLoggedComponent } from './user-not-logged/user-not-logged.component';
+import { QuestionAddComponent } from './test/question-add/question-add.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import { UserNotLoggedComponent } from './user-not-logged/user-not-logged.compon
     ExamConfirmationComponent,
     ExamResultComponent,
     UserNotLoggedComponent,
+    QuestionAddComponent,
   ],
   imports: [
     BrowserModule,

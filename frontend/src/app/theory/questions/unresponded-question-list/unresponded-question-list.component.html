@@ -1,5 +1,5 @@
 <header style="height: 10%;">
-  <app-header [unrespondedQuestionsLength]= questions?.length></app-header>
+  <app-header [unrespondedQuestionsLength]= questionsData?.length></app-header>
 </header>
 
 
@@ -37,24 +37,24 @@
 
   <div style="width: 100%;">
     <ngb-accordion *ngIf="thereAreUnrespondedQuestions()">
-      <ngb-panel *ngFor="let question of questions; let idx = index" id={{question.question.title}}>
+      <ngb-panel *ngFor="let questionData of questionsData; let idx = index" id={{questionData.question.title}}>
         <ng-template ngbPanelTitle>
           <div style="width: 100%; height: 100%" class="acordionSection">
-            {{question.question.title}}
+            {{questionData.question.title}}
           </div>
           </ng-template>
           <ng-template ngbPanelContent>
-            <span>Duda sobre: <a style="color: #0275d8; cursor: pointer" (click)="goToTheoryRelated(question.associatedSection)">{{question.associatedSection.title}}</a></span>
+            <span>Duda sobre: <a style="color: #0275d8; cursor: pointer" (click)="goToTheoryRelated(questionData.associatedSection)">{{questionData.associatedSection.title}}</a></span>
             <div style="border: 2px solid #d9d9db; border-radius: 5px; overflow: auto; padding: 5px; margin-bottom: 5px">
-              {{question.question.content}}
+              {{questionData.question.content}}
             </div>
-            <button class="btn btn-danger" *ngIf="!session.isAlumn" (click)="reportQuestion(question, idx)">
+            <button class="btn btn-danger" *ngIf="!session.isAlumn" (click)="reportQuestion(questionData.question, idx)">
               Reportar
             </button>
-            <button class="btn btn-warning" *ngIf="!session.isAlumn" (click)="ignoreQuestion(question)">
+            <button class="btn btn-warning" *ngIf="!session.isAlumn" (click)="ignoreQuestion(questionData.question)">
               Ignorar por repetido
             </button>
-            <button class="btn btn-success" *ngIf="!session.isAlumn" (click)="respondQuestion(question)">
+            <button class="btn btn-success" *ngIf="!session.isAlumn" (click)="respondQuestion(questionData.question)">
               Responder
             </button>
           </ng-template>

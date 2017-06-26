@@ -13,6 +13,7 @@ import { UnrespondedQuestionListComponent,} from './theory/questions/unresponded
 import { TestComponent } from "app/test/test.component";
 import { QuestionListComponent } from "app/test/question-list/question-list.component";
 import { QuestionEditorComponent } from "app/test/question-editor/question-editor.component";
+import { QuestionAddComponent } from "app/test/question-add/question-add.component";
 import { TestQuestionConfirmationComponent } from "app/test/test-question-confirmation/test-question-confirmation.component";
 import { ExamComponent } from "app/test/exam/exam.component";
 import { ExamConfirmationComponent } from "app/test/exam-confirmation/exam-confirmation.component";
@@ -23,9 +24,10 @@ const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login',  component: LoginComponent },
   { path: 'theory', component: TheoryComponent },
-  { path: 'theory/:init', component: TheoryComponent },
   { path: 'theory/editor', component: TheoryEditorComponent},
   { path: 'theory/change-confirmation', component: ConfirmChangesComponent},
+  { path: 'theory/:init', component: TheoryComponent },
+  //{ path: 'theory/editor', component: TheoryEditorComponent},
   { path: 'questions', component: QuestionsComponent},
   { path: 'questions/confirmation', component: QuestionConfirmationComponent},
   { path: 'questions/respond', component: RespondQuestionComponent},
@@ -36,7 +38,7 @@ const routes: Routes = [
   { path: 'exam/result', component: ExamResultComponent },
   //{ path: 'test/:id/questions', component: QuestionListComponent },
   { path: 'test/questions/edit', component: QuestionEditorComponent },
-  { path: 'test/questions/add', component: QuestionEditorComponent },
+  { path: 'test/questions/add', component: QuestionAddComponent },
   { path: 'test/questions/confirmation', component: TestQuestionConfirmationComponent},
   { path: 'server-error/:error/:url', component: ServerErrorComponent},
   { path: 'user-not-logged', component: UserNotLoggedComponent},

@@ -17,7 +17,8 @@ export class TestService extends BaseService{
   //private headers;
   //private options;
 
-  private data;
+  private _data;
+  private _confirmationData;
 
   private _examResult;
 
@@ -42,8 +43,16 @@ export class TestService extends BaseService{
         return Observable.throw(this.extractError(error) || 'Server error')})
   }
 
-  saveData(data){
-    this.data = data;
+  set confirmationData(data){
+    this._confirmationData = data
+  }
+
+  get confirmationData(){
+    return this._confirmationData
+  }
+
+  set data (data){
+    this._data = data;
   }
 
   sendData(question, mode, lessonId){
@@ -72,10 +81,11 @@ export class TestService extends BaseService{
     }
   }
 
-  getData(){
-    let aux = this.data;
+  get data(){
+    /*let aux = this.data;
     this.data = undefined;
-    return aux;
+    return aux;*/
+    return this._data
   }
 
   prepareTestByConcept(concept, size){
