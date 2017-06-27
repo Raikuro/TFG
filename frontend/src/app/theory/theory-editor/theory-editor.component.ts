@@ -9,9 +9,10 @@ import { Theory } from "app/theory/core/theory";
 import { Section } from "app/theory/core/section";
 import { Location } from '@angular/common';
 import { ComponentWithSession } from "app/core/component/componentWithSession";
+import { EDIT, ADD } from "app/core/utils/const";
 
-const ADD = 0;
-const EDIT = 1;
+/*const ADD = 0;
+const EDIT = 1;*/
 
 @Component({
   selector: 'app-theory-editor',
@@ -25,6 +26,7 @@ export class TheoryEditorComponent extends ComponentWithSession {
   private lesson;
   private section;
   private ready;
+  private imagePreview;
   
   constructor(private theoryService:TheoryService,
               sessionService: SessionService,
@@ -121,5 +123,22 @@ export class TheoryEditorComponent extends ComponentWithSession {
         error => console.log(error)
       )
     //}
+  }
+
+  handleFileSelect(evt){
+    let files = evt.target.files;
+    let file = files[0];
+    console.log("A", files)
+    if (files && file) {
+      let reader = new FileReader();
+      reader.onload = this._handleReaderLoaded.bind(this);
+      reader.readAsBinaryString(file);
+    }
+  }
+  
+  _handleReaderLoaded(readerEvt) {
+    let binaryString = readerEvt.target.result;
+    this.imagePreview = btoa(binaryString);
+    console.log(this.imagePreview)
   }
 }

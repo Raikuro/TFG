@@ -57,7 +57,9 @@
     <!--<div style="width: 9%">Titulo:</div>
     <input type="search" style="width: 90%" [ngModel]="section?.title" (ngModelChange)="section ? section.title = $event : null">-->
     <label for="content">Contenido: </label>
-    <textarea type="search" class="form-control" rows="7" style="width: 100%; resize: none" name="content" [ngModel]="section?.content" (ngModelChange)="section ? section.content = $event : null"></textarea>
+    <input class="form-control" style="max-width:100%; max-height:100%;" type="file" id="filePicker" (change)="handleFileSelect($event)" accept="image/x-png,image/gif,image/jpeg">
+    <img style="max-width:100%; max-height:100%;" *ngIf="imagePreview" [src]="'data:image/jpg;base64,'+imagePreview" />
+    <textarea type="search" class="form-control" rows="7" style="margin-top: 20px; width: 100%; resize: none" name="content" [ngModel]="section?.content" (ngModelChange)="section ? section.content = $event : null"></textarea>
   </div>
 
   <div class="form-group">
@@ -72,6 +74,6 @@
 
 </form>
 
-<footer style="padding: 5px; height: 5%">
+<!--<footer style="padding: 5px; height: 5%">
   <app-footer></app-footer>
-</footer>
+</footer>-->
