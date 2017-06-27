@@ -48,8 +48,11 @@ class Section {
     return new Promise((resolve, reject) => {
       mysqlConnection.query('INSERT INTO sections(lesson, title, content) VALUES (?,?,?)',
       [lessonId, this.title, this.content], (err, res) => {
-        if (err) { reject(err) }
-        resolve(res.insertId)
+        if (err) {
+          reject(err)
+        } else {
+          resolve(res.insertId)
+        }
       })
     })
   }

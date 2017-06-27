@@ -20,6 +20,7 @@ CREATE TABLE sections (
   title VARCHAR(200) NOT NULL,
   content TEXT NOT NULL,
   PRIMARY KEY (id),
+  UNIQUE (lesson, title),
   FOREIGN KEY (lesson) REFERENCES lessons(id)
 );
 
