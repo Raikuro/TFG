@@ -54,6 +54,7 @@ export class ConfirmChangesComponent extends ComponentWithSession {
     this.theoryService.sendData(this.data).subscribe(
       () => {
         this.theoryService.deleteTheoryCache().then(() => {
+          this.theoryService.preparedData = undefined
           this.router.navigate(['/theory']);
         })
       },
