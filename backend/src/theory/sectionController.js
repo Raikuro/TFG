@@ -17,7 +17,9 @@ exports.getSectionsByKeyword = (req, res) => {
 
 exports.saveNewSection = (req, res) => {
   let section = JSON.parse(req.body.section)
-  new Section(section.id, section.title, section.content, section.keywords)
+  let bypassUrl = section.contentImage.replace(/ /g, '+')
+  
+  new Section(section.id, section.title, section.contentText, Buffer.from(bypassUrl, 'base64'), section.keywords)
     .save(req.params.lessonId)
     .then(() => { res.status(204).send() })
     .catch((e) => { res.status(500).send(e) })
@@ -25,7 +27,9 @@ exports.saveNewSection = (req, res) => {
 
 exports.updateSection = (req, res) => {
   let section = JSON.parse(req.body.section)
-  new Section(section.id, section.title, section.content, section.keywords)
+  let bypassUrl = section.contentImage.replace(/ /g, '+')
+
+  new Section(section.id, section.title, section.contentText, Buffer.from(bypassUrl, 'base64'), section.keywords)
     .save(req.params.lessonId)
     .then(() => { res.status(204).send() })
     .catch((e) => { res.status(500).send(e) })
@@ -33,7 +37,8 @@ exports.updateSection = (req, res) => {
 
 exports.deleteSection = (req, res) => {
   let section = JSON.parse(req.body.section)
-  new Section(section.id, section.title, section.content, section.keywords)
+  let bypassUrl = section.contentImage.replace(/ /g, '+')
+  new Section(section.id, section.title, section.contentText, Buffer.from(bypassUrl, 'base64'), section.keywords)
     .delete()
     .then(() => { res.status(204).send() })
     .catch((e) => { res.status(500).send(e) })

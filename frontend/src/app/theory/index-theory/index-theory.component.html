@@ -15,7 +15,8 @@
     </div>
     <div style="display: flex; flex-direction: column; width: 77%">
       <div style="height: 100%; border: 2px solid #d9d9db; border-radius: 5px; padding: 5px; overflow: auto">
-        <div style="white-space: pre-wrap;">{{section?.content}}</div>
+        <img style="max-width:100%; max-height:100%;" *ngIf="section?.contentImage" [src]="'data:image/png;base64,'+section?.contentImage" />
+        <div style="white-space: pre-wrap;">{{section?.contentText}}</div>
         <hr>
         <div *ngFor='let keyword of section?.keywords' (click)="onKeywordClick.emit(keyword)" >
           <div class="btn-link">

@@ -56,7 +56,7 @@ export class TheoryComponent extends ComponentWithSession {
   }
 
   doSome(some){
-    console.log(this.session.isAlumn);
+    console.log(this.section.contentImage + "");
   }
 
   goToQuestions(){

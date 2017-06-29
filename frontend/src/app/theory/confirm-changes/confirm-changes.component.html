@@ -11,7 +11,11 @@
     <h6 class="card-text"><strong>TITULO DE LA SECCIÓN: </strong>{{data?.section?.title}}</h6>
   </div>
   <div class="card-block" style="display: flex; flex-direction: column">
-    <span class="card-text"><strong>CONTENIDO: </strong><p style="white-space: pre-wrap;">{{data?.section?.content}}</p></span>
+    <span class="card-text">
+      <strong>CONTENIDO: </strong>
+      <img style="max-width:100%; max-height:100%;" *ngIf="data?.section?.contentImage" [src]="'data:image/jpg;base64,'+data?.section?.contentImage" />
+      <p style="white-space: pre-wrap;">{{data?.section?.contentText}}</p>
+    </span>
     <span class="card-text"><strong>PALABRAS CLAVE: </strong>{{data?.section?.keywords}}</span>
   </div>
   <div class="card-block">

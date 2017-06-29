@@ -90,7 +90,6 @@ export class TheoryService extends BaseService{
   sendData(data){
     let body = new URLSearchParams();
     body.append('section', JSON.stringify(data.section));
-
     if(data.mode === ADD){
       return this.http.post(ADDRESS + '/index/' + data.lesson.id, body, this.options)
       .map(this.extractData)

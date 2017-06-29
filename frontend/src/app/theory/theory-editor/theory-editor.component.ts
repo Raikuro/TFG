@@ -45,8 +45,10 @@ export class TheoryEditorComponent extends ComponentWithSession {
   }
 
   isReadyToSend(){
-    if(this.section && this.section.title && this.section.content){
-      return this.section.title.length > 0 && this.section.content.length > 0;
+    if(this.section && this.section.title && 
+      (this.section.contentText || this.section.contentImage)){
+        return this.section.title.length > 0 &&
+          (this.section.contentText > 0 || this.section.contentImage)
     }
   }
   
@@ -112,7 +114,7 @@ export class TheoryEditorComponent extends ComponentWithSession {
               }
               else{
                 this.mode = ADD;
-                this.section = {}
+                this.section = {};
               }
             }
             else{
@@ -128,7 +130,6 @@ export class TheoryEditorComponent extends ComponentWithSession {
   handleFileSelect(evt){
     let files = evt.target.files;
     let file = files[0];
-    console.log("A", files)
     if (files && file) {
       let reader = new FileReader();
       reader.onload = this._handleReaderLoaded.bind(this);
@@ -138,7 +139,8 @@ export class TheoryEditorComponent extends ComponentWithSession {
   
   _handleReaderLoaded(readerEvt) {
     let binaryString = readerEvt.target.result;
-    this.imagePreview = btoa(binaryString);
-    console.log(this.imagePreview)
+    if(this.section){
+      this.section.contentImage = btoa(binaryString);
+    }
   }
 }

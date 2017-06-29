@@ -7,6 +7,7 @@ import { Section } from "app/theory/core/section";
 import { SessionService } from "app/core/session/session.service";
 import { Session } from "app/core/session/session";
 import { DELETE } from "app/core/utils/const";
+import { DomSanitizer } from "@angular/platform-browser";
 
 @Component({
   selector: 'app-index-theory',
@@ -27,7 +28,8 @@ export class IndexTheoryComponent implements OnInit {
   @Output() onError = new EventEmitter<String>();
 
   constructor(private router: Router,
-              private theoryService: TheoryService) {}
+              private theoryService: TheoryService,
+              private sanitizer: DomSanitizer) {}
 
   ngOnInit(){
     let index = this.theoryService.index;
@@ -53,6 +55,13 @@ export class IndexTheoryComponent implements OnInit {
     else{
       this.selectSection(this.sections[0])
     }
+  }
+
+  getSectionImage(){
+    //this.sanitizer.bypassSecurityTrustUrl('data:image/png;base64,$SomeBase64StringFetchedSomehow');
+    //console.log(new Buffer(this.section.contentImage).toString('base64'))
+    //console.log(this.section.contentImage.toString('base64'))
+    //this.sanitizer.bypassSecurityTrustUrl('data:image/jpeg;base64,this.section.contentImage');
   }
 
   selectInitSection(sectionId){

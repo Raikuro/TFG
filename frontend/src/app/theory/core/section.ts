@@ -3,7 +3,8 @@ import { Question } from "app/theory/core/question";
 export class Section {
   private _title: String;
   private _id: Number;
-  private _content: String;
+  private _contentText: String;
+  private _contentImage: String;
   private _keywords: String[];
   private _questions: Question[];
 
@@ -23,12 +24,20 @@ export class Section {
     return this._title;
   }
 
-  get content(){
-    return this._content;
+  get contentText(){
+    return this._contentText;
   }
 
-  set content(content){
-    this._content = content;
+  set contenText(contentText){
+    this._contentText = contentText;
+  }
+
+  get contentImage(){
+    return this._contentImage;
+  }
+
+  set contentImage(contentImage){
+    this._contentImage = contentImage;
   }
 
   set keywords(keywords){

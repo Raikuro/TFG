@@ -18,7 +18,8 @@ CREATE TABLE sections (
   id INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
   lesson INTEGER UNSIGNED NOT NULL, 
   title VARCHAR(200) NOT NULL,
-  content TEXT NOT NULL,
+  contentText TEXT,
+  contentImage BLOB,
   PRIMARY KEY (id),
   UNIQUE (lesson, title),
   FOREIGN KEY (lesson) REFERENCES lessons(id)
@@ -85,7 +86,7 @@ CREATE TABLE testOptions (
 INSERT INTO lessons(title) VALUES
   ("TEMA 2: Combinatoria"),
   ("TEMA 3: Relaciones");
-INSERT INTO sections(lesson, title, content) VALUES
+INSERT INTO sections(lesson, title, contentText) VALUES
   (1, "2.1 Conjuntos", "Contenido de conjuntos"),
   (1, "2.1.1 Operaciones. Propiedades", "Contenido de operaciones. Propiedades"),
   (2, "3.1 Operaciones con relaciones", "Contenido de operaciones con relaciones"),

@@ -2,10 +2,11 @@ let mysqlConnection = require('../core/mysqlConnection')
 let Keyword = require('./keyword')
 
 class Section {
-  constructor (id, title, content, keywords, questions) {
+  constructor (id, title, contentText, contentImage, keywords, questions) {
     this.title = title
     this.id = id
-    this.content = content
+    this.contentText = contentText
+    this.contentImage = contentImage
     this.keywords = keywords
     this.questions = questions
   }
@@ -46,8 +47,8 @@ class Section {
 
   _addBasics (lessonId) {
     return new Promise((resolve, reject) => {
-      mysqlConnection.query('INSERT INTO sections(lesson, title, content) VALUES (?,?,?)',
-      [lessonId, this.title, this.content], (err, res) => {
+      mysqlConnection.query('INSERT INTO sections(lesson, title, contentText, contentImage) VALUES (?,?,?,?)',
+      [lessonId, this.title, this.contentText, this.contentImage], (err, res) => {
         if (err) {
           reject(err)
         } else {
@@ -59,8 +60,8 @@ class Section {
 
   _updateBasics (lessonId) {
     return new Promise((resolve, reject) => {
-      mysqlConnection.query('UPDATE sections SET lesson=?, title=?, content=? WHERE id=?',
-      [lessonId, this.title, this.content, this.id], (err, keyword) => {
+      mysqlConnection.query('UPDATE sections SET lesson=?, title=?, contentText=?, contentImage=? WHERE id=?',
+      [lessonId, this.title, this.contentText, this.contentImage, this.id], (err, keyword) => {
         if (err) { reject(err) }
         resolve()
       })
@@ -151,7 +152,7 @@ class Section {
           if (sections[0]) {
             sections.map((section, i, arr) => {
               return new Promise((resolve, reject) => {
-                section = new Section(section.id, section.title, section.content)
+                section = new Section(section.id, section.title, section.contentText, section.contentImage)
                 section._getKeywords().then((keywords) => {
                   section.keywords = keywords
                   auxSections.push(section)
@@ -180,10 +181,13 @@ class Section {
 
   static getSection (sectionId) {
     return new Promise((resolve, reject) => {
-      mysqlConnection.query('SELECT S.title, S.content FROM sections S WHERE S.id = ?',
+      mysqlConnection.query('SELECT S.title, S.contentText, S.contentImage FROM sections S WHERE S.id = ?',
       [sectionId], (err, section) => {
         if (err) { reject(err) }
-        let sectionAux = new Section(sectionId, section[0].title, section[0].content)
+        if(section[0].contentImage){
+          section[0].contentImage = new Buffer(section[0].contentImage).toString('base64')
+        }
+        let sectionAux = new Section(sectionId, section[0].title, section[0].contentText, section[0].contentImage)
         Promise.all([sectionAux._getKeywords(), sectionAux._getQuestions()])
           .then((values) => {
             sectionAux.keywords = values[0]
