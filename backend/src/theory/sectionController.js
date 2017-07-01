@@ -62,7 +62,20 @@ exports.getSectionQuestions = (req, res) => {
 exports.addSectionQuestions = (req, res) => {
   Section.getSection(req.params.sectionId).then((section) => {
     let question = JSON.parse(req.body.question)
-    question = new Question(question._title, question._content, question._username, question._response)
+    if (question._contentImage) {
+      let bypassUrl = question._contentImage.replace(/ /g, '+')
+      question._contentImage = Buffer.from(bypassUrl, 'base64')
+    } else {
+      question._contentImage = undefined
+    }
+    if (question._responseImage) {
+      let bypassUrl = question._responseImage.replace(/ /g, '+')
+      question._responseImage = Buffer.from(bypassUrl, 'base64')
+    } else {
+      question._responseImage = undefined
+    }
+    //console.log(question)
+    question = new Question(question._title, question._contentText, question._contentImage, question._username, question._responseText, question._responseImage)
     section.addQuestion(question)
       .then(() => { res.status(204).send() })
       .catch((e) => { res.status(500).send(e) })

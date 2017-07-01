@@ -31,12 +31,29 @@ export class RespondQuestionComponent extends ComponentWithSession {
               }
 
   isReadyToSend(){
-    return this.question ? this.question.response : false;
+    return this.question ? this.question.responseText || this.question.responseImage : false
   }
 
   goToQuestionConfirmation(){
     this.questionsService.prepareData(this.question)
     this.router.navigate(['/questions/confirmation']);
+  }
+
+  handleFileSelect(evt){
+    let files = evt.target.files;
+    let file = files[0];
+    if (files && file) {
+      let reader = new FileReader();
+      reader.onload = this._handleReaderLoaded.bind(this);
+      reader.readAsBinaryString(file);
+    }
+  }
+  
+  _handleReaderLoaded(readerEvt) {
+    let binaryString = readerEvt.target.result;
+    if(this.question){
+      this.question.responseImage = btoa(binaryString);
+    }
   }
 
 }

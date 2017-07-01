@@ -2,28 +2,44 @@ export class Question {
 
   private _title: String;
   private _username: String;
-  private _content: String;
+  private _contentText: String;
+  private _contentImage: String;
   private _date: Date;
-  private _response: String;
+  private _responseText: String;
+  private _responseImage: String;
 
-  get content(){
-    return this._content;
+  get contentText(){
+    return this._contentText;
+  }
+
+  get contentImage(){
+    return this._contentImage;
+  }
+
+  set contentImage(image){
+    this._contentImage = image
   }
 
   get title(){
     return this._title;
   }
 
-  get response(){
-    return this._response;
+  get responseText(){
+    return this._responseText;
   }
 
-  constructor(title, username, content, response, date){
+  get responseImage(){
+    return this._responseImage;
+  }
+
+  constructor(title, username, contentText, contentImage, responseText, responseImage, date){
     this._title = title;
     this._username = username;
-    this._content = content;
+    this._contentText = contentText;
+    this._contentImage = contentImage;
     this._date = date;
-    this._response = response;
+    this._responseText = responseText;
+    this._responseImage = responseImage;
   }
   
 }

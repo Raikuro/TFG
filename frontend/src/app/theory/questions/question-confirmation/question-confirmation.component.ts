@@ -20,6 +20,7 @@ export class QuestionConfirmationComponent extends ComponentWithSession {
   private lessonId;
   private sectionId;
   private mode;
+  private aux;
 
   constructor(sessionService: SessionService,
               router: Router,
@@ -60,6 +61,10 @@ export class QuestionConfirmationComponent extends ComponentWithSession {
 
   goBack() {
     this.location.back();
+  }
+
+  doSome() {
+    console.log(this.question);
   }
 
   isValid(question){

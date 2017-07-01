@@ -50,6 +50,7 @@ export class QuestionsService extends BaseService{
 
   sendData(question, lessonId, sectionId){
     let body = new URLSearchParams();
+    console.log(question)
     body.append('question', JSON.stringify(question));
     return this.http.post(ADDRESS + '/questions/' + lessonId + '/' + sectionId, body, this.options)
       .map(this.extractData)

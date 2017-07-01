@@ -23,7 +23,7 @@ app.use(session({
 
 // For logging and parsing
 // app.use(require('morgan')('combined'))
-app.use(require('body-parser').urlencoded({ extended: true }))
+app.use(require('body-parser').urlencoded({ extended: true, limit: '5mb' }))
 
 /*
 //CHARGE LODASH

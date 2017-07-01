@@ -45,8 +45,9 @@
           </ng-template>
           <ng-template ngbPanelContent>
             <span>Duda sobre: <a style="color: #0275d8; cursor: pointer" (click)="goToTheoryRelated(questionData.associatedSection)">{{questionData.associatedSection.title}}</a></span>
+            <img style="max-width:100%; max-height:100%;" *ngIf="questionData?.question?.contentImage" [src]="'data:image/jpg;base64,'+questionData?.question?.contentImage" />
             <div style="border: 2px solid #d9d9db; border-radius: 5px; overflow: auto; padding: 5px; margin-bottom: 5px">
-              {{questionData.question.content}}
+              {{questionData.question.contentText}}
             </div>
             <button class="btn btn-danger" *ngIf="!session.isAlumn" (click)="reportQuestion(questionData.question, idx)">
               Reportar

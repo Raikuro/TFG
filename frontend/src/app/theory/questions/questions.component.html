@@ -16,11 +16,13 @@
         <ng-template ngbPanelContent>
           <div class="card">
             <div class="card-block">
-              <h6 class="card-text" style="font-style: italic; color: grey">"{{question.content}}"</h6>
+              <img style="max-width:100%; max-height:100%;" *ngIf="question?.contentImage" [src]="'data:image/jpg;base64,'+question?.contentImage" />
+              <h6 class="card-text" *ngIf="question?.contentText" style="font-style: italic; color: grey">"{{question.contentText}}"</h6>
             </div>
           </div>
-          <p *ngIf="question?.response" class="card-text" style="margin-top: 10px">{{question.response}}</p>
-          <div *ngIf="!question?.response" style="margin-top: 10px; display: flex; flex-direction: row; justify-content: space-between">
+          <img style="max-width:100%; max-height:100%;" *ngIf="question?.responseImage" [src]="'data:image/jpg;base64,'+question?.responseImage" />
+          <p *ngIf="isResponded(question)" class="card-text" style="margin-top: 10px">{{question.responseText}}</p>
+          <div *ngIf="!isResponded(question)" style="margin-top: 10px; display: flex; flex-direction: row; justify-content: space-between">
             <p class="card-text" style="margin-top: 10px; color: red">Esta duda aun no ha sido resuelta</p>
             <button class="btn btn-warning" *ngIf="!session.isAlumn" (click)="goToQuestions()">
               Resolver
@@ -42,9 +44,7 @@
 
     <div class="card">
       <div class="card-block">
-
         <form>
-
           <div class="alert alert-info form-group" role="alert" *ngIf="!isReadyToSend()">
             Rellena todos los campos del formulario para continuar
           </div>
@@ -55,11 +55,15 @@
           </div>
           <div class="form-group">
             <label for="content">Contenido: </label>
-            <textarea type="text" name="content" class="form-control" [ngModel]="newQuestion?.content" (ngModelChange)="newQuestion ? newQuestion.content = $event : null"></textarea>
+            <input class="form-control" style="max-width:100%; max-height:100%;" type="file" id="filePicker" (change)="handleFileSelectQ($event)" accept="image/x-png,image/gif,image/jpeg">
+            <img style="max-width:100%; max-height:100%;" *ngIf="newQuestion?.contentImage" [src]="'data:image/jpg;base64,'+newQuestion?.contentImage" />
+            <textarea type="text" name="content" class="form-control" [ngModel]="newQuestion?.contentText" (ngModelChange)="newQuestion ? newQuestion.contentText = $event : null"></textarea>
           </div>
           <div class="form-group" *ngIf="!session.isAlumn">
             <label for="response">Respuesta: </label>
-            <textarea type="text" name="response" class="form-control" [ngModel]="newQuestion?.response" (ngModelChange)="newQuestion ? newQuestion.response = $event : null"></textarea>
+            <input class="form-control" style="max-width:100%; max-height:100%;" type="file" id="filePicker" (change)="handleFileSelectR($event)" accept="image/x-png,image/gif,image/jpeg">
+            <img style="max-width:100%; max-height:100%;" *ngIf="newQuestion?.responseImage" [src]="'data:image/jpg;base64,'+newQuestion?.responseImage" />
+            <textarea type="text" name="response" class="form-control" [ngModel]="newQuestion?.responseText" (ngModelChange)="newQuestion ? newQuestion.responseText = $event : null"></textarea>
           </div>
           <button class="btn btn-success" (click)="sendForm()" [disabled]="!isReadyToSend()">
             Enviar

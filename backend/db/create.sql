@@ -57,8 +57,10 @@ CREATE TABLE questions (
   dateOfQuestion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   section INTEGER UNSIGNED NOT NULL,
   title VARCHAR(200) NOT NULL,
-  content TEXT NOT NULL,
-  response TEXT,
+  contentText TEXT,
+  contentImage BLOB,
+  responseText TEXT,
+  responseImage BLOB,
   reported BIT(1) DEFAULT 0,
   ignored BIT(1) DEFAULT 0,
   PRIMARY KEY (section, title),
@@ -117,7 +119,7 @@ INSERT INTO uvaUsers(username, password, isAlumn) VALUES
 INSERT INTO users(username) VALUES
   ("asd"),
   ("qwe");
-INSERT INTO questions(username, section, title, content, response, reported, ignored) VALUES
+INSERT INTO questions(username, section, title, contentText, responseText, reported, ignored) VALUES
   (1, 1, "duda1", "contenido duda1", "respuesta duda1", 0, 0),
   (1, 2, "duda2", "contenido duda2", "respuesta duda2", 0, 0),
   (1, 3, "duda3", "contenido duda3", "respuesta duda3", 0, 0),

@@ -7,6 +7,7 @@ import { Observable } from "rxjs/Observable";
 import { Session } from "app/core/session/session";
 import { Question } from "app/theory/core/question";
 import { Location } from '@angular/common';
+import { DomSanitizer } from "@angular/platform-browser";
 
 
 @Component({
@@ -45,7 +46,8 @@ export class QuestionsComponent extends ComponentWithSession {
   constructor(router: Router,
               sessionService: SessionService,
               private questionsService: QuestionsService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private sanitizer: DomSanitizer) {
     super(sessionService, router)
   }
 
@@ -55,11 +57,15 @@ export class QuestionsComponent extends ComponentWithSession {
     }
     else{
       if(this.questions){
-        return this.questions.filter((filtrado) => {
-          return filtrado.content.includes(this.searchText)
+        return this.questions.filter((filtered) => {
+          return filtered.contentText.includes(this.searchText)
         })
       }
     }
+  }
+
+  doSome(question){
+    console.log(question)
   }
 
   openForm(){
@@ -75,15 +81,20 @@ export class QuestionsComponent extends ComponentWithSession {
     this.newQuestion = undefined
   }
 
+  isResponded(question){
+    return question.responseImage || question.responseText
+  }
+
   sendForm(){
-    let question = new Question(this.newQuestion.title, this.session.username, this.newQuestion.content, this.newQuestion.response, undefined)
+    console.log(this.newQuestion)
+    let question = new Question(this.newQuestion.title, this.session.username, this.newQuestion.contentText, this.newQuestion.contentImage, this.newQuestion.responseText, this.newQuestion.responseImage, undefined)
     this.questionsService.prepareData(question);
     this.router.navigate(['/questions/confirmation',{lessonId: this.lessonId, sectionId: this.sectionId}])
   }
 
   deleteQuestion(question){
     this.questionsService.deleteQuestion(question).subscribe(
-      () => {this.router.navigate(['/theory'])},
+      () => { location.reload() },
       (error) => this.goToErrorPage(error)
     )
   }
@@ -94,21 +105,61 @@ export class QuestionsComponent extends ComponentWithSession {
 
   isReadyToSend(){
     if(this.newQuestion){
-      if(this.newQuestion.title && this.newQuestion.content){
-        let titleAndContentNotEmpty = this.newQuestion.title.length !== 0 && this.newQuestion.title.trim() &&
-          this.newQuestion.content.length !== 0 && this.newQuestion.content.trim()
+      if(this.newQuestion.title){
+        let titleNotEmpty = this.newQuestion.title.length !== 0 && this.newQuestion.title.trim();
+        let contentTextNotEmpty = false;
+        let responseTextNotEmpty = false;
+        let readyForAlumn = false;
+        if(this.newQuestion.contentText){
+          contentTextNotEmpty = this.newQuestion.contentText.length !== 0 && this.newQuestion.contentText.trim()
+        }
+        readyForAlumn = titleNotEmpty && (contentTextNotEmpty || this.newQuestion.contentImage)
         if(this.session.isAlumn){
-          return titleAndContentNotEmpty
+          return readyForAlumn
         }
         else{
-          if(this.newQuestion.response){
-            return titleAndContentNotEmpty && this.newQuestion.response.length !== 0 &&
-              this.newQuestion.response.trim()
+          if(this.newQuestion.responseText){
+            responseTextNotEmpty = this.newQuestion.responseText.length !== 0 && this.newQuestion.responseText.trim()
           }
+          return readyForAlumn && (responseTextNotEmpty || this.newQuestion.responseImage)
         }
       }
     }
     return false;
+  }
+
+  handleFileSelectQ(evt){
+    let files = evt.target.files;
+    let file = files[0];
+    if (files && file) {
+      let reader = new FileReader();
+      reader.onload = this._handleReaderLoadedQ.bind(this);
+      reader.readAsBinaryString(file);
+    }
+  }
+  
+  _handleReaderLoadedQ(readerEvt) {
+    let binaryString = readerEvt.target.result;
+    if(this.newQuestion){
+      this.newQuestion.contentImage = btoa(binaryString);
+    }
+  }
+
+  handleFileSelectR(evt){
+    let files = evt.target.files;
+    let file = files[0];
+    if (files && file) {
+      let reader = new FileReader();
+      reader.onload = this._handleReaderLoadedR.bind(this);
+      reader.readAsBinaryString(file);
+    }
+  }
+  
+  _handleReaderLoadedR(readerEvt) {
+    let binaryString = readerEvt.target.result;
+    if(this.newQuestion){
+      this.newQuestion.responseImage = btoa(binaryString);
+    }
   }
 
 }

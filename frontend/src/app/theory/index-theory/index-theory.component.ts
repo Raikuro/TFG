@@ -57,11 +57,8 @@ export class IndexTheoryComponent implements OnInit {
     }
   }
 
-  getSectionImage(){
-    //this.sanitizer.bypassSecurityTrustUrl('data:image/png;base64,$SomeBase64StringFetchedSomehow');
-    //console.log(new Buffer(this.section.contentImage).toString('base64'))
-    //console.log(this.section.contentImage.toString('base64'))
-    //this.sanitizer.bypassSecurityTrustUrl('data:image/jpeg;base64,this.section.contentImage');
+  doSome(a){
+    console.log(a)
   }
 
   selectInitSection(sectionId){
