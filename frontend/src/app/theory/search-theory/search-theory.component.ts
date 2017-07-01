@@ -5,6 +5,8 @@ import { TheoryService } from "app/theory/core/theory.service";
 import { Observable } from "rxjs/Observable";
 import { Theory } from "app/theory/core/theory";
 import { Section } from "app/theory/core/section";
+import { DELETE } from "app/core/utils/const";
+
 
 @Component({
   selector: 'app-search-theory',
@@ -73,5 +75,14 @@ export class SearchTheoryComponent implements OnChanges {
 
   goToQuestions(){
     this.router.navigate(['/questions', {lessonId: this.lesson.id, sectionId: this.section.id}]);
+  }
+
+  goToTheoryEditorEdit(){
+    this.router.navigate(['/theory/editor', {lessonId: this.lesson.id, sectionId: this.section.id}]);
+  }
+
+  goToConfirmation(){
+    this.theoryService.prepareData(DELETE, this.lesson, this.section);
+    this.router.navigate(['/theory/change-confirmation']);
   }
 }
