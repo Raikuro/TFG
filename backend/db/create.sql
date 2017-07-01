@@ -73,7 +73,7 @@ CREATE TABLE testQuestions (
   lesson INTEGER UNSIGNED NOT NULL,
   wordingText VARCHAR(255),
   wordingImage BLOB,
-  UNIQUE (lesson, wordingText, wordingImage),
+  UNIQUE (lesson, wordingText, wordingImage(255)),
   PRIMARY KEY (id),
   FOREIGN KEY (lesson) REFERENCES lessons(id)
 );
