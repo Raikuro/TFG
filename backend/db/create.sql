@@ -71,8 +71,9 @@ CREATE TABLE questions (
 CREATE TABLE testQuestions (
   id INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
   lesson INTEGER UNSIGNED NOT NULL,
-  wording VARCHAR(255) NOT NULL,
-  UNIQUE (lesson, wording),
+  wordingText VARCHAR(255),
+  wordingImage BLOB,
+  UNIQUE (lesson, wordingText, wordingImage),
   PRIMARY KEY (id),
   FOREIGN KEY (lesson) REFERENCES lessons(id)
 );
@@ -127,7 +128,7 @@ INSERT INTO questions(username, section, title, contentText, responseText, repor
   (1, 1, "duda5", "contenido duda5", null, 0, 0),
   (1, 1, "duda6", "contenido duda6", null, 0, 0),
   (1, 1, "duda7", "contenido duda7", null, 0, 0);
-INSERT INTO testQuestions(lesson, wording) VALUES
+INSERT INTO testQuestions(lesson, wordingText) VALUES
   (1, "enunciado 1"),
   (1, "enunciado 2"),
   (1, "enunciado 3"),

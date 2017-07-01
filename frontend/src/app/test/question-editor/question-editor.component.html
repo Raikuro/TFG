@@ -13,7 +13,9 @@
 
   <div class="form-group">
     <label for="wording">Enunciado</label>
-    <textarea class="form-control" name="wording" rows="3" [ngModel]="question?.wording" (ngModelChange)="question ? question.wording = $event : null"></textarea>
+    <input class="form-control" style="max-width:100%; max-height:100%;" type="file" id="filePicker" (change)="handleFileSelect($event)" accept="image/x-png,image/gif,image/jpeg">
+    <img style="max-width:100%; max-height:100%;" *ngIf="question?.wordingImage" [src]="'data:image/jpg;base64,'+question?.wordingImage" />
+    <textarea class="form-control" name="wording" rows="3" [ngModel]="question?.wordingText" (ngModelChange)="question ? question.wordingText = $event : null"></textarea>
   </div>
 
   <div class="form-group">

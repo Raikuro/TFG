@@ -3,7 +3,11 @@ let TestOption = require('./testOption')
 
 exports.saveNewQuestion = (req, res) => {
   let question = JSON.parse(req.body.question)
-  new TestQuestion(question.id, question.wording, JSON.parse(question.testOptions)).save(req.params.lessonId)
+  if (question.wordingImage) {
+    let bypassUrl = question.wordingImage.replace(/ /g, '+')
+    question.wordingImage = Buffer.from(bypassUrl, 'base64')
+  }
+  new TestQuestion(question.id, question.wordingText, question.wordingImage, JSON.parse(question.testOptions)).save(req.params.lessonId)
   .then(res.status(204).send())
   .catch(error => { res.status(500).send(error) })
 }
@@ -14,7 +18,11 @@ exports.updateQuestion = (req, res) => {
   options = options.map(option => {
     return new TestOption(option.answer, option.isCorrect)
   })
-  new TestQuestion(question.id, question.wording, options).update()
+  if (question.wordingImage) {
+    let bypassUrl = question.wordingImage.replace(/ /g, '+')
+    question.wordingImage = Buffer.from(bypassUrl, 'base64')
+  }
+  new TestQuestion(question.id, question.wordingText, question.wordingImage, options).update()
   .then(res.status(204).send())
   .catch(error => res.status(500).send(error))
 }
@@ -25,7 +33,11 @@ exports.deleteQuestion = (req, res) => {
   options = options.map(option => {
     return new TestOption(option.answer, option.isCorrect)
   })
-  new TestQuestion(question.id, question.wording, options).delete()
+  if (question.wordingImage) {
+    let bypassUrl = question.wordingImage.replace(/ /g, '+')
+    question.wordingImage = Buffer.from(bypassUrl, 'base64')
+  }
+  new TestQuestion(question.id, question.wordingText, question.wordingImage, options).delete()
   .then(res.status(204).send())
   .catch(error => res.status(500).send(error))
 }

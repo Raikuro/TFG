@@ -39,11 +39,14 @@ class Lesson {
       if (this.testQuestions.length > 0) {
         resolve(this.testQuestions)
       } else {
-        mysqlConnection.query('SELECT DISTINCT T.* FROM testQuestions T WHERE T.lesson = ?',
+        mysqlConnection.query('SELECT DISTINCT * FROM testQuestions WHERE lesson = ?',
         [this.id], (err, questions) => {
           if (err) { reject(err) }
           let optionsAux = []
           questions = questions.map((question) => {
+            if (question.wordingImage) {
+              question.wordingImage = new Buffer(question.wordingImage).toString('base64')
+            }
             question = new TestQuestion(question.id, question.wordingText, question.wordingImage)
             optionsAux.push(question.getAllOptions())
             return question

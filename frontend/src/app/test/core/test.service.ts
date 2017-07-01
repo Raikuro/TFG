@@ -130,7 +130,7 @@ export class TestService extends BaseService{
             let options = question.testOptions.map(
               option => {return new TestOption(option.answer, false)}
             );
-            return new TestQuestion(question.id, question.wording, options);
+            return new TestQuestion(question.id, question.wordingText, question.wordingImage, options);
           })
           resolve();
         },

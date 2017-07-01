@@ -9,11 +9,12 @@
 </div>
 
 <div *ngIf="shownQuestions" style="margin-top: 10px">
-  <ngb-accordion>
+  <ngb-accordion [closeOthers]="true">
     <ngb-panel *ngFor="let question of shownQuestions" id={{question.id}}>
       <ng-template ngbPanelTitle>
       <div style="width: 100%; height: 100%" class="acordionSection">
-        {{question.wording}}
+        <span (click)="doSome(question)" *ngIf="question?.wordingText">{{question.wordingText}}</span>
+        <img style="max-width:100%; max-height:100%;" *ngIf="question?.wordingImage" [src]="'data:image/jpg;base64,'+question?.wordingImage" />
       </div>
       </ng-template>
       <ng-template ngbPanelContent>
@@ -24,14 +25,15 @@
                 <div class="col-6">
                   {{option.answer}}  
                 </div>
-                <div class="col-3 text-center">
+                <!--<div class="col-3 text-center">
                   {{getSymbol(option)}}
-                </div>
+                </div>-->
+                <i class="fa" aria-hidden="true" [ngClass]="{true: 'fa-check text-success', false: 'fa-times text-danger'}[getSymbol(option)]"></i>
                </div>
             </div>
           </div>
         </div>
-        <div class="row justify-content-around">
+        <div class="row justify-content-around" style="margin-top:10px">
           <button class="col-3 btn btn-warning" *ngIf="!session.isAlumn" (click)="editQuestion(question)">
             Editar
           </button>

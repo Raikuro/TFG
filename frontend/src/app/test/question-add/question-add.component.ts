@@ -29,7 +29,7 @@ export class QuestionAddComponent extends ComponentWithSession {
       },
       error => this.router.navigate(["/server-error", error])
     )
-    this.question = new TestQuestion(undefined, "", [new TestOption("", false)]);
+    this.question = new TestQuestion(undefined, "", undefined, [new TestOption("", false)]);
     //this.addOption();
   }
 
@@ -111,8 +111,11 @@ export class QuestionAddComponent extends ComponentWithSession {
 
   private _thereIsWording(){
    if(this.question){
-     if(this.question.wording){
-       return this.question.wording !== undefined || this.question.wording !== "";
+     if(this.question.wordingImage){
+       return true
+     }
+     if(this.question.wordingText){
+       return this.question.wordingText.length > 0 && this.question.wordingText.trim()
      }
    }
   }
@@ -126,13 +129,21 @@ export class QuestionAddComponent extends ComponentWithSession {
     console.log(JSON.stringify(this.question))
   }
 
-  /*private getAction(){
-    if(this.mode === ADD){
-      return 'AÑADIR';
+  handleFileSelect(evt){
+    let files = evt.target.files;
+    let file = files[0];
+    if (files && file) {
+      let reader = new FileReader();
+      reader.onload = this._handleReaderLoaded.bind(this);
+      reader.readAsBinaryString(file);
     }
-    if(this.mode === EDIT){
-      return 'EDITAR';
+  }
+  
+  _handleReaderLoaded(readerEvt) {
+    let binaryString = readerEvt.target.result;
+    if(this.question){
+      this.question.wordingImage = btoa(binaryString);
     }
-  }*/
+  }
 
 }

@@ -12,7 +12,7 @@
     <div class="offset-4 col-9">
       <div *ngFor="let question of test; let i = index" class="card" style="margin-bottom: 15px; padding: 10px">
         <div class="card-group" id="q{{i}}">
-         {{i+1}} - {{question.wording}}
+         {{i+1}} - {{question.wordingText}}
         </div>
         <ul class="list-group card-group">
           <li class="list-group-item" *ngFor="let option of question.testOptions" (click)="option.isCorrect = !option.isCorrect" [ngClass]="{ 'active': option.isCorrect}" ngDefaultControl>

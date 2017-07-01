@@ -1,9 +1,14 @@
 import { TestOption } from "app/theory/core/testOption";
 
 export class TestQuestion {
-  private _wording: String;
+  private _wordingText: String;
+  private _wordingImage;
   private _testOptions: TestOption[]
   private _id: Number;
+
+  get wordingImage(){
+    return this._wordingImage
+  }
 
   get testOptions(): TestOption[]{
     return this._testOptions;
@@ -21,21 +26,26 @@ export class TestQuestion {
     this._id = id;
   }
 
-  get wording(){
-    return this._wording;
+  get wordingText(){
+    return this._wordingText;
   }
 
-  set wording(wording){
-    this._wording = wording
+  set wordingText(wordingText){
+    this._wordingText = wordingText
   }
 
-  constructor(id, wording, testOptions){
-    this._wording = wording;
+  set wordingImage(wordingImage){
+    this._wordingImage = wordingImage
+  }
+
+  constructor(id, wordingText, wordingImage, testOptions){
+    this._wordingText = wordingText;
+    this._wordingImage = wordingImage
     this._testOptions =  testOptions ? testOptions : [];
     this._id = id;
   }
 
   toJSON(){
-    return { id: this.id, wording: this.wording, testOptions: JSON.stringify(this.testOptions)}
+    return { id: this.id, wordingText: this.wordingText, wordingImage: this.wordingImage, testOptions: JSON.stringify(this.testOptions)}
   }
 }

@@ -2,9 +2,10 @@ let TestOption = require('./testOption')
 let mysqlConnection = require('../core/mysqlConnection')
 
 class TestQuestion {
-  constructor (id, wording, testOptions) {
+  constructor (id, wordingText, wordingImage, testOptions) {
     this.id = id
-    this.wording = wording
+    this.wordingText = wordingText
+    this.wordingImage = wordingImage
     this.testOptions = testOptions
   }
 
@@ -48,8 +49,8 @@ class TestQuestion {
 
   _updateBasics () {
     return new Promise((resolve, reject) => {
-      mysqlConnection.query('UPDATE testQuestions SET wording=? WHERE id=?',
-        [this.wording, this.id], (err) => {
+      mysqlConnection.query('UPDATE testQuestions SET wordingText=?, wordingImage=? WHERE id=?',
+        [this.wordingText, this.wordingImage, this.id], (err) => {
           if (err) { reject(err) }
           resolve()
         })
@@ -88,8 +89,8 @@ class TestQuestion {
 
   _saveBasics (lessonId) {
     return new Promise((resolve, reject) => {
-      mysqlConnection.query('INSERT INTO testQuestions(lesson, wording) VALUES (?,?)',
-        [lessonId, this.wording], (err, res) => {
+      mysqlConnection.query('INSERT INTO testQuestions(lesson, wordingText, wordingImage) VALUES (?,?,?)',
+        [lessonId, this.wordingText, this.wordingImage], (err, res) => {
           if (err) {
             reject(err)
           } else {
@@ -147,7 +148,10 @@ class TestQuestion {
       mysqlConnection.query('SELECT DISTINCT * FROM testQuestions', (err, questionList) => {
         if (err) { reject(err) }
         questionList = questionList.map(question => {
-          return new TestQuestion(question.id, question.wording)
+          if (question.wordingImage) {
+            question.wordingImage = new Buffer(question.wordingImage).toString('base64')
+          }
+          return new TestQuestion(question.id, question.wordingText, question.wordingImage)
         })
         for (let i = 0; i < size && questionList.length > 0; i++) {
           let aux = Math.floor(Math.random() * questionList.length)
@@ -174,7 +178,10 @@ class TestQuestion {
       (err, questionList) => {
         if (err) { reject(err) }
         questionList = questionList.map(question => {
-          return new TestQuestion(question.id, question.wording)
+          if (question.wordingImage) {
+            question.wordingImage = new Buffer(question.wordingImage).toString('base64')
+          }
+          return new TestQuestion(question.id, question.wordingText, question.wordingImage)
         })
         for (let i = 0; i < size && questionList.length > 0; i++) {
           let aux = Math.floor(Math.random() * questionList.length)
@@ -199,11 +206,14 @@ class TestQuestion {
     size = 5
     return new Promise((resolve, reject) => {
       mysqlConnection.query('SELECT DISTINCT * FROM testQuestions ' +
-      'WHERE wording REGEXP \'([[:blank:][:punct:]]|^)' + concept + '([[:blank:][:punct:]]|$)\'',
+      'WHERE wordingText REGEXP \'([[:blank:][:punct:]]|^)' + concept + '([[:blank:][:punct:]]|$)\'',
       (err, questionList) => {
         if (err) { reject(err) }
         questionList = questionList.map(question => {
-          return new TestQuestion(question.id, question.wording)
+          if (question.wordingImage) {
+            question.wordingImage = new Buffer(question.wordingImage).toString('base64')
+          }
+          return new TestQuestion(question.id, question.wordingText, question.wordingImage)
         })
         for (let i = 0; i < size && questionList.length > 0; i++) {
           let aux = Math.floor(Math.random() * questionList.length)
@@ -229,7 +239,7 @@ class TestQuestion {
         let options = JSON.parse(question.testOptions).map((option) => {
           return new TestOption(option.answer, option.isCorrect)
         })
-        return new TestQuestion(question.id, question.wording, options)
+        return new TestQuestion(question.id, question.wordingText, question.wordingImage, options)
       })
 
       let solutions = origin.map((questionAux) => {

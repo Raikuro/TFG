@@ -65,7 +65,9 @@ export class TestIndexTeacherComponent extends ComponentWithSession {
                 question.testOptions = question.testOptions.map(option => {
                   return new TestOption(option.answer, option.isCorrect)
                 })
-                let aux = new TestQuestion(question.id, question.wording, question.testOptions)
+                let aux = new TestQuestion(question.id, question.wordingText, question.wordingImage, question.testOptions)
+                console.log("----", question.wordingImage)
+                console.log("-->", aux)
                 return aux;
               });
               //console.log(this.questions)
@@ -95,7 +97,7 @@ export class TestIndexTeacherComponent extends ComponentWithSession {
   }*/
 
   getSymbol(option){
-    return option.isCorrect ? 'T' : 'F';
+    return option.isCorrect;
   }
 
   editQuestion(question){
@@ -110,6 +112,10 @@ export class TestIndexTeacherComponent extends ComponentWithSession {
   deleteQuestion(question){
     this.testService.confirmationData = {lessonId: this.lesson.id, question: question, mode: DELETE}
     this.router.navigate(['/test/questions/confirmation'])
+  }
+
+  doSome(a){
+    console.log(a)
   }
 
 
