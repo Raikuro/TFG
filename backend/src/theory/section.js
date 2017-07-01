@@ -142,7 +142,7 @@ class Section {
     })
   }
 
-  static findByKeyword (keyword, lessonId) {
+  /*static findByKeyword (keyword, lessonId) {
     return new Promise((resolve, reject) => {
       mysqlConnection.query(
         'SELECT DISTINCT S.* FROM keywordRelations K, sections S WHERE K.section = S.id AND S.lesson = ? AND K.keyword LIKE ?',
@@ -162,6 +162,26 @@ class Section {
                 .catch((err) => { reject(err) })
               })
             } else { resolve(auxSections) }
+          }
+        }
+      )
+    })
+  }*/
+
+  static findByKeyword (keyword, lessonId) {
+    return new Promise((resolve, reject) => {
+      mysqlConnection.query(
+        'SELECT DISTINCT S.id FROM keywordRelations K, sections S WHERE K.section = S.id AND S.lesson = ? AND K.keyword LIKE ?',
+        [lessonId, keyword + '%'], (err, sections) => {
+          if (err) { reject(err) } else {
+            if (sections[0]) {
+              let promises = sections.map((sectionData) => {
+                return Section.getSection(sectionData.id)
+              })
+              Promise.all(promises)
+                .then((sections) => { console.log(sections); resolve(sections) })
+                .catch((err) => reject(err))
+            } else { resolve([]) }
           }
         }
       )

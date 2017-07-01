@@ -14,9 +14,9 @@ class Lesson {
     return new Promise((resolve, reject) => {
       mysqlConnection.query('SELECT S.id, S.title FROM sections S WHERE S.lesson = ?', [this.id], (err, sections) => {
         if (err) { reject(err) } else {
-          Section.findByKeyword(key, this.id).then((result) => {
-            console.log("----1>", result); resolve(result)
-          })
+          Section.findByKeyword(key, this.id)
+          .then((result) => resolve(result))
+          .catch((err) => reject(err))
         }
       })
     })
