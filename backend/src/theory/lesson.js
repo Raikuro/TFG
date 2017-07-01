@@ -1,5 +1,5 @@
 let Section = require('./section')
-let TestQuestions = require('./testQuestion')
+let TestQuestion = require('./testQuestion')
 let mysqlConnection = require('../core/mysqlConnection')
 
 class Lesson {
@@ -10,13 +10,14 @@ class Lesson {
     this.testQuestions = testQuestions || []
   }
 
-  search (query) {
+  search (key) {
     return new Promise((resolve, reject) => {
       mysqlConnection.query('SELECT S.id, S.title FROM sections S WHERE S.lesson = ?', [this.id], (err, sections) => {
-        if (err) { reject(err) }
-        Section.findByKeyword(query, this.id).then((result) => {
-          resolve(result)
-        })
+        if (err) { reject(err) } else {
+          Section.findByKeyword(key, this.id).then((result) => {
+            console.log("----1>", result); resolve(result)
+          })
+        }
       })
     })
   }
@@ -43,7 +44,7 @@ class Lesson {
           if (err) { reject(err) }
           let optionsAux = []
           questions = questions.map((question) => {
-            question = new TestQuestions(question.id, question.wording)
+            question = new TestQuestion(question.id, question.wordingText, question.wordingImage)
             optionsAux.push(question.getAllOptions())
             return question
           })

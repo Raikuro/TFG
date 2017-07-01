@@ -147,21 +147,22 @@ class Section {
       mysqlConnection.query(
         'SELECT DISTINCT S.* FROM keywordRelations K, sections S WHERE K.section = S.id AND S.lesson = ? AND K.keyword LIKE ?',
         [lessonId, keyword + '%'], (err, sections) => {
-          if (err) { reject(err) }
-          let auxSections = []
-          if (sections[0]) {
-            sections.map((section, i, arr) => {
-              return new Promise((resolve, reject) => {
-                section = new Section(section.id, section.title, section.contentText, section.contentImage)
-                section._getKeywords().then((keywords) => {
-                  section.keywords = keywords
-                  auxSections.push(section)
-                  if (i === arr.length - 1) { resolve(auxSections) }
-                }).catch((err) => reject(err))
-              }).then((result) => { resolve(result) })
-              .catch((err) => { reject(err) })
-            })
-          } else { resolve(auxSections) }
+          if (err) { reject(err) } else {
+            let auxSections = []
+            if (sections[0]) {
+              sections.map((section, i, arr) => {
+                return new Promise((resolve, reject) => {
+                  section = new Section(section.id, section.title, section.contentText, section.contentImage)
+                  section._getKeywords().then((keywords) => {
+                    section.keywords = keywords
+                    auxSections.push(section)
+                    if (i === arr.length - 1) { resolve(auxSections) }
+                  }).catch((err) => reject(err))
+                }).then((result) => { resolve(result) })
+                .catch((err) => { reject(err) })
+              })
+            } else { resolve(auxSections) }
+          }
         }
       )
     })
