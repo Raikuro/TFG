@@ -23,6 +23,7 @@ exports.getUnrespondedQuestions = (req, res) => {
 }
 
 exports.reportAQuestion = (req, res) => {
+  /*
   let question = JSON.parse(req.body.question)
   if (question.contentImage) {
     let bypassUrl = question.contentImage.replace(/ /g, '+')
@@ -36,9 +37,16 @@ exports.reportAQuestion = (req, res) => {
   question.responseText, question.responseImage, question.reported, question.ignored, question.date).report()
       .then(() => { res.status(204).send() })
       .catch((err) => res.status(500).send(err))
+  */
+  let questionTitle = JSON.parse(req.body.questionTitle)
+  let sectionId = JSON.parse(req.body.sectionId)
+  Question.report(questionTitle, sectionId)
+    .then(() => res.status(204).send())
+    .catch((err) => res.status(500).send(err))
 }
 
 exports.ignoreAQuestion = (req, res) => {
+  /*
   let question = JSON.parse(req.body.question)
   if (question.contentImage) {
     let bypassUrl = question.contentImage.replace(/ /g, '+')
@@ -52,6 +60,12 @@ exports.ignoreAQuestion = (req, res) => {
   question.responseText, question.responseImage, question.reported, question.ignored, question.date).ignore()
       .then(() => { res.status(204).send() })
       .catch((err) => res.status(500).send(err))
+  */
+  let questionTitle = JSON.parse(req.body.questionTitle)
+  let sectionId = JSON.parse(req.body.sectionId)
+  Question.ignore(questionTitle, sectionId)
+    .then(() => res.status(204).send())
+    .catch((err) => res.status(500).send(err))
 }
 
 exports.respondAQuestion = (req, res) => {

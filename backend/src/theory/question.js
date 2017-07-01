@@ -47,6 +47,7 @@ class Question {
     })
   }
 
+  /*
   report () {
     let starttime = new Date(this.date)
     let isotime = new Date((new Date(starttime)).toISOString())
@@ -72,7 +73,9 @@ class Question {
       })
     }
   }
+  */
 
+  /*
   ignore () {
     let starttime = new Date(this.date)
     let isotime = new Date((new Date(starttime)).toISOString())
@@ -98,6 +101,7 @@ class Question {
       })
     }
   }
+  */
 
   addResponse () {
     if (this.date === undefined) { this.date = new Date() }
@@ -134,11 +138,12 @@ class Question {
     }
     return new Promise((resolve, reject) => {
       mysqlConnection.query(query, dataArray, (err, questions) => {
-        if (err) { console.log(err); reject(err) } else { resolve() }
+        if (err) { reject(err) } else { resolve() }
       })
     })
     
-    /*if (this.contentImage) {
+    /*
+    if (this.contentImage) {
       return new Promise((resolve, reject) => {
         mysqlConnection.query('UPDATE questions SET response = ? WHERE username = ? ' +
         'AND dateOfQuestion = ? AND title = ? AND contentText = ? AND contentImage = ?',
@@ -156,26 +161,46 @@ class Question {
           resolve()
         })
       })
-    }*/
+    }
+    */
   }
 
   static getUnresponded () {
     return new Promise((resolve, reject) => {
       mysqlConnection.query('SELECT DISTINCT Q.*, S.title as sTitle, S.id as sId FROM questions Q, sections S WHERE Q.responseText IS NULL AND Q.responseImage IS NULL AND Q.reported IS NOT TRUE AND Q.ignored IS NOT TRUE AND Q.section = S.id',
       (err, questions) => {
-        if (err) { reject(err) }
-        resolve(questions.map((question) => {
-          if (question.contentImage) {
-            question.contentImage = new Buffer(question.contentImage).toString('base64')
-          }
-          if (question.responseImage) {
-            question.responseImage = new Buffer(question.responseImage).toString('base64')
-          }
-          return {
-            'associatedSection': {'title': question.sTitle, 'id': question.sId},
-            'question': new Question(question.title, question.contentText, question.contentImage, question.username, question.responseText, question.responseImage, question.reported, question.ignored, question.dateOfQuestion)
-          }
-        }))
+        if (err) { reject(err) } else {
+          resolve(questions.map((question) => {
+            if (question.contentImage) {
+              question.contentImage = new Buffer(question.contentImage).toString('base64')
+            }
+            if (question.responseImage) {
+              question.responseImage = new Buffer(question.responseImage).toString('base64')
+            }
+            return {
+              'associatedSection': {'title': question.sTitle, 'id': question.sId},
+              'question': new Question(question.title, question.contentText, question.contentImage, question.username, question.responseText, question.responseImage, question.reported, question.ignored, question.dateOfQuestion)
+            }
+          }))
+        }
+      })
+    })
+  }
+
+  static ignore (questionTitle, sectionId) {
+    return new Promise((resolve, reject) => {
+      mysqlConnection.query('UPDATE questions SET ignored=true WHERE section = ? AND title = ?',
+      [sectionId, questionTitle], (err, questions) => {
+        if (err) { reject(err) } else { resolve() }
+      })
+    })
+  }
+
+  static report (questionTitle, sectionId) {
+    return new Promise((resolve, reject) => {
+      mysqlConnection.query('UPDATE questions SET reported=true WHERE section = ? AND title = ?',
+      [sectionId, questionTitle], (err, questions) => {
+        if (err) { reject(err) } else { resolve() }
       })
     })
   }

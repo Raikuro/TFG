@@ -62,8 +62,8 @@ export class UnrespondedQuestionListComponent extends ComponentWithSession {
     this.router.navigate(['/questions/respond'])
   }
 
-  reportQuestion(question, index){
-    this.addAlert(REPORT_ALERT, question, index)
+  reportQuestion(questionTitle, sectionId, index){
+    this.addAlert(REPORT_ALERT, questionTitle, sectionId, index)
     /*this.questionService.reportQuestion(question).subscribe(
       res => {
         this.addAlert(REPORT_ALERT)
@@ -76,28 +76,25 @@ export class UnrespondedQuestionListComponent extends ComponentWithSession {
   confirmation(alert){
     switch (alert.type){
       case 'warning':
-        this.questionService.ignoreQuestion(alert.question).subscribe(
-        res => {
-          this.questionsData.splice(alert.index,1);
-        },
-        error => this.goToErrorPage(error)
-      )
+      //AA
+        this.questionService.ignoreQuestion(alert.questionTitle, alert.sectionId).subscribe(
+          res => this.questionsData.splice(alert.index,1),
+          error => this.goToErrorPage(error)
+        )
       break;
       case 'danger':
-        this.questionService.reportQuestion(alert.question).subscribe(
-        res => {
-          this.questionsData.splice(alert.index,1);
-        },
-        error => this.goToErrorPage(error)
-      )
+        this.questionService.reportQuestion(alert.questionTitle, alert.sectionId).subscribe(
+          res => this.questionsData.splice(alert.index,1),
+          error => this.goToErrorPage(error)
+        )
       break;
       default:
     }
     this.closeAlert(alert)
   }
 
-  ignoreQuestion(question, index){
-    this.addAlert(IGNORE_ALERT, question, index)
+  ignoreQuestion(questionTitle, sectionId, index){
+    this.addAlert(IGNORE_ALERT, questionTitle, sectionId, index)
         
     /*this.questionService.ignoreQuestion(question).subscribe(
       res => {
@@ -108,19 +105,25 @@ export class UnrespondedQuestionListComponent extends ComponentWithSession {
     )*/
   }
 
-  addAlert(alert, question, index){
-    alert.question = question;
+  addAlert(alert, questionTitle, sectionId, index){
+    alert.questionTitle = questionTitle;
+    alert.sectionId = sectionId;
     alert.index = index;
     this.alerts.push(alert)
+    console.log(alert)
   }
 
   /*reloadPage() {
     window.location.reload();
   }*/
 
-  public closeAlert(alert) {
+  closeAlert(alert) {
     const index: number = this.alerts.indexOf(alert);
     this.alerts.splice(index, 1);
+  }
+
+  doSome(a){
+    console.log(a)
   }
 
 }

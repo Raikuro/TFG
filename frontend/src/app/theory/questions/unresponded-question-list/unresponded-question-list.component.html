@@ -39,7 +39,7 @@
     <ngb-accordion *ngIf="thereAreUnrespondedQuestions()">
       <ngb-panel *ngFor="let questionData of questionsData; let idx = index" id={{questionData.question.title}}>
         <ng-template ngbPanelTitle>
-          <div style="width: 100%; height: 100%" class="acordionSection">
+          <div (click)="doSome(questionData.associatedSection)" style="width: 100%; height: 100%" class="acordionSection">
             {{questionData.question.title}}
           </div>
           </ng-template>
@@ -49,10 +49,10 @@
             <div style="border: 2px solid #d9d9db; border-radius: 5px; overflow: auto; padding: 5px; margin-bottom: 5px">
               {{questionData.question.contentText}}
             </div>
-            <button class="btn btn-danger" *ngIf="!session.isAlumn" (click)="reportQuestion(questionData.question, idx)">
+            <button class="btn btn-danger" *ngIf="!session.isAlumn" (click)="reportQuestion(questionData.question.title, questionData.associatedSection.id, idx)">
               Reportar
             </button>
-            <button class="btn btn-warning" *ngIf="!session.isAlumn" (click)="ignoreQuestion(questionData.question)">
+            <button class="btn btn-warning" *ngIf="!session.isAlumn" (click)="ignoreQuestion(questionData.question.title, questionData.associatedSection.id, idx)">
               Ignorar por repetido
             </button>
             <button class="btn btn-success" *ngIf="!session.isAlumn" (click)="respondQuestion(questionData.question)">

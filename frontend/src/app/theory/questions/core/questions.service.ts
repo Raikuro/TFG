@@ -76,18 +76,20 @@ export class QuestionsService extends BaseService{
         return Observable.throw(this.extractError(error) || 'Server error')})
   }
 
-  reportQuestion(question){
+  reportQuestion(questionTitle, sectionId){
     let body = new URLSearchParams();
-    body.append('question', JSON.stringify(question));
+    body.append('questionTitle', JSON.stringify(questionTitle));
+    body.append('sectionId', JSON.stringify(sectionId));
     return this.http.put(ADDRESS + '/question/report', body, this.options)
       .map(this.extractData)
       .catch((error:any) => {
         return Observable.throw(this.extractError(error) || 'Server error')})
   }
 
-  ignoreQuestion(question){
+  ignoreQuestion(questionTitle, sectionId){
     let body = new URLSearchParams();
-    body.append('question', JSON.stringify(question));
+    body.append('questionTitle', JSON.stringify(questionTitle));
+    body.append('sectionId', JSON.stringify(sectionId));
     return this.http.put(ADDRESS + '/question/ignore', body, this.options)
       .map(this.extractData)
       .catch((error:any) => {
