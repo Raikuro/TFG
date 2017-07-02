@@ -1,10 +1,11 @@
 let mysql = require('mysql')
 
 let connection = mysql.createConnection(require('../../../config/database'))
-//connection.connect()
+// connection.connect()
 module.exports = connection
 
-/*handleDisconnect()
+/*
+handleDisconnect()
 function handleDisconnect () {
   let connection = mysql.createConnection(require('../../../config/database'))
   connection.connect((err) => {
@@ -22,5 +23,3 @@ function handleDisconnect () {
   })
   module.exports = connection
 }*/
-
-
