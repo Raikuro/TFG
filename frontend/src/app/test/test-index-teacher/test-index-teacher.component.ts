@@ -2,13 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { TheoryService } from "app/theory/core/theory.service";
 import { TestService } from "app/test/core/test.service";
-import { DELETE } from "app/core/utils/const";
+import { DELETE, PAGESIZE } from "app/core/utils/const";
 import { TestOption } from "app/theory/core/testOption";
 import { TestQuestion } from "app/theory/core/testQuestion";
 import { ComponentWithSession } from "app/core/component/componentWithSession";
 import { SessionService } from "app/core/session/session.service";
-
-const PAGESIZE = 5;
 
 @Component({
   selector: 'app-test-index-teacher',

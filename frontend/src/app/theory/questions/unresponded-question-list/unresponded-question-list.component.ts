@@ -4,18 +4,7 @@ import { SessionService } from "app/core/session/session.service";
 import { Router } from "@angular/router";
 import { QuestionsService } from "app/theory/questions/core/questions.service";
 import { Question } from "app/theory/core/question";
-
-const REPORT_ALERT = {
-  msg: 'La duda va a ser reportada. Confirme',
-  closable: true,
-  type: 'danger'
-};
-
-const IGNORE_ALERT = {
-  msg: 'La duda va a ser marcada como repetida. Confirme',
-  closable: true,
-  type: 'warning'
-};
+import { REPORT_ALERT, IGNORE_ALERT } from "app/core/utils/const";
 
 @Component({
   selector: 'app-unresponded-question-list',
@@ -118,7 +107,7 @@ export class UnrespondedQuestionListComponent extends ComponentWithSession {
   }*/
 
   closeAlert(alert) {
-    const index: number = this.alerts.indexOf(alert);
+    let index: number = this.alerts.indexOf(alert);
     this.alerts.splice(index, 1);
   }
 
