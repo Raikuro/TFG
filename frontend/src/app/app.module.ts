@@ -32,7 +32,6 @@ import { TestComponent } from './test/test.component';
 import { TestIndexAlumnComponent } from './test/test-index-alumn/test-index-alumn.component';
 import { TestIndexTeacherComponent } from './test/test-index-teacher/test-index-teacher.component';
 import { TestService } from "app/test/core/test.service";
-import { QuestionListComponent } from './test/question-list/question-list.component';
 import { QuestionEditorComponent } from './test/question-editor/question-editor.component';
 import { TestQuestionConfirmationComponent } from './test/test-question-confirmation/test-question-confirmation.component';
 import { ExamComponent } from './test/exam/exam.component';
@@ -61,7 +60,6 @@ import { QuestionAddComponent } from './test/question-add/question-add.component
     TestComponent,
     TestIndexAlumnComponent,
     TestIndexTeacherComponent,
-    QuestionListComponent,
     QuestionEditorComponent,
     TestQuestionConfirmationComponent,
     ExamComponent,

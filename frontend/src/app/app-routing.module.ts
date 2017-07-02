@@ -11,7 +11,6 @@ import { QuestionConfirmationComponent } from "app/theory/questions/question-con
 import { RespondQuestionComponent } from './theory/questions/respond-question/respond-question.component';
 import { UnrespondedQuestionListComponent,} from './theory/questions/unresponded-question-list/unresponded-question-list.component';
 import { TestComponent } from "app/test/test.component";
-import { QuestionListComponent } from "app/test/question-list/question-list.component";
 import { QuestionEditorComponent } from "app/test/question-editor/question-editor.component";
 import { QuestionAddComponent } from "app/test/question-add/question-add.component";
 import { TestQuestionConfirmationComponent } from "app/test/test-question-confirmation/test-question-confirmation.component";
