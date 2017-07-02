@@ -65,7 +65,6 @@ export class UnrespondedQuestionListComponent extends ComponentWithSession {
   confirmation(alert){
     switch (alert.type){
       case 'warning':
-      //AA
         this.questionService.ignoreQuestion(alert.questionTitle, alert.sectionId).subscribe(
           res => this.questionsData.splice(alert.index,1),
           error => this.goToErrorPage(error)

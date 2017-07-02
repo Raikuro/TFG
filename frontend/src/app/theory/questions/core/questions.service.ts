@@ -58,9 +58,10 @@ export class QuestionsService extends BaseService{
         return Observable.throw(this.extractError(error) || 'Server error')})
   }
 
-  deleteQuestion(question){
+  deleteQuestion(questionTitle, sectionId){
     let body = new URLSearchParams();
-    body.append('question', JSON.stringify(question));
+    body.append('questionTitle', JSON.stringify(questionTitle));
+    body.append('sectionId', JSON.stringify(sectionId));
     let optionAux = this.options;
     optionAux.body = body
     return this.http.delete(ADDRESS + '/questions/', optionAux)

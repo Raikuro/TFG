@@ -1,6 +1,12 @@
 let Question = require('./question')
 
 exports.delete = (req, res) => {
+  let questionTitle = JSON.parse(req.body.questionTitle)
+  let sectionId = JSON.parse(req.body.sectionId)
+  Question.delete(questionTitle, sectionId)
+    .then(() => res.status(204).send())
+    .catch((err) => res.status(500).send(err))
+  /*
   let question = JSON.parse(req.body.question)
   if (question.contentImage) {
     let bypassUrl = question.contentImage.replace(/ /g, '+')
@@ -14,6 +20,7 @@ exports.delete = (req, res) => {
   question.responseText, question.responseImage, question.reported, question.ignored, question.dateOfQuestion).delete()
       .then(() => { res.status(204).send() })
       .catch((err) => res.status(500).send(err))
+  */
 }
 
 exports.getUnrespondedQuestions = (req, res) => {

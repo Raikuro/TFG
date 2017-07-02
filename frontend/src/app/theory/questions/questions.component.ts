@@ -99,7 +99,7 @@ export class QuestionsComponent extends ComponentWithSession {
   }
 
   deleteQuestion(question){
-    this.questionsService.deleteQuestion(question).subscribe(
+    this.questionsService.deleteQuestion(question.title, this.sectionId).subscribe(
       () => { location.reload() },
       (error) => this.goToErrorPage(error)
     )

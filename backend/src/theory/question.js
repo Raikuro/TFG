@@ -13,6 +13,16 @@ class Question {
     this.ignored = ignored
   }
 
+  static delete (questionTitle, sectionId) {
+    return new Promise((resolve, reject) => {
+      mysqlConnection.query('DELETE FROM questions WHERE section = ? AND title = ?',
+      [sectionId, questionTitle], (err, questions) => {
+        if (err) { reject(err) } else { resolve() }
+      })
+    })
+  }
+
+  /*
   delete () {
     let starttime = new Date(this.date)
     let isotime = new Date((new Date(starttime)).toISOString())
@@ -46,7 +56,7 @@ class Question {
       )
     })
   }
-
+  /*
   /*
   report () {
     let starttime = new Date(this.date)
