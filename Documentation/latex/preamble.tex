@@ -1,0 +1,41 @@
+\documentclass[openright,twoside,10pt]{book}
+\usepackage[b5paper,left=2cm,top=2.5cm,right=1.5cm,bottom=2.5cm]{geometry} 
+\usepackage[spanish]{babel} % espanol
+\usepackage[utf8]{inputenc} % acentos sin codigo
+\usepackage{graphicx} % gráficos
+\usepackage{lscape}
+\usepackage{fancyvrb}
+\usepackage{fancyhdr}
+\usepackage{wrapfig}
+\usepackage{hyperref}
+\usepackage{biblatex}
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+  
+\setlength{\parskip}{10pt plus 1pt minus 1pt}
+ % aqui definimos el encabezado de las paginas pares e impares.
+\rhead[]{}
+
+\renewcommand{\headrulewidth}{0.5pt}
+
+% aqui definimos el pie de pagina de las paginas pares e impares.
+\rfoot[\thepage]{\thepage}
+\cfoot[]{}
+\renewcommand{\footrulewidth}{0pt}
+
+%redefino el verbatim
+%\renewenvironment{verbatim}{\begin{Verbatim}[frame=single,fontsize=\small]}{\end{Verbatim}}
+
+
+% aqui definimos el encabezado y pie de pagina de la pagina inicial de un capitulo.
+\fancypagestyle{plain}{
+\fancyhead[R]{}
+\fancyfoot[C]{}
+\fancyfoot[R]{\thepage}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0pt}
+}
+
+\pagestyle{fancy} % seleccionamos un estilo
+

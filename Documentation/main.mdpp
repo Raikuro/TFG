@@ -1,0 +1,37 @@
+---
+fecha: 16 de mayo de 2016
+autor: Julio
+titulo: Plantilla de TFG
+mencion: INGENIERÍA DE SOFTWARE
+dedicatoria: |
+    Una dedicatoria. Puede
+    alargarse varias líneas, e
+    incluso contener comas.
+agradecimientos: |
+    Bloque de texto que permite alargarse
+    lo que deseemos, incluir comas y cualquier
+    tipo de caracter dentro de este encabezado
+    en YAML siempre y cuando mantengamos
+    la indentación del bloque.
+resumen: |
+    Bloque de texto para el resumen.
+abstract: |
+    Text block for the abstract.
+---
+
+<!-- Insertar esta instrucción LaTeX debajo del primer título -->
+\pagenumbering{arabic}
+
+!INCLUDE "secciones/introduccion.md"
+
+!INCLUDE "secciones/estado_del_arte.md"
+
+<!-- Aquí va la sección de líneas futuras -->
+
+<!-- Aquí va la sección de conclusiones -->
+
+\appendix
+
+<!-- Aquí va el apéndice de manual de usuario -->
+
+<!-- Aquí va el apéndice de contenidos del CD-ROM -->

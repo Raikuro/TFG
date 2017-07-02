@@ -1,0 +1,149 @@
+\documentclass[openright,twoside,10pt]{book}
+\usepackage[b5paper,left=2cm,top=2.5cm,right=1.5cm,bottom=2.5cm]{geometry} 
+\usepackage[spanish]{babel} % espanol
+\usepackage[utf8]{inputenc} % acentos sin codigo
+\usepackage{graphicx} % gráficos
+\usepackage{lscape}
+\usepackage{fancyvrb}
+\usepackage{fancyhdr}
+\usepackage{wrapfig}
+\usepackage{hyperref}
+\usepackage{biblatex}
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+  
+\setlength{\parskip}{10pt plus 1pt minus 1pt}
+ % aqui definimos el encabezado de las paginas pares e impares.
+\rhead[]{}
+
+\renewcommand{\headrulewidth}{0.5pt}
+
+% aqui definimos el pie de pagina de las paginas pares e impares.
+\rfoot[\thepage]{\thepage}
+\cfoot[]{}
+\renewcommand{\footrulewidth}{0pt}
+
+%redefino el verbatim
+%\renewenvironment{verbatim}{\begin{Verbatim}[frame=single,fontsize=\small]}{\end{Verbatim}}
+
+
+% aqui definimos el encabezado y pie de pagina de la pagina inicial de un capitulo.
+\fancypagestyle{plain}{
+\fancyhead[R]{}
+\fancyfoot[C]{}
+\fancyfoot[R]{\thepage}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0pt}
+}
+
+\pagestyle{fancy} % seleccionamos un estilo
+
+
+
+
+
+\date{$fecha$}
+\author{$autor$}
+\title{$titulo$}
+
+\begin{document}
+    \begin{titlepage}
+        \begin{center}
+            \vspace*{-1in}
+            \begin{figure}[htb]
+                \begin{center}
+                    \includegraphics[width=3cm]{./latex/img/logo}
+                \end{center}
+            \end{figure}
+            \begin{large}
+                \textbf{Universidad de Valladolid}
+            \end{large}
+
+            \vspace*{0.15in}
+            \vspace*{0.6in}
+            \begin{large}
+                \textbf{ESCUELA DE INGENIERÍA INFORMÁTICA}
+            \end{large}
+            \vspace*{0.2in}
+            \textbf{ GRADO EN INGENIERÍA INFORMÁTICA}\\
+            \textbf{ MENCIÓN EN $mencion$ }
+            \vspace*{0.5in}
+            \rule{140mm}{0.1mm}\\
+            \vspace*{0.3in}
+            \begin{large}
+                \textbf{{\LARGE $titulo$\\}}
+            \end{large}
+            \vspace*{0.6in}
+            \rule{140mm}{0.1mm}\\
+            \vspace*{2in}
+            \begin{large}
+                \begin{flushright}
+                    \textbf{Alumno/a: $autor$ \\
+                    \vspace*{0.3in}
+                    Tutores/as: }
+                \end{flushright}
+            \end{large}
+        \end{center}
+    \end{titlepage}
+
+    \newpage
+    \mbox{}	
+    \thispagestyle{empty} % para que no se numere esta página
+
+    \chapter*{}
+    \pagenumbering{Roman} % para comenzar la numeración de paginas en números romanos
+
+    \begin{flushright}
+        \textit{%Dedicatoria,\\
+        $dedicatoria$}
+    \end{flushright}
+
+    \chapter*{Agradecimientos} % si no queremos que añada la palabra "Capitulo"
+    \addcontentsline{toc}{chapter}{Agradecimientos} % si queremos que aparezca en el índice
+    \markboth{AGRADECIMIENTOS}{AGRADECIMIENTOS} % encabezado 
+
+    $agradecimientos$
+
+    \chapter*{Resumen} % si no queremos que añada la palabra "Capitulo"
+    \addcontentsline{toc}{chapter}{Resumen} % si queremos que aparezca en el índice
+    \markboth{RESUMEN}{RESUMEN} % encabezado
+    \begin{flushleft}
+
+    $resumen$
+
+    \end{flushleft}
+
+
+    \chapter*{Abstract} % si no queremos que añada la palabra "Capitulo"
+    \addcontentsline{toc}{chapter}{Abstract} % si queremos que aparezca en el índice
+    \markboth{ABSTRACT}{ABSTRACT} % encabezado
+    \begin{flushleft}
+
+    $abstract$
+
+    \end{flushleft}
+
+    \tableofcontents % indice de contenidos
+
+    \cleardoublepage
+    \addcontentsline{toc}{chapter}{Lista de figuras} % para que aparezca en el indice de contenidos
+    \listoffigures % indice de figuras
+
+    \cleardoublepage
+    \addcontentsline{toc}{chapter}{Lista de tablas} % para que aparezca en el indice de contenidos
+    \listoftables % indice de tablas
+
+    $body$
+
+    \cleardoublepage
+    \addcontentsline{toc}{chapter}{Bibliografía}
+    \printbibliography
+    %\renewcommand\bibname{Referencias Web}
+
+    %\begin{thebibliography}{X}
+    %    \bibitem{ref1} \textit{Ejemplo}, \\
+    %    \textsc{ejemplo.com}.
+    %    \\Recuperado a tal fecha, \\de \href{http://ejemplo.com}
+    %\end{thebibliography}
+\end{document}
