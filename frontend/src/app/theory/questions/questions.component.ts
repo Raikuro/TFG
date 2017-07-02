@@ -25,9 +25,10 @@ export class QuestionsComponent extends ComponentWithSession {
   private newQuestion;
   private lessonId;
   private sectionId;
-  private alert;
+  private alerts;
   
   onInitTasks() {
+    this.alerts = [];
     window.location.hash = '';
     this.searchText = "";
     this.route.params.subscribe(
@@ -94,12 +95,28 @@ export class QuestionsComponent extends ComponentWithSession {
     this.router.navigate(['/questions/confirmation',{lessonId: this.lessonId, sectionId: this.sectionId}])
   }
 
-  sendConfirmationForDelete(){
-    
+  addAlert(questionTitle){
+    let alert = {
+      msg: 'La duda "'+ questionTitle +'" va a ser reportada. Confirme',
+      closable: true,
+      type: 'danger',
+      questionTitle: questionTitle
+    };
+    this.alerts.push(alert)
+    console.log(alert)
   }
 
-  deleteQuestion(question){
-    this.questionsService.deleteQuestion(question.title, this.sectionId).subscribe(
+  closeAlert(alert) {
+    let index: number = this.alerts.indexOf(alert);
+    this.alerts.splice(index, 1);
+  }
+
+  sendConfirmationForDelete(questionTitle){
+    this.addAlert(questionTitle)
+  }
+
+  deleteQuestion(questionTitle){
+    this.questionsService.deleteQuestion(questionTitle, this.sectionId).subscribe(
       () => { location.reload() },
       (error) => this.goToErrorPage(error)
     )

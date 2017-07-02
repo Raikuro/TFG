@@ -2,6 +2,11 @@
   <app-header></app-header>
 </header>
 <div style="padding-left: 150px; padding-right: 150px">
+
+  <div *ngFor="let alert of alerts">
+    <ngb-alert [type]="alert.type" (close)="closeAlert(alert)">{{ alert.msg }} <button (click)="deleteQuestion(alert.questionTitle)" class="btn btn-success">Confirmar</button> </ngb-alert>
+  </div>
+
   <span (click)="doSome()">Buscar por contenido:</span>
   <input class="form-control" type="search" style="width: 100%;" [(ngModel)]="searchText">
   
@@ -28,7 +33,7 @@
               Resolver
             </button>
           </div>
-          <button class="btn btn-danger" *ngIf="!session.isAlumn" (click)="deleteQuestion(question)">
+          <button class="btn btn-danger" *ngIf="!session.isAlumn" (click)="sendConfirmationForDelete(question.title)">
             Borrar
           </button>
         </ng-template>
