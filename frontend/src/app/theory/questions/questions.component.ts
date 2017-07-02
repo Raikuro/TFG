@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ComponentWithSession } from "app/core/component/componentWithSession";
 import { Router, ActivatedRoute } from "@angular/router";
 import { SessionService } from "app/core/session/session.service";
@@ -17,6 +17,8 @@ import { DomSanitizer } from "@angular/platform-browser";
 })
 export class QuestionsComponent extends ComponentWithSession {
   
+  @ViewChild('imageInputQ') imageInputQ;
+  @ViewChild('imageInputR') imageInputR;
   protected session: Session
   private questions: Question[]
   private searchText: string
@@ -92,6 +94,10 @@ export class QuestionsComponent extends ComponentWithSession {
     this.router.navigate(['/questions/confirmation',{lessonId: this.lessonId, sectionId: this.sectionId}])
   }
 
+  sendConfirmationForDelete(){
+    
+  }
+
   deleteQuestion(question){
     this.questionsService.deleteQuestion(question).subscribe(
       () => { location.reload() },
@@ -160,6 +166,16 @@ export class QuestionsComponent extends ComponentWithSession {
     if(this.newQuestion){
       this.newQuestion.responseImage = btoa(binaryString);
     }
+  }
+
+  removeImageQ(){
+    this.imageInputQ.nativeElement.value = ''
+    this.newQuestion.contentImage = undefined
+  }
+
+  removeImageR(){
+    this.imageInputR.nativeElement.value = ''
+    this.newQuestion.responseImage = undefined
   }
 
 }

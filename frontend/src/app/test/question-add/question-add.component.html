@@ -13,7 +13,10 @@
 
   <div class="form-group">
     <label for="wording">Enunciado</label>
-    <input class="form-control" style="max-width:100%; max-height:100%;" type="file" id="filePicker" (change)="handleFileSelect($event)" accept="image/x-png,image/gif,image/jpeg">
+    <div class="row" style="max-width:100%; margin-right: 0px; margin-left: 0px">
+      <input #imageInput class="form-control col-9" style="max-height:100%;" type="file" id="filePicker" (change)="handleFileSelect($event)" accept="image/x-png,image/gif,image/jpeg">
+      <button [disabled]="!question?.wordingImage" (click)="removeImage()" class="btn btn-danger col-3">Quitar</button>
+    </div>
     <img style="max-width:100%; max-height:100%;" *ngIf="question?.wordingImage" [src]="'data:image/jpg;base64,'+question?.wordingImage" />
     <textarea class="form-control" name="wording" rows="3" [ngModel]="question?.wordingText" (ngModelChange)="question ? question.wordingText = $event : null"></textarea>
   </div>

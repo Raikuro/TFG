@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ComponentWithSession } from "app/core/component/componentWithSession";
 import { Router, ActivatedRoute } from "@angular/router";
 import { SessionService } from "app/core/session/session.service";
@@ -16,6 +16,7 @@ import { Location } from '@angular/common';
 })
 export class QuestionEditorComponent extends ComponentWithSession {
   
+  @ViewChild('imageInput') imageInput;
   private lessons;
   private lesson;
   private question: TestQuestion;
@@ -152,6 +153,11 @@ export class QuestionEditorComponent extends ComponentWithSession {
     if(this.question){
       this.question.wordingImage = btoa(binaryString);
     }
+  }
+
+  removeImage(){
+    this.imageInput.nativeElement.value = ''
+    this.question.wordingImage = undefined
   }
 
 }

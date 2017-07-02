@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ComponentWithSession } from "app/core/component/componentWithSession";
 import { Router } from "@angular/router";
 import { SessionService } from "app/core/session/session.service";
@@ -12,6 +12,7 @@ import { Location } from '@angular/common';
 })
 export class RespondQuestionComponent extends ComponentWithSession {
   
+  @ViewChild('imageInput') imageInput;
   private question;
 
   onInitTasks() {
@@ -54,6 +55,11 @@ export class RespondQuestionComponent extends ComponentWithSession {
     if(this.question){
       this.question.responseImage = btoa(binaryString);
     }
+  }
+
+  removeImage(){
+    this.imageInput.nativeElement.value = ''
+    this.question.responseImage = undefined
   }
 
 }

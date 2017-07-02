@@ -55,13 +55,19 @@
           </div>
           <div class="form-group">
             <label for="content">Contenido: </label>
-            <input class="form-control" style="max-width:100%; max-height:100%;" type="file" id="filePicker" (change)="handleFileSelectQ($event)" accept="image/x-png,image/gif,image/jpeg">
+            <div class="row" style="max-width:100%; margin-right: 0px; margin-left: 0px">
+              <input #inputImageQ class="form-control col-9" style="max-height:100%;" type="file" id="filePicker" (change)="handleFileSelectQ($event)" accept="image/x-png,image/gif,image/jpeg">
+              <button [disabled]="!newQuestion?.contentImage" (click)="removeImageQ()" class="btn btn-danger col-3">Quitar</button>
+            </div>
             <img style="max-width:100%; max-height:100%;" *ngIf="newQuestion?.contentImage" [src]="'data:image/jpg;base64,'+newQuestion?.contentImage" />
             <textarea type="text" name="content" class="form-control" [ngModel]="newQuestion?.contentText" (ngModelChange)="newQuestion ? newQuestion.contentText = $event : null"></textarea>
           </div>
           <div class="form-group" *ngIf="!session.isAlumn">
             <label for="response">Respuesta: </label>
-            <input class="form-control" style="max-width:100%; max-height:100%;" type="file" id="filePicker" (change)="handleFileSelectR($event)" accept="image/x-png,image/gif,image/jpeg">
+            <div class="row" style="max-width:100%; margin-right: 0px; margin-left: 0px">
+              <input #inputImageR class="form-control col-9" style="max-height:100%;" type="file" id="filePicker" (change)="handleFileSelectR($event)" accept="image/x-png,image/gif,image/jpeg">
+              <button [disabled]="!newQuestion?.responseImage" (click)="removeImageR()" class="btn btn-danger col-3">Quitar</button>
+            </div>
             <img style="max-width:100%; max-height:100%;" *ngIf="newQuestion?.responseImage" [src]="'data:image/jpg;base64,'+newQuestion?.responseImage" />
             <textarea type="text" name="response" class="form-control" [ngModel]="newQuestion?.responseText" (ngModelChange)="newQuestion ? newQuestion.responseText = $event : null"></textarea>
           </div>

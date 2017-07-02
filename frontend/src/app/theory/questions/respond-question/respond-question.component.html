@@ -24,7 +24,10 @@
   <div style="height: 80%; display: flex; justify-content: space-around; flex-direction: column; padding: 10px">
     <div style="display: flex; flex-direction: column; justify-content: space-around; margin-bottom: 10px; padding: 5px; height: 75%">
     <div>Respuesta:</div>
-    <input class="form-control" style="max-width:100%; max-height:100%;" type="file" id="filePicker" (change)="handleFileSelect($event)" accept="image/x-png,image/gif,image/jpeg">
+    <div class="row" style="max-width:100%; margin-right: 0px; margin-left: 0px">
+      <input #imageInput class="form-control col-9" style="max-height:100%;" type="file" id="filePicker" (change)="handleFileSelect($event)" accept="image/x-png,image/gif,image/jpeg">
+      <button (click)="removeImage()" [disabled]="!question?.responseImage" class="btn btn-danger col-3">Quitar</button>
+    </div>
     <img style="max-width:100%; max-height:100%;" *ngIf="question?.responseImage" [src]="'data:image/jpg;base64,'+question.responseImage" />
     <textarea type="search" style="width: 100%; height: inherit" [ngModel]="question?.responseText" (ngModelChange)="question ? question.responseText = $event : null"></textarea>
   </div>

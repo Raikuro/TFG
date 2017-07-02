@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { Observable } from "rxjs/Observable";
 import { Session } from 'app/core/session/session'
@@ -11,9 +11,6 @@ import { Location } from '@angular/common';
 import { ComponentWithSession } from "app/core/component/componentWithSession";
 import { EDIT, ADD } from "app/core/utils/const";
 
-/*const ADD = 0;
-const EDIT = 1;*/
-
 @Component({
   selector: 'app-theory-editor',
   templateUrl: './theory-editor.component.html',
@@ -21,6 +18,7 @@ const EDIT = 1;*/
 })
 export class TheoryEditorComponent extends ComponentWithSession {
 
+  @ViewChild('imageInput') imageInput;
   private lessons;
   private mode;
   private lesson;
@@ -142,5 +140,10 @@ export class TheoryEditorComponent extends ComponentWithSession {
     if(this.section){
       this.section.contentImage = btoa(binaryString);
     }
+  }
+
+  removeImage(){
+    this.imageInput.nativeElement.value = ''
+    this.section.contentImage = undefined
   }
 }
