@@ -33,8 +33,11 @@
     </div>
     <div class="offset-4 col-9">
       <div *ngFor="let question of exam; let i = index" class="card" style="margin-bottom: 15px; padding: 10px;" [ngClass]="{ 'full-right': question.isRight === GOOD, 'partial-right': question.isRight === ALMOSTGOOD, 'wrong': question.isRight === WRONG}">
-        <div class="card-group" id="q{{i}}">
+         <div *ngIf="question?.wordingText" class="card-group" id="q{{i}}">
          {{i+1}} - {{question.wordingText}}
+        </div>
+        <div *ngIf="question?.wordingImage" class="card-group" id="q{{i}}">
+         {{i+1}} - <img style="max-width:100%; max-height:100%;" *ngIf="question?.wordingImage" [src]="'data:image/jpg;base64,'+question?.wordingImage" />
         </div>
         <ul class="list-group card-group">
           <li class="list-group-item justify-content-between" *ngFor="let option of question.testOptions; let j = index" [ngClass]="{'active': option.isCorrect}" ngDefaultControl>

@@ -67,6 +67,11 @@ exports.getConceptTest = (req, res) => {
 
 exports.checkExam = (req, res) => {
   let exam = JSON.parse(req.body.exam)
+  exam.forEach((question) => {
+    if (question.wordingImage) {
+      question.wordingImage = question.wordingImage.replace(/ /g, '+')
+    }
+  })
   TestQuestion.getResponseOfExam(exam)
     .then(result => res.status(200).send(result))
     .catch(error => res.status(500).send(error))

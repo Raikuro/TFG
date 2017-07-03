@@ -11,8 +11,11 @@
     </div>
     <div class="offset-4 col-9">
       <div *ngFor="let question of test; let i = index" class="card" style="margin-bottom: 15px; padding: 10px">
-        <div class="card-group" id="q{{i}}">
+        <div *ngIf="question?.wordingText" class="card-group" id="q{{i}}">
          {{i+1}} - {{question.wordingText}}
+        </div>
+        <div *ngIf="question?.wordingImage" class="card-group" id="q{{i}}">
+         {{i+1}} - <img style="max-width:100%; max-height:100%;" *ngIf="question?.wordingImage" [src]="'data:image/jpg;base64,'+question?.wordingImage" />
         </div>
         <ul class="list-group card-group">
           <li class="list-group-item" *ngFor="let option of question.testOptions" (click)="option.isCorrect = !option.isCorrect" [ngClass]="{ 'active': option.isCorrect}" ngDefaultControl>
