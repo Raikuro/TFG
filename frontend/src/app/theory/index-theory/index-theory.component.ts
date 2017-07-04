@@ -110,6 +110,9 @@ export class IndexTheoryComponent implements OnInit {
     this.lesson = lesson;
     this.onLessonChange.emit(JSON.stringify(this.lesson))
     this.sections = this.lesson.sections;
+    if(this.sections && this.sections[0]){
+      this.section = this.sections[0]
+    }
   }
 
   goToQuestions(){

@@ -48,6 +48,9 @@ export class SearchTheoryComponent implements OnChanges {
       this.lesson = this.lessons[0];
       this.onLessonChange.emit(JSON.stringify(this.lesson))
       this.sections = this.lesson.sections
+      if(this.sections && this.sections[0]){
+        this.section = this.sections[0]
+      }
     }
     else{
       this.lessons = []
@@ -71,6 +74,9 @@ export class SearchTheoryComponent implements OnChanges {
     this.lesson = lesson;
     this.onLessonChange.emit(JSON.stringify(this.lesson))
     this.sections = this.lesson.sections;
+    if(this.sections && this.sections[0]){
+        this.section = this.sections[0]
+    }
   }
 
   goToQuestions(){
