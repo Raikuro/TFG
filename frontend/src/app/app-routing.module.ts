@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent }       from 'app/login/login.component';
 import { TheoryComponent }      from 'app/theory/theory.component';
 import { TheoryEditorComponent } from 'app/theory/theory-editor/theory-editor.component'
-import { PageNotFoundComponent } from 'app/page-not-found/page-not-found.component';
 import { ConfirmChangesComponent } from 'app/theory/confirm-changes/confirm-changes.component';
 import { ServerErrorComponent } from 'app/core/server-error/server-error.component' 
 import { QuestionsComponent } from "app/theory/questions/questions.component";
@@ -17,7 +16,8 @@ import { TestQuestionConfirmationComponent } from "app/test/test-question-confir
 import { ExamComponent } from "app/test/exam/exam.component";
 import { ExamConfirmationComponent } from "app/test/exam-confirmation/exam-confirmation.component";
 import { ExamResultComponent } from "app/test/exam-result/exam-result.component";
-import { UserNotLoggedComponent } from "app/user-not-logged/user-not-logged.component";
+import { UserNotLoggedComponent } from "app/core/session/user-not-logged/user-not-logged.component";
+import { PageNotFoundComponent } from "app/core/page-not-found/page-not-found.component";
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },

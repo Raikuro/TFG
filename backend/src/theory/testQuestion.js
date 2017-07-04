@@ -57,7 +57,7 @@ class TestQuestion {
     })
   }
 
-  _diffBtwArrays (arr1, arr2) {
+  static _diffBtwOptionArrays (arr1, arr2) {
     return arr1.filter(e1 => {
       return !arr2.some(e2 => {
         return JSON.stringify({answer: e2.answer, isCorrect: e2.isCorrect}) ===
@@ -72,8 +72,8 @@ class TestQuestion {
         actual.map((option) => {
           return new TestOption(actual.answer, actual.isCorrect)
         })
-        let needToAdd = this._diffBtwArrays(this.testOptions, actual)
-        let needToDel = this._diffBtwArrays(actual, this.testOptions)
+        let needToAdd = TestQuestion._diffBtwOptionsArrays(this.testOptions, actual)
+        let needToDel = this._diffBtwOptionsArrays(actual, this.testOptions)
         let promisesDel = needToDel.map((option) => {
           return new TestOption(option.answer, option.isCorrect).delete(this.id)
         })

@@ -1,5 +1,6 @@
 let mysqlConnection = require('../core/mysqlConnection')
 let Keyword = require('./keyword')
+let utils = require('../utils/utils')
 
 class Section {
   constructor (id, title, contentText, contentImage, keywords, questions) {
@@ -9,13 +10,6 @@ class Section {
     this.contentImage = contentImage
     this.keywords = keywords
     this.questions = questions
-  }
-
-  _diffBtwKeywordArrays (arr1, arr2) {
-    console.log(arr1, arr2)
-    return arr1.filter((element) => {
-      return arr2.indexOf(element) < 0
-    })
   }
 
   _deleteKeyRelation (word) {
@@ -30,16 +24,16 @@ class Section {
 
   _update (lessonId) {
     return new Promise((resolve, reject) => {
-      //let keyAux = this.keywords.split ? this.keywords.split(',') : this.keywords
+      // let keyAux = this.keywords.split ? this.keywords.split(',') : this.keywords
       this._getKeywords(this.id).then((keywords) => {
-        //console.log(keywords, keyAux)
+        // console.log(keywords, keyAux)
         let words = keywords.map((keyword) => { return keyword.word })
         let wordsAux = this.keywords.map((keyword) => { return keyword.word })
         Promise.all([
-          this._diffBtwKeywordArrays(words, wordsAux).map((keyword) => {
+          utils._diffBtwKeywordArrays(words, wordsAux).map((keyword) => {
             return this._deleteKeyRelation(keyword)
           }),
-          this._diffBtwKeywordArrays(wordsAux, words).map((word) => {
+          utils._diffBtwKeywordArrays(wordsAux, words).map((word) => {
             return new Keyword(word).save(this.id)
           }),
           this._updateBasics(lessonId)
@@ -147,7 +141,8 @@ class Section {
     })
   }
 
-  /*static findByKeyword (keyword, lessonId) {
+  /*
+  static findByKeyword (keyword, lessonId) {
     return new Promise((resolve, reject) => {
       mysqlConnection.query(
         'SELECT DISTINCT S.* FROM keywordRelations K, sections S WHERE K.section = S.id AND S.lesson = ? AND K.keyword LIKE ?',
@@ -171,7 +166,8 @@ class Section {
         }
       )
     })
-  }*/
+  }
+  */
 
   static findByKeyword (keyword, lessonId) {
     return new Promise((resolve, reject) => {

@@ -16,7 +16,6 @@ import { TheoryEditorComponent } from './theory/theory-editor/theory-editor.comp
 import { SessionService} from './core/session/session.service';
 import { Session } from './core/session/session';
 import { TheoryService } from "app/theory/core/theory.service";
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ConfirmChangesComponent } from './theory/confirm-changes/confirm-changes.component';
 import { ServerErrorComponent } from './core/server-error/server-error.component';
 import { SearchTheoryComponent } from './theory/search-theory/search-theory.component';
@@ -37,8 +36,9 @@ import { TestQuestionConfirmationComponent } from './test/test-question-confirma
 import { ExamComponent } from './test/exam/exam.component';
 import { ExamConfirmationComponent } from './test/exam-confirmation/exam-confirmation.component';
 import { ExamResultComponent } from './test/exam-result/exam-result.component';
-import { UserNotLoggedComponent } from './user-not-logged/user-not-logged.component';
 import { QuestionAddComponent } from './test/question-add/question-add.component';
+import { PageNotFoundComponent } from "app/core/page-not-found/page-not-found.component";
+import { UserNotLoggedComponent } from "app/core/session/user-not-logged/user-not-logged.component";
 
 @NgModule({
   declarations: [
