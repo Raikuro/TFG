@@ -1,11 +1,12 @@
 import { Question } from "app/theory/core/question";
+import { Keyword } from "app/theory/core/keyword";
 
 export class Section {
   private _title: String;
   private _id: Number;
   private _contentText: String;
   private _contentImage: String;
-  private _keywords: String[];
+  private _keywords: Keyword[];
   private _questions: Question[];
 
   get id(){

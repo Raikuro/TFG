@@ -1,8 +1,10 @@
 import { Section } from './section'
+import { TestQuestion } from "app/theory/core/testQuestion";
 
 export class Lesson{
   private _title: String;
   private _sections: Section[];
+  private _testQuestions: TestQuestion[];
 
   get title(){
     return this._title;
@@ -18,6 +20,10 @@ export class Lesson{
 
   get sections(){
     return this._sections;
+  }
+
+  get testQuestion(){
+    return this._testQuestions
   }
 
 }

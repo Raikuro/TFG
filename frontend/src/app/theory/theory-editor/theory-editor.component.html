@@ -69,7 +69,7 @@
     <!--<div style="width: 9%">Titulo:</div>
     <input type="search" style="width: 90%" [ngModel]="section?.title" (ngModelChange)="section ? section.title = $event : null">-->
     <label for="related">Palabras relacionadas: </label>
-    <textarea type="search" class="form-control" rows="2" name="related" style="width: 100%; resize: none" [ngModel]="section?.keywords" (ngModelChange)="section ? section.keywords = $event : null"></textarea>
+    <textarea type="search" class="form-control" rows="2" name="related" style="width: 100%; resize: none" [ngModel]="words" (ngModelChange)="changeKeywords($event)"></textarea>
   </div>
 
   <button style="width: 100%; padding: 5px" *ngIf="mode === 0" (click)="goToConfirmation()" class="btn btn-success" [disabled]="!isReadyToSend()">Añadir</button>

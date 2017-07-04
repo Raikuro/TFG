@@ -16,7 +16,8 @@
       <img style="max-width:100%; max-height:100%;" *ngIf="data?.section?.contentImage" [src]="'data:image/jpg;base64,'+data?.section?.contentImage" />
       <p style="white-space: pre-wrap;">{{data?.section?.contentText}}</p>
     </span>
-    <span class="card-text"><strong>PALABRAS CLAVE: </strong>{{data?.section?.keywords}}</span>
+    <span class="card-text"><strong>PALABRAS CLAVE: </strong></span>
+    <span style="word-wrap: break-word;">{{getKeywordsString()}}</span>
   </div>
   <div class="card-block">
     <button class="btn btn-success" (click)="sendData()">Confirmar</button>

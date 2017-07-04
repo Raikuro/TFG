@@ -11,7 +11,8 @@ class Section {
     this.questions = questions
   }
 
-  _diffBtwArrays (arr1, arr2) {
+  _diffBtwKeywordArrays (arr1, arr2) {
+    console.log(arr1, arr2)
     return arr1.filter((element) => {
       return arr2.indexOf(element) < 0
     })
@@ -29,13 +30,16 @@ class Section {
 
   _update (lessonId) {
     return new Promise((resolve, reject) => {
-      let keyAux = this.keywords.split ? this.keywords.split(',') : this.keywords
+      //let keyAux = this.keywords.split ? this.keywords.split(',') : this.keywords
       this._getKeywords(this.id).then((keywords) => {
+        //console.log(keywords, keyAux)
+        let words = keywords.map((keyword) => { return keyword.word })
+        let wordsAux = this.keywords.map((keyword) => { return keyword.word })
         Promise.all([
-          this._diffBtwArrays(keywords, keyAux).map((keyword) => {
+          this._diffBtwKeywordArrays(words, wordsAux).map((keyword) => {
             return this._deleteKeyRelation(keyword)
           }),
-          this._diffBtwArrays(keyAux, keywords).map((word) => {
+          this._diffBtwKeywordArrays(wordsAux, words).map((word) => {
             return new Keyword(word).save(this.id)
           }),
           this._updateBasics(lessonId)
@@ -73,7 +77,7 @@ class Section {
       mysqlConnection.query('SELECT K.keyword FROM keywordRelations K WHERE K.section = ?',
       [this.id], (err, keywords) => {
         if (err) { reject(err) }
-        keywords = keywords.map((element) => { return element.keyword })
+        keywords = keywords.map((element) => { return new Keyword(element.keyword) })
         resolve(keywords)
       })
     })
@@ -97,6 +101,7 @@ class Section {
   }
 
   save (lessonId) {
+    console.log("-->", this)
     return this.id ? this._update(lessonId) : this._add(lessonId)
   }
 

@@ -2,17 +2,19 @@ let mysqlConnection = require('../core/mysqlConnection')
 
 class Keyword {
   constructor (word) {
-    this.word = word.replace(/ /g, '')
+    this.word = word
   }
 
   save (sectionId) {
     return new Promise((resolve, reject) => {
       if (this.word !== '') {
         mysqlConnection.query('INSERT INTO keywords VALUES (?)', [this.word],
-        () => {
-          this._saveKeyRelation(sectionId)
-            .then(() => { resolve() })
-            .catch((err) => reject(err))
+        (err) => {
+          if (err) { reject(err) } else {
+            this._saveKeyRelation(sectionId)
+              .then(() => { resolve() })
+              .catch((err) => reject(err))
+          }
         })
       }
     })

@@ -18,9 +18,9 @@
         <img style="max-width:100%; max-height:100%;" *ngIf="section?.contentImage" [src]="'data:image/png;base64,'+section?.contentImage" />
         <div style="white-space: pre-wrap;">{{section?.contentText}}</div>
         <hr>
-        <div *ngFor='let keyword of section?.keywords' (click)="onKeywordClick.emit(keyword)" >
+        <div *ngFor='let keyword of section?.keywords' (click)="onKeywordClick.emit(keyword?.word)" >
           <div class="btn-link">
-            {{keyword}}
+            {{keyword.word}}
           </div>
         </div>
       </div>

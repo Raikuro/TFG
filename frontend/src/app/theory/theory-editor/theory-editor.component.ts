@@ -10,6 +10,7 @@ import { Section } from "app/theory/core/section";
 import { Location } from '@angular/common';
 import { ComponentWithSession } from "app/core/component/componentWithSession";
 import { EDIT, ADD } from "app/core/utils/const";
+import { Keyword } from "app/theory/core/keyword";
 
 @Component({
   selector: 'app-theory-editor',
@@ -25,6 +26,7 @@ export class TheoryEditorComponent extends ComponentWithSession {
   private section;
   private ready;
   private imagePreview;
+  private words;
   
   constructor(private theoryService:TheoryService,
               sessionService: SessionService,
@@ -46,8 +48,17 @@ export class TheoryEditorComponent extends ComponentWithSession {
     if(this.section && this.section.title && 
       (this.section.contentText || this.section.contentImage)){
         return this.section.title.length > 0 &&
-          (this.section.contentText > 0 || this.section.contentImage)
+          (this.section.contentText.length > 0 || this.section.contentImage != undefined)
     }
+  }
+
+  changeKeywords(keys){
+    let words = keys.trim().split(',').filter((word) => {
+      return word != ''
+    })
+    this.section.keywords = words.map((word) => {
+      return new Keyword(word)
+    })
   }
   
   onInitTasks(){
@@ -89,6 +100,9 @@ export class TheoryEditorComponent extends ComponentWithSession {
             this.mode = data.mode
             //this.lesson = data.lesson
             this.section = data.section
+            this.words = this.section.keywords.map((keyword) => {
+              return keyword.word
+            })
             this.theoryService.deletePreparedData();
             //console.log("AAA", this.lesson)
           }
@@ -102,12 +116,18 @@ export class TheoryEditorComponent extends ComponentWithSession {
                   (<Observable<Section>>section).subscribe(
                     section => {
                       this.section = section;
+                      this.words = this.section.keywords.map((keyword) => {
+                        return keyword.word
+                      })
                     },
                     error => console.log(error)
                   )
                 }
                 else{
                   this.section = (<Section>section);
+                  this.words = this.section.keywords.map((keyword) => {
+                    return keyword.word
+                  })
                 }
               }
               else{

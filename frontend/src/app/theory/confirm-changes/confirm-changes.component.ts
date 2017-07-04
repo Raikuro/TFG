@@ -44,6 +44,7 @@ export class ConfirmChangesComponent extends ComponentWithSession {
     if(this.data === undefined){
       this.goBack();
     }
+    //this.ensureNotRepeated()
   }
 
   goBack() {
@@ -60,6 +61,31 @@ export class ConfirmChangesComponent extends ComponentWithSession {
       },
       error => this.goToErrorPage(error)
     );
+  }
+
+  /*ensureNotRepeated(){
+    if(this.data && this.data.section){
+      console.log("--", this.data.section.keywords)
+      this.data.section.keywords = this.data.section.keywords.filter((keyword, i, arr) => {
+        let aux = arr.find((keyword2) => { keyword2.word === keyword.word}) === i;
+        console.log(aux)
+        return aux
+      })
+      console.log("--", this.data.section.keywords)
+    }
+  }*/
+
+  getKeywordsString(){
+    let res = '';
+    if(this.data && this.data.section){
+      this.data.section.keywords.forEach((keyword, i, arr) => {
+        res += keyword.word
+        if(i < arr.length-1){
+          res += ','
+        }
+      });
+    }
+    return res;
   }
 
 }
