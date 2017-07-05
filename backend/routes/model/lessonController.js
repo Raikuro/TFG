@@ -1,4 +1,4 @@
-let Lesson = require('./lesson')
+let Lesson = require('../../src/model/lesson')
 
 exports.getLessonQuestions = (req, res) => {
   new Lesson(req.params.lessonId).getTestQuestions()

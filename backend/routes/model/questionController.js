@@ -1,4 +1,4 @@
-let Question = require('./question')
+let Question = require('../../src/model/question')
 
 exports.delete = (req, res) => {
   let questionTitle = JSON.parse(req.body.questionTitle)

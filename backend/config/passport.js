@@ -1,5 +1,5 @@
-var Strategy = require('../src/core/customStrategy').Strategy
-var User = require('../src/user')
+var Strategy = require('./customStrategy').Strategy
+var User = require('../src/model/user')
 
 module.exports = (passport) => {
   passport.serializeUser((user, cb) => {

@@ -1,4 +1,4 @@
-module.exports = (app, mysqlConnection) => {
+module.exports = (app) => {
   // Allow to receive petitions from another host
   app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', require('../config/client').ADDRESS)
@@ -8,7 +8,7 @@ module.exports = (app, mysqlConnection) => {
     next()
   })
 
-  let login = require('../src/core/ensureLogin')
-  require('./routes')(app, login)
-  require('../src/theory/routes')(app, login)
+  let login = require('./ensureLogin')
+  require('./session')(app, login)
+  require('./model')(app, login)
 }

@@ -1,4 +1,4 @@
-let mysqlConnection = require('../core/mysqlConnection')
+let mysqlConnection = require('../mysqlConnection')
 let Keyword = require('./keyword')
 let utils = require('../utils/utils')
 

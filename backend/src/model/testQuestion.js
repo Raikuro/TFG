@@ -1,5 +1,5 @@
 let TestOption = require('./testOption')
-let mysqlConnection = require('../core/mysqlConnection')
+let mysqlConnection = require('../mysqlConnection')
 
 class TestQuestion {
   constructor (id, wordingText, wordingImage, testOptions) {

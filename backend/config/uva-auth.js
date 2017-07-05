@@ -1,4 +1,4 @@
-let mysqlConnection = require('../src/core/mysqlConnection')
+let mysqlConnection = require('../src/mysqlConnection')
 
 class UvaUser {
   constructor (username, pass, isAlumn) {

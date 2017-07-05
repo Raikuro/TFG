@@ -1,5 +1,5 @@
-let Section = require('./section')
-let Question = require('./question')
+let Section = require('../../src/model/section')
+let Question = require('../../src/model/question')
 
 exports.getSection = (req, res) => {
   Section.getSection(req.params.sectionId)

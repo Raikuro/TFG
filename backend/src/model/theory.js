@@ -1,5 +1,5 @@
 let Lesson = require('./lesson')
-let mysqlConnection = require('../core/mysqlConnection')
+let mysqlConnection = require('../mysqlConnection')
 
 class Theory {
   constructor (lessons) {

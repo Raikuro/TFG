@@ -1,4 +1,4 @@
-let mysqlConnection = require('../core/mysqlConnection')
+let mysqlConnection = require('../mysqlConnection')
 
 class User {
   constructor (username, isAlumn) {

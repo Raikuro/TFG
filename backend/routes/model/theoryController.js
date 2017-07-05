@@ -1,4 +1,4 @@
-let Theory = require('./theory')
+let Theory = require('../../src/model/theory')
 
 exports.getIndex = (req, res) => {
   Theory.getIndex()

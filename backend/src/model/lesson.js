@@ -1,6 +1,6 @@
 let Section = require('./section')
 let TestQuestion = require('./testQuestion')
-let mysqlConnection = require('../core/mysqlConnection')
+let mysqlConnection = require('../mysqlConnection')
 
 class Lesson {
   constructor (id, title, sections, testQuestions) {

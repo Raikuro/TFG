@@ -1,5 +1,5 @@
-let TestQuestion = require('./testQuestion')
-let TestOption = require('./testOption')
+let TestQuestion = require('../../src/model/testQuestion')
+let TestOption = require('../../src/model/testOption')
 
 exports.saveNewQuestion = (req, res) => {
   let question = JSON.parse(req.body.question)

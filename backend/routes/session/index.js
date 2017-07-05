@@ -1,8 +1,8 @@
 module.exports = (app, login) => {
   let router = require('express').Router()
-  let uvaAuth = require('../src/uva-auth')
+  let uvaAuth = require('../../src/uva-auth')
   let passport = require('passport')
-  require('../config/passport')(passport)
+  require('../../config/passport')(passport)
   app.use(passport.initialize())
   app.use(passport.session())
 
