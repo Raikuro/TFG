@@ -3,8 +3,8 @@ import { Router } from "@angular/router";
 import { SessionService } from "app/core/session/session.service";
 import { TheoryService } from "app/theory/core/theory.service";
 import { Observable } from "rxjs/Observable";
-import { Theory } from "app/theory/core/theory";
-import { Section } from "app/theory/core/section";
+import { Theory } from "app/core/model/theory";
+import { Section } from "app/core/model/section";
 import { DELETE } from "app/core/utils/const";
 
 

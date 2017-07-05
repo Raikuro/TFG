@@ -1,5 +1,5 @@
 import { Section } from './section'
-import { TestQuestion } from "app/theory/core/testQuestion";
+import { TestQuestion } from "./testQuestion";
 
 export class Lesson{
   private _title: String;

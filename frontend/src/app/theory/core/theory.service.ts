@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
-import { Theory } from './theory';
-import { Section } from './section';
+import { Theory } from 'app/core/model/theory';
+import { Section } from 'app/core/model/section';
 import { Observable } from "rxjs/Observable";
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';

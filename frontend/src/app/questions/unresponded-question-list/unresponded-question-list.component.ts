@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ComponentWithSession } from "app/core/component/componentWithSession";
 import { SessionService } from "app/core/session/session.service";
 import { Router } from "@angular/router";
-import { QuestionsService } from "app/theory/questions/core/questions.service";
-import { Question } from "app/theory/core/question";
+import { QuestionsService } from "app/core/questionService/questions.service";
+import { Question } from "app/core/model/question";
 import { REPORT_ALERT, IGNORE_ALERT } from "app/core/utils/const";
 
 @Component({

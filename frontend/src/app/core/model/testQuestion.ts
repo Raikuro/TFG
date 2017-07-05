@@ -1,4 +1,4 @@
-import { TestOption } from "app/theory/core/testOption";
+import { TestOption } from "./testOption";
 
 export class TestQuestion {
   private _wordingText: String;

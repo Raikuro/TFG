@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { SessionService } from "app/core/session/session.service";
 import { Router } from "@angular/router";
 import { ComponentWithSession } from "app/core/component/componentWithSession";
-import { QuestionsService } from "app/theory/questions/core/questions.service";
+import { QuestionsService } from "app/core/questionService/questions.service";
 
 //import { Observable } from "rxjs/Observable";
 

@@ -5,12 +5,12 @@ import { Session } from 'app/core/session/session'
 import { SessionService } from "app/core/session/session.service";
 import { Router, ActivatedRoute, Params } from "@angular/router";
 import { TheoryService } from "app/theory/core/theory.service";
-import { Theory } from "app/theory/core/theory";
-import { Section } from "app/theory/core/section";
+import { Theory } from "app/core/model/theory";
+import { Section } from "app/core/model/section";
 import { Location } from '@angular/common';
 import { ComponentWithSession } from "app/core/component/componentWithSession";
 import { EDIT, ADD } from "app/core/utils/const";
-import { Keyword } from "app/theory/core/keyword";
+import { Keyword } from "app/core/model/keyword";
 
 @Component({
   selector: 'app-theory-editor',

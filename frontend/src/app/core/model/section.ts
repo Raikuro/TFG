@@ -1,5 +1,5 @@
-import { Question } from "app/theory/core/question";
-import { Keyword } from "app/theory/core/keyword";
+import { Question } from "./question";
+import { Keyword } from "./keyword";
 
 export class Section {
   private _title: String;

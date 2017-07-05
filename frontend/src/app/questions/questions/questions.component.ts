@@ -2,10 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ComponentWithSession } from "app/core/component/componentWithSession";
 import { Router, ActivatedRoute } from "@angular/router";
 import { SessionService } from "app/core/session/session.service";
-import { QuestionsService } from "app/theory/questions/core/questions.service";
+import { QuestionsService } from "app/core/questionService/questions.service";
 import { Observable } from "rxjs/Observable";
 import { Session } from "app/core/session/session";
-import { Question } from "app/theory/core/question";
+import { Question } from "app/core/model/question";
 import { Location } from '@angular/common';
 import { DomSanitizer } from "@angular/platform-browser";
 

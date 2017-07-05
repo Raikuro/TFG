@@ -10,9 +10,9 @@ import { CookieService } from 'ngx-cookie';
 
 import { Session } from './session';
 
-import { ADDRESS } from '../../config/server';
+import { ADDRESS } from 'app/config/server';
 
-import { BaseService } from '../service/baseService';
+import { BaseService } from 'app/core/service/baseService';
 
 @Injectable()
 export class SessionService extends BaseService{

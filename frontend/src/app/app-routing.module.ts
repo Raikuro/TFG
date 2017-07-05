@@ -1,22 +1,22 @@
 import { NgModule }             from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent }       from 'app/login/login.component';
-import { TheoryComponent }      from 'app/theory/theory.component';
+import { TheoryComponent }      from 'app/theory/theory/theory.component';
 import { TheoryEditorComponent } from 'app/theory/theory-editor/theory-editor.component'
 import { ConfirmChangesComponent } from 'app/theory/confirm-changes/confirm-changes.component';
 import { ServerErrorComponent } from 'app/core/server-error/server-error.component' 
-import { QuestionsComponent } from "app/theory/questions/questions.component";
-import { QuestionConfirmationComponent } from "app/theory/questions/question-confirmation/question-confirmation.component";
-import { RespondQuestionComponent } from './theory/questions/respond-question/respond-question.component';
-import { UnrespondedQuestionListComponent,} from './theory/questions/unresponded-question-list/unresponded-question-list.component';
-import { TestComponent } from "app/test/test.component";
+import { QuestionsComponent } from "app/questions/questions/questions.component";
+import { QuestionConfirmationComponent } from "app/questions/question-confirmation/question-confirmation.component";
+import { RespondQuestionComponent } from 'app/questions/respond-question/respond-question.component';
+import { UnrespondedQuestionListComponent,} from 'app/questions/unresponded-question-list/unresponded-question-list.component';
+import { TestComponent } from "app/test/test/test.component";
 import { QuestionEditorComponent } from "app/test/question-editor/question-editor.component";
 import { QuestionAddComponent } from "app/test/question-add/question-add.component";
 import { TestQuestionConfirmationComponent } from "app/test/test-question-confirmation/test-question-confirmation.component";
 import { ExamComponent } from "app/test/exam/exam.component";
 import { ExamConfirmationComponent } from "app/test/exam-confirmation/exam-confirmation.component";
 import { ExamResultComponent } from "app/test/exam-result/exam-result.component";
-import { UserNotLoggedComponent } from "app/core/session/user-not-logged/user-not-logged.component";
+import { UserNotLoggedComponent } from "app/core/user-not-logged/user-not-logged.component";
 import { PageNotFoundComponent } from "app/core/page-not-found/page-not-found.component";
 
 const routes: Routes = [

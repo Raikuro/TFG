@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ComponentWithSession } from "app/core/component/componentWithSession";
 import { SessionService } from "app/core/session/session.service";
 import { Router, ActivatedRoute } from "@angular/router";
-import { QuestionsService } from "app/theory/questions/core/questions.service";
+import { QuestionsService } from "app/core/questionService/questions.service";
 import { Location } from '@angular/common';
 
 import { Observable } from "rxjs/Observable";

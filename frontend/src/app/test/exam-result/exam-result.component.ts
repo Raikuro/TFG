@@ -3,8 +3,8 @@ import { ComponentWithSession } from "app/core/component/componentWithSession";
 import { TestService } from "app/test/core/test.service";
 import { SessionService } from "app/core/session/session.service";
 import { Router } from "@angular/router";
-import { TestQuestion } from "app/theory/core/testQuestion";
-import { TestOption } from "app/theory/core/testOption";
+import { TestQuestion } from "app/core/model/testQuestion";
+import { TestOption } from "app/core/model/testOption";
 import { Location } from '@angular/common';
 import { GOOD, WRONG, ALMOSTGOOD, UNRESPONDED } from 'app/core/utils/const'
 

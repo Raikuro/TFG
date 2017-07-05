@@ -7,8 +7,8 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
 import { ADDRESS } from 'app/config/server';
 import { EDIT, ADD, DELETE } from "app/core/utils/const";
-import { TestQuestion } from "app/theory/core/testQuestion";
-import { TestOption } from "app/theory/core/testOption";
+import { TestQuestion } from "app/core/model/testQuestion";
+import { TestOption } from "app/core/model/testOption";
 import { BaseService } from "app/core/service/baseService";
 
 @Injectable()
