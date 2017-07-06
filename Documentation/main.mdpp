@@ -1,37 +1,53 @@
 ---
-fecha: 16 de mayo de 2016
-autor: Julio
-titulo: Plantilla de TFG
+fecha: 22 de junio de 2017
+autor: Julio Gracia Gutiérrez
+titulo: > 
+    Desarrollo de software educativo de apoyo a la docencia en la teoría de grafos. 
 mencion: INGENIERÍA DE SOFTWARE
 dedicatoria: |
-    Una dedicatoria. Puede
-    alargarse varias líneas, e
-    incluso contener comas.
+    Dedicatoria ejemplo
 agradecimientos: |
-    Bloque de texto que permite alargarse
-    lo que deseemos, incluir comas y cualquier
-    tipo de caracter dentro de este encabezado
-    en YAML siempre y cuando mantengamos
-    la indentación del bloque.
+    Agradecimiento ejemplo
 resumen: |
-    Bloque de texto para el resumen.
+    En el presente trabajo se va a desarrollar un software de ayuda para la asignatura “Matemáticas Discretas”.
+    Se pretende que el alumno sea capaz de desarrollar un prototipo funcional de una aplicación web orientada
+    a mejorar el aprendizaje y el afianzamiento de los conceptos relativos a la asignatura. En este punto es
+    necesario plantear la arquitectura de la aplicación que vamos a implementar.
+
+    La solución escogida consiste en utilizar Angular programado en TypeScript para el front-end, Node.js
+    programado en JavaScript y una base de datos relacional MariaDB para el back-end. Angular es una plataforma
+    de desarrollo para aplicaciones web de TypeScript de código abierto. Node.js es un entorno en tiempo de
+    ejecución multiplataforma asíncrono, de código abierto, para la capa del servidor. MariaDB es un sistema
+    de gestión de bases de datos derivado de MySQL.
+
+    Palabras clave: Angular, Node.js, MariaDB, código abierto, TypeScript, JavaScript.
+
+
 abstract: |
-    Text block for the abstract.
+    Traducción
 ---
 
-<!-- Insertar esta instrucción LaTeX debajo del primer título -->
-\pagenumbering{arabic}
 
-!INCLUDE "secciones/introduccion.md"
+!INCLUDE "secciones/1-introduccion.md"
 
-!INCLUDE "secciones/estado_del_arte.md"
+!INCLUDE "secciones/2-punto_partida.md"
 
-<!-- Aquí va la sección de líneas futuras -->
+!INCLUDE "secciones/3-solucion.md"
 
-<!-- Aquí va la sección de conclusiones -->
+!INCLUDE "secciones/4-tecnologias.md"
+
+!INCLUDE "secciones/5-desarrollo.md"
+
+!INCLUDE "secciones/6-conclusiones.md"
 
 \appendix
 
-<!-- Aquí va el apéndice de manual de usuario -->
+!INCLUDE "secciones/x1-manual_instalacion.md"
 
-<!-- Aquí va el apéndice de contenidos del CD-ROM -->
+!INCLUDE "secciones/x2-manual_usuario.md"
+
+!INCLUDE "secciones/x3-contenido_CD-ROM.md"
+
+\addcontentsline{toc}{chapter}{Bibliografía}
+\nocite{*}
+\printbibliography
