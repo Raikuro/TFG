@@ -85,7 +85,7 @@ exports.respondAQuestion = (req, res) => {
     let bypassUrl = question.responseImage.replace(/ /g, '+')
     question.responseImage = Buffer.from(bypassUrl, 'base64')
   }
-  new Question(question.title, question.contentText, question.contentImage, question.username,
+  new Question(question.title, question.contentText, question.contentImage, question.user,
   question.responseText, question.responseImage, question.reported, question.ignored, question.date).addResponse()
       .then(() => { res.status(204).send() })
       .catch((err) => res.status(500).send(err))

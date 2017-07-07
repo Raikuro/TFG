@@ -39,6 +39,8 @@ import { ExamResultComponent } from './test/exam-result/exam-result.component';
 import { QuestionAddComponent } from './test/question-add/question-add.component';
 import { PageNotFoundComponent } from "app/core/page-not-found/page-not-found.component";
 import { UserNotLoggedComponent } from "app/core/user-not-logged/user-not-logged.component";
+import { StatisticsComponent } from './statistics/statistics.component';
+import { StatisticsService } from "app/statistics/core/statistics.service";
 
 @NgModule({
   declarations: [
@@ -67,6 +69,7 @@ import { UserNotLoggedComponent } from "app/core/user-not-logged/user-not-logged
     ExamResultComponent,
     UserNotLoggedComponent,
     QuestionAddComponent,
+    StatisticsComponent,
   ],
   imports: [
     BrowserModule,
@@ -76,7 +79,7 @@ import { UserNotLoggedComponent } from "app/core/user-not-logged/user-not-logged
     CookieModule.forRoot(),
     NgbModule.forRoot()
   ],
-  providers: [SessionService, TheoryService, QuestionsService, TestService],
+  providers: [SessionService, TheoryService, QuestionsService, TestService, StatisticsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

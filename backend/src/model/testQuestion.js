@@ -1,4 +1,5 @@
 let TestOption = require('./testOption')
+let consts = require('../utils/consts')
 let mysqlConnection = require('../mysqlConnection')
 
 class TestQuestion {
@@ -15,7 +16,7 @@ class TestQuestion {
       [this.id], (err, options) => {
         if (err) { reject(err) }
         options = options.map((option) => {
-          return new TestOption(option.answer, option.isCorrect)
+          return new TestOption(option.answer, option.isCorrect, option.id)
         })
         resolve(options)
       })
@@ -28,7 +29,7 @@ class TestQuestion {
       [this.id], (err, options) => {
         if (err) { reject(err) }
         options = options.map((option) => {
-          return new TestOption(option.answer, option.isCorrect)
+          return new TestOption(option.answer, option.isCorrect, option.id)
         })
         resolve(options)
       })
@@ -102,7 +103,6 @@ class TestQuestion {
   }
 
   save (lessonId) {
-    console.log(this, "@@@", lessonId)
     return new Promise((resolve, reject) => {
       this._saveBasics(lessonId).then((id) => {
         let optionsPromises = this.testOptions.map((option) => {
@@ -111,14 +111,16 @@ class TestQuestion {
         Promise.all(optionsPromises).then(() => resolve()).catch((err) => reject(err))
       }).catch(err => reject(err))
     })
-    /*return new Promise((resolve, reject) => {
+    /*
+    return new Promise((resolve, reject) => {
       this._saveBasics(lessonId).then((id) => {
         //console.log("A", this.testOptions)
         //let optionsPromises = this.testOptions.map((testOption) => { console.log(testOption, "&&"); return testOption.save(id) })
         //Promise.all(optionsPromises).then(() => resolve()).catch((err) => reject(err))
         resolve()
       }).catch(error => reject(error))
-    })*/
+    })
+    */
   }
 
   delete () {
@@ -142,7 +144,7 @@ class TestQuestion {
     })
   }
 
-  static generateGeneralTest (size) {
+  static generateGeneralTest () {
     let result = []
     return new Promise((resolve, reject) => {
       mysqlConnection.query('SELECT DISTINCT * FROM testQuestions', (err, questionList) => {
@@ -153,7 +155,7 @@ class TestQuestion {
           }
           return new TestQuestion(question.id, question.wordingText, question.wordingImage)
         })
-        for (let i = 0; i < size && questionList.length > 0; i++) {
+        for (let i = 0; i < consts.EXAMSIZE && questionList.length > 0; i++) {
           let aux = Math.floor(Math.random() * questionList.length)
           result.push(questionList[aux])
           questionList.splice(aux, 1)
@@ -171,7 +173,7 @@ class TestQuestion {
     })
   }
 
-  static generateLessonTest (lessonId, size) {
+  static generateLessonTest (lessonId) {
     let result = []
     return new Promise((resolve, reject) => {
       mysqlConnection.query('SELECT DISTINCT * FROM testQuestions WHERE lesson = ?', [lessonId],
@@ -183,7 +185,7 @@ class TestQuestion {
           }
           return new TestQuestion(question.id, question.wordingText, question.wordingImage)
         })
-        for (let i = 0; i < size && questionList.length > 0; i++) {
+        for (let i = 0; i < consts.EXAMSIZE && questionList.length > 0; i++) {
           let aux = Math.floor(Math.random() * questionList.length)
           result.push(questionList[aux])
           questionList.splice(aux, 1)
@@ -201,9 +203,8 @@ class TestQuestion {
     })
   }
 
-  static generateConceptTest (concept, size) {
+  static generateConceptTest (concept) {
     let result = []
-    size = 5
     return new Promise((resolve, reject) => {
       mysqlConnection.query('SELECT DISTINCT * FROM testQuestions ' +
       'WHERE wordingText REGEXP \'([[:blank:][:punct:]]|^)' + concept + '([[:blank:][:punct:]]|$)\'',
@@ -215,7 +216,7 @@ class TestQuestion {
           }
           return new TestQuestion(question.id, question.wordingText, question.wordingImage)
         })
-        for (let i = 0; i < size && questionList.length > 0; i++) {
+        for (let i = 0; i < consts.EXAMSIZE && questionList.length > 0; i++) {
           let aux = Math.floor(Math.random() * questionList.length)
           result.push(questionList[aux])
           questionList.splice(aux, 1)
@@ -233,7 +234,7 @@ class TestQuestion {
     })
   }
 
-  static getResponseOfExam (exam) {
+/*  static getResponseOfExam (exam, user) {
     return new Promise((resolve, reject) => {
       let origin = exam.map((question) => {
         let options = JSON.parse(question.testOptions).map((option) => {
@@ -241,36 +242,37 @@ class TestQuestion {
         })
         return new TestQuestion(question.id, question.wordingText, question.wordingImage, options)
       })
-
-      let solutions = origin.map((questionAux) => {
-        return questionAux.getAllOptions().then(solution => {
-          return solution
-        }).catch(error => reject(error))
-      })
-
-      Promise.all(solutions).then((solutions) => {
-        let marks = solutions.map((solution, i) => {
-          return origin[i].mark(solution)
+      Exam.save(origin, user).then(() => {
+        let solutions = origin.map((questionAux) => {
+          return questionAux.getAllOptions().then(solution => {
+            return solution
+          }).catch(error => reject(error))
         })
-        let mark = marks.reduce((last, actual) => { return last + actual }) * 10 / exam.length
-        let markErrorFix = (mark + 0.00000000000001).toFixed(2)
-        resolve({'mark': Math.max(0, markErrorFix), 'origin': origin, 'solutions': solutions})
-      }).catch(error => reject(error))
 
-      /* let markPromises = origin.map((questionAux) => {
-        return questionAux.getAllOptions().then(solution => {
-          return questionAux.mark(solution)
-        }).catch(error => console.log("B", error))
-      }) */
+        Promise.all(solutions).then((solutions) => {
+          let marks = solutions.map((solution, i) => {
+            return origin[i].mark(solution)
+          })
+          let mark = marks.reduce((last, actual) => { return last + actual }) * 10 / exam.length
+          let markErrorFix = (mark + 0.00000000000001).toFixed(2)
+          resolve({'mark': Math.max(0, markErrorFix), 'origin': origin, 'solutions': solutions})
+        }).catch(error => reject(error))
 
-      /* Promise.all(markPromises).then(marks => {
-        console.log(marks)
-        let mark = marks.reduce((last, actual) => { return last + actual }) * 10 / exam.length
-        resolve(Math.max(0, mark), origin)
-        //return Math.max(0, result)
-      }) */
+        /* let markPromises = origin.map((questionAux) => {
+          return questionAux.getAllOptions().then(solution => {
+            return questionAux.mark(solution)
+          }).catch(error => console.log("B", error))
+        }) */
+
+        /* Promise.all(markPromises).then(marks => {
+          console.log(marks)
+          let mark = marks.reduce((last, actual) => { return last + actual }) * 10 / exam.length
+          resolve(Math.max(0, mark), origin)
+          //return Math.max(0, result)
+        }) 
+      }).catch((err) => { reject(err) })
     })
-  }
+  }*/
 
   mark (solution) {
     let nOfAnswers = solution.length

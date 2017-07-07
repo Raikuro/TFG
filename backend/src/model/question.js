@@ -1,8 +1,8 @@
 let mysqlConnection = require('../mysqlConnection')
 class Question {
 
-  constructor (title, contentText, contentImage, username, responseText, responseImage, reported, ignored, date) {
-    this.username = username
+  constructor (title, contentText, contentImage, user, responseText, responseImage, reported, ignored, date) {
+    this.user = user
     this.title = title
     this.contentText = contentText
     this.contentImage = contentImage
@@ -11,6 +11,18 @@ class Question {
     this.responseImage = responseImage
     this.reported = reported
     this.ignored = ignored
+  }
+
+  static getQuestionsByUserId (user) {
+    return new Promise((resolve, reject) => {
+      mysqlConnection.query('SELECT * FROM questions WHERE user = ?', [user], (err, questions) => {
+        if (err) { reject(err) } else {
+          resolve(questions.map((question) => {
+            return new Question(question.title, question.contentTex, question.contentImage, question.user, question.responseText, question.responseImage, question.reported, question.ignored, question.date)
+          }))
+        }
+      })
+    })
   }
 
   static delete (questionTitle, sectionId) {
@@ -131,8 +143,8 @@ class Question {
     } else {
       query = query.replace(',', ' ')
     }
-    query += 'WHERE username = ? AND dateOfQuestion = ? AND title = ? AND contentText '
-    dataArray = dataArray.concat([this.username, formatedMysqlString, this.title])
+    query += 'WHERE user = ? AND dateOfQuestion = ? AND title = ? AND contentText '
+    dataArray = dataArray.concat([this.user, formatedMysqlString, this.title])
     if (this.contentText) {
       query += '= ? AND '
       dataArray.push(this.contentText)
@@ -151,7 +163,6 @@ class Question {
         if (err) { reject(err) } else { resolve() }
       })
     })
-    
     /*
     if (this.contentImage) {
       return new Promise((resolve, reject) => {
@@ -189,7 +200,7 @@ class Question {
             }
             return {
               'associatedSection': {'title': question.sTitle, 'id': question.sId},
-              'question': new Question(question.title, question.contentText, question.contentImage, question.username, question.responseText, question.responseImage, question.reported, question.ignored, question.dateOfQuestion)
+              'question': new Question(question.title, question.contentText, question.contentImage, question.user, question.responseText, question.responseImage, question.reported, question.ignored, question.dateOfQuestion)
             }
           }))
         }

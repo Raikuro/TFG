@@ -1,7 +1,8 @@
 let mysqlConnection = require('../mysqlConnection')
 
 class TestOption {
-  constructor (answer, isCorrect) {
+  constructor (answer, isCorrect, id) {
+    this.id = id
     this.answer = answer
     this.isCorrect = isCorrect
   }

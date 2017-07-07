@@ -1,3 +1,7 @@
+DROP TABLE IF EXISTS records;
+DROP TABLE IF EXISTS examResponses;
+DROP TABLE IF EXISTS examQuestions;
+DROP TABLE IF EXISTS exams;
 DROP TABLE IF EXISTS testOptions;
 DROP TABLE IF EXISTS testQuestions;
 DROP TABLE IF EXISTS questions;
@@ -53,7 +57,7 @@ CREATE TABLE users (
 );
 
 CREATE TABLE questions (
-  username INTEGER UNSIGNED NOT NULL,
+  user INTEGER UNSIGNED NOT NULL,
   dateOfQuestion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   section INTEGER UNSIGNED NOT NULL,
   title VARCHAR(200) NOT NULL,
@@ -64,7 +68,7 @@ CREATE TABLE questions (
   reported BIT(1) DEFAULT 0,
   ignored BIT(1) DEFAULT 0,
   PRIMARY KEY (section, title),
-  FOREIGN KEY (username) REFERENCES users(id),
+  FOREIGN KEY (user) REFERENCES users(id),
   FOREIGN KEY (section) REFERENCES sections(id)
 );
 
@@ -79,11 +83,49 @@ CREATE TABLE testQuestions (
 );
 
 CREATE TABLE testOptions (
+  id INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
   question INTEGER UNSIGNED NOT NULL,
   answer VARCHAR(255) NOT NULL,
   isCorrect BIT(1) NOT NULL,
-  PRIMARY KEY (question, answer),
+  PRIMARY KEY (id),
+  UNIQUE (question, answer),
   FOREIGN KEY (question) REFERENCES testQuestions(id)
+);
+
+CREATE TABLE exams (
+  id INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  user INTEGER UNSIGNED NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (user) REFERENCES users(id)
+);
+
+CREATE TABLE examQuestions (
+  id INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  exam INTEGER UNSIGNED NOT NULL,
+  question INTEGER UNSIGNED NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (exam) REFERENCES exams(id),
+  FOREIGN KEY (question) REFERENCES testQuestions(id)
+);
+
+CREATE TABLE examResponses (
+  id INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  option INTEGER UNSIGNED NOT NULL,
+  question INTEGER UNSIGNED NOT NULL,
+  selected BIT(1) NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (option) REFERENCES testOptions(id),
+  FOREIGN KEY (question) REFERENCES examQuestions(id)
+);
+
+CREATE TABLE records (
+  id INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  user INTEGER UNSIGNED NOT NULL,
+  section INTEGER UNSIGNED NOT NULL,
+  dateOf TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  FOREIGN KEY (user) REFERENCES users(id),
+  FOREIGN KEY (section) REFERENCES sections(id)
 );
 
 INSERT INTO lessons(title) VALUES
@@ -114,13 +156,13 @@ INSERT INTO keywordRelations VALUES
   (4, "reflexiva"),
   (4, "antirreflexiva");
 INSERT INTO uvaUsers(username, password, isAlumn) VALUES
-  ("asd", "asd", 1),
   ("qwe", "qwe", 0),
+  ("asd", "asd", 1),
   ("zxc", "zxc", 1);
 INSERT INTO users(username) VALUES
   ("asd"),
   ("qwe");
-INSERT INTO questions(username, section, title, contentText, responseText, reported, ignored) VALUES
+INSERT INTO questions(user, section, title, contentText, responseText, reported, ignored) VALUES
   (1, 1, "duda1", "contenido duda1", "respuesta duda1", 0, 0),
   (1, 2, "duda2", "contenido duda2", "respuesta duda2", 0, 0),
   (1, 3, "duda3", "contenido duda3", "respuesta duda3", 0, 0),

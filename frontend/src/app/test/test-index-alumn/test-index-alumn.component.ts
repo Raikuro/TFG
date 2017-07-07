@@ -12,7 +12,6 @@ import { TheoryService } from "app/theory/core/theory.service";
 })
 export class TestIndexAlumnComponent extends ComponentWithSession {
   
-  private _TESTSIZE = 20;
   private lesson;
   private lessons;
   private concept;
@@ -39,7 +38,7 @@ export class TestIndexAlumnComponent extends ComponentWithSession {
   }
 
   searchByConcept(){
-    this.testService.prepareTestByConcept(this.concept, this._TESTSIZE)
+    this.testService.prepareTestByConcept(this.concept)
     .then(() => this.goToTestPage())
     .catch(error => this.goToErrorPage(error))
   }
@@ -53,7 +52,7 @@ export class TestIndexAlumnComponent extends ComponentWithSession {
   }
 
   searchByLesson(){
-    this.testService.prepareTestByLesson(this.lesson.id, this._TESTSIZE)
+    this.testService.prepareTestByLesson(this.lesson.id)
     .then(() => this.goToTestPage())
     .catch(error => this.goToErrorPage(error));
   }
@@ -63,7 +62,7 @@ export class TestIndexAlumnComponent extends ComponentWithSession {
   }
 
   searchGeneral(){
-    this.testService.prepareTestGeneral(this._TESTSIZE)
+    this.testService.prepareTestGeneral()
     .then(() => this.goToTestPage())
     .catch(error => this.goToErrorPage(error));
   }

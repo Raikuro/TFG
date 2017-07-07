@@ -1,7 +1,7 @@
 export class Question {
 
   private _title: String;
-  private _username: String;
+  private _user: String;
   private _contentText: String;
   private _contentImage: String;
   private _date: Date;
@@ -32,9 +32,9 @@ export class Question {
     return this._responseImage;
   }
 
-  constructor(title, username, contentText, contentImage, responseText, responseImage, date){
+  constructor(title, user, contentText, contentImage, responseText, responseImage, date){
     this._title = title;
-    this._username = username;
+    this._user = user;
     this._contentText = contentText;
     this._contentImage = contentImage;
     this._date = date;

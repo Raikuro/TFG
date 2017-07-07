@@ -12,7 +12,7 @@
         <ul class="navbar-nav mr-auto">
             <li class="nav-item" style="cursor: pointer"><a class='nav-link' (click)="goToTheory()">Teoría</a></li>
             <li class="nav-item" style="cursor: pointer" *ngIf="!session?.isAlumn"><a class='nav-link' (click)="goToQuestions()">Dudas<span style="margin-left: 2px" *ngIf="unrespondedQuestionsLength" class="badge badge-warning">{{unrespondedQuestionsLength}}</span></a></li>
-            <li class="nav-item" style="cursor: pointer"><a class='nav-link' (click)='signOut()'>Estadísticas</a></li>
+            <li class="nav-item" style="cursor: pointer" *ngIf="!session?.isAlumn"><a class='nav-link' (click)='goToStatistics()'>Estadísticas</a></li>
             <li class="nav-item" style="cursor: pointer"><a class='nav-link' (click)="goToTest()">Test</a></li>
         </ul>
         <ul class="navbar-nav navbar-right">

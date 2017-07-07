@@ -3,6 +3,7 @@ let sectionController = require('./sectionController')
 let questionController = require('./questionController')
 let lessonController = require('./lessonController')
 let testQuestionController = require('./testQuestionController')
+let statisticsController = require('./statisticsController')
 
 module.exports = (app, login) => {
   let router = require('express').Router()
@@ -97,17 +98,17 @@ module.exports = (app, login) => {
     testQuestionController.deleteQuestion
   )
 
-  router.get('/test/concept/:concept/:size',
+  router.get('/test/concept/:concept',
     login.ensureLoggedIn(),
     testQuestionController.getConceptTest
   )
 
-  router.get('/test/lesson/:lessonId/:size',
+  router.get('/test/lesson/:lessonId',
     login.ensureLoggedIn(),
     testQuestionController.getLessonTest
   )
 
-  router.get('/test/:size',
+  router.get('/test',
     login.ensureLoggedIn(),
     testQuestionController.getGeneralTest
   )
@@ -115,6 +116,11 @@ module.exports = (app, login) => {
   router.post('/checkExam',
     login.ensureLoggedIn(),
     testQuestionController.checkExam
+  )
+
+  router.get('/statistics/:username',
+    login.ensureLoggedIn(),
+    statisticsController.getStatistics
   )
 
   app.use('/', router)

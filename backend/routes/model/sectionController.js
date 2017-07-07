@@ -1,10 +1,21 @@
 let Section = require('../../src/model/section')
 let Question = require('../../src/model/question')
+let Record = require('../../src/model/record')
 
 exports.getSection = (req, res) => {
   Section.getSection(req.params.sectionId)
-    .then((section) => { res.status(200).send(section) })
+    .then((section) => {
+      if (req.session.isAlumn) {
+        saveRecord(section, req.user).then(() => {
+          res.status(200).send(section)
+        })
+      } else { res.status(200).send(section) }
+    })
     .catch((e) => { res.status(500).send(e) })
+}
+
+function saveRecord (section, user) {
+  return new Record(user, section).save()
 }
 
 /*
@@ -80,7 +91,7 @@ exports.addSectionQuestions = (req, res) => {
       let bypassUrl = question._responseImage.replace(/ /g, '+')
       question._responseImage = Buffer.from(bypassUrl, 'base64')
     }
-    question = new Question(question._title, question._contentText, question._contentImage, question._username, question._responseText, question._responseImage)
+    question = new Question(question._title, question._contentText, question._contentImage, question._user, question._responseText, question._responseImage)
     section.addQuestion(question)
       .then(() => { res.status(204).send() })
       .catch((e) => { res.status(500).send(e) })

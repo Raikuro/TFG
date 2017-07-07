@@ -1,8 +1,9 @@
 let mysqlConnection = require('../mysqlConnection')
 
 class User {
-  constructor (username, isAlumn) {
+  constructor (username, id) {
     this.username = username
+    this.id = id
   }
 
   save () {
@@ -21,7 +22,7 @@ class User {
         (err, users) => {
           if (err) { return cb(err) }
           if (users && users.length > 0) {
-            cb(null, new User(users[0].username))
+            cb(null, new User(users[0].username, users[0].id))
           } else {
             new User(username).save()
               .then((res) => { cb(null, res) })

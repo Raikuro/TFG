@@ -88,9 +88,9 @@ export class TestService extends BaseService{
     return this._data
   }
 
-  prepareTestByConcept(concept, size){
+  prepareTestByConcept(concept){
     return this._saveTest(
-      this.http.get(ADDRESS + '/test/concept/' + concept + '/' + size, this.options)
+      this.http.get(ADDRESS + '/test/concept/' + concept, this.options)
         .map(this.extractData)
         .catch((error:any) => {
           return Observable.throw(this.extractError(error) || 'Server error')}
@@ -98,9 +98,9 @@ export class TestService extends BaseService{
     )
   }
 
-  prepareTestByLesson(lessonId, size){
+  prepareTestByLesson(lessonId){
     return this._saveTest(
-      this.http.get(ADDRESS + '/test/lesson/' + lessonId + '/' + size, this.options)
+      this.http.get(ADDRESS + '/test/lesson/' + lessonId, this.options)
       .map(this.extractData)
       .catch((error:any) => {
         return Observable.throw(this.extractError(error) || 'Server error')}
@@ -108,9 +108,9 @@ export class TestService extends BaseService{
     )
   }
 
-  prepareTestGeneral(size){
+  prepareTestGeneral(){
     return this._saveTest(
-      this.http.get(ADDRESS + '/test/' + size, this.options)
+      this.http.get(ADDRESS + '/test', this.options)
       .map(this.extractData)
       .catch((error:any) => {
         return Observable.throw(this.extractError(error) || 'Server error')}

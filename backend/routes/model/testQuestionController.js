@@ -43,24 +43,21 @@ exports.deleteQuestion = (req, res) => {
 }
 
 exports.getGeneralTest = (req, res) => {
-  let size = JSON.parse(req.params.size)
-  TestQuestion.generateGeneralTest(size)
+  TestQuestion.generateGeneralTest()
     .then(test => res.status(200).send(test))
     .catch(error => res.status(500).send(error))
 }
 
 exports.getLessonTest = (req, res) => {
-  let size = JSON.parse(req.params.size)
   let lessonId = JSON.parse(req.params.lessonId)
-  TestQuestion.generateLessonTest(lessonId, size)
+  TestQuestion.generateLessonTest(lessonId)
     .then(test => res.status(200).send(test))
     .catch(error => res.status(500).send(error))
 }
 
 exports.getConceptTest = (req, res) => {
-  let size = JSON.parse(req.params.size)
   let concept = req.params.concept
-  TestQuestion.generateConceptTest(concept, size)
+  TestQuestion.generateConceptTest(concept)
     .then(test => res.status(200).send(test))
     .catch(error => res.status(500).send(error))
 }
@@ -72,7 +69,7 @@ exports.checkExam = (req, res) => {
       question.wordingImage = question.wordingImage.replace(/ /g, '+')
     }
   })
-  TestQuestion.getResponseOfExam(exam)
+  TestQuestion.getResponseOfExam(exam, req.session.passport.user)
     .then(result => res.status(200).send(result))
     .catch(error => res.status(500).send(error))
 }

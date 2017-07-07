@@ -50,4 +50,8 @@ export class HeaderComponent extends ComponentWithSession {
     this.router.navigate(['/theory'])
   }
 
+  goToStatistics(){
+    this.router.navigate(['/statistics'])
+  }
+
 }

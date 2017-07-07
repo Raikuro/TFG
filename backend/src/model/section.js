@@ -192,7 +192,7 @@ class Section {
   _getQuestions () {
     return new Promise((resolve, reject) => {
       mysqlConnection.query('SELECT DISTINCT U.username, Q.dateOfQuestion, Q.section, Q.title, Q.contentText, Q.contentImage, Q.responseText, Q.responseImage, Q.ignored, Q.reported ' +
-      'FROM questions Q, sections S, users U WHERE Q.section = ? AND  U.id = Q.username',
+      'FROM questions Q, sections S, users U WHERE Q.section = ? AND  U.id = Q.user',
       [this.id], (err, questions) => {
         if (err) { reject(err) } else {
           questions = questions.map((question) => {
@@ -235,17 +235,17 @@ class Section {
   addQuestion (question) {
     return new Promise((resolve, reject) => {
       mysqlConnection.query('SELECT DISTINCT U.id FROM users U WHERE U.username = ?',
-      [question.username], (err, result) => {
+      [question.user], (err, result) => {
         if (err) { reject(err) } else {
-          let usernameId = result[0].id
+          let userId = result[0].id
           if (question.responseText || question.responseImage) {
-            mysqlConnection.query('INSERT INTO questions(username, section, title, contentText, contentImage, responseText, responseImage) VALUES (?,?,?,?,?,?,?)',
-            [usernameId, this.id, question.title, question.contentText, question.contentImage, question.responseText, question.responseImage], (err, res) => {
+            mysqlConnection.query('INSERT INTO questions(user, section, title, contentText, contentImage, responseText, responseImage) VALUES (?,?,?,?,?,?,?)',
+            [userId, this.id, question.title, question.contentText, question.contentImage, question.responseText, question.responseImage], (err, res) => {
               if (err) { reject(err) } else { resolve(res) }
             })
           } else {
-            mysqlConnection.query('INSERT INTO questions(username, section, title, contentText, contentImage) VALUES (?,?,?,?,?)',
-            [usernameId, this.id, question.title, question.contentText, question.contentImage], (err, res) => {
+            mysqlConnection.query('INSERT INTO questions(user, section, title, contentText, contentImage) VALUES (?,?,?,?,?)',
+            [userId, this.id, question.title, question.contentText, question.contentImage], (err, res) => {
               if (err) { reject(err) } else { resolve(res) }
             })
           }
