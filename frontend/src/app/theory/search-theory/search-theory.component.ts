@@ -33,7 +33,7 @@ export class SearchTheoryComponent implements OnChanges {
     this.lesson = undefined;
     this.section = undefined;
     this.theoryService.search(changes.searchQuery.currentValue).subscribe(
-      (result) => this.assignLessons(result),
+      (result) => this.initiate(result),
       (error) => /*this.router.navigate(['/server-error', error])*/ this.sendError(error)
     )
   }
@@ -42,15 +42,17 @@ export class SearchTheoryComponent implements OnChanges {
     this.onError.emit(JSON.stringify(error))
   }
   
-  assignLessons(index){
+  initiate(index){
     if(index.lessons.length > 0){
       this.lessons = index.lessons;
-      this.lesson = this.lessons[0];
-      this.onLessonChange.emit(JSON.stringify(this.lesson))
-      this.sections = this.lesson.sections
-      if(this.sections && this.sections[0]){
-        this.selectSection(this.sections[0])
-      }
+      // this.lesson = this.lessons[0];
+      // this.onLessonChange.emit(JSON.stringify(this.lesson))
+      // this.section = undefined
+      this.onLessonSelectorChange(this.lesson[0])
+      // this.sections = this.lesson.sections
+      // if(this.sections && this.sections[0]){
+      //   this.selectSection(this.sections[0])
+      // }
     }
     else{
       this.lessons = []
@@ -74,9 +76,10 @@ export class SearchTheoryComponent implements OnChanges {
     this.lesson = lesson;
     this.onLessonChange.emit(JSON.stringify(this.lesson))
     this.sections = this.lesson.sections;
-    if(this.sections && this.sections[0]){
-        this.selectSection(this.sections[0])
-    }
+    this.section = undefined
+    // if(this.sections && this.sections[0]){
+    //     this.selectSection(this.sections[0])
+    // }
   }
 
   goToQuestions(){

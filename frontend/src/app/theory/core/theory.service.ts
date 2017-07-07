@@ -19,17 +19,17 @@ export class TheoryService extends BaseService{
   //private headers;
   //private options;
   private _index: Theory;
-  private _sectionsCache;
+  //private _sectionsCache;
   private _preparedData;
-  private _searchCache;
+  //private _searchCache;
 
   constructor(http: Http) {
     super(http)
     /*this.headers = new Headers();
     this.headers.append('Content-Type', 'application/x-www-form-urlencoded');
     this.options = new RequestOptions({ headers: this.headers, withCredentials: true });*/
-    this._sectionsCache = new Array<Array<Section>>();
-    this._searchCache = {}
+    //this._sectionsCache = new Array<Array<Section>>();
+    //this._searchCache = {}
   }
 
   deletePreparedData(){
@@ -46,27 +46,27 @@ export class TheoryService extends BaseService{
 
 
   get index(){
-    if(this._index === undefined){
+    //if(this._index === undefined){
       return this.getIndexData();
-    }
-    return this._index;
+    //}
+    //return this._index;
   }
 
-  set index(index){
+  /*set index(index){
     this._index = <Theory>index;
-  }
+  }*/
 
   search(query){
-    if(!this._searchCache[query]){
+    //if(!this._searchCache[query]){
       return this.http.get(ADDRESS + '/index/search/' + query, this.options)
         .map(this.extractData)
         .catch((error:any) => {
           return Observable.throw(this.extractError(error) || 'Server error')})
-    }
-    return this._searchCache[query];
+    //}
+    //return this._searchCache[query];
   }
 
-  deleteIndexCache(){
+  /*deleteIndexCache(){
     this._index = undefined
   }
 
@@ -86,7 +86,7 @@ export class TheoryService extends BaseService{
       resolve(true)
     })
   }
-
+  */
   sendData(data){
     let body = new URLSearchParams();
     body.append('section', JSON.stringify(data.section));
@@ -128,7 +128,7 @@ export class TheoryService extends BaseService{
   set preparedData(data){
     this._preparedData = data;
   }
-
+/*
   get sectionsCache(){
     return this._sectionsCache;
   }
@@ -136,18 +136,18 @@ export class TheoryService extends BaseService{
   updateSectionsCache(sectionData: Section, lessonId: number, sectionId: number){
     this._sectionsCache[lessonId][sectionId] = sectionData;
   }
-
+*/
   getSection(lessonId: number, sectionId: number){
-    if(this._sectionsCache[lessonId]){
-      if(this._sectionsCache[lessonId][sectionId] === undefined){
+    //if(this._sectionsCache[lessonId]){
+    //  if(this._sectionsCache[lessonId][sectionId] === undefined){
         return this._getSectionData(lessonId, sectionId);
-       }
-    }
-    else{
-      this.sectionsCache[lessonId] = new Array<Section>();
-      return this._getSectionData(lessonId, sectionId);
-    }
-    return this._sectionsCache[lessonId][sectionId];
+    //   }
+    //}
+    //else{
+      //this.sectionsCache[lessonId] = new Array<Section>();
+      //return this._getSectionData(lessonId, sectionId);
+    //}
+    //return this._sectionsCache[lessonId][sectionId];
   }
   
   private _getSectionData(lessonId: number, sectionId: number):Observable<Section>{

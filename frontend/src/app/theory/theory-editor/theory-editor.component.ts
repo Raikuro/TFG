@@ -77,10 +77,10 @@ export class TheoryEditorComponent extends ComponentWithSession {
           error => console.log(error)
         )
       }
-      else{
-        this.lessons = (<Theory>index).lessons;
-        this.onInitTaskNext()
-      }
+      // else{
+      //   this.lessons = (<Theory>index).lessons;
+      //   this.onInitTaskNext()
+      // }
     }
   }
 
@@ -123,12 +123,12 @@ export class TheoryEditorComponent extends ComponentWithSession {
                     error => console.log(error)
                   )
                 }
-                else{
-                  this.section = (<Section>section);
-                  this.words = this.section.keywords.map((keyword) => {
-                    return keyword.word
-                  })
-                }
+                // else{
+                //   this.section = (<Section>section);
+                //   this.words = this.section.keywords.map((keyword) => {
+                //     return keyword.word
+                //   })
+                // }
               }
               else{
                 this.mode = ADD;
