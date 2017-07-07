@@ -1,5 +1,5 @@
 <div style="display: flex; margin-top: 10px; margin-bottom: 10px; padding: 5px">
-  <select class="form-control" style="padding :5px; width: 100%" [ngModel]="lesson" (ngModelChange)=changeLesson($event)>
+  <select class="form-control" style="padding :5px; width: 100%; cursor: pointer" [ngModel]="lesson" (ngModelChange)=changeLesson($event)>
     <option [ngValue]="lesson" *ngFor="let lesson of lessons">
       {{lesson.title}}
     </option>

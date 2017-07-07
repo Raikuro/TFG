@@ -54,10 +54,10 @@ export class ConfirmChangesComponent extends ComponentWithSession {
   sendData(){
     this.theoryService.sendData(this.data).subscribe(
       () => {
-        this.theoryService.deleteTheoryCache().then(() => {
+        //this.theoryService.deleteTheoryCache().then(() => {
           this.theoryService.preparedData = undefined
           this.router.navigate(['/theory']);
-        })
+        //})
       },
       error => this.goToErrorPage(error)
     );

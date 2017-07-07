@@ -49,7 +49,7 @@
   <div class="form-group row">
     <label for="lesson" class="col-3 col-form-label">Tema: </label>
     <div class="col-9">
-      <select class="form-control" name="lesson" style="width: 100%" [ngModel]="lesson" (ngModelChange)=onLessonSelectorChange($event)>
+      <select class="form-control" name="lesson" style="width: 100%; cursor: pointer" [ngModel]="lesson" (ngModelChange)=onLessonSelectorChange($event)>
         <option [ngValue]="lesson" *ngFor="let lesson of lessons">
           {{lesson.title}}
         </option>

@@ -1,4 +1,5 @@
 let TestOption = require('./testOption')
+let Exam = require('./exam')
 let consts = require('../utils/consts')
 let mysqlConnection = require('../mysqlConnection')
 
@@ -234,7 +235,7 @@ class TestQuestion {
     })
   }
 
-/*  static getResponseOfExam (exam, user) {
+  static getResponseOfExam (exam, user) {
     return new Promise((resolve, reject) => {
       let origin = exam.map((question) => {
         let options = JSON.parse(question.testOptions).map((option) => {
@@ -258,7 +259,8 @@ class TestQuestion {
           resolve({'mark': Math.max(0, markErrorFix), 'origin': origin, 'solutions': solutions})
         }).catch(error => reject(error))
 
-        /* let markPromises = origin.map((questionAux) => {
+        /*
+        let markPromises = origin.map((questionAux) => {
           return questionAux.getAllOptions().then(solution => {
             return questionAux.mark(solution)
           }).catch(error => console.log("B", error))
@@ -269,10 +271,11 @@ class TestQuestion {
           let mark = marks.reduce((last, actual) => { return last + actual }) * 10 / exam.length
           resolve(Math.max(0, mark), origin)
           //return Math.max(0, result)
-        }) 
+        })
+        */
       }).catch((err) => { reject(err) })
     })
-  }*/
+  }
 
   mark (solution) {
     let nOfAnswers = solution.length
@@ -285,10 +288,11 @@ class TestQuestion {
       responded += option.isCorrect
     })
     if (responded < 1) { return 0 }
-    if (nOfFails === 0) { return 1 }
-    let nOfCorrect = nOfAnswers - nOfFails
-    if (nOfCorrect === 0) { return (1 - nOfAnswers) / nOfAnswers }
-    return (nOfCorrect / nOfAnswers) - (Math.pow(nOfFails / nOfAnswers, (1 + 1 / nOfFails)))
+    return -1 + (2 * (nOfAnswers - nOfFails) / nOfAnswers)
+    // if (nOfFails === 0) { return 1 }
+    // let nOfCorrect = nOfAnswers - nOfFails
+    // if (nOfCorrect === 0) { return (1 - nOfAnswers) / nOfAnswers }
+    // return (nOfCorrect / nOfAnswers) - (Math.pow(nOfFails / nOfAnswers, (1 + 1 / nOfFails)))
   }
 }
 

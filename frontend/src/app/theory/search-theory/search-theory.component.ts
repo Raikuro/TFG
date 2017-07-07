@@ -48,7 +48,7 @@ export class SearchTheoryComponent implements OnChanges {
       // this.lesson = this.lessons[0];
       // this.onLessonChange.emit(JSON.stringify(this.lesson))
       // this.section = undefined
-      this.onLessonSelectorChange(this.lesson[0])
+      this.onLessonSelectorChange(this.lessons[0])
       // this.sections = this.lesson.sections
       // if(this.sections && this.sections[0]){
       //   this.selectSection(this.sections[0])

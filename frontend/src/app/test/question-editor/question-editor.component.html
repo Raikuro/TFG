@@ -1,5 +1,5 @@
 <header style="height: 10%;">
-  <app-header></app-header>
+  <app-header [active]=3></app-header>
 </header>
 
 <div style="padding-right: 150px; padding-left: 150px;">
@@ -23,9 +23,10 @@
 
   <div class="form-group">
     <label for="options">Opciones: </label>
-    <div class="card" *ngFor="let option of question?.testOptions">
+    <div class="card" *ngFor="let option of question?.testOptions; let i = index">
       <div class="card-block row">
-        <input class="form-control col-8" [ngModel]="option?.answer" (ngModelChange)="option ? option.answer = $event : null">
+        <span class="col-1 text-center">{{i+1}}</span>
+        <input class="form-control col-7" [ngModel]="option?.answer" (ngModelChange)="option ? option.answer = $event : null">
         <div class="col-2 text-center" (click)="changeBool(option)">
           <!--{{option.isCorrect}}-->
           <i class="fa fa-2x" aria-hidden="true" [ngClass]="{true: 'fa-check text-success', false: 'fa-times text-danger'}[option.isCorrect]"></i>

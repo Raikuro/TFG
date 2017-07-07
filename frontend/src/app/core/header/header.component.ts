@@ -3,6 +3,7 @@ import { SessionService } from "app/core/session/session.service";
 import { Router } from "@angular/router";
 import { ComponentWithSession } from "app/core/component/componentWithSession";
 import { QuestionsService } from "app/core/questionService/questions.service";
+import { THEORY, QUESTIONS, STATISTICS, TEST } from "app/core/utils/const";
 
 //import { Observable } from "rxjs/Observable";
 
@@ -11,6 +12,7 @@ import { QuestionsService } from "app/core/questionService/questions.service";
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
+
 export class HeaderComponent extends ComponentWithSession {
   
   onInitTasks() {
@@ -19,9 +21,25 @@ export class HeaderComponent extends ComponentWithSession {
     )
   }
 
-
   private isAlumn;
-  @Input('unrespondedQuestionsLength') private unrespondedQuestionsLength;
+  private unrespondedQuestionsLength;
+  @Input('active') private active;
+
+  isTheoryActive(){
+    return this.active === THEORY
+  }
+
+  isQuestionsActive(){
+    return this.active === QUESTIONS
+  }
+
+  isStatisticsActive(){
+    return this.active === STATISTICS  
+  }
+
+  isTestActive(){
+    return this.active === TEST
+  }
 
   constructor(sessionService: SessionService, router: Router, private questionService: QuestionsService) {
     super(sessionService, router)
@@ -29,7 +47,9 @@ export class HeaderComponent extends ComponentWithSession {
 
   logout(){
     this.sessionService.logout().then(
-      () => this.router.navigate(['/login']),
+      () => {
+        this.router.navigate(['/login']);
+      },
       error => console.log(error)
     );
   }
@@ -44,10 +64,6 @@ export class HeaderComponent extends ComponentWithSession {
 
   goToTest(){
     this.router.navigate(['/test'])
-  }
-
-  goToIndex(){
-    this.router.navigate(['/theory'])
   }
 
   goToStatistics(){

@@ -20,3 +20,8 @@ export const IGNORE_ALERT = {
   closable: true,
   type: 'warning'
 };
+
+export const THEORY = 0;
+export const QUESTIONS = 1;
+export const STATISTICS = 2;
+export const TEST = 3;

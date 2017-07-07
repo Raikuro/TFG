@@ -34,6 +34,14 @@ export class ExamComponent extends ComponentWithSession {
     this.router.navigate(['/exam/confirmation'])
   }
 
+  goBack(){
+    this.location.back()
+  }
+
+  thereIsTest(){
+    return this.test.length > 0
+  }
+
   isQuestionAnswered(question){
     return question.testOptions.reduce((previous, current) => {
       return typeof(previous) === 'object' ? previous.isCorrect + current.isCorrect :

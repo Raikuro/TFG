@@ -55,7 +55,7 @@ export class QuestionAddComponent extends ComponentWithSession {
     if(this.question.testOptions.length > 1){
       let aux2 = this.question.testOptions.map((option, i, arr) => {
         let aux =  (arr.filter((optionAux) => {
-          return optionAux.answer === option.answer
+          return optionAux.answer.replace(/ /g, '') === option.answer.replace(/ /g, '')
         }).length <= 1)
         return aux;
       })
@@ -80,7 +80,7 @@ export class QuestionAddComponent extends ComponentWithSession {
       if(this.question.testOptions){
         if(this.allOptionsAreDifferent()){
           return this.question.testOptions.every(option => {
-            return option.answer !== "" && option.answer !== undefined 
+            return option.answer.replace(/ /g, '') !== ''
           })
         }
       }

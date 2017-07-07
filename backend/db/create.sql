@@ -158,7 +158,9 @@ INSERT INTO keywordRelations VALUES
 INSERT INTO uvaUsers(username, password, isAlumn) VALUES
   ("qwe", "qwe", 0),
   ("asd", "asd", 1),
-  ("zxc", "zxc", 1);
+  ("zxc", "zxc", 1),
+  ("usuario", "usuario", 1),
+  ("profesor", "profesor", 0)
 INSERT INTO users(username) VALUES
   ("asd"),
   ("qwe");
