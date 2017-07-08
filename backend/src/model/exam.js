@@ -80,18 +80,18 @@ class Exam {
       })
       Promise.all(promises).then((examQuestions) => {
         let exam = new Exam(user, examQuestions)
-        exam.save()
         let mark = exam.getMark()
-        resolve({'mark': mark, 'exam': exam})
+        exam.save()
+          .then(() => resolve({'mark': mark, 'exam': exam}))
+          .catch((err) => reject(err))
       }).catch(error => reject(error))
     })
   }
 
   getMark () {
-    let mark = this.examQuestions.map((examQuestion) => {
-      return examQuestion.mark()
-    }).reduce((last, actual) => { return actual + last })
-    console.log("$", mark, "$")
+    let mark = this.examQuestions
+      .map((examQuestion) => { return examQuestion.mark() })
+      .reduce((last, actual) => { return actual + last })
     let realMark = ((mark * 10 / this.examQuestions.length) + 0.00000000000001).toFixed(2)
     return Math.max(realMark, 0)
   }
