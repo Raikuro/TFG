@@ -8,17 +8,27 @@ class ExamResponse {
     this.testOption = testOption
   }
 
-  static save (question, examQuestionId) {
+  static transformTestIntoExam (origin, solved) {
+    return new ExamResponse(undefined, origin.isCorrect, solved)
+  }
+
+  isCorrect () {
+    return this.selected === this.testOption.isCorrect
+  }
+
+  save (examQuestionId) {
     return new Promise((resolve, reject) => {
-      question.testOptions.forEach((testOption, i) => {
-        mysqlConnection.query('SELECT id FROM testOptions WHERE question = ?;', [question.id], (err, ids) => {
+      mysqlConnection.query('INSERT INTO examResponses(option, question, selected) VALUES (?,?,?);', [this.testOption.id, examQuestionId, this.selected], (err, insertLog) => {
+        if (err) { console.log(err); reject(err) } else { resolve() }
+      })
+        /*mysqlConnection.query('SELECT id FROM testOptions WHERE question = ?;', [question.id], (err, ids) => {
           if (err) { reject(err) } else {
             mysqlConnection.query('INSERT INTO examResponses(option, question, selected) VALUES (?,?,?);', [ids[i].id, examQuestionId, testOption.isCorrect], (err, insertLog) => {
               if (err) { reject(err) } else { resolve() }
             })
           }
-        })
-      })
+        })*/
+        //console.log("--", testOption)
     })
   }
 

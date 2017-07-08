@@ -31,40 +31,69 @@ class Exam {
     })
   }
 
-  static save (exam, username) {
+  save () {
     return new Promise((resolve, reject) => {
-      User.findByUsername(username, (err, user) => {
+      User.findByUsername(this.user, (err, user) => {
         if (err) { reject(err) } else {
           mysqlConnection.query('INSERT INTO exams(user) VALUES (?);', [user.id], (err, insertLog) => {
             if (err) { reject(err) } else {
               let examId = insertLog.insertId
-              exam.forEach((question) => {
-                ExamQuestion.save(examId, question)
+              this.examQuestions.forEach((examQuestion) => {
+                examQuestion.save(examId)
                   .then(() => resolve())
                   .catch((err) => reject(err))
-                /*
-                mysqlConnection.query('INSERT INTO examQuestions(exam, question) VALUES (?,?);', [examId, question.id], (err, insertLog) => {
-                  if (err) { reject(err) } else {
-                    let examQuestionId = insertLog.insertId
-                    question.testOptions.forEach((examOption, i) => {
-                      mysqlConnection.query('SELECT id FROM testOptions WHERE question = ?;', [question.id], (err, ids) => {
-                        if (err) { reject(err) } else {
-                          console.log('a', ids[i].id, examQuestionId, examOption.isCorrect)
-                          mysqlConnection.query('INSERT INTO examResponses(option, question, selected) VALUES (?,?,?);', [ids[i].id, examQuestionId, examOption.isCorrect], (err, insertLog) => {
-                            if (err) { reject(err) } else { resolve() }
-                          })
-                        }
-                      })
-                    })
-                  }
-                })
-                */
               })
             }
           })
         }
       })
     })
+  }
+
+  static getExamsByUserExam (exam) {
+    console.log(exam)
+  }
+
+  static getMark (origin, exam) {
+    return new Promise((resolve, reject) => {
+      let solutions = origin.map((questionAux) => {
+        return questionAux.getAllOptions().then(solution => {
+          return solution
+        }).catch(error => reject(error))
+      })
+
+      Promise.all(solutions).then((solutions) => {
+        let marks = solutions.map((solution, i) => {
+          return origin[i].mark(solution)
+        })
+        let mark = marks.reduce((last, actual) => { return last + actual }) * 10 / exam.length
+        let markErrorFix = (mark + 0.00000000000001).toFixed(2)
+        resolve({'mark': Math.max(0, markErrorFix), 'origin': origin, 'solutions': solutions})
+      }).catch(error => reject(error))
+    })
+  }
+
+  static getResponseOfExam (originalExam, user) {
+    return new Promise((resolve, reject) => {
+      let promises = originalExam.map((testQuestion) => {
+        return ExamQuestion.transformTestIntoExam(testQuestion)
+      })
+      Promise.all(promises).then((examQuestions) => {
+        let exam = new Exam(user, examQuestions)
+        exam.save()
+        let mark = exam.getMark()
+        resolve({'mark': mark, 'exam': exam})
+      }).catch(error => reject(error))
+    })
+  }
+
+  getMark () {
+    let mark = this.examQuestions.map((examQuestion) => {
+      return examQuestion.mark()
+    }).reduce((last, actual) => { return actual + last })
+    console.log("$", mark, "$")
+    let realMark = ((mark * 10 / this.examQuestions.length) + 0.00000000000001).toFixed(2)
+    return Math.max(realMark, 0)
   }
 }
 

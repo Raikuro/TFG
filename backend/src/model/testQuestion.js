@@ -1,6 +1,7 @@
 let TestOption = require('./testOption')
-let Exam = require('./exam')
+// let Exam = require('./exam')
 let consts = require('../utils/consts')
+let utils = require('../utils/utils')
 let mysqlConnection = require('../mysqlConnection')
 
 class TestQuestion {
@@ -59,23 +60,14 @@ class TestQuestion {
     })
   }
 
-  static _diffBtwOptionArrays (arr1, arr2) {
-    return arr1.filter(e1 => {
-      return !arr2.some(e2 => {
-        return JSON.stringify({answer: e2.answer, isCorrect: e2.isCorrect}) ===
-        JSON.stringify({answer: e1.answer, isCorrect: e1.isCorrect})
-      })
-    })
-  }
-
   _updateOptions () {
     return new Promise((resolve, reject) => {
       this.getAllOptions().then(actual => {
         actual.map((option) => {
           return new TestOption(actual.answer, actual.isCorrect)
         })
-        let needToAdd = TestQuestion._diffBtwOptionsArrays(this.testOptions, actual)
-        let needToDel = this._diffBtwOptionsArrays(actual, this.testOptions)
+        let needToAdd = utils.diffBtwOptionsArrays(this.testOptions, actual)
+        let needToDel = utils.diffBtwOptionsArrays(actual, this.testOptions)
         let promisesDel = needToDel.map((option) => {
           return new TestOption(option.answer, option.isCorrect).delete(this.id)
         })
@@ -235,47 +227,54 @@ class TestQuestion {
     })
   }
 
-  static getResponseOfExam (exam, user) {
-    return new Promise((resolve, reject) => {
-      let origin = exam.map((question) => {
-        let options = JSON.parse(question.testOptions).map((option) => {
-          return new TestOption(option.answer, option.isCorrect)
-        })
-        return new TestQuestion(question.id, question.wordingText, question.wordingImage, options)
-      })
-      Exam.save(origin, user).then(() => {
-        let solutions = origin.map((questionAux) => {
-          return questionAux.getAllOptions().then(solution => {
-            return solution
-          }).catch(error => reject(error))
-        })
+  //static getResponseOfExam (exam, user) {
+    //return new Promise((resolve, reject) => {
+      //Exam.getExamByUserExam(exam)
+      // let origin = exam.map((question) => {
+      //   let options = JSON.parse(question.testOptions).map((option) => {
+      //     return new TestOption(option.answer, option.isCorrect)
+      //   })
+      //   return new TestQuestion(question.id, question.wordingText, question.wordingImage, options)
+      // })
 
-        Promise.all(solutions).then((solutions) => {
-          let marks = solutions.map((solution, i) => {
-            return origin[i].mark(solution)
-          })
-          let mark = marks.reduce((last, actual) => { return last + actual }) * 10 / exam.length
-          let markErrorFix = (mark + 0.00000000000001).toFixed(2)
-          resolve({'mark': Math.max(0, markErrorFix), 'origin': origin, 'solutions': solutions})
-        }).catch(error => reject(error))
+      // Exam.save(origin, user).then((exam) => {
+      //   Exam.getMark(origin, user).then((mark) => {
+      //     resolve(mark)
+      //   })
 
-        /*
-        let markPromises = origin.map((questionAux) => {
-          return questionAux.getAllOptions().then(solution => {
-            return questionAux.mark(solution)
-          }).catch(error => console.log("B", error))
-        }) */
+    //   Exam.save(origin, user).then(() => {
+    //     let solutions = origin.map((questionAux) => {
+    //       return questionAux.getAllOptions().then(solution => {
+    //         return solution
+    //       }).catch(error => reject(error))
+    //     })
 
-        /* Promise.all(markPromises).then(marks => {
-          console.log(marks)
-          let mark = marks.reduce((last, actual) => { return last + actual }) * 10 / exam.length
-          resolve(Math.max(0, mark), origin)
-          //return Math.max(0, result)
-        })
-        */
-      }).catch((err) => { reject(err) })
-    })
-  }
+    //     Promise.all(solutions).then((solutions) => {
+    //       let marks = solutions.map((solution, i) => {
+    //         return origin[i].mark(solution)
+    //       })
+    //       let mark = marks.reduce((last, actual) => { return last + actual }) * 10 / exam.length
+    //       let markErrorFix = (mark + 0.00000000000001).toFixed(2)
+    //       resolve({'mark': Math.max(0, markErrorFix), 'origin': origin, 'solutions': solutions})
+    //     }).catch(error => reject(error))
+
+    //     /*
+    //     let markPromises = origin.map((questionAux) => {
+    //       return questionAux.getAllOptions().then(solution => {
+    //         return questionAux.mark(solution)
+    //       }).catch(error => console.log("B", error))
+    //     }) */
+
+    //     /* Promise.all(markPromises).then(marks => {
+    //       console.log(marks)
+    //       let mark = marks.reduce((last, actual) => { return last + actual }) * 10 / exam.length
+    //       resolve(Math.max(0, mark), origin)
+    //       //return Math.max(0, result)
+    //     })
+    //     */
+      // })
+   // })
+  //}
 
   mark (solution) {
     let nOfAnswers = solution.length

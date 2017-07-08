@@ -30,10 +30,10 @@ class Section {
         let words = keywords.map((keyword) => { return keyword.word })
         let wordsAux = this.keywords.map((keyword) => { return keyword.word })
         Promise.all([
-          utils._diffBtwKeywordArrays(words, wordsAux).map((keyword) => {
+          utils.diffBtwKeywordArrays(words, wordsAux).map((keyword) => {
             return this._deleteKeyRelation(keyword)
           }),
-          utils._diffBtwKeywordArrays(wordsAux, words).map((word) => {
+          utils.diffBtwKeywordArrays(wordsAux, words).map((word) => {
             return new Keyword(word).save(this.id)
           }),
           this._updateBasics(lessonId)

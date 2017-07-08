@@ -160,7 +160,7 @@ INSERT INTO uvaUsers(username, password, isAlumn) VALUES
   ("asd", "asd", 1),
   ("zxc", "zxc", 1),
   ("usuario", "usuario", 1),
-  ("profesor", "profesor", 0)
+  ("profesor", "profesor", 0);
 INSERT INTO users(username) VALUES
   ("asd"),
   ("qwe");

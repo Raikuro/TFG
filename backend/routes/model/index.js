@@ -4,6 +4,7 @@ let questionController = require('./questionController')
 let lessonController = require('./lessonController')
 let testQuestionController = require('./testQuestionController')
 let statisticsController = require('./statisticsController')
+let examController = require('./examController')
 
 module.exports = (app, login) => {
   let router = require('express').Router()
@@ -115,7 +116,8 @@ module.exports = (app, login) => {
 
   router.post('/checkExam',
     login.ensureLoggedIn(),
-    testQuestionController.checkExam
+    //testQuestionController.checkExam
+    examController.checkExam
   )
 
   router.get('/statistics/:username',
