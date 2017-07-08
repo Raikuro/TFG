@@ -10,5 +10,5 @@ module.exports = (app) => {
 
   let login = require('./ensureLogin')
   require('./session')(app, login)
-  require('./model')(app, login)
+  require('./controllers')(app, login)
 }

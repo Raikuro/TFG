@@ -18,7 +18,9 @@ import { ExamConfirmationComponent } from "app/test/exam-confirmation/exam-confi
 import { ExamResultComponent } from "app/test/exam-result/exam-result.component";
 import { UserNotLoggedComponent } from "app/core/user-not-logged/user-not-logged.component";
 import { PageNotFoundComponent } from "app/core/page-not-found/page-not-found.component";
-import { StatisticsComponent } from "app/statistics/statistics.component";
+import { StatisticsComponent } from "app/statistics/statistics/statistics.component";
+import { RecreateExamComponent } from "app/statistics/recreate-exam/recreate-exam.component";
+import { QuestionDetailsComponent } from "app/statistics/question-details/question-details.component";
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -33,6 +35,8 @@ const routes: Routes = [
   { path: 'questions/respond', component: RespondQuestionComponent},
   { path: 'questions/unresponded', component: UnrespondedQuestionListComponent },
   { path: 'statistics', component:  StatisticsComponent},
+  { path: 'statistics/exam', component: RecreateExamComponent},
+  { path: 'statistics/question', component: QuestionDetailsComponent},
   { path: 'test', component: TestComponent },
   { path: 'exam', component: ExamComponent },
   { path: 'exam/confirmation', component: ExamConfirmationComponent },

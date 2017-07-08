@@ -4,10 +4,11 @@ let User = require('./user')
 let consts = require('../utils/consts')
 
 class Exam {
-  constructor (user, examQuestions, id) {
+  constructor (user, examQuestions, date, id) {
     this.id = id
     this.user = user
     this.examQuestions = examQuestions
+    this.date = date
   }
 
   static _generateTest (questionList) {
@@ -96,12 +97,16 @@ class Exam {
             return ExamQuestion.getQuestionsByExamId(exam.id)
           })
           let examsAux = exams.map((exam) => {
-            return new Exam(exam.user, undefined, exam.id)
+            return new Exam(exam.user, undefined, exam.dateOf, exam.id)
           })
           Promise.all(promises).then((questions) => {
-            let aux = examsAux.map((exams, i) => {
-              exams.responses = questions[i]
-              return exams
+            let aux = examsAux.map((exam, i) => {
+              //console.log(exam, '####', questions[i])
+              exam.examQuestions = questions[i]
+              return {
+                'exam': exam,
+                'mark': exam.getMark()
+              }
             })
             resolve(aux)
           }).catch((err) => reject(err))
@@ -133,24 +138,24 @@ class Exam {
     console.log(exam)
   }
 
-  static getMark (origin, exam) {
-    return new Promise((resolve, reject) => {
-      let solutions = origin.map((questionAux) => {
-        return questionAux.getAllOptions().then(solution => {
-          return solution
-        }).catch(error => reject(error))
-      })
+  // static getMark (origin, exam) {
+  //   return new Promise((resolve, reject) => {
+  //     let solutions = origin.map((questionAux) => {
+  //       return questionAux.getAllOptions().then(solution => {
+  //         return solution
+  //       }).catch(error => reject(error))
+  //     })
 
-      Promise.all(solutions).then((solutions) => {
-        let marks = solutions.map((solution, i) => {
-          return origin[i].mark(solution)
-        })
-        let mark = marks.reduce((last, actual) => { return last + actual }) * 10 / exam.length
-        let markErrorFix = (mark + 0.00000000000001).toFixed(2)
-        resolve({'mark': Math.max(0, markErrorFix), 'origin': origin, 'solutions': solutions})
-      }).catch(error => reject(error))
-    })
-  }
+  //     Promise.all(solutions).then((solutions) => {
+  //       let marks = solutions.map((solution, i) => {
+  //         return origin[i].mark(solution)
+  //       })
+  //       let mark = marks.reduce((last, actual) => { return last + actual }) * 10 / exam.length
+  //       let markErrorFix = (mark + 0.00000000000001).toFixed(2)
+  //       resolve({'mark': Math.max(0, markErrorFix), 'origin': origin, 'solutions': solutions})
+  //     }).catch(error => reject(error))
+  //   })
+  // }
 
   static getResponseOfExam (originalExam, user) {
     return new Promise((resolve, reject) => {

@@ -18,7 +18,7 @@ class Question {
       mysqlConnection.query('SELECT * FROM questions WHERE user = ?', [user], (err, questions) => {
         if (err) { reject(err) } else {
           resolve(questions.map((question) => {
-            return new Question(question.title, question.contentTex, question.contentImage, question.user, question.responseText, question.responseImage, question.reported, question.ignored, question.date)
+            return new Question(question.title, question.contentText, question.contentImage, question.user, question.responseText, question.responseImage, question.reported, question.ignored, question.date)
           }))
         }
       })

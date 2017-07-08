@@ -39,8 +39,10 @@ import { ExamResultComponent } from './test/exam-result/exam-result.component';
 import { QuestionAddComponent } from './test/question-add/question-add.component';
 import { PageNotFoundComponent } from "app/core/page-not-found/page-not-found.component";
 import { UserNotLoggedComponent } from "app/core/user-not-logged/user-not-logged.component";
-import { StatisticsComponent } from './statistics/statistics.component';
+import { StatisticsComponent } from './statistics/statistics/statistics.component';
 import { StatisticsService } from "app/statistics/core/statistics.service";
+import { RecreateExamComponent } from './statistics/recreate-exam/recreate-exam.component';
+import { QuestionDetailsComponent } from './statistics/question-details/question-details.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +72,8 @@ import { StatisticsService } from "app/statistics/core/statistics.service";
     UserNotLoggedComponent,
     QuestionAddComponent,
     StatisticsComponent,
+    RecreateExamComponent,
+    QuestionDetailsComponent,
   ],
   imports: [
     BrowserModule,

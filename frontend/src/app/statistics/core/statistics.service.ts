@@ -10,6 +10,9 @@ import 'rxjs/add/observable/throw';
 @Injectable()
 export class StatisticsService extends BaseService{
 
+  private _examData;
+  private _questionData;
+
   constructor(http: Http) {
     super(http)
   }
@@ -19,6 +22,22 @@ export class StatisticsService extends BaseService{
       .map(this.extractData)
       .catch((error:any) => {
         return Observable.throw(this.extractError(error) || 'Server error')})
+  }
+
+  saveExamData(examData){
+    this._examData = examData
+  }
+
+  getExamData(){
+    return this._examData
+  }
+
+  saveQuestionData(questionData){
+    this._questionData = questionData
+  }
+
+  getQuestionData(){
+    return this._questionData
   }
 
 }

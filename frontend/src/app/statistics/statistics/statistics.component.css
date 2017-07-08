@@ -1,0 +1,20 @@
+.active-div {
+  z-index: 2;
+  color: #fff;
+  background-color: #0275d8;
+  border-color: #0275d8;
+}
+
+.active-a {
+  color: #07C !important;
+  text-decoration: none !important;
+  cursor: pointer !important;
+}
+
+.passed {
+  background-color: #abfc76;
+}
+
+.failed {
+  background-color: #c54015;
+}

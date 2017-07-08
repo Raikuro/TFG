@@ -9,9 +9,8 @@ class Record {
 
   static getRecordsByUserId (userId) {
     return new Promise((resolve, reject) => {
-      mysqlConnection.query('SELECT * FROM records WHERE user = ?;', [userId], (err, records) => {
+      mysqlConnection.query('SELECT R.dateOf, S.* FROM sections S, records R WHERE R.user = ? AND S.id = R.section;', [userId], (err, records) => {
         if (err) { reject(err) } else {
-          console.log(records)
           resolve(records)
         }
       })

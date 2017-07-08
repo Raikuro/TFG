@@ -1,0 +1,95 @@
+<header style="height: 10%;">
+  <app-header [active]=2></app-header>
+</header>
+<div class="container-fluid" style="padding-left: 150px; padding-right: 150px">
+  <div class="row justify-content-around">
+    <input class="form-control col-8" type="search" style="width: 100%;" [(ngModel)]="username">
+    <button class="btn btn-success col-3" [disabled]="!username" (click)="getStatistics()">Buscar datos</button>
+  </div>
+  <div class="row justify-content-around" style="margin-top: 20px" *ngIf="thereIsData()">
+    <div class="card col-3" style="cursor: pointer" (click)="active=1" [ngClass]="{'active-div': active===1}">
+      <div class="card-block" (click)="active=1" [ngClass]="{'active-div': active===1}">
+        Conceptos visitados <span>{{records?.length}}</span>
+      </div>
+    </div>
+    <div class="card col-3" style="cursor: pointer" (click)="active=2" [ngClass]="{'active-div': active===2}">
+      <div class="card-block" (click)="active=2" [ngClass]="{'active-div': active===2}">
+        Dudas planteadas <span>{{questions?.length}}</span>
+      </div>
+    </div>
+    <div class="card col-3" style="cursor: pointer" (click)="active=3" [ngClass]="{'active-div': active===3}">
+      <div class="card-block">
+        Cuestionarios realizados <span>{{exams?.length}}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="active===1" style="margin-top: 20px">
+    <div class="card col-12">
+      <div class="card-block">
+        <table class="table table-striped">
+          <thead class="thead-inverse">
+            <tr>
+              <th>#</th>
+              <th>Concepto</th>
+              <th>Fecha</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let record of records; let i = index">
+              <th scope="row">{{i+1}}</th>
+              <td>{{record?.title}}</td>
+              <td>{{record?.dateOf}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="active===2" class="row" style="margin-top: 20px">
+    <div class="card col-12">
+      <div class="card-block">
+        <table class="table">
+          <thead class="thead-inverse">
+            <tr>
+              <th>#</th>
+              <th>Duda</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr [ngClass]="{'bg-warning': question?.ignored, 'bg-danger': question?.reported}" *ngFor="let question of questions; let i = index">
+              <th scope="row">{{i+1}}</th>
+              <td><a class="active-a" (click)="goToQuestionDetail(question)">{{question?.title}}</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="active===3" style="margin-top: 20px">
+    <div class="card col-12">
+      <div class="card-block">
+        <table class="table">
+          <thead class="thead-inverse">
+            <tr>
+              <th>#</th>
+              <th>Nota</th>
+              <th>Cuestionario</th>
+              <th>Fecha</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr [ngClass]="{'passed': exam?.mark >= 5, 'failed': exam?.mark < 5}" *ngFor="let exam of exams; let i = index">
+              <th scope="row">{{i+1}}</th>
+              <td>{{exam?.mark}}</td>
+              <td><button (click)="recreateExamResult(exam)" class="btn btn-success">Ver cuestionario</button></td>
+              <td>{{exam?.exam?.date}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

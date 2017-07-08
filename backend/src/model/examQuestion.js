@@ -95,23 +95,17 @@ class ExamQuestion {
     return new Promise((resolve, reject) => {
       mysqlConnection.query('SELECT EQ.id as eqid,Q.* FROM examQuestions EQ, testQuestions Q WHERE exam = ? AND EQ.question = Q.id;', [examId], (err, examQuestions) => {
         if (err) { reject(err) } else {
+          examQuestions = JSON.parse(JSON.stringify(examQuestions))
           let promises = examQuestions.map((examQuestion) => {
-            return ExamResponse.getResponseByQuestionId(examQuestion.id)
+            return ExamResponse.getResponseByQuestionId(examQuestion.eqid)
           })
           let examQuestionsAux = examQuestions.map((examQuestion) => {
             let testQuestion = new TestQuestion(examQuestion.id, examQuestion.wordingText, examQuestion.wordingImage, undefined)
             return new ExamQuestion(testQuestion, undefined, examQuestion.equid)
           })
-          // .then((responses) => {
-            //  let testQuestion = new TestQuestion(examQuestion.id, examQuestion.wordingText, examQuestion.wordingImage, responses.testOptions)
-            //  let aux = new ExamQuestion(testQuestion, responses, examQuestion.equid)
-            //  console.log(aux)
-            //  return aux
-          // })
-        // })
           Promise.all(promises).then((responses) => {
             let aux = examQuestionsAux.map((examQuestion, i) => {
-              examQuestion.responses = responses[i]
+              examQuestion.examResponses = responses[i]
               return examQuestion
             })
             resolve(aux)

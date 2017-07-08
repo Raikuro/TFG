@@ -40,6 +40,7 @@ class ExamResponse {
   }
 
   static getResponseByQuestionId (questionId) {
+    console.log(questionId)
     return new Promise((resolve, reject) => {
       mysqlConnection.query('SELECT R.id as rid, R.selected, O.* FROM examResponses R, testOptions O WHERE R.question = ? AND R.option = O.id;', [questionId], (err, responses) => {
         if (err) { reject(err) } else {

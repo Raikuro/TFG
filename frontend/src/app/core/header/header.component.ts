@@ -22,8 +22,8 @@ export class HeaderComponent extends ComponentWithSession {
   }
 
   private isAlumn;
-  private unrespondedQuestionsLength;
   @Input('active') private active;
+  @Input('unrespondedQuestionsLength') private unrespondedQuestionsLength;
 
   isTheoryActive(){
     return this.active === THEORY
@@ -47,11 +47,10 @@ export class HeaderComponent extends ComponentWithSession {
 
   logout(){
     this.sessionService.logout().then(
-      () => {
-        this.router.navigate(['/login']);
-      },
+      () => {},
       error => console.log(error)
     );
+    this.router.navigate(['/login']);
   }
   
   goToTheory(){
