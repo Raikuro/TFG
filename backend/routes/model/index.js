@@ -101,22 +101,25 @@ module.exports = (app, login) => {
 
   router.get('/test/concept/:concept',
     login.ensureLoggedIn(),
-    testQuestionController.getConceptTest
+    examController.getConceptTest
+    // testQuestionController.getConceptTest
   )
 
   router.get('/test/lesson/:lessonId',
     login.ensureLoggedIn(),
-    testQuestionController.getLessonTest
+    examController.getLessonTest
+    // testQuestionController.getLessonTest
   )
 
   router.get('/test',
     login.ensureLoggedIn(),
-    testQuestionController.getGeneralTest
+    // testQuestionController.getGeneralTest
+    examController.getGeneralTest
   )
 
   router.post('/checkExam',
     login.ensureLoggedIn(),
-    //testQuestionController.checkExam
+    // testQuestionController.checkExam
     examController.checkExam
   )
 

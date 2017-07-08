@@ -17,6 +17,7 @@ export class ExamComponent extends ComponentWithSession {
 
   onInitTasks() {
     this.test = this.testService.test
+    console.log("--", this.test)
     if(this.test === undefined){
       this.router.navigate(['/test'])
     }

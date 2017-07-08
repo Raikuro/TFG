@@ -126,11 +126,12 @@ export class TestService extends BaseService{
     return new Promise((resolve, reject) => {
       test.subscribe(
         questionList => {
-          this._test = questionList.map(question => {
-            let options = question.testOptions.map(
-              option => {return new TestOption(option.answer, false)}
+          console.log("-----", questionList)
+          this._test = questionList.map(examQuestion => {
+            let options = examQuestion.examResponses.map(
+              option => {console.log(option); return new TestOption(option.testOption.answer, option.selected)}
             );
-            return new TestQuestion(question.id, question.wordingText, question.wordingImage, options);
+            return new TestQuestion(examQuestion.question.id, examQuestion.question.wordingText, examQuestion.question.wordingImage, options);
           })
           resolve();
         },

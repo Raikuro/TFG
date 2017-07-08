@@ -1,6 +1,4 @@
 let TestOption = require('./testOption')
-// let Exam = require('./exam')
-let consts = require('../utils/consts')
 let utils = require('../utils/utils')
 let mysqlConnection = require('../mysqlConnection')
 
@@ -25,18 +23,18 @@ class TestQuestion {
     })
   }
 
-  getAllOptionsForExam () {
-    return new Promise((resolve, reject) => {
-      mysqlConnection.query('SELECT DISTINCT T.answer FROM testOptions T WHERE T.question = ?',
-      [this.id], (err, options) => {
-        if (err) { reject(err) }
-        options = options.map((option) => {
-          return new TestOption(option.answer, option.isCorrect, option.id)
-        })
-        resolve(options)
-      })
-    })
-  }
+  // getAllOptionsForExam () {
+  //   return new Promise((resolve, reject) => {
+  //     mysqlConnection.query('SELECT DISTINCT T.answer FROM testOptions T WHERE T.question = ?',
+  //     [this.id], (err, options) => {
+  //       if (err) { reject(err) }
+  //       options = options.map((option) => {
+  //         return new TestOption(option.answer, option.isCorrect, option.id)
+  //       })
+  //       resolve(options)
+  //     })
+  //   })
+  // }
 
   setOptions (options) {
     this.testOptions = options
@@ -137,6 +135,7 @@ class TestQuestion {
     })
   }
 
+  /*
   static generateGeneralTest () {
     let result = []
     return new Promise((resolve, reject) => {
@@ -165,71 +164,72 @@ class TestQuestion {
       })
     })
   }
+  */
 
-  static generateLessonTest (lessonId) {
-    let result = []
-    return new Promise((resolve, reject) => {
-      mysqlConnection.query('SELECT DISTINCT * FROM testQuestions WHERE lesson = ?', [lessonId],
-      (err, questionList) => {
-        if (err) { reject(err) }
-        questionList = questionList.map(question => {
-          if (question.wordingImage) {
-            question.wordingImage = new Buffer(question.wordingImage).toString('base64')
-          }
-          return new TestQuestion(question.id, question.wordingText, question.wordingImage)
-        })
-        for (let i = 0; i < consts.EXAMSIZE && questionList.length > 0; i++) {
-          let aux = Math.floor(Math.random() * questionList.length)
-          result.push(questionList[aux])
-          questionList.splice(aux, 1)
-        }
-        let promises = result.map(question => {
-          return question.getAllOptionsForExam()
-        })
-        Promise.all(promises).then((optionsList) => {
-          optionsList.forEach((options, i, arr) => {
-            result[i].testOptions = options
-          })
-          resolve(result)
-        })
-      })
-    })
-  }
+  // static generateLessonTest (lessonId) {
+  //   let result = []
+  //   return new Promise((resolve, reject) => {
+  //     mysqlConnection.query('SELECT DISTINCT * FROM testQuestions WHERE lesson = ?', [lessonId],
+  //     (err, questionList) => {
+  //       if (err) { reject(err) }
+  //       questionList = questionList.map(question => {
+  //         if (question.wordingImage) {
+  //           question.wordingImage = new Buffer(question.wordingImage).toString('base64')
+  //         }
+  //         return new TestQuestion(question.id, question.wordingText, question.wordingImage)
+  //       })
+  //       for (let i = 0; i < consts.EXAMSIZE && questionList.length > 0; i++) {
+  //         let aux = Math.floor(Math.random() * questionList.length)
+  //         result.push(questionList[aux])
+  //         questionList.splice(aux, 1)
+  //       }
+  //       let promises = result.map(question => {
+  //         return question.getAllOptionsForExam()
+  //       })
+  //       Promise.all(promises).then((optionsList) => {
+  //         optionsList.forEach((options, i, arr) => {
+  //           result[i].testOptions = options
+  //         })
+  //         resolve(result)
+  //       })
+  //     })
+  //   })
+  // }
 
-  static generateConceptTest (concept) {
-    let result = []
-    return new Promise((resolve, reject) => {
-      mysqlConnection.query('SELECT DISTINCT * FROM testQuestions ' +
-      'WHERE wordingText REGEXP \'([[:blank:][:punct:]]|^)' + concept + '([[:blank:][:punct:]]|$)\'',
-      (err, questionList) => {
-        if (err) { reject(err) }
-        questionList = questionList.map(question => {
-          if (question.wordingImage) {
-            question.wordingImage = new Buffer(question.wordingImage).toString('base64')
-          }
-          return new TestQuestion(question.id, question.wordingText, question.wordingImage)
-        })
-        for (let i = 0; i < consts.EXAMSIZE && questionList.length > 0; i++) {
-          let aux = Math.floor(Math.random() * questionList.length)
-          result.push(questionList[aux])
-          questionList.splice(aux, 1)
-        }
-        let promises = result.map(question => {
-          return question.getAllOptionsForExam()
-        })
-        Promise.all(promises).then((optionsList) => {
-          optionsList.forEach((options, i, arr) => {
-            result[i].testOptions = options
-          })
-          resolve(result)
-        })
-      })
-    })
-  }
+  // static generateConceptTest (concept) {
+  //   let result = []
+  //   return new Promise((resolve, reject) => {
+  //     mysqlConnection.query('SELECT DISTINCT * FROM testQuestions ' +
+  //     'WHERE wordingText REGEXP \'([[:blank:][:punct:]]|^)' + concept + '([[:blank:][:punct:]]|$)\'',
+  //     (err, questionList) => {
+  //       if (err) { reject(err) }
+  //       questionList = questionList.map(question => {
+  //         if (question.wordingImage) {
+  //           question.wordingImage = new Buffer(question.wordingImage).toString('base64')
+  //         }
+  //         return new TestQuestion(question.id, question.wordingText, question.wordingImage)
+  //       })
+  //       for (let i = 0; i < consts.EXAMSIZE && questionList.length > 0; i++) {
+  //         let aux = Math.floor(Math.random() * questionList.length)
+  //         result.push(questionList[aux])
+  //         questionList.splice(aux, 1)
+  //       }
+  //       let promises = result.map(question => {
+  //         return question.getAllOptionsForExam()
+  //       })
+  //       Promise.all(promises).then((optionsList) => {
+  //         optionsList.forEach((options, i, arr) => {
+  //           result[i].testOptions = options
+  //         })
+  //         resolve(result)
+  //       })
+  //     })
+  //   })
+  // }
 
-  //static getResponseOfExam (exam, user) {
-    //return new Promise((resolve, reject) => {
-      //Exam.getExamByUserExam(exam)
+  // static getResponseOfExam (exam, user) {
+    // return new Promise((resolve, reject) => {
+      // Exam.getExamByUserExam(exam)
       // let origin = exam.map((question) => {
       //   let options = JSON.parse(question.testOptions).map((option) => {
       //     return new TestOption(option.answer, option.isCorrect)
@@ -274,25 +274,25 @@ class TestQuestion {
     //     */
       // })
    // })
-  //}
+  // }
 
-  mark (solution) {
-    let nOfAnswers = solution.length
-    let nOfFails = 0
-    let responded = 0
-    this.testOptions.forEach((option, i) => {
-      if (option.isCorrect !== solution[i].isCorrect) {
-        nOfFails++
-      }
-      responded += option.isCorrect
-    })
-    if (responded < 1) { return 0 }
-    return -1 + (2 * (nOfAnswers - nOfFails) / nOfAnswers)
-    // if (nOfFails === 0) { return 1 }
-    // let nOfCorrect = nOfAnswers - nOfFails
-    // if (nOfCorrect === 0) { return (1 - nOfAnswers) / nOfAnswers }
-    // return (nOfCorrect / nOfAnswers) - (Math.pow(nOfFails / nOfAnswers, (1 + 1 / nOfFails)))
-  }
+  // mark (solution) {
+  //   let nOfAnswers = solution.length
+  //   let nOfFails = 0
+  //   let responded = 0
+  //   this.testOptions.forEach((option, i) => {
+  //     if (option.isCorrect !== solution[i].isCorrect) {
+  //       nOfFails++
+  //     }
+  //     responded += option.isCorrect
+  //   })
+  //   if (responded < 1) { return 0 }
+  //   return -1 + (2 * (nOfAnswers - nOfFails) / nOfAnswers)
+  //   // if (nOfFails === 0) { return 1 }
+  //   // let nOfCorrect = nOfAnswers - nOfFails
+  //   // if (nOfCorrect === 0) { return (1 - nOfAnswers) / nOfAnswers }
+  //   // return (nOfCorrect / nOfAnswers) - (Math.pow(nOfFails / nOfAnswers, (1 + 1 / nOfFails)))
+  // }
 }
 
 module.exports = exports = TestQuestion

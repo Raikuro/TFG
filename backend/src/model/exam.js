@@ -1,12 +1,91 @@
 let mysqlConnection = require('../mysqlConnection')
 let ExamQuestion = require('./examQuestion')
 let User = require('./user')
+let consts = require('../utils/consts')
 
 class Exam {
   constructor (user, examQuestions, id) {
     this.id = id
     this.user = user
     this.examQuestions = examQuestions
+  }
+
+  static _generateTest (questionList) {
+    let result = []
+    return new Promise((resolve, reject) => {
+      questionList = questionList.map(question => {
+        return ExamQuestion.getExamQuestion(question)
+      })
+      for (let i = 0; i < consts.EXAMSIZE && questionList.length > 0; i++) {
+        let aux = Math.floor(Math.random() * questionList.length)
+        result.push(questionList[aux])
+        questionList.splice(aux, 1)
+      }
+      let promises = result.map(question => {
+        return question.getAllExamOptions()
+      })
+      Promise.all(promises).then((optionsList) => {
+        optionsList.forEach((options, i) => {
+          result[i].examResponses = options
+        })
+        resolve(result)
+      })
+    })
+  }
+
+  static generateGeneralTest () {
+    return new Promise((resolve, reject) => {
+      mysqlConnection.query('SELECT DISTINCT * FROM testQuestions', (err, questionList) => {
+        if (err) { reject(err) }
+        Exam._generateTest(questionList)
+         .then((test) => resolve(test))
+         .catch((err) => { reject(err) })
+        // questionList = questionList.map(question => {
+        //   return ExamQuestion.getExamQuestion(question)
+        // })
+        // for (let i = 0; i < consts.EXAMSIZE && questionList.length > 0; i++) {
+        //   let aux = Math.floor(Math.random() * questionList.length)
+        //   result.push(questionList[aux])
+        //   questionList.splice(aux, 1)
+        // }
+        // let promises = result.map(question => {
+        //   console.log(question)
+        //   return question.getAllExamOptions()
+        // })
+        // Promise.all(promises).then((optionsList) => {
+        //   optionsList.forEach((options, i) => {
+        //     result[i].examResponses = options
+        //     console.log(result[i].examResponses)
+        //   })
+        //   resolve(result)
+        // })
+      })
+    })
+  }
+
+  static generateLessonTest (lessonId) {
+    return new Promise((resolve, reject) => {
+      mysqlConnection.query('SELECT DISTINCT * FROM testQuestions WHERE lesson = ?', [lessonId],
+      (err, questionList) => {
+        if (err) { reject(err) }
+        Exam._generateTest(questionList)
+         .then((test) => resolve(test))
+         .catch((err) => { reject(err) })
+      })
+    })
+  }
+
+  static generateConceptTest (concept) {
+    return new Promise((resolve, reject) => {
+      mysqlConnection.query('SELECT DISTINCT * FROM testQuestions ' +
+      'WHERE wordingText REGEXP \'([[:blank:][:punct:]]|^)' + concept + '([[:blank:][:punct:]]|$)\'',
+      (err, questionList) => {
+        if (err) { reject(err) }
+        Exam._generateTest(questionList)
+         .then((test) => resolve(test))
+         .catch((err) => { reject(err) })
+      })
+    })
   }
 
   static getExamsByUserId (userId) {

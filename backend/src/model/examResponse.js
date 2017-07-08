@@ -21,15 +21,22 @@ class ExamResponse {
       mysqlConnection.query('INSERT INTO examResponses(option, question, selected) VALUES (?,?,?);', [this.testOption.id, examQuestionId, this.selected], (err, insertLog) => {
         if (err) { console.log(err); reject(err) } else { resolve() }
       })
-        /*mysqlConnection.query('SELECT id FROM testOptions WHERE question = ?;', [question.id], (err, ids) => {
+        /*
+        mysqlConnection.query('SELECT id FROM testOptions WHERE question = ?;', [question.id], (err, ids) => {
           if (err) { reject(err) } else {
             mysqlConnection.query('INSERT INTO examResponses(option, question, selected) VALUES (?,?,?);', [ids[i].id, examQuestionId, testOption.isCorrect], (err, insertLog) => {
               if (err) { reject(err) } else { resolve() }
             })
           }
-        })*/
-        //console.log("--", testOption)
+        })
+        */
+        // console.log("--", testOption)
     })
+  }
+
+  static getAllExamOptions (option) {
+    let aux = new TestOption(option.answer, null)
+    return new ExamResponse(undefined, false, aux)
   }
 
   static getResponseByQuestionId (questionId) {

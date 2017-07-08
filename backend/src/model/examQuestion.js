@@ -10,11 +10,9 @@ class ExamQuestion {
   }
 
   static transformTestIntoExam (testQuestion) {
-    //console.log(testQuestion)
     return new Promise((resolve, reject) => {
       let question = new TestQuestion(testQuestion.id, testQuestion.wordingText, testQuestion.wordingImage)
       question.getAllOptions().then((options) => {
-        //console.log(options)
         question.testOptions = options
         let testOptions = JSON.parse(testQuestion.testOptions)
         let examResponses = options.map((option, i) => {
@@ -69,18 +67,28 @@ class ExamQuestion {
       responded++
     }
     return responded === 0 ? 0 : this._getMark()
-    
-    /*let nOfAnswers = solution.length
-    let nOfFails = 0
-    let responded = 0
-    this.testOptions.forEach((option, i) => {
-      if (option.isCorrect !== solution[i].isCorrect) {
-        nOfFails++
-      }
-      responded += option.isCorrect
+  }
+
+  getAllExamOptions () {
+    return new Promise((resolve, reject) => {
+      mysqlConnection.query('SELECT DISTINCT T.* FROM testOptions T WHERE T.question = ?',
+      [this.question.id], (err, options) => {
+        if (err) { reject(err) }
+        options = options.map((option) => {
+          return ExamResponse.getAllExamOptions(option)
+          //return new TestOption(option.answer, option.isCorrect, option.id)
+        })
+        resolve(options)
+      })
     })
-    if (responded < 1) { return 0 }
-    return -1 + (2 * (nOfAnswers - nOfFails) / nOfAnswers)*/
+  }
+
+  static getExamQuestion (question) {
+    if (question.wordingImage) {
+      question.wordingImage = new Buffer(question.wordingImage).toString('base64')
+    }
+    question = new TestQuestion(question.id, question.wordingText, question.wordingImage)
+    return new ExamQuestion(question)
   }
 
   static getQuestionsByExamId (examId) {
