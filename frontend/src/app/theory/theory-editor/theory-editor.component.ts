@@ -45,10 +45,19 @@ export class TheoryEditorComponent extends ComponentWithSession {
   }
 
   isReadyToSend(){
-    if(this.section && this.section.title && 
-      (this.section.contentText || this.section.contentImage)){
-        return this.section.title.length > 0 &&
-          (this.section.contentText.length > 0 || this.section.contentImage != undefined)
+    let aux = false
+    if(this.section){
+      if(this.section.title){
+        if(this.section.title.length > 0){
+          if(this.section.contentText){
+            aux = this.section.contentText.length > 0
+          }
+          if(this.section.contentImage){
+            aux = true
+          }
+          return aux
+        }
+      }
     }
   }
 
@@ -159,6 +168,7 @@ export class TheoryEditorComponent extends ComponentWithSession {
     let binaryString = readerEvt.target.result;
     if(this.section){
       this.section.contentImage = btoa(binaryString);
+      console.log(this.section.contentImage)
     }
   }
 
