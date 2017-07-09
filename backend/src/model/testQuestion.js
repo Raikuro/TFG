@@ -23,19 +23,6 @@ class TestQuestion {
     })
   }
 
-  // getAllOptionsForExam () {
-  //   return new Promise((resolve, reject) => {
-  //     mysqlConnection.query('SELECT DISTINCT T.answer FROM testOptions T WHERE T.question = ?',
-  //     [this.id], (err, options) => {
-  //       if (err) { reject(err) }
-  //       options = options.map((option) => {
-  //         return new TestOption(option.answer, option.isCorrect, option.id)
-  //       })
-  //       resolve(options)
-  //     })
-  //   })
-  // }
-
   setOptions (options) {
     this.testOptions = options
   }
@@ -102,16 +89,6 @@ class TestQuestion {
         Promise.all(optionsPromises).then(() => resolve()).catch((err) => reject(err))
       }).catch(err => reject(err))
     })
-    /*
-    return new Promise((resolve, reject) => {
-      this._saveBasics(lessonId).then((id) => {
-        //console.log("A", this.testOptions)
-        //let optionsPromises = this.testOptions.map((testOption) => { console.log(testOption, "&&"); return testOption.save(id) })
-        //Promise.all(optionsPromises).then(() => resolve()).catch((err) => reject(err))
-        resolve()
-      }).catch(error => reject(error))
-    })
-    */
   }
 
   delete () {
@@ -134,165 +111,6 @@ class TestQuestion {
       })
     })
   }
-
-  /*
-  static generateGeneralTest () {
-    let result = []
-    return new Promise((resolve, reject) => {
-      mysqlConnection.query('SELECT DISTINCT * FROM testQuestions', (err, questionList) => {
-        if (err) { reject(err) }
-        questionList = questionList.map(question => {
-          if (question.wordingImage) {
-            question.wordingImage = new Buffer(question.wordingImage).toString('base64')
-          }
-          return new TestQuestion(question.id, question.wordingText, question.wordingImage)
-        })
-        for (let i = 0; i < consts.EXAMSIZE && questionList.length > 0; i++) {
-          let aux = Math.floor(Math.random() * questionList.length)
-          result.push(questionList[aux])
-          questionList.splice(aux, 1)
-        }
-        let promises = result.map(question => {
-          return question.getAllOptionsForExam()
-        })
-        Promise.all(promises).then((optionsList) => {
-          optionsList.forEach((options, i, arr) => {
-            result[i].testOptions = options
-          })
-          resolve(result)
-        })
-      })
-    })
-  }
-  */
-
-  // static generateLessonTest (lessonId) {
-  //   let result = []
-  //   return new Promise((resolve, reject) => {
-  //     mysqlConnection.query('SELECT DISTINCT * FROM testQuestions WHERE lesson = ?', [lessonId],
-  //     (err, questionList) => {
-  //       if (err) { reject(err) }
-  //       questionList = questionList.map(question => {
-  //         if (question.wordingImage) {
-  //           question.wordingImage = new Buffer(question.wordingImage).toString('base64')
-  //         }
-  //         return new TestQuestion(question.id, question.wordingText, question.wordingImage)
-  //       })
-  //       for (let i = 0; i < consts.EXAMSIZE && questionList.length > 0; i++) {
-  //         let aux = Math.floor(Math.random() * questionList.length)
-  //         result.push(questionList[aux])
-  //         questionList.splice(aux, 1)
-  //       }
-  //       let promises = result.map(question => {
-  //         return question.getAllOptionsForExam()
-  //       })
-  //       Promise.all(promises).then((optionsList) => {
-  //         optionsList.forEach((options, i, arr) => {
-  //           result[i].testOptions = options
-  //         })
-  //         resolve(result)
-  //       })
-  //     })
-  //   })
-  // }
-
-  // static generateConceptTest (concept) {
-  //   let result = []
-  //   return new Promise((resolve, reject) => {
-  //     mysqlConnection.query('SELECT DISTINCT * FROM testQuestions ' +
-  //     'WHERE wordingText REGEXP \'([[:blank:][:punct:]]|^)' + concept + '([[:blank:][:punct:]]|$)\'',
-  //     (err, questionList) => {
-  //       if (err) { reject(err) }
-  //       questionList = questionList.map(question => {
-  //         if (question.wordingImage) {
-  //           question.wordingImage = new Buffer(question.wordingImage).toString('base64')
-  //         }
-  //         return new TestQuestion(question.id, question.wordingText, question.wordingImage)
-  //       })
-  //       for (let i = 0; i < consts.EXAMSIZE && questionList.length > 0; i++) {
-  //         let aux = Math.floor(Math.random() * questionList.length)
-  //         result.push(questionList[aux])
-  //         questionList.splice(aux, 1)
-  //       }
-  //       let promises = result.map(question => {
-  //         return question.getAllOptionsForExam()
-  //       })
-  //       Promise.all(promises).then((optionsList) => {
-  //         optionsList.forEach((options, i, arr) => {
-  //           result[i].testOptions = options
-  //         })
-  //         resolve(result)
-  //       })
-  //     })
-  //   })
-  // }
-
-  // static getResponseOfExam (exam, user) {
-    // return new Promise((resolve, reject) => {
-      // Exam.getExamByUserExam(exam)
-      // let origin = exam.map((question) => {
-      //   let options = JSON.parse(question.testOptions).map((option) => {
-      //     return new TestOption(option.answer, option.isCorrect)
-      //   })
-      //   return new TestQuestion(question.id, question.wordingText, question.wordingImage, options)
-      // })
-
-      // Exam.save(origin, user).then((exam) => {
-      //   Exam.getMark(origin, user).then((mark) => {
-      //     resolve(mark)
-      //   })
-
-    //   Exam.save(origin, user).then(() => {
-    //     let solutions = origin.map((questionAux) => {
-    //       return questionAux.getAllOptions().then(solution => {
-    //         return solution
-    //       }).catch(error => reject(error))
-    //     })
-
-    //     Promise.all(solutions).then((solutions) => {
-    //       let marks = solutions.map((solution, i) => {
-    //         return origin[i].mark(solution)
-    //       })
-    //       let mark = marks.reduce((last, actual) => { return last + actual }) * 10 / exam.length
-    //       let markErrorFix = (mark + 0.00000000000001).toFixed(2)
-    //       resolve({'mark': Math.max(0, markErrorFix), 'origin': origin, 'solutions': solutions})
-    //     }).catch(error => reject(error))
-
-    //     /*
-    //     let markPromises = origin.map((questionAux) => {
-    //       return questionAux.getAllOptions().then(solution => {
-    //         return questionAux.mark(solution)
-    //       }).catch(error => console.log("B", error))
-    //     }) */
-
-    //     /* Promise.all(markPromises).then(marks => {
-    //       console.log(marks)
-    //       let mark = marks.reduce((last, actual) => { return last + actual }) * 10 / exam.length
-    //       resolve(Math.max(0, mark), origin)
-    //       //return Math.max(0, result)
-    //     })
-    //     */
-      // })
-   // })
-  // }
-
-  // mark (solution) {
-  //   let nOfAnswers = solution.length
-  //   let nOfFails = 0
-  //   let responded = 0
-  //   this.testOptions.forEach((option, i) => {
-  //     if (option.isCorrect !== solution[i].isCorrect) {
-  //       nOfFails++
-  //     }
-  //     responded += option.isCorrect
-  //   })
-  //   if (responded < 1) { return 0 }
-  //   return -1 + (2 * (nOfAnswers - nOfFails) / nOfAnswers)
-  //   // if (nOfFails === 0) { return 1 }
-  //   // let nOfCorrect = nOfAnswers - nOfFails
-  //   // if (nOfCorrect === 0) { return (1 - nOfAnswers) / nOfAnswers }
-  //   // return (nOfCorrect / nOfAnswers) - (Math.pow(nOfFails / nOfAnswers, (1 + 1 / nOfFails)))
-  // }
 }
 
 module.exports = exports = TestQuestion

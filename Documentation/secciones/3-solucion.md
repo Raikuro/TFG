@@ -1,7 +1,0 @@
-#Solución adoptada
-
-Debido al tamaño del temario y a su complejidad, el estudio de esta asignatura puede resultar difícil. El origen del problema es el formato. Por un lado tenemos el soporte papel y por otro lado el soporte digital en formato pdf, pero sin ningún tipo de marcador. Esto dificulta enormemente la búsqueda de un concepto concreto, así como la relación entre conceptos, ya que la única herramienta con la que contamos para ello consiste en que las palabras claves están marcadas en negrita. De igual forma, el planteamiento de dudas es ineficiente, ya que se hace fundamentalmente de forma presencial, y en cualquier caso, es complicado que los alumnos se enteren de las dudas que han planteado sus compañeros y de las soluciones que el profesor ha dado a dichas dudas. Finalmente, es necesario algún sistema que permita al alumno saber de forma aproximada su nivel de preparación para afrontar las etapas finales de la asignatura.
-
-En resumen, lo que buscamos es una aplicación que nos permita buscar conceptos de forma rápida, entender las relaciones entre conceptos, reducir el tiempo malgastado tanto por parte del profesor como del alumno, evitando el planteamiento repetido de dudas ya resueltas con anterioridad y facilitando al alumno la resolución concreta de dudas y , por último, dotar al alumno de un mecanismo de comprobación de conocimientos.
- 
-De igual modo, buscamos que la aplicación sea fácilmente accesible por cualquier miembro de la comunidad educativa.

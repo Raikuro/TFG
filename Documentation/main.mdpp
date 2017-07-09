@@ -1,18 +1,19 @@
 ---
 fecha: 22 de junio de 2017
 autor: Julio Gracia Gutiérrez
+tutor: María Felisa Pérez Martínez
 titulo: > 
-    Desarrollo de software educativo de apoyo a la docencia en la teoría de grafos. 
+    Desarrollo de software educativo de apoyo a la docencia en la teoría de conjuntos. 
 mencion: INGENIERÍA DE SOFTWARE
 dedicatoria: |
     Dedicatoria ejemplo
 agradecimientos: |
     Agradecimiento ejemplo
 resumen: |
-    En el presente trabajo se va a desarrollar un software de ayuda para la asignatura “Matemáticas Discretas”.
-    Se pretende que el alumno sea capaz de desarrollar un prototipo funcional de una aplicación web orientada
-    a mejorar el aprendizaje y el afianzamiento de los conceptos relativos a la asignatura. En este punto es
-    necesario plantear la arquitectura de la aplicación que vamos a implementar.
+    En el presente trabajo se va a desarrollar un software de ayuda para la asignatura “Matemática Discreta”.
+    El objetivo del presente TFG es desarrollar un prototipo funcional de una aplicación web orientada
+    a mejorar el aprendizaje y el afianzamiento de los conceptos relativos a la asignatura. En este punto será
+    necesario plantear la arquitectura de la aplicación que se va a implementar.
 
     La solución escogida consiste en utilizar Angular programado en TypeScript para el front-end, Node.js
     programado en JavaScript y una base de datos relacional MariaDB para el back-end. Angular es una plataforma
@@ -30,11 +31,9 @@ abstract: |
 
 !INCLUDE "secciones/1-introduccion.md"
 
-!INCLUDE "secciones/2-punto_partida.md"
-
-!INCLUDE "secciones/3-solucion.md"
-
 !INCLUDE "secciones/4-tecnologias.md"
+
+!INCLUDE "secciones/2-plan_del_proyecto.md"
 
 !INCLUDE "secciones/5-desarrollo.md"
 

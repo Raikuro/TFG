@@ -18,7 +18,6 @@ class TestOption {
   }
 
   save (questionId) {
-    //console.log("||||||", questionId, "||||||", this)
     return new Promise((resolve, reject) => {
       mysqlConnection.query('INSERT INTO testOptions(question, answer, isCorrect) VALUES (?,?,?)',
         [questionId, this.answer, this.isCorrect], (err) => {

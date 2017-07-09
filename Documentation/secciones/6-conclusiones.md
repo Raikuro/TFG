@@ -1,4 +1,4 @@
-# Conclusiones
+\chapter{ Conclusiones }
 Conclusiones
 
 ## Trabajo futuro

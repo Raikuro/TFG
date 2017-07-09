@@ -1,17 +1,20 @@
-# Tecnologías utilizadas
+\chapter{ Tecnologías utilizadas }
 
 ## Definiciones previas necesarias
 
-* **JavaScript:**
-JavaScript (abreviado como JS) es un lenguaje multi-paradigma ligero e interpretado, orientado a objetos.
+* **JavaScript:** \cite{mozilla_javascript}
+JavaScript (abreviado como JS) es un lenguaje multi-paradigma, ligero e interpretado.
 
-* **TypeScript:**
-TypeScript es un superconjunto de JavaScript que permite el uso de clases, interfaces y tipado estático. El uso de variables tipadas de TypeScript aporta mayor robustez al código, pero por contra nos hace perder flexibilidad.
+* **TypeScript:** \cite{enriqueoriol2017, stackoverflow_Typescript}
+TypeScript es un superconjunto de JavaScript que permite el uso de clases, interfaces y tipado estático. El uso de variables tipadas de TypeScript aporta mayor robustez al código.
 
-* **ECMAScript:**
+* **ECMAScript:** \cite{mozilla_ecmascript}
 ECMAScript (abreviado como ES) es un lenguaje de scripting que forma la base de JavaScript. Está recogido en los estándares ECMA-262 y ECMA-402 de ECMA International. Al referirnos a ES5 nos referimos a la quinta versión del estándar ECMA-262, mientras que al hablar de ES2015 o ES6 nos referimos al estándar ECMA-262 en su sexta versión. Actualmente los navegadores soportan ES5, por lo cualquier lenguaje derivado de ECMAScript(como son JavaScript y TypeScript) deben de ser traspilado a ES5.
 
-* **Gestor de paquetes:**
+* **Transpilar:** \cite{enriquefernandezguerra_typescript, builtbyedgar_transpilar}
+Transpilar es un término relativamente nuevo, proviene del inglés *transpiler*, fruto de la unión de las palabras *translate* y *compiler*. Es la operación de traducción de un lenguaje a otro, siendo ambos del mismo nivel de abstracción aproxiamadamente.
+
+* **Gestor de paquetes:** \cite{debian_gestorpaquetes}
 Un gestor de paquetes mantiene un registro del software que está instalado en su ordenador, y le permite instalar software nuevo, actualizarlo a versiones más recientes, o eliminar software de una manera sencilla. Como su propio nombre sugiere, los gestores de paquetes gestionan paquetes: conjuntos de ficheros que se agrupan y que puede instalar y eliminar como conjunto. La labor de un gestor de paquetes es la de presentar una interfaz que asista al usuario en la tarea de administrar el conjunto de paquetes que están instalados en su sistema.
 
 * **Plataforma:**
@@ -20,7 +23,7 @@ Una plataforma es un sistema que engloba los componentes, interfaces y librería
 * **Framework:**
 Desde el punto de vista del desarrollo de software, un framework es una estructura de soporte definida, en la cual otro proyecto de software puede ser organizado y desarrollado.
 
-* **Open source:**
+* **Open source:** \cite{opensource_definition}
 La terminología open source incluye a aquellos softwares que cumplen los siguientes requisitos:
     * **Distribución libre:**La licencia no restringirá a ninguna de las partes vender o regalar el software como un componente de un conjunto de software.
     * **Código fuente:** El programa debe incluir el código fuente sin ofuscar o dotar de un mecanismo para conseguirlo, preferentemente de forma gratuita mediante una descarga online.
@@ -39,10 +42,10 @@ Término técnico para la capa de acceso a datos.
 * **Front-end:**
 Término técnico para la capa de presentación de una aplicación. Concierne los componentes externos del sitio o aplicación web.
 
-* **Propiedad:** 
+* **Propiedad:** \cite{mozilla_properties}
 Una propiedad de un objeto puede ser explicada como una variable que se adjunta al objeto.  Las propiedades de un objeto definen las características de un objeto. Un valor de propiedad puede ser una función, la cual es conocida entonces como un método del objeto.
 
-* **Licencia GPL:**
+* **Licencia GPL:** \cite{GNU_GPL, GNU_copyleft}
 La licencia GPL o GNU GPL es una licencia copyleft. Esto es, un método general que requiere que todas las versiones modificadas y extendidas sean también libres.
 
 * **API:**
@@ -148,7 +151,7 @@ app.use(express.cookieParser('your secret here'));
 app.use(express.session());
 ```
 
-## Angular
+## Angular \cite{angular_docs}
 
 \begin{figure}[H]
     \begin{center}
@@ -194,7 +197,7 @@ export class AppComponent { name = ‘Angular’; }
 Define la clase del controlador.
 En el caso de ejemplo, el controlador solo tiene la propiedad name, que contiene la cadena de texto “Angular”
 
-## Angular CLI
+## Angular CLI \cite{angular_cli}
 
 \begin{figure}[H]
     \begin{center}
@@ -279,7 +282,7 @@ sudo apt-get update
 sudo apt-get install mariadb-server
 ```
 
-### Ventajas de MariaDB frente MySQL
+### Ventajas de MariaDB frente MySQL \cite{zeokat_mariadb, andergonzalez_mariadb, alidavergara_mariadb}
 
 * **Nuevos motores de almacenamiento más eficientes:**
 

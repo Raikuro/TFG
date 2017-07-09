@@ -33,98 +33,7 @@ class Question {
       })
     })
   }
-
-  /*
-  delete () {
-    let starttime = new Date(this.date)
-    let isotime = new Date((new Date(starttime)).toISOString())
-    let fixedtime = new Date(isotime.getTime() - (starttime.getTimezoneOffset() * 60000))
-    let formatedMysqlString = fixedtime.toISOString().slice(0, 19).replace('T', ' ')
-    return new Promise((resolve, reject) => {
-      mysqlConnection.query('SELECT id from users where username = ?', [this.username],
-        (err, username) => {
-          if (err) { reject(err) }
-          let auxUser = username[0].id
-          let queryAux = 'DELETE FROM questions WHERE username = ? AND dateOfQuestion = ? ' +
-            'AND title = ? AND contentText '
-          queryAux += (this.contentText) ? '= ?' : 'IS NULL'
-          queryAux += ' AND contentImage '
-          queryAux += (this.contentImage) ? '= ?' : 'IS NULL'
-          console.log(queryAux)
-          if (this.contentText) {
-            mysqlConnection.query(queryAux,
-              [auxUser, formatedMysqlString, this.title, this.contentText, this.contentImage], (err) => {
-                if (err) { reject(err) } else { resolve() }
-              }
-            )
-          } else {
-            mysqlConnection.query(queryAux,
-              [auxUser, formatedMysqlString, this.title, this.contentImage], (err) => {
-                if (err) { reject(err) } else { resolve() }
-              }
-            )
-          }
-        }
-      )
-    })
-  }
-  /*
-  /*
-  report () {
-    let starttime = new Date(this.date)
-    let isotime = new Date((new Date(starttime)).toISOString())
-    let fixedtime = new Date(isotime.getTime() - (starttime.getTimezoneOffset() * 60000))
-    let formatedMysqlString = fixedtime.toISOString().slice(0, 19).replace('T', ' ')
-    if (this.contentImage) {
-      return new Promise((resolve, reject) => {
-        mysqlConnection.query('UPDATE questions SET reported=true WHERE username = ? ' +
-        'AND dateOfQuestion = ? AND title = ? AND contentText = ? AND contentImage = ?',
-        [this.username, formatedMysqlString, this.title, this.contentText, this.contentImage], (err, questions) => {
-          if (err) { reject(err) }
-          resolve()
-        })
-      })
-    } else {
-      return new Promise((resolve, reject) => {
-        mysqlConnection.query('UPDATE questions SET reported=true WHERE username = ? ' +
-        'AND dateOfQuestion = ? AND title = ? AND contentText = ? AND contentImage IS NULL',
-        [this.username, formatedMysqlString, this.title, this.contentText], (err, questions) => {
-          if (err) { reject(err) }
-          resolve()
-        })
-      })
-    }
-  }
-  */
-
-  /*
-  ignore () {
-    let starttime = new Date(this.date)
-    let isotime = new Date((new Date(starttime)).toISOString())
-    let fixedtime = new Date(isotime.getTime() - (starttime.getTimezoneOffset() * 60000))
-    let formatedMysqlString = fixedtime.toISOString().slice(0, 19).replace('T', ' ')
-    if (this.contentImage) {
-      return new Promise((resolve, reject) => {
-        mysqlConnection.query('UPDATE questions SET ignored=true WHERE username = ? ' +
-        'AND dateOfQuestion = ? AND title = ? AND contentText = ? AND contentImage = ?',
-        [this.username, formatedMysqlString, this.title, this.contentText, this.contentImage], (err, questions) => {
-          if (err) { reject(err) }
-          resolve()
-        })
-      })
-    } else {
-      return new Promise((resolve, reject) => {
-        mysqlConnection.query('UPDATE questions SET ignored=true WHERE username = ? ' +
-        'AND dateOfQuestion = ? AND title = ? AND contentText = ? AND contentImage IS NULL',
-        [this.username, formatedMysqlString, this.title, this.contentText], (err, questions) => {
-          if (err) { reject(err) }
-          resolve()
-        })
-      })
-    }
-  }
-  */
-
+  
   addResponse () {
     if (this.date === undefined) { this.date = new Date() }
     let starttime = new Date(this.date)
@@ -163,27 +72,6 @@ class Question {
         if (err) { reject(err) } else { resolve() }
       })
     })
-    /*
-    if (this.contentImage) {
-      return new Promise((resolve, reject) => {
-        mysqlConnection.query('UPDATE questions SET response = ? WHERE username = ? ' +
-        'AND dateOfQuestion = ? AND title = ? AND contentText = ? AND contentImage = ?',
-        [this.response, this.username, formatedMysqlString, this.title, this.contentText, this.contentImage], (err, questions) => {
-          if (err) { reject(err) }
-          resolve()
-        })
-      })
-    } else {
-      return new Promise((resolve, reject) => {
-        mysqlConnection.query('UPDATE questions SET response = ? WHERE username = ? ' +
-        'AND dateOfQuestion = ? AND title = ? AND contentText = ? AND contentImage IS NULL',
-        [this.response, this.username, formatedMysqlString, this.title, this.contentText], (err, questions) => {
-          if (err) { reject(err) }
-          resolve()
-        })
-      })
-    }
-    */
   }
 
   static getUnresponded () {

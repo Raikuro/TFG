@@ -20,13 +20,6 @@ class ExamQuestion {
         })
         let aux = new ExamQuestion(question, examResponses)
         resolve(aux)
-        // question.testOptions = options
-        // options.map((option) => {
-        //   let examResponses = ExamResponse.transformTestIntoExam(testQuestion.testOptions, options)
-        //   //console.log(question, '-->', testQuestion.testOptions)
-        //   let aux = new ExamQuestion(question, examResponses)
-        //   console.log(aux)
-        // })
       })
     })
   }
@@ -76,7 +69,6 @@ class ExamQuestion {
         if (err) { reject(err) }
         options = options.map((option) => {
           return ExamResponse.getAllExamOptions(option)
-          //return new TestOption(option.answer, option.isCorrect, option.id)
         })
         resolve(options)
       })

@@ -1,6 +1,6 @@
 \documentclass[openright,twoside,10pt]{book}
 \usepackage[b5paper,left=2cm,top=2.5cm,right=1.5cm,bottom=2.5cm]{geometry} 
-\usepackage[spanish]{babel} % espanol
+\usepackage[spanish, es-tabla]{babel} % espanol
 \usepackage[utf8]{inputenc} % acentos sin codigo
 \usepackage{graphicx} % gráficos
 \usepackage{lscape}
@@ -11,6 +11,7 @@
 \usepackage{biblatex}
 \bibliography{bibliografia}
 \usepackage{float}
+\usepackage{libertine}
 
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
@@ -46,7 +47,9 @@
 \title{$titulo$}
 
 \begin{document}
-    \begin{titlepage}
+    {
+        \fontfamily{phv}\selectfont
+        \begin{titlepage}
         \begin{center}
             \vspace*{-1in}
             \begin{figure}[htb]
@@ -54,37 +57,47 @@
                     \includegraphics[width=3cm]{./latex/img/logo}
                 \end{center}
             \end{figure}
-            \begin{large}
+            \begin{Large}
                 \textbf{Universidad de Valladolid}
-            \end{large}
+            \end{Large}
 
             \vspace*{0.15in}
             \vspace*{0.6in}
-            \begin{large}
-                \textbf{ESCUELA DE INGENIERÍA INFORMÁTICA}
-            \end{large}
+            \begin{Huge}
+                {Escuela de Ingeniería Informática\\}
+            \end{Huge}
             \vspace*{0.2in}
-            \textbf{ GRADO EN INGENIERÍA INFORMÁTICA}\\
-            \textbf{ MENCIÓN EN $mencion$ }
+            \begin{Large}
+                \textbf{\textsc{Trabajo Fin de Grado\\}}
+            \end{Large}
             \vspace*{0.5in}
-            \rule{140mm}{0.1mm}\\
+            \begin{Large}
+                { Grado en Ingeniería Informática}\\
+                { Mención en $mencion$ \\}
+            \end{Large}
+            \vspace*{0.5in}
+            %\rule{140mm}{0.1mm}\\
             \vspace*{0.3in}
             \begin{large}
                 \textbf{{\LARGE $titulo$\\}}
             \end{large}
-            \vspace*{0.6in}
-            \rule{140mm}{0.1mm}\\
-            \vspace*{2in}
+            \vspace*{0.3in}
+            %\rule{140mm}{0.1mm}\\
+            \vspace*{1.3in}
             \begin{large}
                 \begin{flushright}
-                    \textbf{Alumno/a: $autor$ \\
+                    Autor:\\
+                    \textbf{$autor$} \\
                     \vspace*{0.3in}
-                    Tutores/as: María Felisa Pérez Martínez}
+                    Tutor:\\
+                    \textbf{$tutor$}
                 \end{flushright}
             \end{large}
         \end{center}
     \end{titlepage}
 
+    }
+    
     \newpage
     \mbox{}	
     \thispagestyle{empty} % para que no se numere esta página
@@ -106,11 +119,11 @@
     \chapter*{Resumen} % si no queremos que añada la palabra "Capitulo"
     \addcontentsline{toc}{chapter}{Resumen} % si queremos que aparezca en el índice
     \markboth{RESUMEN}{RESUMEN} % encabezado
-    \begin{flushleft}
+    %\begin{flushleft}
 
     $resumen$
 
-    \end{flushleft}
+    %\end{flushleft}
 
 
     \chapter*{Abstract} % si no queremos que añada la palabra "Capitulo"
@@ -135,8 +148,6 @@
     $body$
 
     \cleardoublepage
-    \addcontentsline{toc}{chapter}{Bibliografía}
-    \printbibliography
     %\renewcommand\bibname{Referencias Web}
 
     %\begin{thebibliography}{X}
