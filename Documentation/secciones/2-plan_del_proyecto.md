@@ -21,7 +21,27 @@ Toda esta información aparecerá de manera detallada en el apartado Análisis d
 
 ### Metodología utilizada
 
-Explicacion --> Kanban?
+Se ha utilizado la metodología Kanban. Esta técnica se creó en Toyota, y se utiliza para controlar el avance del trabajo, en el contexto de una línea de producción. Los pricipios que rigen la metodología son los siguientes: 
+
+* **Calidad garantizada:**
+    Todo lo que se hace debe salir bien a la primera, no hay margen de error. De aquí a que en Kanban no se premie la rapidez, sino la calidad final de las tareas realizadas. Esto se basa en el hecho que muchas veces cuesta más arreglarlo después que hacerlo bien a la primera.
+
+* **Reducción del desperdicio:**
+    Kanban se basa en hacer solamente lo justo y necesario, pero hacerlo bien. Esto supone la reducción de todo aquello que es superficial o secundario
+
+* **Flexibilidad:**
+    Lo siguiente a realizar se decide del backlog (o tareas pendientes acumuladas), pudiéndose priorizar aquellas tareas entrantes según las necesidades del momento
+
+Para su implementación se ha utilizado la herramienta provista por Github usando las siguientes columnas:
+
+* **To Do:**
+    El backlog de tareas
+
+* **In Progress:**
+    Las tareas que se estan haciendo actualmente
+
+* **Done:**
+    Las tareas ya realizadas
 
 ### Evolución del plan
 El presente documento se revisará a lo largo del Trabajo de Fin de Grado, y se irá actualizando conforme a los cambios que surjan.
@@ -58,13 +78,13 @@ Se considerará que la dedicación media al proyecto será de un total de 6 hora
 
 * **Aprendizaje y práctica de las tecnologías escogidas**
     * Realización de ejemplos sencillos para comprobar de forma práctica los datos recopilados en el punto anterior.
-    * **Duración estimada:** 1 semana
-    * **Duración real:** 1 semana
+    * **Duración estimada:** 3 dias
+    * **Duración real:** 3 dias
 
 * **Realización del plan de trabajo y estudio de los riesgos**
     * Basándonos en los conocimientos y destrezas adquiridos en el apartado anterior y en el plan provisional realizado con anterioridad, estudiar de los posibles riesgos y realizar planes de actuación para el caso de que se realicen. A mayores, se realiza un plan de trabajo de carácter definitivo.
-    * **Duración estimada:** 1 semana
-    * **Duración real:** 1 semanas 3 días
+    * **Duración estimada:** 3 días
+    * **Duración real:** 3 días
 
 * **Realizacion de la descripcion en detalle de los casos de uso**
     * Basándonos en el diagrama realizado en el pasos anteriores, profundizamos en cada uno de los casos de uso, definiendo su descripción en detalle.
@@ -74,7 +94,7 @@ Se considerará que la dedicación media al proyecto será de un total de 6 hora
 * **Modelo de dominio y análisis de la base de datos:**
     * Se definirá el modelo de dominio de la aplicación y se diseñará la base de datos basándonos en el.
     * **Duración estimada:** 1 semana
-    * **Duración real:** 2 semanas
+    * **Duración real:** 1 semanas
 
 * **Realización básica de backend:**
     * Programación de los elementos básicos y comunes a las aplicaciones Nodejs
@@ -166,13 +186,21 @@ Se considerará que la dedicación media al proyecto será de un total de 6 hora
     * **Duracion estimada:** 0.5 semanas
     * **Duracion real:** No realizado
 
+\newpage
+
 ### Plan de Gestión de Riesgos:
 
 La lista de riesgos expuesta a continuación tiene las siguientes características:
+  
   * **Impacto**: Los riesgos serán catalogados del 1 al 5, siendo 1 el riesgo menos peligroso y 5 el el riesgo más peligroso.
+  
   * **Probabilidad**: Los riesgos serán catalogados del 1 al 5, siendo 1 un riesgo muy poco probable y 5 un riesgo muy frecuente.
+  
   * **Plan de protección**: Plan para evitar o minimizar la probabilidad.
+  
   * **Plan de contingencia**: Plan de solución para minimizar el impacto.
+
+#### Riesgos
 
 * **R-01 - Borrado de datos**
     * **Impacto:** 5

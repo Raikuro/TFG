@@ -12,6 +12,7 @@
 \bibliography{bibliografia}
 \usepackage{float}
 \usepackage{libertine}
+\usepackage{csquotes}
 
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
@@ -446,6 +447,8 @@ conjuntos.\\}}
     nvm install v6.9.5
     \end{verbatim}
     
+    \newpage
+    
     \section{NPM}\label{npm}
     
     \begin{figure}[H]
@@ -587,7 +590,7 @@ conjuntos.\\}}
     template. En el ejemplo dado, si quisiéramos utilizar el componente en
     una página HTML se usaría el elemento
     \texttt{\textless{}my-app\textgreater{}}, y el componente se ve como la
-    frase ``Hello \{\{name\}\}'' dentro de un elemento de de título 1.
+    frase \enquote{Hello \{\{name\}\}} dentro de un elemento de de título 1.
     
     En un desarrollo de mayor tamaño en lugar de definir la plantilla HTML
     en el propio componente, se usará la propiedad \texttt{templateUrl} para
@@ -613,7 +616,9 @@ conjuntos.\\}}
     
     Define la clase del controlador. En el caso de ejemplo, el controlador
     solo tiene la propiedad name, que contiene la cadena de texto
-    ``Angular''
+    \enquote{Angular}
+    
+    \newpage
     
     \section{\texorpdfstring{Angular CLI
     \cite{angular_cli}}{Angular CLI }}\label{angular-cli}
@@ -686,6 +691,8 @@ conjuntos.\\}}
     
     \texttt{npm\ install\ bootstrap@4.0.0-alpha.6}
     
+    \newpage
+    
     \section{MariaDB}\label{mariadb}
     
     \begin{figure}[H]
@@ -706,10 +713,11 @@ conjuntos.\\}}
     
     \begin{verbatim}
     sudo apt-get install software-properties-common
-    sudo apt-key adv --recv-keys --keyserver \
-    keyserver.ubuntu.com 0xF1656F24C74CD1D8
-    sudo add-apt-repository 'deb [arch=amd64] \
-    http://tedeco.fi.upm.es/mirror/mariadb/repo/10.2/debian stretch main'
+    sudo apt-key adv --recv-keys --keyserver\
+     keyserver.ubuntu.com 0xF1656F24C74CD1D8
+    sudo add-apt-repository 'deb [arch=amd64]\
+     http://tedeco.fi.upm.es/mirror/mariadb/repo/10.2/debian\
+     stretch main'
     sudo apt-get update
     sudo apt-get install mariadb-server
     \end{verbatim}
@@ -788,7 +796,39 @@ conjuntos.\\}}
     
     \subsection{Metodología utilizada}\label{metodologuxeda-utilizada}
     
-    Explicacion --\textgreater{} Kanban?
+    Se ha utilizado la metodología Kanban. Esta técnica se creó en Toyota, y
+    se utiliza para controlar el avance del trabajo, en el contexto de una
+    línea de producción. Los pricipios que rigen la metodología son los
+    siguientes:
+    
+    \begin{itemize}
+    \item
+      \textbf{Calidad garantizada:} Todo lo que se hace debe salir bien a la
+      primera, no hay margen de error. De aquí a que en Kanban no se premie
+      la rapidez, sino la calidad final de las tareas realizadas. Esto se
+      basa en el hecho que muchas veces cuesta más arreglarlo después que
+      hacerlo bien a la primera.
+    \item
+      \textbf{Reducción del desperdicio:} Kanban se basa en hacer solamente
+      lo justo y necesario, pero hacerlo bien. Esto supone la reducción de
+      todo aquello que es superficial o secundario
+    \item
+      \textbf{Flexibilidad:} Lo siguiente a realizar se decide del backlog
+      (o tareas pendientes acumuladas), pudiéndose priorizar aquellas tareas
+      entrantes según las necesidades del momento
+    \end{itemize}
+    
+    Para su implementación se ha utilizado la herramienta provista por
+    Github usando las siguientes columnas:
+    
+    \begin{itemize}
+    \item
+      \textbf{To Do:} El backlog de tareas
+    \item
+      \textbf{In Progress:} Las tareas que se estan haciendo actualmente
+    \item
+      \textbf{Done:} Las tareas ya realizadas
+    \end{itemize}
     
     \subsection{Evolución del plan}\label{evoluciuxf3n-del-plan}
     
@@ -881,9 +921,9 @@ conjuntos.\\}}
         Realización de ejemplos sencillos para comprobar de forma práctica
         los datos recopilados en el punto anterior.
       \item
-        \textbf{Duración estimada:} 1 semana
+        \textbf{Duración estimada:} 3 dias
       \item
-        \textbf{Duración real:} 1 semana
+        \textbf{Duración real:} 3 dias
       \end{itemize}
     \item
       \textbf{Realización del plan de trabajo y estudio de los riesgos}
@@ -897,9 +937,9 @@ conjuntos.\\}}
         actuación para el caso de que se realicen. A mayores, se realiza un
         plan de trabajo de carácter definitivo.
       \item
-        \textbf{Duración estimada:} 1 semana
+        \textbf{Duración estimada:} 3 días
       \item
-        \textbf{Duración real:} 1 semanas 3 días
+        \textbf{Duración real:} 3 días
       \end{itemize}
     \item
       \textbf{Realizacion de la descripcion en detalle de los casos de uso}
@@ -926,7 +966,7 @@ conjuntos.\\}}
       \item
         \textbf{Duración estimada:} 1 semana
       \item
-        \textbf{Duración real:} 2 semanas
+        \textbf{Duración real:} 1 semanas
       \end{itemize}
     \item
       \textbf{Realización básica de backend:}
@@ -1187,17 +1227,30 @@ conjuntos.\\}}
       \end{itemize}
     \end{itemize}
     
+    \newpage
+    
     \subsection{Plan de Gestión de
     Riesgos:}\label{plan-de-gestiuxf3n-de-riesgos}
     
     La lista de riesgos expuesta a continuación tiene las siguientes
-    características: * \textbf{Impacto}: Los riesgos serán catalogados del 1
-    al 5, siendo 1 el riesgo menos peligroso y 5 el el riesgo más peligroso.
-    * \textbf{Probabilidad}: Los riesgos serán catalogados del 1 al 5,
-    siendo 1 un riesgo muy poco probable y 5 un riesgo muy frecuente. *
-    \textbf{Plan de protección}: Plan para evitar o minimizar la
-    probabilidad. * \textbf{Plan de contingencia}: Plan de solución para
-    minimizar el impacto.
+    características:
+    
+    \begin{itemize}
+    \item
+      \textbf{Impacto}: Los riesgos serán catalogados del 1 al 5, siendo 1
+      el riesgo menos peligroso y 5 el el riesgo más peligroso.
+    \item
+      \textbf{Probabilidad}: Los riesgos serán catalogados del 1 al 5,
+      siendo 1 un riesgo muy poco probable y 5 un riesgo muy frecuente.
+    \item
+      \textbf{Plan de protección}: Plan para evitar o minimizar la
+      probabilidad.
+    \item
+      \textbf{Plan de contingencia}: Plan de solución para minimizar el
+      impacto.
+    \end{itemize}
+    
+    \subsubsection{Riesgos}\label{riesgos}
     
     \begin{itemize}
     \tightlist
@@ -1337,55 +1390,77 @@ conjuntos.\\}}
     
     \begin{itemize}
     \item
-      \textbf{RF-01: Mostrar contenidos teóricos} La aplicación mostrará
-      contenidos teóricos al alumno
+      \textbf{RF-01: Mostrar contenidos teóricos}
+    
+      La aplicación mostrará contenidos teóricos al alumno
     \item
-      \textbf{RF-02: Buscar contenidos teóricos} La aplicación permitirá
-      buscar contenidos teóricos que contienen una palabra clave.
+      \textbf{RF-02: Buscar contenidos teóricos}
+    
+      La aplicación permitirá buscar contenidos teóricos que contienen una
+      palabra clave.
     \item
-      \textbf{RF-03: Ver conceptos relacionados} La aplicación permitirá ver
-      que conceptos teóricos están relacionados con otros conceptos.
+      \textbf{RF-03: Ver conceptos relacionados}
+    
+      La aplicación permitirá ver que conceptos teóricos están relacionados
+      con otros conceptos.
     \item
-      \textbf{RF-04: Ver dudas relacionadas} La aplicación permitirá ver que
-      dudas han sido planteadas sobre un concepto
+      \textbf{RF-04: Ver dudas relacionadas}
+    
+      La aplicación permitirá ver que dudas han sido planteadas sobre un
+      concepto
     \item
-      \textbf{RF-05: Añadir dudas} La aplicación permitirá añadir dudas
-      sobre un concepto teórico
+      \textbf{RF-05: Añadir dudas}
+    
+      La aplicación permitirá añadir dudas sobre un concepto teórico
     \item
-      \textbf{RF-06: Realizar cuestionarios} La aplicación permitirá al
-      alumno generar cuestionarios relacionados con un concepto,
-      relacionados con un tema o generales, rellenarlo y recibir una
-      corrección.
+      \textbf{RF-06: Realizar cuestionarios}
+    
+      La aplicación permitirá al alumno generar cuestionarios relacionados
+      con un concepto, relacionados con un tema o generales, rellenarlo y
+      recibir una corrección.
     \item
-      \textbf{RF-07: Ver dudas no resueltas} La aplicación permitirá al
-      profesor ver las dudas no resueltas
+      \textbf{RF-07: Ver dudas no resueltas}
+    
+      La aplicación permitirá al profesor ver las dudas no resueltas
     \item
-      \textbf{RF-08: Resolver dudas} La aplicación permitirá al profesor
-      resolver dudas no resueltas, ya sea respondiéndolas o desechándolas
+      \textbf{RF-08: Resolver dudas}
+    
+      La aplicación permitirá al profesor resolver dudas no resueltas, ya
+      sea respondiéndolas o desechándolas
     \item
-      \textbf{RF-09: Introducir contenidos teóricos} La aplicación permitirá
-      al profesor introducir conceptos teóricos
+      \textbf{RF-09: Introducir contenidos teóricos}
+    
+      La aplicación permitirá al profesor introducir conceptos teóricos
     \item
-      \textbf{RF-10: Borrar contenidos teóricos} La aplicación permitirá al
-      profesor borrar contenidos teóricos
+      \textbf{RF-10: Borrar contenidos teóricos}
+    
+      La aplicación permitirá al profesor borrar contenidos teóricos
     \item
-      \textbf{RF-11: Editar contenidos teóricos} La aplicación permitirá al
-      profesor editar contenidos teóricos
+      \textbf{RF-11: Editar contenidos teóricos}
+    
+      La aplicación permitirá al profesor editar contenidos teóricos
     \item
-      \textbf{RF-12: Borrar dudas resueltas} La aplicación permitirá al
-      profesor borrar dudas ya resueltas
+      \textbf{RF-12: Borrar dudas resueltas}
+    
+      La aplicación permitirá al profesor borrar dudas ya resueltas
     \item
-      \textbf{RF-13: Introducir preguntas de cuestionario} La aplicación
-      permitirá al profesor introducir preguntas de cuestionario
+      \textbf{RF-13: Introducir preguntas de cuestionario}
+    
+      La aplicación permitirá al profesor introducir preguntas de
+      cuestionario
     \item
-      \textbf{RF-14: Borrar preguntas de cuestionario} La aplicación
-      permitirá al profesor borrar preguntas de cuestionario
+      \textbf{RF-14: Borrar preguntas de cuestionario}
+    
+      La aplicación permitirá al profesor borrar preguntas de cuestionario
     \item
-      \textbf{RF-15: Editar preguntas de cuestionario} La aplicación
-      permitirá al profesor editar preguntas de cuestionario
+      \textbf{RF-15: Editar preguntas de cuestionario}
+    
+      La aplicación permitirá al profesor editar preguntas de cuestionario
     \item
-      \textbf{RF-16: Ver estadísticas de uso} La aplicación permitirá al
-      profesor ver las estadísticas de uso de la aplicación
+      \textbf{RF-16: Ver estadísticas de uso}
+    
+      La aplicación permitirá al profesor ver las estadísticas de uso de la
+      aplicación
     \end{itemize}
     
     \subsubsection{Requisitos no
@@ -1399,15 +1474,13 @@ conjuntos.\\}}
       (Firefox, Safari, Internet Explorer 11 o Edge y Google Chrome).
     \end{itemize}
     
-    \newpage
-    
     \subsection{Casos de uso}\label{casos-de-uso}
     
     \subsubsection{Diagrama de casos de uso}\label{diagrama-de-casos-de-uso}
     
     \begin{figure}[H]
         \begin{center}
-            \includegraphics[scale=0.40]{img/astah/analisis/casos_de_uso/useCase00.png}
+            \includegraphics[scale=0.35]{img/astah/analisis/casos_de_uso/useCase00.png}
         \end{center}
         \caption{Diagrama de casos de uso}
     \end{figure}
@@ -1636,14 +1709,21 @@ conjuntos.\\}}
     
     \vspace*{\fill}
     
-    \newpage
-    
     \section{Diseño}\label{diseuxf1o}
     
     \subsection{Diseño de la base de
     datos}\label{diseuxf1o-de-la-base-de-datos}
     
-    \newpage
+    \vspace*{\fill}
+    
+    \begin{figure}[H]
+        \begin{center}
+            \includegraphics[width=\textwidth, angle=-90]{img/astah/disenio/relacional/diagram.png}
+        \end{center}
+        \caption{Diagrama relacional}
+    \end{figure}
+    
+    \vspace*{\fill} \newpage
     
     \subsection{Despliegue}\label{despliegue}
     
@@ -1651,30 +1731,177 @@ conjuntos.\\}}
     
     \begin{figure}[H]
         \begin{center}
-            \includegraphics[width=\textwidth]{img/astah/disenio/despliegue/deployment.png}
+            \includegraphics[width=\textwidth, angle=-90]{img/astah/disenio/despliegue/deployment.png}
         \end{center}
         \caption{Diagrama de despliegue}
     \end{figure}
     
     \vspace*{\fill} \newpage
     
-    \subsection{Arquitectura del sistema}\label{arquitectura-del-sistema}
+    \subsection{Descomposición modular}\label{descomposiciuxf3n-modular}
     
     \subsubsection{Front-end}\label{front-end}
     
+    \vspace*{\fill}
+    
+    \begin{figure}[H]
+        \begin{center}
+            \includegraphics[width=\textwidth]{img/astah/disenio/descomposicion/front/descomposicion.png}
+        \end{center}
+        \caption{Diagrama de descomposición modular frontend}
+    \end{figure}
+    
+    \vspace*{\fill} \newpage
+    
+    \vspace*{\fill}
+    
+    \begin{figure}[H]
+        \begin{center}
+            \includegraphics[width=\textwidth]{img/astah/disenio/descomposicion/front/core.png}
+        \end{center}
+        \caption{Diagrama de descomposición modular frontend-core}
+    \end{figure}
+    
+    \vspace*{\fill} \newpage
+    
+    \vspace*{\fill}
+    
+    \begin{figure}[H]
+        \begin{center}
+            \includegraphics[width=\textwidth]{img/astah/disenio/descomposicion/front/login.png}
+        \end{center}
+        \caption{Diagrama de descomposición modular frontend-login}
+    \end{figure}
+    
+    \vspace*{\fill} \newpage
+    
+    \vspace*{\fill}
+    
+    \begin{figure}[H]
+        \begin{center}
+            \includegraphics[width=\textwidth]{img/astah/disenio/descomposicion/front/theory.png}
+        \end{center}
+        \caption{Diagrama de descomposición modular frontend-theory}
+    \end{figure}
+    
+    \vspace*{\fill} \newpage
+    
+    \vspace*{\fill}
+    
+    \begin{figure}[H]
+        \begin{center}
+            \includegraphics[width=\textwidth]{img/astah/disenio/descomposicion/front/questions.png}
+        \end{center}
+        \caption{Diagrama de descomposición modular frontend-questions}
+    \end{figure}
+    
+    \vspace*{\fill} \newpage
+    
+    \vspace*{\fill}
+    
+    \begin{figure}[H]
+        \begin{center}
+            \includegraphics[width=\textwidth]{img/astah/disenio/descomposicion/front/test.png}
+        \end{center}
+        \caption{Diagrama de descomposición modular frontend-test}
+    \end{figure}
+    
+    \vspace*{\fill} \newpage
+    
+    \vspace*{\fill}
+    
+    \begin{figure}[H]
+        \begin{center}
+            \includegraphics[width=\textwidth]{img/astah/disenio/descomposicion/front/statistics.png}
+        \end{center}
+        \caption{Diagrama de descomposición modular frontend-statistics}
+    \end{figure}
+    
+    \vspace*{\fill} \newpage
+    
     \subsubsection{Back-end}\label{back-end}
     
+    \vspace*{\fill}
+    
+    \begin{figure}[H]
+        \begin{center}
+            \includegraphics[width=\textwidth]{img/astah/disenio/descomposicion/back/back.png}
+        \end{center}
+        \caption{Diagrama de descomposición modular backend}
+    \end{figure}
+    
+    \vspace*{\fill} \newpage
+    \vspace*{\fill}
+    
+    \begin{figure}[H]
+        \begin{center}
+            \includegraphics[width=\textwidth]{img/astah/disenio/descomposicion/back/src.png}
+        \end{center}
+        \caption{Diagrama de descomposición modular backend-src}
+    \end{figure}
+    
+    \vspace*{\fill} \newpage
+    \vspace*{\fill}
+    
+    \begin{figure}[H]
+        \begin{center}
+            \includegraphics[width=\textwidth]{img/astah/disenio/descomposicion/back/model.png}
+        \end{center}
+        \caption{Diagrama de descomposición modular backend-model}
+    \end{figure}
+    
+    \vspace*{\fill} \newpage
+    
     \subsection{Diagrama de clases}\label{diagrama-de-clases}
+    
+    \vspace*{\fill}
+    
+    \begin{figure}[H]
+        \begin{center}
+            \includegraphics[width=\textwidth, angle=-90]{img/astah/disenio/clases/clases.png}
+        \end{center}
+        \caption{Diagrama de clases}
+    \end{figure}
+    
+    \vspace*{\fill} \newpage
     
     \subsection{Diagramas de secuencia}\label{diagramas-de-secuencia}
     
     \chapter{ Conclusiones }
     
-    Conclusiones
+    Se han cumplido la mayoría de objetivos iniciales, desarrollando una
+    parte de la funcionalidad deseada.
+    
+    Se ha desarrollado una interfaz sencilla y clara, orientada a
+    ordenadores de sobremesa.
+    
+    Durante la realización del proyecto se han adquirido y mejorado nuevos
+    conocimientos del desarrollo web y lenguajes de programación. Se ha
+    aprendido en profundidad el funcionamiento de Angular, Node, Bootstrap 4
+    y Express.
     
     \section{Trabajo futuro}\label{trabajo-futuro}
     
-    Como mejorar la aplicacion
+    En el futuro se le podría añadir mayor funcionalidad a la aplicación,
+    aumentando su potencial:
+    
+    \begin{itemize}
+    \tightlist
+    \item
+      Mejora de la interfaz, haciéndola mas atractiva para el usuario, asi
+      como adecuar el diseño a los dispositivos móviles.
+    \item
+      Añadir la funcionalidad \enquote{herramienta práctica} que fue
+      eliminada durante el desarrollo del proyecto. Esta funcionalidad
+      permitiría al usuario poner en práctica los elementos teóricos
+      estudiados.
+    \item
+      Añadir nuevas funcionalidades, como permitir al profesor pregenerar
+      cuestionarios para que sean resueltos por los alumnos
+    \item
+      Aumentar las estadisticas recogidas, así como generar gráficas que
+      muestren de forma gráfica los datos.
+    \end{itemize}
     
     \appendix
     
@@ -1708,7 +1935,7 @@ conjuntos.\\}}
     que está actualmente desplegada la aplicación.
     
     La máquina es accesible mediante la dirección
-    `http://virtual.lab.inf.uva.es' en el puerto 20052. Debido a la
+    \enquote{http://virtual.lab.inf.uva.es} en el puerto 20052. Debido a la
     configuración interna de la máquina, redirige el puerto interno 80 al
     puerto externo 20052 y el puerto 3000 al 20053.
     
@@ -1798,7 +2025,273 @@ conjuntos.\\}}
     npm start
     \end{verbatim}
     
-    \chapter{Manual de usuario}\label{manual-de-usuario}
+    \chapter{ Manual de usuario }
+    
+    A continuación, se explicará el funcionamiento de la aplicación web.
+    
+    En primer lugar, está el login. Se introduce el usuario y contraseña.
+    
+    Distinguiremos dos casos, según sea un alumno o un profesor el que
+    ingrese en la aplicación.
+    
+    \section{Manual del alumno:}\label{manual-del-alumno}
+    
+    Según se ingresa en la aplicación se accede a la pantalla de teoría. Se
+    puede ver en la parte superior la barra de navegación, y en ella dos
+    apartados, \enquote{Teoría} y \enquote{Test} y la opción
+    \enquote{Salir}. Esta última opción, permite cerrar sesión.
+    
+    \begin{figure}[H]
+        \begin{center}
+            \includegraphics[width=\textwidth]{img/manual/alumno-teoria.png}
+        \end{center}
+        \caption{Pantalla inicial de teoría}
+    \end{figure}
+    
+    Dentro de la pantalla de teoría se puede escoger un tema en el selector,
+    y una vez seleccionado, se puede escoger un concepto. Tras clicar, se ve
+    el contenido del concepto y las palabras relacionadas. A mayores, se
+    activará el boton \enquote{Ver dudas}. También se puede buscar un
+    concepto basándonos en sus palabras destacadas introduciendo la
+    palabra(o parte de ella) en la barra de búsqueda de la parte superior.
+    
+    \begin{figure}[H]
+        \begin{center}
+            \includegraphics[width=\textwidth]{img/manual/alumno-teoria2.png}
+        \end{center}
+        \caption{Pantalla tras pulsar sobre un concepto}
+    \end{figure}
+    
+    Pulsando en el botón \enquote{Ver dudas}, se accedera a la pantalla de
+    dudas.
+    
+    \begin{figure}[H]
+        \begin{center}
+            \includegraphics[width=\textwidth]{img/manual/alumno-teoria3.png}
+        \end{center}
+        \caption{Pantalla ver dudas}
+    \end{figure}
+    
+    Al pulsar en una dudad se verá el contenido de la duda. Al pulsar sobre
+    el boton \enquote{Añadir duda} se nos despliega un formulario que
+    permite añadir los datos para insertar una nueva duda. Tras pulsar sobre
+    el botón \enquote{Enviar} la aplicación redirige a una pantalla de
+    confirmación. Finalmente, tras confirmar, la duda sera insertada. En
+    esta pantalla también se puede ver una barra de búsqueda, que permite la
+    búsqueda concreta de dudas en funcíon de su contenido.
+    
+    Pulsando en el botón \enquote{Test} de la barra de navegación redirige a
+    la pantalla principal de test.
+    
+    \begin{figure}[H]
+        \begin{center}
+            \includegraphics[width=\textwidth]{img/manual/alumno-test4.png}
+        \end{center}
+        \caption{Pantalla inicial de test}
+    \end{figure}
+    
+    En este punto, se muestran 3 opciones, buscar test por concepto, buscar
+    test por tema y buscar test general. Cada una de ellas generará un
+    cuestionario basado en la opción escogida y redirigirá a una pantalla
+    que permite rellenar el cuestionario.
+    
+    \begin{figure}[H]
+        \begin{center}
+            \includegraphics[width=\textwidth]{img/manual/alumno-test5.png}
+        \end{center}
+        \caption{Pantalla de cuestionario}
+    \end{figure}
+    
+    Tras rellenarlo, se pulsa el botón \enquote{Enviar}y la aplicación
+    redirigirá a una pantalla de confirmación. Tras confirmar, redigirá a
+    una pantalla similar a la de cuestionario pero que incluye la resolución
+    del mismo, así como la nota conseguida.
+    
+    \begin{figure}[H]
+        \begin{center}
+            \includegraphics[width=\textwidth]{img/manual/alumno-test6.png}
+        \end{center}
+        \caption{Pantalla de resolución}
+    \end{figure}
+    
+    \section{Manual del profesor:}\label{manual-del-profesor}
+    
+    Según se ingresa en la aplicación se accede a la pantalla de teoría. Se
+    puede ver en la barra superior la barra de navegación, y en ella cuatro
+    apartados, \enquote{Teoría}, \enquote{Dudas}, \enquote{Estadísticas} y
+    \enquote{Test} y la opción \enquote{Salir}. Esta última opción, permite
+    cerrar sesión. El apartado dudas, puede ir acompañado de un número, que
+    indica el número de nuevas dudas sin resolver.
+    
+    \begin{figure}[H]
+        \begin{center}
+            \includegraphics[width=\textwidth]{img/manual/profesor-teoria.png}
+        \end{center}
+        \caption{Pantalla inicial de teoría del profesor}
+    \end{figure}
+    
+    En esta pantalla se mantiene toda la funcionalidad explicada en el
+    apartado \enquote{Manual del alumno}. Desde esta pantalla se permite
+    añadir un nuevo elemento de teoría, pulsando en el botón
+    \enquote{Añadir} y rellenando el formulario correspondiente. En el
+    último paso, la aplicación pedirá confirmación para asegurar que los
+    datos se han introducido correctamente.
+    
+    Volviendo a la pantalla inicial de teoría, tras pulsar en un concepto se
+    permite borrarlo o editarlo pulsando los botones \enquote{Borrar} y
+    \enquote{Editar} respectivamente. De forma análoga al paso de añadir
+    tras finalizar el proceso, pedirá confirmación al usuario.
+    
+    La opción \enquote{Ver dudas}, funcionará de forma similar a la descrita
+    en el apartado \enquote{Manual de alumno}, con el añadido de que, una
+    vez seleccionadas, permite al profesor borrar dudas.
+    
+    Pulsando en el apartado \enquote{Dudas} de la barra de navegación la
+    aplicación dirigirá a una nueva pantalla donde se muestran las nuevas
+    dudas sin resolver. Tras pulsar sobre una de ellas, se muestra el
+    contenido, el concepto relacionado y tres opciones, \enquote{Reportar},
+    \enquote{Ignorar por repetido}, \enquote{Responder}. \enquote{Reportar}
+    significa que la duda es inapropiada u ofensiva. \enquote{Ignorar por
+    repetido} significa que la dudad está repetida y que no va a ser
+    respondida. Por último, la opción \enquote{Responder} permite al
+    profesor responder la duda. El sistema pedirá confirmación antes de
+    hacer cualquiera de estas acciones, ya sea mediante un aviso en el caso
+    de \enquote{Reportar} e \enquote{Ignorar} o mediante una pantalla de
+    confirmación en el caso de ``Responder.
+    
+    \begin{figure}[H]
+        \begin{center}
+            \includegraphics[width=\textwidth]{img/manual/profesor-dudas.png}
+        \end{center}
+        \caption{Pantalla de dudas}
+    \end{figure}
+    
+    La opción \enquote{Test} de la barra de navegación redirige a la
+    pantalla de test.
+    
+    \begin{figure}[H]
+        \begin{center}
+            \includegraphics[width=\textwidth]{img/manual/profesor-test.png}
+        \end{center}
+        \caption{Pantalla inicial de test del profesor}
+    \end{figure}
+    
+    En ella, el profesor escoge un tema y pulsa el botón \enquote{Revisar}.
+    Tras ello, se muestran los enunciados de las cuestiones y el botón
+    \enquote{Añadir}.
+    
+    \begin{figure}[H]
+        \begin{center}
+            \includegraphics[width=\textwidth]{img/manual/profesor-test2.png}
+        \end{center}
+        \caption{Pantalla de test del profesor}
+    \end{figure}
+    
+    Pulsando sobre cualquiera de ellos, se mostrarán las posibles
+    respuestas, marcando con un tick las correctas y las botones
+    \enquote{Editar} y \enquote{Borrar}. Si se escoge la opción borrar, la
+    aplicación pedirá al profesor confirmación antes de borrarla. Pulsando
+    sobre \enquote{Confirmar} la cuestión será eliminada. Si se escoge la
+    opción \enquote{Editar}, la aplicación nos redirigirá a una pantalla en
+    la cual podremos modificar el contenido de la cuestión. El formulario de
+    editar funciona de manera análoga a la opción añadir, que será explicada
+    a continuación. Finalmente, tras confirmar, la cuestion será editada.
+    
+    \begin{figure}[H]
+        \begin{center}
+            \includegraphics[width=\textwidth]{img/manual/profesor-test2-desplegada.png}
+        \end{center}
+        \caption{Pantalla de test del profesor con duda desplegada}
+    \end{figure}
+    
+    La opción \enquote{Añadir} permite al profesor añadir una nueva
+    cuestión. Al pulsarla, nos redirigirá a la siguiente pantalla.
+    
+    \begin{figure}[H]
+        \begin{center}
+            \includegraphics[width=\textwidth]{img/manual/profesor-test3-aniadir.png}
+        \end{center}
+        \caption{Pantalla de añadir pregunta}
+    \end{figure}
+    
+    Esta pantalla muestra un formulario que formará la pregunta. Para añadir
+    nuevas opciones es necesario que todas las opciones incluidas sean
+    válidas, es decir, no estén vacías ni sean repetidas. En la foto
+    anterior se puede observar que, al estar vacía no permite añadir nuevas
+    dudas. Tras rellenar la respuesta, se puede elegir si la respuesta es
+    correcta o incorrecta cambiando el símbolo a la derecha clicando.
+    
+    \begin{figure}[H]
+        \begin{center}
+            \includegraphics[width=\textwidth]{img/manual/pregunta-verdadera.png}
+        \end{center}
+        \caption{Pantalla de pregunta verdadera}
+    \end{figure}
+    
+    \begin{figure}[H]
+        \begin{center}
+            \includegraphics[width=\textwidth]{img/manual/pregunta-falsa.png}
+        \end{center}
+        \caption{Pantalla de pregunta falsa}
+    \end{figure}
+    
+    Tras tener una serie de respuestas que cumplan con las condiciones
+    necesarias, esto es, que no tengan respuestas repetidas ni vacías y que
+    al menos una de ellas sea verdadera y una falsa; pulsando en el botón
+    \enquote{Añadir}, la aplicación pedirá confirmación, y tras confirmar,
+    la cuestión será guardada.
+    
+    Por último, el apartado \enquote{Estadísticas} de la barra superior nos
+    redigirá a la página de estadísticas.
+    
+    \begin{figure}[H]
+        \begin{center}
+            \includegraphics[width=\textwidth]{img/manual/profesor-estadisticas.png}
+        \end{center}
+        \caption{Pantalla de principal de estadísticas}
+    \end{figure}
+    
+    En ella, el profesor introduce un numbre de alumno y la aplicación
+    muestra el número de conceptos visitados, el número de cuestionarios
+    realizados y el número de dudas preguntadas.
+    
+    \begin{figure}[H]
+        \begin{center}
+            \includegraphics[width=\textwidth]{img/manual/profesor-estadisticas2.png}
+        \end{center}
+        \caption{Pantalla de estadisticas tras buscar}
+    \end{figure}
+    
+    Tras pulsar sobre cada uno de estos recuadros, dará información en
+    detalle.
+    
+    \begin{figure}[H]
+        \begin{center}
+            \includegraphics[width=\textwidth]{img/manual/profesor-estadisticas-detalle1.png}
+        \end{center}
+        \caption{Pantalla de estadisticas tras buscar}
+    \end{figure}
+    
+    Destacar del detalle de las dudas planteadas que marca en rojo las
+    previamente reportadas por el profesor y en naranja las proviamente
+    ignoradas.
+    
+    \begin{figure}[H]
+        \begin{center}
+            \includegraphics[width=\textwidth]{img/manual/profesor-estadisticas-detalle2.png}
+        \end{center}
+        \caption{Pantalla de estadisticas tras buscar}
+    \end{figure}
+    
+    Destacar del detall de los cuestionario realizados que marca en rojo los
+    cuestionarios suspensos y en verde los cuestionarios aprobados.
+    
+    \begin{figure}[H]
+        \begin{center}
+            \includegraphics[width=\textwidth]{img/manual/profesor-estadisticas-detalle3.png}
+        \end{center}
+        \caption{Pantalla de estadisticas tras buscar}
+    \end{figure}
     
     \chapter{Contenido del CD-ROM}\label{contenido-del-cd-rom}
     

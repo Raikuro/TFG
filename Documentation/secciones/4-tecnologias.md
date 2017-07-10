@@ -78,6 +78,7 @@ En este proyecto usaremos la versión **6.9.5**
 nvm install v6.9.5
 ```
 
+\newpage
 
 ## NPM
 
@@ -197,6 +198,8 @@ export class AppComponent { name = ‘Angular’; }
 Define la clase del controlador.
 En el caso de ejemplo, el controlador solo tiene la propiedad name, que contiene la cadena de texto “Angular”
 
+\newpage
+
 ## Angular CLI \cite{angular_cli}
 
 \begin{figure}[H]
@@ -260,6 +263,8 @@ En su versión 4 incluye componentes de angular que utilizaremos en el presente 
 npm install bootstrap@4.0.0-alpha.6
 `
 
+\newpage
+
 ## MariaDB
 
 \begin{figure}[H]
@@ -274,10 +279,11 @@ MariaDB es un sistema de gestión de bases de datos derivado de MySQL con licenc
 ### Instalación
 ```
 sudo apt-get install software-properties-common
-sudo apt-key adv --recv-keys --keyserver \
-keyserver.ubuntu.com 0xF1656F24C74CD1D8
-sudo add-apt-repository 'deb [arch=amd64] \
-http://tedeco.fi.upm.es/mirror/mariadb/repo/10.2/debian stretch main'
+sudo apt-key adv --recv-keys --keyserver\
+ keyserver.ubuntu.com 0xF1656F24C74CD1D8
+sudo add-apt-repository 'deb [arch=amd64]\
+ http://tedeco.fi.upm.es/mirror/mariadb/repo/10.2/debian\
+ stretch main'
 sudo apt-get update
 sudo apt-get install mariadb-server
 ```
