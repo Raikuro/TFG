@@ -58,7 +58,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr [ngClass]="{'bg-warning': question?.ignored, 'bg-danger': question?.reported}" *ngFor="let question of questions; let i = index">
+            <tr [ngClass]="{'table-warning': question?.ignored, 'table-danger': question?.reported}" *ngFor="let question of questions; let i = index">
               <th scope="row">{{i+1}}</th>
               <td><a class="active-a" (click)="goToQuestionDetail(question)">{{question?.title}}</a></td>
             </tr>
@@ -81,7 +81,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr [ngClass]="{'passed': exam?.mark >= 5, 'failed': exam?.mark < 5}" *ngFor="let exam of exams; let i = index">
+            <tr [ngClass]="{'table-success': exam?.mark >= 5, 'table-danger': exam?.mark < 5}" *ngFor="let exam of exams; let i = index">
               <th scope="row">{{i+1}}</th>
               <td>{{exam?.mark}}</td>
               <td><button (click)="recreateExamResult(exam)" class="btn btn-success">Ver cuestionario</button></td>
