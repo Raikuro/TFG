@@ -7,7 +7,7 @@ let mysql = require('mysql')
 
 handleDisconnect()
 function handleDisconnect () {
-  let connection = mysql.createConnection(require('../../../config/database'))
+  let connection = mysql.createConnection(require('../../config/database'))
   /*connection.connect((err) => {
     if (err) {
       console.log('error when connecting to db:', err)
