@@ -32,9 +32,16 @@ export class StatisticsComponent extends ComponentWithSession {
         this.records = data.records;
         this.questions = data.questions;
         this.exams = data.exams;
-        console.log(data)
+        this.records = this.records.map((record) => {
+          record.dateOf = new Date(record.dateOf)
+          return record
+        })
+        this.exams = this.exams.map((exam) => {
+          exam.exam.date = new Date(exam.exam.date)
+          return exam
+        })
        },
-      (err) => { console.log(err) }
+      (err) => { this.goToErrorPage(err) }
     )
   }
 
