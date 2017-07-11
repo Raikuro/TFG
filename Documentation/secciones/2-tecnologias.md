@@ -2,20 +2,20 @@
 
 ## Definiciones previas necesarias
 
-* **JavaScript:** \cite{mozilla_javascript}
-JavaScript (abreviado como JS) es un lenguaje multi-paradigma, ligero e interpretado.
+* **JavaScript:**
+JavaScript (abreviado como JS) es un lenguaje multi-paradigma, ligero e interpretado. \cite{mozilla_javascript}
 
-* **TypeScript:** \cite{enriqueoriol2017, stackoverflow_Typescript}
-TypeScript es un superconjunto de JavaScript que permite el uso de clases, interfaces y tipado estático. El uso de variables tipadas de TypeScript aporta mayor robustez al código.
+* **TypeScript:** 
+TypeScript es un superconjunto de JavaScript que permite el uso de clases, interfaces y tipado estático. El uso de variables tipadas de TypeScript aporta mayor robustez al código. \cite{enriqueoriol2017, stackoverflow_Typescript}
 
-* **ECMAScript:** \cite{mozilla_ecmascript}
-ECMAScript (abreviado como ES) es un lenguaje de scripting que forma la base de JavaScript. Está recogido en los estándares ECMA-262 y ECMA-402 de ECMA International. Al referirnos a ES5 nos referimos a la quinta versión del estándar ECMA-262, mientras que al hablar de ES2015 o ES6 nos referimos al estándar ECMA-262 en su sexta versión. Actualmente los navegadores soportan ES5, por lo cualquier lenguaje derivado de ECMAScript(como son JavaScript y TypeScript) deben de ser traspilado a ES5.
+* **ECMAScript:** 
+ECMAScript (abreviado como ES) es un lenguaje de scripting que forma la base de JavaScript. Está recogido en los estándares ECMA-262 y ECMA-402 de ECMA International. Al referirnos a ES5 nos referimos a la quinta versión del estándar ECMA-262, mientras que al hablar de ES2015 o ES6 nos referimos al estándar ECMA-262 en su sexta versión. Actualmente los navegadores soportan ES5, por lo cualquier lenguaje derivado de ECMAScript(como son JavaScript y TypeScript) deben de ser traspilado a ES5. \cite{mozilla_ecmascript}
 
-* **Transpilar:** \cite{enriquefernandezguerra_typescript, builtbyedgar_transpilar}
-Transpilar es un término relativamente nuevo, proviene del inglés *transpiler*, fruto de la unión de las palabras *translate* y *compiler*. Es la operación de traducción de un lenguaje a otro, siendo ambos del mismo nivel de abstracción aproxiamadamente.
+* **Transpilar:**
+Transpilar es un término relativamente nuevo, proviene del inglés *transpiler*, fruto de la unión de las palabras *translate* y *compiler*. Es la operación de traducción de un lenguaje a otro, siendo ambos del mismo nivel de abstracción aproxiamadamente. \cite{enriquefernandezguerra_typescript, builtbyedgar_transpilar}
 
-* **Gestor de paquetes:** \cite{debian_gestorpaquetes}
-Un gestor de paquetes mantiene un registro del software que está instalado en su ordenador, y le permite instalar software nuevo, actualizarlo a versiones más recientes, o eliminar software de una manera sencilla. Como su propio nombre sugiere, los gestores de paquetes gestionan paquetes: conjuntos de ficheros que se agrupan y que puede instalar y eliminar como conjunto. La labor de un gestor de paquetes es la de presentar una interfaz que asista al usuario en la tarea de administrar el conjunto de paquetes que están instalados en su sistema.
+* **Gestor de paquetes:** 
+Un gestor de paquetes mantiene un registro del software que está instalado en su ordenador, y le permite instalar software nuevo, actualizarlo a versiones más recientes, o eliminar software de una manera sencilla. Como su propio nombre sugiere, los gestores de paquetes gestionan paquetes: conjuntos de ficheros que se agrupan y que puede instalar y eliminar como conjunto. La labor de un gestor de paquetes es la de presentar una interfaz que asista al usuario en la tarea de administrar el conjunto de paquetes que están instalados en su sistema. \cite{debian_gestorpaquetes}
 
 * **Plataforma:**
 Una plataforma es un sistema que engloba los componentes, interfaces y librerías necesarios para permitir a los desarrolladores compilar, ejecutar y depurar sus aplicaciones.
@@ -23,8 +23,8 @@ Una plataforma es un sistema que engloba los componentes, interfaces y librería
 * **Framework:**
 Desde el punto de vista del desarrollo de software, un framework es una estructura de soporte definida, en la cual otro proyecto de software puede ser organizado y desarrollado.
 
-* **Open source:** \cite{opensource_definition}
-La terminología open source incluye a aquellos softwares que cumplen los siguientes requisitos:
+* **Open source:** 
+La terminología open source incluye a aquellos softwares que cumplen los siguientes requisitos \cite{opensource_definition} :
     * **Distribución libre:**La licencia no restringirá a ninguna de las partes vender o regalar el software como un componente de un conjunto de software.
     * **Código fuente:** El programa debe incluir el código fuente sin ofuscar o dotar de un mecanismo para conseguirlo, preferentemente de forma gratuita mediante una descarga online.
     * **Trabajos derivados:** La licencia debe permitir modificaciones y trabajos derivados, y permitir que se distribuyan de forma libre.
@@ -65,6 +65,9 @@ Node.js es un entorno de ejecución para JavaScript construido con el motor de J
 ### Instalación
 
 Para instalar node vamos a usar nvm. En este proyecto utilizaremos la versión **6.9.5**
+
+
+
 ```
 curl -sL \
 https://raw.githubusercontent.com/creationix/nvm/v0.32.0/install.sh \
@@ -152,7 +155,7 @@ app.use(express.cookieParser('your secret here'));
 app.use(express.session());
 ```
 
-## Angular \cite{angular_docs}
+## Angular
 
 \begin{figure}[H]
     \begin{center}
@@ -163,7 +166,7 @@ app.use(express.session());
 
 Angular es una plataforma open source de desarrollo de front-end desarrollado por Google. Está basado en componentes, que es una combinación de una plantilla HTML con un controlador.
  
-Si bien está desarrollado con Javascript y permite el desarrollo con ES5 o superior, la comunidad de desarrolladores(incluyendo los responsables del proyecto de Google)  prefiere utilizar TypeScript.
+Si bien está desarrollado con Javascript y permite el desarrollo con ES5 o superior, la comunidad de desarrolladores(incluyendo los responsables del proyecto de Google)  prefiere utilizar TypeScript. \cite{angular_docs}
 
 \begin{figure}[H]
     \begin{center}
@@ -200,7 +203,7 @@ En el caso de ejemplo, el controlador solo tiene la propiedad name, que contiene
 
 \newpage
 
-## Angular CLI \cite{angular_cli}
+## Angular CLI
 
 \begin{figure}[H]
     \begin{center}
@@ -209,7 +212,7 @@ En el caso de ejemplo, el controlador solo tiene la propiedad name, que contiene
     \caption{Logo de angular-cli}
 \end{figure}
 
-Angular CLI es una herramienta utilizada para inicializar aplicaciones Angular, desarrollar componentes y para tareas de mantenimiento asociadas a ello.
+Angular CLI es una herramienta utilizada para inicializar aplicaciones Angular, desarrollar componentes y para tareas de mantenimiento asociadas a ello. \cite{angular_cli}
  
 ### Instalacion:
 ```
@@ -288,23 +291,28 @@ sudo apt-get update
 sudo apt-get install mariadb-server
 ```
 
-### Ventajas de MariaDB frente MySQL \cite{zeokat_mariadb, andergonzalez_mariadb, alidavergara_mariadb}
+### Ventajas y deventajas de MariaDB frente MySQL
 
-* **Nuevos motores de almacenamiento más eficientes:**
+* **Ventajas:** \cite{zeokat_mariadb, andergonzalez_mariadb, alidavergara_mariadb}
 
-    Aria y XtraDB vienen a reemplazar a MyISAM e InnoDB respectivamente. Cabe destacar el mayor rendimiento de Aria, cuando recibe consultas complejas y tiene que realizar tablas temporales, éstas se cachean en memoria en vez de escribirlas en disco.
-* **Estadísticas para índices y tablas:**
+    * **Nuevos motores de almacenamiento más eficientes:**
 
-    Esto puede ayudar para la optimización de la base de datos. Se añaden nuevas tablas de sistema para recoger esta información.
-* **Mejoras en el rendimiento y la eficiencia con respecto a MySQL:**
+        Aria y XtraDB vienen a reemplazar a MyISAM e InnoDB respectivamente. Cabe destacar el mayor rendimiento de Aria, cuando recibe consultas complejas y tiene que realizar tablas temporales, éstas se cachean en memoria en vez de escribirlas en disco.
+    
+    * **Estadísticas para índices y tablas:**
 
-    Un ejemplo de esto es la eliminación o mejora de algunas conversiones no necesarias respecto a los juegos de caracteres.
-* **Software libre:**
+        Esto puede ayudar para la optimización de la base de datos. Se añaden nuevas tablas de sistema para recoger esta información.
+        
+    * **Mejoras en el rendimiento y la eficiencia con respecto a MySQL:**
 
-    MariaDB está respaldada por la comunidad de software libre.
+        Un ejemplo de esto es la eliminación o mejora de algunas conversiones no necesarias respecto a los juegos de caracteres.
 
-### Desventajas de MariaDB frente MySQL
+    * **Software libre:**
 
-* **Coste migratorio:**
+        MariaDB está respaldada por la comunidad de software libre.
 
-    En líneas generales, MySQL está más extendido, por lo que utilizar MariaDB suele acarrear un coste migratorio de los datos. Sin embargo, MariaDB asegura tener total compatibilidad. En este proyecto no nos afectará en absoluto.
+* **Desventajas:**
+
+    * **Coste migratorio:**
+
+        En líneas generales, MySQL está más extendido, por lo que utilizar MariaDB suele acarrear un coste migratorio de los datos. Sin embargo, MariaDB asegura tener total compatibilidad. En este proyecto no nos afectará en absoluto.

@@ -6,38 +6,41 @@ titulo: >
     Desarrollo de software educativo de apoyo a la docencia en la teoría de conjuntos. 
 mencion: INGENIERÍA DE SOFTWARE
 dedicatoria: |
-    Dedicatoria ejemplo
+    A los amigos, que siempre están ahí cuando los necesito.
 agradecimientos: |
-    Agradecimiento ejemplo
+    *"Si quieres ir rápido, camina solo; pero si quieres llegar lejos, camina acompañado”* (proverbio africano)
+
+    En primer lugar, querría dar las gracias a la Escuela y a sus profesores, por guiarme de la mejor forma que han podido a lo largo de los años que he estado aquí. También dar las gracias a mi tutora Marisa por ser un apoyo constante a lo largo del TFG.
+
+    Después, me gustaria dar las gracias a los miembros del GUI por ser amigos y constantes mentores, ayudandome y enseñandome cuando ha sido necesario.
+
+    Por último, agradecer a Andrés, Guille, Jose, Isma, Lobo, Victor y Provecho por estar siempre ahí y conseguir que estos años sean inolvidables. No dudo de que si a día de hoy estoy escribiendo estas palabras se debe a su apoyo, comprensión y ayuda.
 resumen: |
-    En el presente trabajo se va a desarrollar un software de ayuda para la asignatura “Matemática Discreta”.
-    El objetivo del presente TFG es desarrollar un prototipo funcional de una aplicación web orientada
-    a mejorar el aprendizaje y el afianzamiento de los conceptos relativos a la asignatura. En este punto será
-    necesario plantear la arquitectura de la aplicación que se va a implementar.
-
-    La solución escogida consiste en utilizar Angular programado en TypeScript para el front-end, Node.js
-    programado en JavaScript y una base de datos relacional MariaDB para el back-end. Angular es una plataforma
-    de desarrollo para aplicaciones web de TypeScript de código abierto. Node.js es un entorno en tiempo de
-    ejecución multiplataforma asíncrono, de código abierto, para la capa del servidor. MariaDB es un sistema
-    de gestión de bases de datos derivado de MySQL.
-
-    Palabras clave: Angular, Node.js, MariaDB, código abierto, TypeScript, JavaScript.
+    En este Trabajo Fin de Grado se va a desarrollar un software de ayuda para la asignatura “Matemática Discreta” del Grado en Ingeniería Informática de la Escuela de Ingeniería Informática de Valladolid.
+    
+    El objetivo del presente trabajo es desarrollar un prototipo funcional de una aplicación web orientada a mejorar el aprendizaje y el afianzamiento de los contenidos relativos a la Teoría de conjuntos impartidos en dicha asignatura.
+    
+    En este contexto será necesario plantear la arquitectura de la aplicación que se va a implementar. La solución escogida consiste en utilizar Angular programado en TypeScript para el front-end, Node.js programado en JavaScript y una base de datos relacional MariaDB para el back-end. Angular es una plataforma de desarrollo para aplicaciones web de TypeScript de código abierto. Node.js es un entorno en tiempo de ejecución multiplataforma asíncrono, de código abierto, para la capa del servidor. MariaDB es un sistema de gestión de bases de datos derivado de MySQL.
 
 
 abstract: |
-    Traducción
+    In the present thesis, a help software will be developed for the subject “Discrete Mathematics” in the Degree of Computer Science of the School of Computer Science of Valladolid.
+    
+    The aim of this project is to develop a functional prototype of an online application, oriented to the improvement in both, the processes of learning and of reinforcement of the contents related to the set theory given in the subject mentioned above.
+    
+    At this stage, the contemplation of the application setting that is going to be implemented will be necessary. The chosen solution consists of using Angular, programmed in TypeScript for the front-end, Node.js programmed in JavaScript, and a relational MariaDB database for the back-end. Angular is a development platform for TypeScrip online open-source model applications. Node.js is an open-source, cross-platform, run-time environment for the server-side. MariaDB is a database management system derived from MySQL.
 ---
 
 
 !INCLUDE "secciones/1-introduccion.md"
 
-!INCLUDE "secciones/4-tecnologias.md"
+!INCLUDE "secciones/2-tecnologias.md"
 
-!INCLUDE "secciones/2-plan_del_proyecto.md"
+!INCLUDE "secciones/3-plan_del_proyecto.md"
 
-!INCLUDE "secciones/5-desarrollo.md"
+!INCLUDE "secciones/4-desarrollo.md"
 
-!INCLUDE "secciones/6-conclusiones.md"
+!INCLUDE "secciones/5-conclusiones.md"
 
 \appendix
 

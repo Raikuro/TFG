@@ -402,5 +402,3 @@
 \end{figure}
 \vspace*{\fill}
 \newpage
-
-### Diagramas de secuencia

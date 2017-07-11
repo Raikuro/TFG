@@ -9,10 +9,18 @@
 \usepackage{wrapfig}
 \usepackage[hidelinks]{hyperref}
 \usepackage{biblatex}
+\renewcommand*{\bibfont}{\small}
 \bibliography{bibliografia}
 \usepackage{float}
 \usepackage{libertine}
 \usepackage{csquotes}
+\makeatletter
+\patchcmd{\@verbatim}
+  {\verbatim@font}
+  {\verbatim@font\small}
+  {}{}
+\makeatother
+
 
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
@@ -130,11 +138,8 @@
     \chapter*{Abstract} % si no queremos que añada la palabra "Capitulo"
     \addcontentsline{toc}{chapter}{Abstract} % si queremos que aparezca en el índice
     \markboth{ABSTRACT}{ABSTRACT} % encabezado
-    \begin{flushleft}
-
+  
     $abstract$
-
-    \end{flushleft}
 
     \tableofcontents % indice de contenidos
 

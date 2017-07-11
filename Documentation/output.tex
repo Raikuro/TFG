@@ -9,10 +9,18 @@
 \usepackage{wrapfig}
 \usepackage[hidelinks]{hyperref}
 \usepackage{biblatex}
+\renewcommand*{\bibfont}{\small}
 \bibliography{bibliografia}
 \usepackage{float}
 \usepackage{libertine}
 \usepackage{csquotes}
+\makeatletter
+\patchcmd{\@verbatim}
+  {\verbatim@font}
+  {\verbatim@font\small}
+  {}{}
+\makeatother
+
 
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
@@ -110,37 +118,53 @@ conjuntos.\\}}
 
     \begin{flushright}
         \textit{%Dedicatoria,\\
-        Dedicatoria ejemplo}
+        A los amigos, que siempre están ahí cuando los necesito.}
     \end{flushright}
 
     \chapter*{Agradecimientos} % si no queremos que añada la palabra "Capitulo"
     \addcontentsline{toc}{chapter}{Agradecimientos} % si queremos que aparezca en el índice
     \markboth{AGRADECIMIENTOS}{AGRADECIMIENTOS} % encabezado 
 
-    Agradecimiento ejemplo
+    \emph{``Si quieres ir rápido, camina solo; pero si quieres llegar lejos,
+    camina acompañado''} (proverbio africano)
+    
+    En primer lugar, querría dar las gracias a la Escuela y a sus
+    profesores, por guiarme de la mejor forma que han podido a lo largo de
+    los años que he estado aquí. También dar las gracias a mi tutora Marisa
+    por ser un apoyo constante a lo largo del TFG.
+    
+    Después, me gustaria dar las gracias a los miembros del GUI por ser
+    amigos y constantes mentores, ayudandome y enseñandome cuando ha sido
+    necesario.
+    
+    Por último, agradecer a Andrés, Guille, Jose, Isma, Lobo, Victor y
+    Provecho por estar siempre ahí y conseguir que estos años sean
+    inolvidables. No dudo de que si a día de hoy estoy escribiendo estas
+    palabras se debe a su apoyo, comprensión y ayuda.
 
     \chapter*{Resumen} % si no queremos que añada la palabra "Capitulo"
     \addcontentsline{toc}{chapter}{Resumen} % si queremos que aparezca en el índice
     \markboth{RESUMEN}{RESUMEN} % encabezado
     %\begin{flushleft}
 
-    En el presente trabajo se va a desarrollar un software de ayuda para la
-    asignatura ``Matemática Discreta''. El objetivo del presente TFG es
-    desarrollar un prototipo funcional de una aplicación web orientada a
-    mejorar el aprendizaje y el afianzamiento de los conceptos relativos a
-    la asignatura. En este punto será necesario plantear la arquitectura de
-    la aplicación que se va a implementar.
+    En este Trabajo Fin de Grado se va a desarrollar un software de ayuda
+    para la asignatura ``Matemática Discreta'' del Grado en Ingeniería
+    Informática de la Escuela de Ingeniería Informática de Valladolid.
     
-    La solución escogida consiste en utilizar Angular programado en
-    TypeScript para el front-end, Node.js programado en JavaScript y una
-    base de datos relacional MariaDB para el back-end. Angular es una
-    plataforma de desarrollo para aplicaciones web de TypeScript de código
-    abierto. Node.js es un entorno en tiempo de ejecución multiplataforma
-    asíncrono, de código abierto, para la capa del servidor. MariaDB es un
-    sistema de gestión de bases de datos derivado de MySQL.
+    El objetivo del presente trabajo es desarrollar un prototipo funcional
+    de una aplicación web orientada a mejorar el aprendizaje y el
+    afianzamiento de los contenidos relativos a la Teoría de conjuntos
+    impartidos en dicha asignatura.
     
-    Palabras clave: Angular, Node.js, MariaDB, código abierto, TypeScript,
-    JavaScript.
+    En este contexto será necesario plantear la arquitectura de la
+    aplicación que se va a implementar. La solución escogida consiste en
+    utilizar Angular programado en TypeScript para el front-end, Node.js
+    programado en JavaScript y una base de datos relacional MariaDB para el
+    back-end. Angular es una plataforma de desarrollo para aplicaciones web
+    de TypeScript de código abierto. Node.js es un entorno en tiempo de
+    ejecución multiplataforma asíncrono, de código abierto, para la capa del
+    servidor. MariaDB es un sistema de gestión de bases de datos derivado de
+    MySQL.
 
     %\end{flushleft}
 
@@ -148,11 +172,24 @@ conjuntos.\\}}
     \chapter*{Abstract} % si no queremos que añada la palabra "Capitulo"
     \addcontentsline{toc}{chapter}{Abstract} % si queremos que aparezca en el índice
     \markboth{ABSTRACT}{ABSTRACT} % encabezado
-    \begin{flushleft}
-
-    Traducción
-
-    \end{flushleft}
+  
+    In the present thesis, a help software will be developed for the subject
+    ``Discrete Mathematics'' in the Degree of Computer Science of the School
+    of Computer Science of Valladolid.
+    
+    The aim of this project is to develop a functional prototype of an
+    online application, oriented to the improvement in both, the processes
+    of learning and of reinforcement of the contents related to the set
+    theory given in the subject mentioned above.
+    
+    At this stage, the contemplation of the application setting that is
+    going to be implemented will be necessary. The chosen solution consists
+    of using Angular, programmed in TypeScript for the front-end, Node.js
+    programmed in JavaScript, and a relational MariaDB database for the
+    back-end. Angular is a development platform for TypeScrip online
+    open-source model applications. Node.js is an open-source,
+    cross-platform, run-time environment for the server-side. MariaDB is a
+    database management system derived from MySQL.
 
     \tableofcontents % indice de contenidos
 
@@ -171,75 +208,78 @@ conjuntos.\\}}
     \pagenumbering{arabic}
     
     Los alumnos que entran en el primer curso de una ingeniería experimentan
-    unos grandes cambios a nivel académico. Esto es debido a que cambia la
-    metodología en la docencia y al aumento del volumen de contenidos tanto
+    grandes cambios a nivel académico. Esto es debido al uso de diferentes
+    metodologías en la docencia y al aumento del volumen de contenidos tanto
     teóricos como prácticos en comparación con etapas anteriores. Algunas
-    asignaturas se fundamentan en los conocimientos adquiridos durante los
-    cursos de bachillerato pero otras tienen contenidos totalmente nuevos.
-    La procedencia de los estudiantes es heterogénea: PAU y Módulos
-    Superiores y ,por tanto, habrán tenido diferente grado de contacto con
-    los contenidos de la titulación. En particular, Matemática Discreta
-    incluye conceptos y resultados matemáticos que no han sido explorados
-    con anterioridad. Esta asignatura forma parte de las asignaturas de
-    carácter básico.
+    asignaturas parten de los conocimientos adquiridos durante los cursos de
+    bachillerato pero otras tienen contenidos totalmente nuevos. La
+    procedencia de los estudiantes es heterogénea (PAU y Módulos Superiores)
+    y ,por tanto, habrán tenido diferente grado de contacto con los
+    contenidos de la titulación. En particular, la asignatura
+    \enquote{Matemática Discreta}, objeto de la aplicación desarrollada en
+    este trabajo, incluye conceptos y resultados matemáticos que no han sido
+    explorados con anterioridad.
     
     Para tener una buena base en informática es necesario conseguir un buena
-    base matemática teórica. En el primer año del grado, los estudiantes
-    pueden experimentar una falta de motivación en asignaturas de este tipo
-    debido a la complejidad de las mismas y a que no consiguen encontrar una
-    aplicación práctica real ni son conscientes de su importancia, tanto
+    base matemática. En el primer año del grado, los estudiantes pueden
+    experimentar una falta de motivación en asignaturas de este tipo debido
+    a la complejidad de las mismas y a que no consiguen encontrar una
+    aplicación práctica real, ni son conscientes de su importancia tanto
     para asignaturas futuras como para su vida profesional.
     
-    Con la asiganatura Matemática Discreta se pretende ofrecer una formación
+    La asignatura \enquote{Matemática Discreta} forma parte de las
+    asignaturas de carácter básico del plan de estudios del Grado en
+    Ingeniería Informática. Con ella se pretende ofrecer una formación
     básica y sólida al futuro ingeniero informático. Básica, en el sentido
     que los diferentes aspectos serán tratados a un nivel introductorio, y
     sólida, en el sentido de que los conocimientos adquiridos deben sentar
     las bases para desenvolverse en el resto de su formación académica y
     desarrollo profesional. Se trata de habilitar a los estudiantes para que
-    adquieran las destrezas necesarias para seguir aprendiendo a lo largo de
-    la vida los aspectos de la Informática relacionados con la lógica,
-    teoría de conjuntos y combinatoria, como son la inteligencia artificial,
-    el uso de bases de datos o la estadística.
-    
-    El presente trabajo se va a centrar en mejorar el aprendizaje y la
-    resolución de dudas respecto a la asignatura.
+    adquieran las destrezas necesarias para seguir aprendiendo los aspectos
+    de la Informática relacionados con la Lógica, Conjuntos, Relaciones y
+    Combinatoria, que podrán aplicar en disciplinas como la Inteligencia
+    Artificial, las Bases de Datos o la Estadística.
     
     \section{Objetivo}\label{objetivo}
     
-    El objetivo final de este trabajo es mejorar el estudio de la
-    asignatura, facilitando el afianzamiento de los conocimientos. Para
-    ello, se busca crear una plataforma que facilite la comunicación
-    alumno-profesor, y dote al profesor de las herramientas para facilitar
-    la distribución de los contenidos de la asignatura, así como permitiendo
-    al alumno comprobar sus conocimientos mediante la implementación de
-    tests. En definitiva, se busca mejorar la preparación de los alumno para
-    afrontar la asignatura satisfactoriamente, ya que esta sienta unas bases
-    muy importantes para otras de cursos futuros.
+    El objetivo final de este trabajo es proporcionar al alumno un
+    complemento educativo en el estudio de la asignatura \enquote{Matemática
+    Discreta} para el afianzamiento de algunos de los conocimientos que en
+    ella se desarrollan. Para ello, se busca crear una plataforma que mejore
+    la comunicación alumno-profesor y dote al profesor de herramientas que
+    faciliten la distribución de los contenidos de la asignatura. La
+    aplicación ha de facilitar al alumno el repaso de los conceptos teóricos
+    más importantes de los temas relacionados con la Teoría de Conjuntos, la
+    evaluación de su grado de aprendizaje a través de la realización de
+    cuestionarios tipo test, así como el planteamiento de dudas al profesor.
+    Además la aplicación recogerá estadísticas acerca de los conceptos
+    consultados, dudas planteadas y test realizados por parte de los alumnos
+    matriculados en la asignatura, que ayuden al profesor a detectar
+    aquellos conceptos que representan mayor dificultad para el estudiante.
     
-    \section{\texorpdfstring{Contexto
-    \cite{guiamatematicadiscreta}}{Contexto }}\label{contexto}
+    \section{Contexto}\label{contexto}
     
-    La metodología docente actual de la asignatura se basa en la combinación
-    de sesiones teórico-prácticas en aula, sesiones prácticas en grupos
-    reducidos y trabajo, tanto grupal como individual. Concretamente se
-    destinan 28 horas a las clases teórico-prácticas, 30 horas a las
-    prácticas, 10 horas al estudio y trabajo grupal y 80 horas al estudio y
-    trabajo individual. El presente trabajo se centra en este último
-    apartado, ya que considero que es en el que el alumno puede sufrir
-    mayores dificultades, al no contar con la dirección del profesor ni con
-    la ayuda de un grupo.
+    La metodología docente actual de la asignatura
+    \cite{guiamatematicadiscreta} se basa en la combinación de sesiones
+    teórico-prácticas en aula, sesiones prácticas en grupos reducidos y
+    trabajo tanto grupal como individual. Concretamente se destinan 28 horas
+    a las clases teórico-prácticas, 30 horas a las prácticas, 10 horas al
+    estudio y trabajo grupal y 80 horas al estudio y trabajo individual. El
+    presente trabajo se centra en este último apartado, ya que considero que
+    es en el que el alumno puede sufrir mayores dificultades al no contar
+    con la dirección del profesor ni con la ayuda de un grupo.
     
     El desarrollo de la asignatura consiste en clases magistrales
-    participativas, en las que se imparten conocimientos que deben ser
-    asimilados con las horas de estudio individual. Gracias al afianzamiento
-    de los conocimientos, el alumno será capaz de participar de forma activa
-    en las sesiones prácticas y teóricas, así como superar
-    satisfactoriamente las diversas pruebas escritas a lo largo del curso.
-    Todo ello influye positivamente en la calificación.
+    participativas, en las que se imparten conceptos y técnicas que deben
+    ser asimilados con las horas de estudio individual. Gracias al
+    afianzamiento de estos contenidos, el alumno será capaz de participar de
+    forma activa en las sesiones prácticas y teóricas, así como superar
+    satisfactoriamente las diversas pruebas escritas que se realizan a lo
+    largo del curso. Todo ello influye positivamente en la calificación.
     
-    El material básico del que dispone el alumno consiste en un documento
-    pdf con los contenidos teóricos y enunciados de problemas, que forman
-    los conocimientos mínimos para superar la asignatura.
+    El material básico del que dispone el alumno es un documento pdf en el
+    que se recogen los conceptos y resultados teóricos, ejemplos y
+    ejercicios tipo que han de adquirirse para superar la asignatura.
     
     \section{Solución adoptada}\label{soluciuxf3n-adoptada}
     
@@ -247,8 +287,8 @@ conjuntos.\\}}
     asignatura puede resultar difícil. Tampoco ayuda el formato del material
     básico, ya que es un documento PDF que no cuenta con ningún marcador.
     Esto dificulta enormemente la búsqueda de un concepto concreto, así como
-    la relación entre conceptos, ya que las unicas herramientas con la que
-    los alumnos cuentan para ello son las palabras claves, que están
+    la relación entre conceptos, ya que las únicas herramientas con la que
+    los alumnos cuentan para ello son las palabras claves que están
     resaltadas en negrita y la función de búsqueda de palabras del editor de
     PDF utilizado.
     
@@ -265,29 +305,31 @@ conjuntos.\\}}
     forma aproximada su nivel de preparación para ayudarle a afrontar las
     etapas finales de la asignatura.
     
-    Lo que buscamos es una herramienta que nos permita buscar conceptos de
-    forma rápida, entender las relaciones entre conceptos, reducir el tiempo
-    malgastado tanto por parte del profesor como del alumno, evitando el
-    planteamiento repetido de dudas ya resueltas con anterioridad y
+    Lo que buscamos es una herramienta que nos permita localizar conceptos
+    de forma rápida, entender las relaciones entre conceptos, reducir el
+    tiempo malgastado tanto por parte del profesor como del alumno, evitando
+    el planteamiento repetido de dudas ya resueltas con anterioridad y
     facilitando al alumno la resolución concreta de dudas y, por último,
-    dotar al alumno de un mecanismo de comprobación de conocimientos. Esta
-    herramienta debe ser accesible por cualquier miembro de la comunidad
-    educativa de la Universidad de Valladolid.
+    dotar al alumno de un mecanismo de comprobación de conocimientos
+    adquiridos. Esta herramienta debe ser accesible por cualquier miembro de
+    la comunidad educativa de la Universidad de Valladolid.
     
     \section{Estructura de la memoria}\label{estructura-de-la-memoria}
     
     En base al esquema seguido para la realización del presente trabajo, se
     ha estructurado la memoria de la misma manera:
     
+    INTRODUCCIÓN: Se describe el porqué de este proyecto y los objetivos del
+    mismo
+    
+    TECNOLOGÍAS UTILIZADAS: Contiene información sobre las tecnologías
+    escogidas y explicación de ciertos conceptos clave para entenderlas.
+    
     PLAN DE PROYECTO: En este capítulo se detalla la planificación del
     proyecto.
     
-    TECNOLOGÍAS UTILIZADAS: En este capítulo se detalla infromación sobre
-    las tecnologías escogidas, así como se explican ciertos conceptos clave
-    para entenderlas.
-    
     DESARROLLO DEL PROYECTO: La parte fundamental del proyecto es el
-    desarrollo de un prototipo de plataforma web. En este apartado se
+    desarrollo de un prototipo de plataforma web. En este capítulo se
     profundizará en el proceso de desarrollo, que incluye las etapas de
     análisis, desarrollo y despliegue.
     
@@ -302,41 +344,39 @@ conjuntos.\\}}
     
     \begin{itemize}
     \item
-      \textbf{JavaScript:} \cite{mozilla_javascript} JavaScript (abreviado
-      como JS) es un lenguaje multi-paradigma, ligero e interpretado.
+      \textbf{JavaScript:} JavaScript (abreviado como JS) es un lenguaje
+      multi-paradigma, ligero e interpretado. \cite{mozilla_javascript}
     \item
-      \textbf{TypeScript:} \cite{enriqueoriol2017, stackoverflow_Typescript}
-      TypeScript es un superconjunto de JavaScript que permite el uso de
-      clases, interfaces y tipado estático. El uso de variables tipadas de
-      TypeScript aporta mayor robustez al código.
+      \textbf{TypeScript:} TypeScript es un superconjunto de JavaScript que
+      permite el uso de clases, interfaces y tipado estático. El uso de
+      variables tipadas de TypeScript aporta mayor robustez al código.
+      \cite{enriqueoriol2017, stackoverflow_Typescript}
     \item
-      \textbf{ECMAScript:} \cite{mozilla_ecmascript} ECMAScript (abreviado
-      como ES) es un lenguaje de scripting que forma la base de JavaScript.
-      Está recogido en los estándares ECMA-262 y ECMA-402 de ECMA
-      International. Al referirnos a ES5 nos referimos a la quinta versión
-      del estándar ECMA-262, mientras que al hablar de ES2015 o ES6 nos
-      referimos al estándar ECMA-262 en su sexta versión. Actualmente los
-      navegadores soportan ES5, por lo cualquier lenguaje derivado de
-      ECMAScript(como son JavaScript y TypeScript) deben de ser traspilado a
-      ES5.
+      \textbf{ECMAScript:} ECMAScript (abreviado como ES) es un lenguaje de
+      scripting que forma la base de JavaScript. Está recogido en los
+      estándares ECMA-262 y ECMA-402 de ECMA International. Al referirnos a
+      ES5 nos referimos a la quinta versión del estándar ECMA-262, mientras
+      que al hablar de ES2015 o ES6 nos referimos al estándar ECMA-262 en su
+      sexta versión. Actualmente los navegadores soportan ES5, por lo
+      cualquier lenguaje derivado de ECMAScript(como son JavaScript y
+      TypeScript) deben de ser traspilado a ES5. \cite{mozilla_ecmascript}
     \item
-      \textbf{Transpilar:}
+      \textbf{Transpilar:} Transpilar es un término relativamente nuevo,
+      proviene del inglés \emph{transpiler}, fruto de la unión de las
+      palabras \emph{translate} y \emph{compiler}. Es la operación de
+      traducción de un lenguaje a otro, siendo ambos del mismo nivel de
+      abstracción aproxiamadamente.
       \cite{enriquefernandezguerra_typescript, builtbyedgar_transpilar}
-      Transpilar es un término relativamente nuevo, proviene del inglés
-      \emph{transpiler}, fruto de la unión de las palabras \emph{translate}
-      y \emph{compiler}. Es la operación de traducción de un lenguaje a
-      otro, siendo ambos del mismo nivel de abstracción aproxiamadamente.
     \item
-      \textbf{Gestor de paquetes:} \cite{debian_gestorpaquetes} Un gestor de
-      paquetes mantiene un registro del software que está instalado en su
-      ordenador, y le permite instalar software nuevo, actualizarlo a
-      versiones más recientes, o eliminar software de una manera sencilla.
-      Como su propio nombre sugiere, los gestores de paquetes gestionan
-      paquetes: conjuntos de ficheros que se agrupan y que puede instalar y
-      eliminar como conjunto. La labor de un gestor de paquetes es la de
-      presentar una interfaz que asista al usuario en la tarea de
-      administrar el conjunto de paquetes que están instalados en su
-      sistema.
+      \textbf{Gestor de paquetes:} Un gestor de paquetes mantiene un
+      registro del software que está instalado en su ordenador, y le permite
+      instalar software nuevo, actualizarlo a versiones más recientes, o
+      eliminar software de una manera sencilla. Como su propio nombre
+      sugiere, los gestores de paquetes gestionan paquetes: conjuntos de
+      ficheros que se agrupan y que puede instalar y eliminar como conjunto.
+      La labor de un gestor de paquetes es la de presentar una interfaz que
+      asista al usuario en la tarea de administrar el conjunto de paquetes
+      que están instalados en su sistema. \cite{debian_gestorpaquetes}
     \item
       \textbf{Plataforma:} Una plataforma es un sistema que engloba los
       componentes, interfaces y librerías necesarios para permitir a los
@@ -346,9 +386,9 @@ conjuntos.\\}}
       software, un framework es una estructura de soporte definida, en la
       cual otro proyecto de software puede ser organizado y desarrollado.
     \item
-      \textbf{Open source:} \cite{opensource_definition} La terminología
-      open source incluye a aquellos softwares que cumplen los siguientes
-      requisitos:
+      \textbf{Open source:} La terminología open source incluye a aquellos
+      softwares que cumplen los siguientes requisitos
+      \cite{opensource_definition} :
     
       \begin{itemize}
       \tightlist
@@ -549,8 +589,7 @@ conjuntos.\\}}
     app.use(express.session());
     \end{verbatim}
     
-    \section{\texorpdfstring{Angular
-    \cite{angular_docs}}{Angular }}\label{angular}
+    \section{Angular}\label{angular}
     
     \begin{figure}[H]
         \begin{center}
@@ -566,6 +605,7 @@ conjuntos.\\}}
     Si bien está desarrollado con Javascript y permite el desarrollo con ES5
     o superior, la comunidad de desarrolladores(incluyendo los responsables
     del proyecto de Google) prefiere utilizar TypeScript.
+    \cite{angular_docs}
     
     \begin{figure}[H]
         \begin{center}
@@ -620,8 +660,7 @@ conjuntos.\\}}
     
     \newpage
     
-    \section{\texorpdfstring{Angular CLI
-    \cite{angular_cli}}{Angular CLI }}\label{angular-cli}
+    \section{Angular CLI}\label{angular-cli}
     
     \begin{figure}[H]
         \begin{center}
@@ -632,7 +671,7 @@ conjuntos.\\}}
     
     Angular CLI es una herramienta utilizada para inicializar aplicaciones
     Angular, desarrollar componentes y para tareas de mantenimiento
-    asociadas a ello.
+    asociadas a ello. \cite{angular_cli}
     
     \subsection{Instalacion:}\label{instalacion}
     
@@ -722,59 +761,64 @@ conjuntos.\\}}
     sudo apt-get install mariadb-server
     \end{verbatim}
     
-    \subsection{\texorpdfstring{Ventajas de MariaDB frente MySQL
-    \cite{zeokat_mariadb, andergonzalez_mariadb, alidavergara_mariadb}}{Ventajas de MariaDB frente MySQL }}\label{ventajas-de-mariadb-frente-mysql}
+    \subsection{Ventajas y deventajas de MariaDB frente
+    MySQL}\label{ventajas-y-deventajas-de-mariadb-frente-mysql}
     
     \begin{itemize}
     \item
-      \textbf{Nuevos motores de almacenamiento más eficientes:}
+      \textbf{Ventajas:}
+      \cite{zeokat_mariadb, andergonzalez_mariadb, alidavergara_mariadb}
     
-      Aria y XtraDB vienen a reemplazar a MyISAM e InnoDB respectivamente.
-      Cabe destacar el mayor rendimiento de Aria, cuando recibe consultas
-      complejas y tiene que realizar tablas temporales, éstas se cachean en
-      memoria en vez de escribirlas en disco.
+      \begin{itemize}
+      \item
+        \textbf{Nuevos motores de almacenamiento más eficientes:}
+    
+        Aria y XtraDB vienen a reemplazar a MyISAM e InnoDB respectivamente.
+        Cabe destacar el mayor rendimiento de Aria, cuando recibe consultas
+        complejas y tiene que realizar tablas temporales, éstas se cachean
+        en memoria en vez de escribirlas en disco.
+      \item
+        \textbf{Estadísticas para índices y tablas:}
+    
+        Esto puede ayudar para la optimización de la base de datos. Se
+        añaden nuevas tablas de sistema para recoger esta información.
+      \item
+        \textbf{Mejoras en el rendimiento y la eficiencia con respecto a
+        MySQL:}
+    
+        Un ejemplo de esto es la eliminación o mejora de algunas
+        conversiones no necesarias respecto a los juegos de caracteres.
+      \item
+        \textbf{Software libre:}
+    
+        MariaDB está respaldada por la comunidad de software libre.
+      \end{itemize}
     \item
-      \textbf{Estadísticas para índices y tablas:}
+      \textbf{Desventajas:}
     
-      Esto puede ayudar para la optimización de la base de datos. Se añaden
-      nuevas tablas de sistema para recoger esta información.
-    \item
-      \textbf{Mejoras en el rendimiento y la eficiencia con respecto a
-      MySQL:}
+      \begin{itemize}
+      \item
+        \textbf{Coste migratorio:}
     
-      Un ejemplo de esto es la eliminación o mejora de algunas conversiones
-      no necesarias respecto a los juegos de caracteres.
-    \item
-      \textbf{Software libre:}
-    
-      MariaDB está respaldada por la comunidad de software libre.
-    \end{itemize}
-    
-    \subsection{Desventajas de MariaDB frente
-    MySQL}\label{desventajas-de-mariadb-frente-mysql}
-    
-    \begin{itemize}
-    \item
-      \textbf{Coste migratorio:}
-    
-      En líneas generales, MySQL está más extendido, por lo que utilizar
-      MariaDB suele acarrear un coste migratorio de los datos. Sin embargo,
-      MariaDB asegura tener total compatibilidad. En este proyecto no nos
-      afectará en absoluto.
+        En líneas generales, MySQL está más extendido, por lo que utilizar
+        MariaDB suele acarrear un coste migratorio de los datos. Sin
+        embargo, MariaDB asegura tener total compatibilidad. En este
+        proyecto no nos afectará en absoluto.
+      \end{itemize}
     \end{itemize}
     
     \chapter{ Plan del proyecto }
     
     El plan de desarrollo software es el documento que dirige la gestión de
-    un proyecto soft- ware. Define las funciones técnicas y de gestión de
+    un proyecto software. Define las funciones técnicas y de gestión de
     proyectos, actividades y tareas necesarias para satisfacer los
     requisitos del proyecto. La finalidad de esta sección es conocer los
     puntos básicos de los que consta el proyecto, proporcionar los
     fundamentos en los que se basa y transmitir los aspectos básicos tal y
     como han sido entendidos y formulados. A continuación se describirá la
-    visión general del proyecto, que proporciona una descrip- ción de
-    propósito, alcance y objetivos; la gestión de los procesos que explica
-    el coste estimado; y la planificación las fases principales e hitos del
+    visión general del proyecto, que proporciona una descripción del
+    propósito, alcance y objetivos; la gestión del proceso que explica el
+    coste estimado y la planificación las fases principales e hitos del
     proyecto.
     
     \section{Vision general}\label{vision-general}
@@ -832,15 +876,18 @@ conjuntos.\\}}
     
     \subsection{Evolución del plan}\label{evoluciuxf3n-del-plan}
     
-    El presente documento se revisará a lo largo del Trabajo de Fin de
-    Grado, y se irá actualizando conforme a los cambios que surjan.
+    El presente documento se revisará a lo largo del Trabajo de Fin de Grado
+    y se irá actualizando conforme a los cambios que surjan.
     
     \section{Gestión del proceso}\label{gestiuxf3n-del-proceso}
     
     \subsection{Estimación}\label{estimaciuxf3n}
     
-    Se considerará que la dedicación media al proyecto será de un total de 6
-    horas diarias con un solo recurso, con un día semanal de descanso.
+    Se considerará que la dedicación media al proyecto será de un total de 4
+    horas diarias con un solo recurso sin días de descanso. La fecha de
+    inicio del proyecto es el 10/03/2017. Tras el estudio del plan de
+    trabajo se estima que se requeriran aproximadamente 500 horas, por lo
+    que se marca el hito de entrega del proyecto el 12/7/2017.
     
     \subsection{Plan de trabajo}\label{plan-de-trabajo}
     
@@ -856,7 +903,7 @@ conjuntos.\\}}
         mediante entrevistas personalizadas, así como estudio de la
         documentación que este nos facilite.
       \item
-        \textbf{Duración:} 1 semana
+        \textbf{Duración:} 7 días
       \end{itemize}
     \item
       \textbf{Elicitación de requisitos}
@@ -868,7 +915,7 @@ conjuntos.\\}}
         mediante la confirmación con el cliente. Este proceso se repetirá
         hasta conseguir extraer todos los requisitos que el cliente busca.
       \item
-        \textbf{Duración:} 1 semana
+        \textbf{Duración:} 7 días
       \end{itemize}
     \item
       \textbf{Realización del diagrama de casos de uso y elaboración de un
@@ -882,7 +929,7 @@ conjuntos.\\}}
         decidiran cuales son los casos de uso y se hara el diagrama
         correspondiente, sin profundizar.
       \item
-        \textbf{Duración:} 1 día
+        \textbf{Duración:} 2 días
       \end{itemize}
     \item
       \textbf{Diseño de las vistas de la aplicación y elicitación con el
@@ -893,9 +940,9 @@ conjuntos.\\}}
       \item
         Diseño en papel de las vistas de la aplicación.
       \item
-        \textbf{Duración estimada:} 1 semana
+        \textbf{Duración estimada:} 7 días
       \item
-        \textbf{Duración real:} 1 semana
+        \textbf{Duración real:} 7 días
       \end{itemize}
     \item
       \textbf{Estudio de las tecnologías actuales que nos permitan
@@ -908,9 +955,9 @@ conjuntos.\\}}
         adecuación al proyecto y su complejidad técnica, teniendo en cuenta
         los conocimientos previos de los que partimos.
       \item
-        \textbf{Duración estimada:} 1 semana
+        \textbf{Duración estimada:} 2 días
       \item
-        \textbf{Duración real:} 1 semana
+        \textbf{Duración real:} 2 días
       \end{itemize}
     \item
       \textbf{Aprendizaje y práctica de las tecnologías escogidas}
@@ -921,9 +968,9 @@ conjuntos.\\}}
         Realización de ejemplos sencillos para comprobar de forma práctica
         los datos recopilados en el punto anterior.
       \item
-        \textbf{Duración estimada:} 3 dias
+        \textbf{Duración estimada:} 2 días
       \item
-        \textbf{Duración real:} 3 dias
+        \textbf{Duración real:} 2 días
       \end{itemize}
     \item
       \textbf{Realización del plan de trabajo y estudio de los riesgos}
@@ -937,9 +984,9 @@ conjuntos.\\}}
         actuación para el caso de que se realicen. A mayores, se realiza un
         plan de trabajo de carácter definitivo.
       \item
-        \textbf{Duración estimada:} 3 días
+        \textbf{Duración estimada:} 2 días
       \item
-        \textbf{Duración real:} 3 días
+        \textbf{Duración real:} 2 días
       \end{itemize}
     \item
       \textbf{Realizacion de la descripcion en detalle de los casos de uso}
@@ -951,12 +998,12 @@ conjuntos.\\}}
         profundizamos en cada uno de los casos de uso, definiendo su
         descripción en detalle.
       \item
-        \textbf{Duración estimada:} 1 semana
+        \textbf{Duración estimada:} 4 días
       \item
-        \textbf{Duración real:} 3 dias
+        \textbf{Duración real:} 4 días
       \end{itemize}
     \item
-      \textbf{Modelo de dominio y análisis de la base de datos:}
+      \textbf{Modelo de dominio y análisis de la base de datos}
     
       \begin{itemize}
       \tightlist
@@ -964,12 +1011,12 @@ conjuntos.\\}}
         Se definirá el modelo de dominio de la aplicación y se diseñará la
         base de datos basándonos en el.
       \item
-        \textbf{Duración estimada:} 1 semana
+        \textbf{Duración estimada:} 2 días
       \item
-        \textbf{Duración real:} 1 semanas
+        \textbf{Duración real:} 2 días
       \end{itemize}
     \item
-      \textbf{Realización básica de backend:}
+      \textbf{Realización básica de backend}
     
       \begin{itemize}
       \tightlist
@@ -977,27 +1024,13 @@ conjuntos.\\}}
         Programación de los elementos básicos y comunes a las aplicaciones
         Nodejs
       \item
-        \textbf{Duración estimada:} 1 semana
+        \textbf{Duración estimada:} 4 días
       \item
-        \textbf{Duración real:} 2 semanas
-      \end{itemize}
-    \item
-      \textbf{Realización de un boceto de diseño:}
-    
-      \begin{itemize}
-      \tightlist
-      \item
-        Realización de un diagrama de secuencia que ejemplifique el
-        comportamiento de la aplicación, así como bocetos del resto de
-        diagramas de diseño, que serán completados
-      \item
-        \textbf{Duración estimada:} 1 día
-      \item
-        \textbf{Duración real:} 1 día
+        \textbf{Duración real:} 4 días
       \end{itemize}
     \item
       \textbf{Realización de las funcionalidades relacionadas con las
-      sesiones:}
+      sesiones}
     
       \begin{itemize}
       \tightlist
@@ -1009,25 +1042,12 @@ conjuntos.\\}}
         para alumnos y profesores y permitir al usuario salir de la
         aplicación
       \item
-        \textbf{Duracion estimada:} 1 semana
+        \textbf{Duracion estimada:} 12 días
       \item
-        \textbf{Duracion real:} 1 semana
+        \textbf{Duracion real:} 10 días
       \end{itemize}
     \item
-      \textbf{Comprobación de las funcionalidades implementadas:}
-    
-      \begin{itemize}
-      \tightlist
-      \item
-        Comprobación del estado de la aplicación y solución de errores
-        inesperados
-      \item
-        \textbf{Duracion estimada:} 0.5 semanas
-      \item
-        \textbf{Duracion real:} 1 semana
-      \end{itemize}
-    \item
-      \textbf{Realización de las funcionalidades relacionada con teoría:}
+      \textbf{Realización de las funcionalidades relacionada con teoría}
     
       \begin{itemize}
       \tightlist
@@ -1038,25 +1058,12 @@ conjuntos.\\}}
         por temas, permitir la busqueda de teoría por concepto y permitir al
         profesor añadir y editar conceptos.
       \item
-        \textbf{Duracion estimada:} 1 semana
+        \textbf{Duracion estimada:} 15 días
       \item
-        \textbf{Duracion real:} 1 semana
+        \textbf{Duracion real:} 20 días
       \end{itemize}
     \item
-      \textbf{Comprobación de las funcionalidades implementadas:}
-    
-      \begin{itemize}
-      \tightlist
-      \item
-        Comprobación del estado de la aplicación y solución de errores
-        inesperados
-      \item
-        \textbf{Duracion estimada:} 0.5 semanas
-      \item
-        \textbf{Duracion real:} 1 semana
-      \end{itemize}
-    \item
-      \textbf{Realización de las funcionalidades relacionadas con dudas :}
+      \textbf{Realización de las funcionalidades relacionadas con dudas}
     
       \begin{itemize}
       \tightlist
@@ -1069,26 +1076,13 @@ conjuntos.\\}}
         resueltas y gestionarlas, ya sea reportándolas, ignorándolas o
         respondiéndolas.
       \item
-        \textbf{Duracion estimada:} 1 semana
+        \textbf{Duracion estimada:} 15 días
       \item
-        \textbf{Duracion real:} 1 semana
-      \end{itemize}
-    \item
-      \textbf{Comprobación de las funcionalidades implementadas:}
-    
-      \begin{itemize}
-      \tightlist
-      \item
-        Comprobación del estado de la aplicación y solución de errores
-        inesperados
-      \item
-        \textbf{Duracion estimada:} 0.5 semanas
-      \item
-        \textbf{Duracion real:} 1 semana
+        \textbf{Duracion real:} 19 días
       \end{itemize}
     \item
       \textbf{Realización de las funcionalidades relacionadas con
-      cuestiones:}
+      cuestiones}
     
       \begin{itemize}
       \tightlist
@@ -1099,26 +1093,13 @@ conjuntos.\\}}
         cuestionarios segun una serie de parámetros, resolverlos y conocer
         su resultado y permitir al profesor añadir y editar preguntas.
       \item
-        \textbf{Duracion estimada:} 1 semana
+        \textbf{Duracion estimada:} 15 días
       \item
-        \textbf{Duracion real:} 1 semana
-      \end{itemize}
-    \item
-      \textbf{Comprobación de las funcionalidades implementadas:}
-    
-      \begin{itemize}
-      \tightlist
-      \item
-        Comprobación del estado de la aplicación y solución de errores
-        inesperados
-      \item
-        \textbf{Duracion estimada:} 0.5 semanas
-      \item
-        \textbf{Duracion real:} 1 semana
+        \textbf{Duracion real:} 18 días
       \end{itemize}
     \item
       \textbf{Realización de las funcionalidades relacionadas con
-      estadisticas:}
+      estadisticas}
     
       \begin{itemize}
       \tightlist
@@ -1129,26 +1110,13 @@ conjuntos.\\}}
         cuestionarios segun una serie de parámetros, resolverlos y conocer
         su resultado y permitir al profesor añadir y editar preguntas.
       \item
-        \textbf{Duracion estimada:} 1 semana
+        \textbf{Duracion estimada:} 3 días
       \item
-        \textbf{Duracion real:} 1 semana
-      \end{itemize}
-    \item
-      \textbf{Comprobación de las funcionalidades implementadas:}
-    
-      \begin{itemize}
-      \tightlist
-      \item
-        Comprobación del estado de la aplicación y solución de errores
-        inesperados
-      \item
-        \textbf{Duracion estimada:} 0.5 semanas
-      \item
-        \textbf{Duracion real:} 1 semana
+        \textbf{Duracion real:} 3 días
       \end{itemize}
     \item
       \textbf{Realización de las funcionalidades relacionadas con
-      herramientas:}
+      herramientas}
     
       \begin{itemize}
       \tightlist
@@ -1158,37 +1126,29 @@ conjuntos.\\}}
         relacionadas con herramientas que permitan poner en práctica los
         conocimientos de la asignatura.
       \item
-        \textbf{Duracion estimada:} 1 semana
+        \textbf{Duracion estimada:} 10 días
       \item
         \textbf{Duracion real:} No realizado
+      \item
+        \textbf{Motivo:} Las funcionalidades relacionadas con herramientas
+        no fueron implementadas ya que, debido a una mala estimación de las
+        funcionalidades anteriores, se descartó para cumplir el plazo de
+        entrega.
       \end{itemize}
     \item
-      \textbf{Comprobación de las funcionalidades implementadas:}
-    
-      \begin{itemize}
-      \tightlist
-      \item
-        Comprobación del estado de la aplicación y solución de errores
-        inesperados
-      \item
-        \textbf{Duracion estimada:} 0.5 semanas
-      \item
-        \textbf{Duracion real:} No realizado
-      \end{itemize}
-    \item
-      \textbf{Mejora de la interfaz:}
+      \textbf{Mejora de la interfaz}
     
       \begin{itemize}
       \tightlist
       \item
         Realización de una interfaz mas allá de la interfaz útil.
       \item
-        \textbf{Duracion estimada:} 0.5 semanas
+        \textbf{Duracion estimada:} 4 días
       \item
-        \textbf{Duracion real:} 1 semana
+        \textbf{Duracion real:} 3 días
       \end{itemize}
     \item
-      \textbf{Realización de documentación del TFG:}
+      \textbf{Realización de documentación del TFG}
     
       \begin{itemize}
       \tightlist
@@ -1197,40 +1157,32 @@ conjuntos.\\}}
         Introduccion y Conclusiones y los anexos Manual de usuario y Manual
         de instalación, así como la maquetación del resto de capítulos.
       \item
-        \textbf{Duracion estimada:} 0.5 semanas
+        \textbf{Duracion estimada:} 7 días
       \item
-        \textbf{Duracion real:} 1 semana
+        \textbf{Duracion real:} 9 días
       \end{itemize}
     \item
-      \textbf{Mejora de la interfaz:}
+      \textbf{Mejora de la interfaz}
     
       \begin{itemize}
       \tightlist
       \item
         Mejorar el aspecto de la aplicación
       \item
-        \textbf{Duracion estimada:} 0.5 semanas
+        \textbf{Duracion estimada:} 9 días
       \item
         \textbf{Duracion real:} No realizado
-      \end{itemize}
-    \item
-      \textbf{Limpieza de código:}
-    
-      \begin{itemize}
-      \tightlist
       \item
-        Borrado de funciones en desuso, borrado de comentarios innecesarios.
-      \item
-        \textbf{Duracion estimada:} 0.5 semanas
-      \item
-        \textbf{Duracion real:} No realizado
+        \textbf{Motivo:} La mejora de la interfaz no fuer implementadas ya
+        que, debido a una mala estimación de las funcionalidades anteriores,
+        se descartó para cumplir el plazo de entrega.
       \end{itemize}
     \end{itemize}
     
     \newpage
     
     \subsection{Plan de Gestión de
-    Riesgos:}\label{plan-de-gestiuxf3n-de-riesgos}
+    Riesgos}\label{plan-de-gestiuxf3n-de-riesgos}
     
     La lista de riesgos expuesta a continuación tiene las siguientes
     características:
@@ -1270,7 +1222,7 @@ conjuntos.\\}}
         \textbf{Plan de contingencia:} Restaurar la última versión
       \end{itemize}
     \item
-      \textbf{R-02 - Maquina personal averiada}
+      \textbf{R-02 - Máquina personal averiada}
     
       \begin{itemize}
       \tightlist
@@ -1379,6 +1331,18 @@ conjuntos.\\}}
         generado hasta el momento.
       \end{itemize}
     \end{itemize}
+    
+    \subsection{Presupuesto}\label{presupuesto}
+    
+    Teniendo en cuenta que un analista programador cobra 10 euros por hora y
+    la aplicación se ha planificado para 492 horas, se fija el coste de la
+    mano de obra en 4920 euros.
+    
+    Teniendo en cuenta que el coste de mi ordenador fue de 500 euros, los
+    ordenadores portátiles tienen un período medio de vida útil de 4 años y
+    el proyecto dura 4 meses, se fija el coste de hardware en 41.66 euros
+    
+    \textbf{Presupuesto total:} 4961,66 euros
     
     \chapter{ Desarrollo }
     
@@ -1865,12 +1829,13 @@ conjuntos.\\}}
     
     \vspace*{\fill} \newpage
     
-    \subsection{Diagramas de secuencia}\label{diagramas-de-secuencia}
-    
     \chapter{ Conclusiones }
     
     Se han cumplido la mayoría de objetivos iniciales, desarrollando una
-    parte de la funcionalidad deseada.
+    parte de la funcionalidad deseada. Tal y como se explica en el apartado
+    3, debido a una mala planificación inicial, se descartó realizar las
+    funcionalidades relacionadas con una herramienta práctica que permitiría
+    al alumno poner en práctica los conocimientos teóricos estudiados.
     
     Se ha desarrollado una interfaz sencilla y clara, orientada a
     ordenadores de sobremesa.
@@ -1883,24 +1848,27 @@ conjuntos.\\}}
     \section{Trabajo futuro}\label{trabajo-futuro}
     
     En el futuro se le podría añadir mayor funcionalidad a la aplicación,
-    aumentando su potencial:
+    aumentando su potencial. Algunas de las mejoras que han surgido durante
+    el desarrollo del proyecto son:
     
     \begin{itemize}
     \tightlist
     \item
-      Mejora de la interfaz, haciéndola mas atractiva para el usuario, asi
-      como adecuar el diseño a los dispositivos móviles.
+      Mejora de la interfaz, haciéndola mas atractiva para el usuario
+    \item
+      Adecuar el diseño a los dispositivos móviles.
     \item
       Añadir la funcionalidad \enquote{herramienta práctica} que fue
-      eliminada durante el desarrollo del proyecto. Esta funcionalidad
-      permitiría al usuario poner en práctica los elementos teóricos
-      estudiados.
+      eliminada durante el desarrollo del proyecto.
     \item
-      Añadir nuevas funcionalidades, como permitir al profesor pregenerar
-      cuestionarios para que sean resueltos por los alumnos
+      Añadir nuevas funcionalidades, como permitir al profesor pregenerar un
+      cuestionario para que todos los alumnos realicen el mismo. Este
+      cuestionario podria, o bien generarse aleatoriamente, o bien pedir al
+      profesor que seleccione una serie de preguntas de las introducidas
+      previamente.
     \item
-      Aumentar las estadisticas recogidas, así como generar gráficas que
-      muestren de forma gráfica los datos.
+      Aumentar las estadísticas recogidas, así como generar gráficas que
+      muestren los datos.
     \end{itemize}
     
     \appendix
@@ -2029,10 +1997,20 @@ conjuntos.\\}}
     
     A continuación, se explicará el funcionamiento de la aplicación web.
     
-    En primer lugar, está el login. Se introduce el usuario y contraseña.
+    Como primer pantalla, está la página de inicio de sesión. El usuario
+    debe introducir su nombre de usuario de la universidad y su contraseña.
+    
+    \begin{figure}[H]
+        \begin{center}
+            \includegraphics[width=\textwidth]{img/manual/login.png}
+        \end{center}
+        \caption{Pantalla de inicio de sesión}
+    \end{figure}
     
     Distinguiremos dos casos, según sea un alumno o un profesor el que
     ingrese en la aplicación.
+    
+    \newpage
     
     \section{Manual del alumno:}\label{manual-del-alumno}
     
@@ -2062,7 +2040,7 @@ conjuntos.\\}}
         \caption{Pantalla tras pulsar sobre un concepto}
     \end{figure}
     
-    Pulsando en el botón \enquote{Ver dudas}, se accedera a la pantalla de
+    Pulsando en el botón \enquote{Ver dudas}, se accederá a la pantalla de
     dudas.
     
     \begin{figure}[H]
@@ -2072,13 +2050,13 @@ conjuntos.\\}}
         \caption{Pantalla ver dudas}
     \end{figure}
     
-    Al pulsar en una dudad se verá el contenido de la duda. Al pulsar sobre
+    Al pulsar en una dudas se verá el contenido de la duda. Al pulsar sobre
     el boton \enquote{Añadir duda} se nos despliega un formulario que
     permite añadir los datos para insertar una nueva duda. Tras pulsar sobre
     el botón \enquote{Enviar} la aplicación redirige a una pantalla de
     confirmación. Finalmente, tras confirmar, la duda sera insertada. En
     esta pantalla también se puede ver una barra de búsqueda, que permite la
-    búsqueda concreta de dudas en funcíon de su contenido.
+    búsqueda concreta de dudas en función de su contenido.
     
     Pulsando en el botón \enquote{Test} de la barra de navegación redirige a
     la pantalla principal de test.
@@ -2114,14 +2092,16 @@ conjuntos.\\}}
         \caption{Pantalla de resolución}
     \end{figure}
     
+    \newpage
+    
     \section{Manual del profesor:}\label{manual-del-profesor}
     
-    Según se ingresa en la aplicación se accede a la pantalla de teoría. Se
+    Según se entra en la aplicación se accede a la pantalla de teoría. Se
     puede ver en la barra superior la barra de navegación, y en ella cuatro
     apartados, \enquote{Teoría}, \enquote{Dudas}, \enquote{Estadísticas} y
     \enquote{Test} y la opción \enquote{Salir}. Esta última opción, permite
     cerrar sesión. El apartado dudas, puede ir acompañado de un número, que
-    indica el número de nuevas dudas sin resolver.
+    indica el número de dudas sin resolver.
     
     \begin{figure}[H]
         \begin{center}
@@ -2152,7 +2132,7 @@ conjuntos.\\}}
     contenido, el concepto relacionado y tres opciones, \enquote{Reportar},
     \enquote{Ignorar por repetido}, \enquote{Responder}. \enquote{Reportar}
     significa que la duda es inapropiada u ofensiva. \enquote{Ignorar por
-    repetido} significa que la dudad está repetida y que no va a ser
+    repetido} significa que la dudas está repetida y que no va a ser
     respondida. Por último, la opción \enquote{Responder} permite al
     profesor responder la duda. El sistema pedirá confirmación antes de
     hacer cualquiera de estas acciones, ya sea mediante un aviso en el caso
@@ -2188,7 +2168,7 @@ conjuntos.\\}}
     \end{figure}
     
     Pulsando sobre cualquiera de ellos, se mostrarán las posibles
-    respuestas, marcando con un tick las correctas y las botones
+    respuestas, marcando con un tick las correctas y los botones
     \enquote{Editar} y \enquote{Borrar}. Si se escoge la opción borrar, la
     aplicación pedirá al profesor confirmación antes de borrarla. Pulsando
     sobre \enquote{Confirmar} la cuestión será eliminada. Si se escoge la
@@ -2218,26 +2198,26 @@ conjuntos.\\}}
     nuevas opciones es necesario que todas las opciones incluidas sean
     válidas, es decir, no estén vacías ni sean repetidas. En la foto
     anterior se puede observar que, al estar vacía no permite añadir nuevas
-    dudas. Tras rellenar la respuesta, se puede elegir si la respuesta es
-    correcta o incorrecta cambiando el símbolo a la derecha clicando.
+    opciones. Tras rellenar el campo opción, se puede elegir si la respuesta
+    es correcta o incorrecta cambiando el símbolo a la derecha clicando.
     
     \begin{figure}[H]
         \begin{center}
-            \includegraphics[width=\textwidth]{img/manual/pregunta-verdadera.png}
+            \includegraphics[width=\textwidth]{img/manual/opcion-verdadera.png}
         \end{center}
-        \caption{Pantalla de pregunta verdadera}
+        \caption{Pantalla de opción verdadera}
     \end{figure}
     
     \begin{figure}[H]
         \begin{center}
-            \includegraphics[width=\textwidth]{img/manual/pregunta-falsa.png}
+            \includegraphics[width=\textwidth]{img/manual/opcion-falsa.png}
         \end{center}
-        \caption{Pantalla de pregunta falsa}
+        \caption{Pantalla de opción falsa}
     \end{figure}
     
     Tras tener una serie de respuestas que cumplan con las condiciones
-    necesarias, esto es, que no tengan respuestas repetidas ni vacías y que
-    al menos una de ellas sea verdadera y una falsa; pulsando en el botón
+    necesarias, esto es, que no tengan opciones repetidas ni vacías y que al
+    menos una de ellas sea verdadera y una falsa; pulsando en el botón
     \enquote{Añadir}, la aplicación pedirá confirmación, y tras confirmar,
     la cuestión será guardada.
     
@@ -2251,7 +2231,7 @@ conjuntos.\\}}
         \caption{Pantalla de principal de estadísticas}
     \end{figure}
     
-    En ella, el profesor introduce un numbre de alumno y la aplicación
+    En ella, el profesor introduce un nombre de alumno y la aplicación
     muestra el número de conceptos visitados, el número de cuestionarios
     realizados y el número de dudas preguntadas.
     
@@ -2259,17 +2239,17 @@ conjuntos.\\}}
         \begin{center}
             \includegraphics[width=\textwidth]{img/manual/profesor-estadisticas2.png}
         \end{center}
-        \caption{Pantalla de estadisticas tras buscar}
+        \caption{Pantalla de estadísticas tras buscar}
     \end{figure}
     
-    Tras pulsar sobre cada uno de estos recuadros, dará información en
+    Al pulsar sobre cada uno de estos recuadros, se obtendrá información en
     detalle.
     
     \begin{figure}[H]
         \begin{center}
             \includegraphics[width=\textwidth]{img/manual/profesor-estadisticas-detalle1.png}
         \end{center}
-        \caption{Pantalla de estadisticas tras buscar}
+        \caption{Pantalla de detalle de los conceptos visitados}
     \end{figure}
     
     Destacar del detalle de las dudas planteadas que marca en rojo las
@@ -2280,17 +2260,19 @@ conjuntos.\\}}
         \begin{center}
             \includegraphics[width=\textwidth]{img/manual/profesor-estadisticas-detalle2.png}
         \end{center}
-        \caption{Pantalla de estadisticas tras buscar}
+        \caption{Pantalla de detalle de las dudas planteadas}
     \end{figure}
     
-    Destacar del detall de los cuestionario realizados que marca en rojo los
-    cuestionarios suspensos y en verde los cuestionarios aprobados.
+    Destacar del detalle de los cuestionario realizados que marca en rojo
+    los cuestionarios suspensos y en verde los cuestionarios aprobados. Al
+    pulsar el botón \enquote{Ver cuestionario}, redigirá a una página que
+    mostrará el cuestionario tal y como lo vio el alumno en su corrección.
     
     \begin{figure}[H]
         \begin{center}
             \includegraphics[width=\textwidth]{img/manual/profesor-estadisticas-detalle3.png}
         \end{center}
-        \caption{Pantalla de estadisticas tras buscar}
+        \caption{Pantalla de detalle de los cuestionarios realizados}
     \end{figure}
     
     \chapter{Contenido del CD-ROM}\label{contenido-del-cd-rom}
