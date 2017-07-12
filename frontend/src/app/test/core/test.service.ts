@@ -14,9 +14,6 @@ import { BaseService } from "app/core/service/baseService";
 @Injectable()
 export class TestService extends BaseService{
 
-  //private headers;
-  //private options;
-
   private _data;
   private _confirmationData;
 
@@ -26,20 +23,12 @@ export class TestService extends BaseService{
 
   constructor(http: Http) {
     super(http);
-    /*this.headers = new Headers();
-    this.headers.append('Content-Type', 'application/x-www-form-urlencoded');
-    this.options = new RequestOptions({ headers: this.headers, withCredentials: true });*/
   }
-
-  /*private extractData(res: Response) {
-    return res['_body'] ? res.json() : {}
-  }*/
 
   getQuestions(lessonId){
     return this.http.get(ADDRESS + '/index/' + lessonId + '/getTestQuestions', this.options)
       .map(this.extractData)
       .catch((error:any) => {
-        console.log(error)
         return Observable.throw(this.extractError(error) || 'Server error')})
   }
 
@@ -82,9 +71,6 @@ export class TestService extends BaseService{
   }
 
   get data(){
-    /*let aux = this.data;
-    this.data = undefined;
-    return aux;*/
     return this._data
   }
 
@@ -126,10 +112,9 @@ export class TestService extends BaseService{
     return new Promise((resolve, reject) => {
       test.subscribe(
         questionList => {
-          console.log("-----", questionList)
           this._test = questionList.map(examQuestion => {
             let options = examQuestion.examResponses.map(
-              option => {console.log(option); return new TestOption(option.testOption.answer, option.selected)}
+              option => { return new TestOption(option.testOption.answer, option.selected) }
             );
             return new TestQuestion(examQuestion.question.id, examQuestion.question.wordingText, examQuestion.question.wordingImage, options);
           })
