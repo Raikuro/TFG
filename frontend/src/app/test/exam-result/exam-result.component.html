@@ -1,33 +1,14 @@
-<!--<header style="height: 10%; padding-right: 15px; padding-left: 15px">
-  <app-header></app-header>
-</header>
-<p>
-  Tu nota: {{mark}}
-</p>
-
-<div>
-  <div *ngFor="let question of exam;" [ngClass]="{true: 'full-right', null: 'parcial-right', false: 'wrong'}[question.isRight]">
-    <div *ngFor="let option of question?.testOptions; let j = index">
-      {{getSymbol(option,question.correctedAnswers[j])}}-{{option.answer}}
-    </div>
-    <div>
-      ----------------------------------
-    </div>
-  </div>
-</div>
-<button (click)="goToIndex()">Volver</button>-->
-
-<header style="height: 10%;">
+<header class="header-style">
   <app-header [active]=3></app-header>
 </header>
-<div style="padding-left: 150px; padding-right: 150px; ">
+<div class="normal-padding">
   <div class="row">
     <div class="col-3" style="position: fixed">
       <div class="col-12">Tu nota: {{mark}}</div>
       <button *ngFor="let question of exam?.examQuestions; let i = index" class="col-4 btn" [ngClass]="{ 'btn-success': checkAccuracy(question) === GOOD, 'btn-warning': checkAccuracy(question) === ALMOSTGOOD, 'btn-danger': checkAccuracy(question) === WRONG, 'btn-secondary': checkAccuracy(question) === UNRESPONDED}" (click)="goToQuestion(i)">
         {{i+1}}
       </button>
-      <button class="btn btn-danger" style="width:100%; margin-top: 10px" (click)="goToIndex()">Salir</button>
+      <button class="btn btn-danger max-width" style="margin-top: 10px" (click)="goToIndex()">Salir</button>
     </div>
     <div class="offset-4 col-9">
       <div *ngFor="let examQuestion of exam?.examQuestions; let i = index" class="card" style="margin-bottom: 15px; padding: 10px;" [ngClass]="{ 'full-right': checkAccuracy(examQuestion) === GOOD, 'partial-right': checkAccuracy(examQuestion) === ALMOSTGOOD, 'wrong': checkAccuracy(examQuestion) === WRONG}">
@@ -35,7 +16,7 @@
          {{i+1}} - {{examQuestion?.question?.wordingText}}
         </div>
         <div *ngIf="examQuestion?.question?.wordingImage" class="card-group" id="q{{i}}">
-         {{i+1}} - <img style="max-width:100%; max-height:100%;" *ngIf="examQuestion?.question?.wordingImage" [src]="'data:image/jpg;base64,'+examQuestion?.question?.wordingImage" />
+         {{i+1}} - <img class="set-maximun-width-100 set-maximun-height-100" *ngIf="examQuestion?.question?.wordingImage" [src]="'data:image/jpg;base64,'+examQuestion?.question?.wordingImage" />
         </div>
         <ul class="list-group card-group">
           <li class="list-group-item justify-content-between" *ngFor="let response of examQuestion?.examResponses" [ngClass]="{'active': response?.selected}" ngDefaultControl>

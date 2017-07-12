@@ -1,22 +1,20 @@
-<nav class="navbar navbar-toggleable-sm navbar-light" style="background-color: #e3f2fd; padding-left: 155px;
-    padding-right: 155px;">
+<nav class="navbar navbar-toggleable-sm navbar-light nav-style">
     <button type="button" class="navbar-toggler navbar-toggler-right" (click)="isExpanded = !isExpanded" [attr.aria-expanded]="!isExpanded" aria-controls="navbarContent">
         <span class="navbar-toggler-icon"></span>
     </button>
     <a class="navbar-brand" (click)="goToTheory()">
-        <img style="cursor: pointer" src="assets/images/logo.jpg" height="30px">
-        <!--FOTOUVA-->
+        <img class="cursor-pointer" src="assets/images/logo.jpg" height="30px">
     </a>
 
     <div class="collapse navbar-collapse" id="navbarContent" [ngbCollapse]="!isExpanded">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item" style="cursor: pointer;" [ngClass]="{'active active-div': isTheoryActive()}"><a class='nav-link' (click)="goToTheory()">Teoría</a></li>
-            <li class="nav-item" style="cursor: pointer" [ngClass]="{'active active-div': isQuestionsActive()}" *ngIf="!session?.isAlumn"><a class='nav-link' (click)="goToQuestions()">Dudas<span style="margin-left: 2px" *ngIf="unrespondedQuestionsLength" class="badge badge-warning">{{unrespondedQuestionsLength}}</span></a></li>
-            <li class="nav-item" style="cursor: pointer" [ngClass]="{'active active-div': isStatisticsActive()}" *ngIf="!session?.isAlumn"><a class='nav-link' (click)='goToStatistics()'>Estadísticas</a></li>
-            <li class="nav-item" style="cursor: pointer" [ngClass]="{'active active-div': isTestActive()}"><a class='nav-link' (click)="goToTest()">Test</a></li>
+            <li class="nav-item cursor-pointer" [ngClass]="{'active active-div': isTheoryActive()}"><a class='nav-link' (click)="goToTheory()">Teoría</a></li>
+            <li class="nav-item cursor-pointer" [ngClass]="{'active active-div': isQuestionsActive()}" *ngIf="!session?.isAlumn"><a class='nav-link' (click)="goToQuestions()">Dudas<span *ngIf="unrespondedQuestionsLength" class="badge badge-warning">{{unrespondedQuestionsLength}}</span></a></li>
+            <li class="nav-item cursor-pointer" [ngClass]="{'active active-div': isStatisticsActive()}" *ngIf="!session?.isAlumn"><a class='nav-link' (click)='goToStatistics()'>Estadísticas</a></li>
+            <li class="nav-item cursor-pointer" [ngClass]="{'active active-div': isTestActive()}"><a class='nav-link' (click)="goToTest()">Test</a></li>
         </ul>
         <ul class="navbar-nav navbar-right">
-            <li class="nav-item"><a class='nav-link' (click)="logout()" style='cursor: pointer;'>Salir</a></li>
+            <li class="nav-item"><a class='nav-link cursor-pointer' (click)="logout()">Salir</a></li>
         </ul>
     </div>
 </nav>

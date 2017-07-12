@@ -1,7 +1,7 @@
-<header style="height: 10%;">
+<header class="header-style">
   <app-header [active]=3></app-header>
 </header>
-<div style="padding-left: 150px; padding-right: 150px">
+<div class="normal-padding">
   <app-test-index-alumn *ngIf="session?.isAlumn"></app-test-index-alumn>
   <app-test-index-teacher *ngIf="!session?.isAlumn"></app-test-index-teacher>
 </div>

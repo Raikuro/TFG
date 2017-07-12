@@ -1,8 +1,8 @@
-<header style="height: 10%;">
+<header class="header-style">
   <app-header [active]=0></app-header>
 </header>
 
-<div class="card" style="padding-left: 150px; padding-right: 150px">
+<div class="card normal-padding">
   <div class="card-block">
     <h4 class="card-title"><strong>ACCIÓN: </strong>{{getMode()}}</h4>
   </div>
@@ -13,7 +13,7 @@
   <div class="card-block" style="display: flex; flex-direction: column">
     <span class="card-text">
       <strong>CONTENIDO: </strong>
-      <img style="max-width:100%; max-height:100%;" *ngIf="data?.section?.contentImage" [src]="'data:image/jpg;base64,'+data?.section?.contentImage" />
+      <img class="set-maximun-width-100 set-maximun-height-100" *ngIf="data?.section?.contentImage" [src]="'data:image/jpg;base64,'+data?.section?.contentImage" />
       <p style="white-space: pre-wrap;">{{data?.section?.contentText}}</p>
     </span>
     <span class="card-text"><strong>PALABRAS CLAVE: </strong></span>
@@ -24,18 +24,3 @@
     <button class="btn btn-danger" (click)="goBack()">Cancelar</button>
   </div>
 </div>
-<!--<p>
-  ACCION: {{getMode()}}
-</p>
-<p>
-  Titulo del tema: {{data?.lesson?.title}}
-</p>
-<p>
-  Titulo de la seccion: {{data?.section?.title}}
-</p>
-<p>
-  Contenido: {{data?.section?.content}}
-</p>
-<p>
-  Palabras relacionadas: {{data?.section?.keywords}}
-</p>-->

@@ -1,24 +1,24 @@
-<header style="height: 10%;">
+<header class="header-style">
   <app-header [active]=2></app-header>
 </header>
-<div class="container-fluid" style="padding-left: 150px; padding-right: 150px">
+<div class="container-fluid normal-padding">
   <div class="row justify-content-around">
-    <input class="form-control col-8" type="search" style="width: 100%;" [(ngModel)]="username">
+    <input class="form-control col-8 max-width" type="search" [(ngModel)]="username">
     <button class="btn btn-success col-3" [disabled]="!username" (click)="getStatistics()">Buscar datos</button>
   </div>
   <small class="form-text text-muted">Introduce el nombre de usuario del alumno</small>
   <div class="row justify-content-around" style="margin-top: 20px" *ngIf="thereIsData()">
-    <div class="card col-3" style="cursor: pointer" (click)="active=1" [ngClass]="{'active-div': active===1}">
+    <div class="card col-3 cursor-pointer" (click)="active=1" [ngClass]="{'active-div': active===1}">
       <div class="card-block" (click)="active=1" [ngClass]="{'active-div': active===1}">
         Conceptos visitados <span>{{records?.length}}</span>
       </div>
     </div>
-    <div class="card col-3" style="cursor: pointer" (click)="active=2" [ngClass]="{'active-div': active===2}">
+    <div class="card col-3 cursor-pointer" (click)="active=2" [ngClass]="{'active-div': active===2}">
       <div class="card-block" (click)="active=2" [ngClass]="{'active-div': active===2}">
         Dudas planteadas <span>{{questions?.length}}</span>
       </div>
     </div>
-    <div class="card col-3" style="cursor: pointer" (click)="active=3" [ngClass]="{'active-div': active===3}">
+    <div class="card col-3 cursor-pointer" (click)="active=3" [ngClass]="{'active-div': active===3}">
       <div class="card-block">
         Cuestionarios realizados <span>{{exams?.length}}</span>
       </div>
@@ -61,7 +61,7 @@
           <tbody>
             <tr [ngClass]="{'table-warning': question?.ignored, 'table-danger': question?.reported}" *ngFor="let question of questions; let i = index">
               <th scope="row">{{i+1}}</th>
-              <td><a class="active-a" style="cursor: pointer" (click)="goToQuestionDetail(question)">{{question?.title}}</a></td>
+              <td><a class="active-a cursor-pointer" (click)="goToQuestionDetail(question)">{{question?.title}}</a></td>
             </tr>
           </tbody>
         </table>

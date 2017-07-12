@@ -1,27 +1,14 @@
-<header style="height: 10%;">
+<header class="header-style">
   <app-header [active]=3></app-header>
 </header>
-<!--<p>
-  ACCION: {{getMode()}}
-</p>
-<p>
-  Enunciado: {{question.wording}}
-</p>
-<div>
-  Opciones:
-  <div *ngFor="let option of question.testOptions">
-    {{option.answer}}@@{{option.isCorrect}}
-  </div>
-</div>-->
-<div style="padding-left: 150px; padding-right: 150px">
+<div class="normal-padding">
   <div class="card">
     <div class="card-block">
       <h4 class="card-title"><strong>ACCIÓN: </strong>{{getMode()}}</h4>
     </div>
     <div class="card-block">
       <h5 *ngIf="question?.wordingText" class="card-text"><span style="color: gray">{{question.wordingText}}</span></h5>
-      <img style="max-width:100%; max-height:100%;" *ngIf="question?.wordingImage" [src]="'data:image/jpg;base64,'+question?.wordingImage" />
-      <!--<h6 class="card-text"><strong>TITULO DE LA SECCIÓN: </strong>{{data?.section?.title}}</h6>-->
+      <img class="set-maximun-width-100 set-maximun-height-100" *ngIf="question?.wordingImage" [src]="'data:image/jpg;base64,'+question?.wordingImage" />
     </div>
     <div class="card-block">
       <div *ngFor="let option of question?.testOptions">
@@ -31,21 +18,13 @@
               {{option.answer}}
             </div>
             <i class="fa fa-2x" aria-hidden="true" [ngClass]="{true: 'fa-check text-success', false: 'fa-times text-danger'}[option.isCorrect]"></i>
-            <!--<div class="col-2">
-              {{option.isCorrect}}
-            </div>-->
           </div>
         </div>
       </div>
     </div>
-    <!--<div class="card-block" style="display: flex; flex-direction: column">
-      <span class="card-text"><strong>CONTENIDO: </strong>{{data?.section?.content}}</span>
-      <span class="card-text"><strong>PALABRAS CLAVE: </strong>{{data?.section?.keywords}}</span>
-    </div>-->
     <div class="card-block">
       <button class="btn btn-success" (click)="sendData()">Confirmar</button>
       <button class="btn btn-danger" (click)="goBack()">Cancelar</button>
     </div>
   </div>
 </div>
-<!--<button (click)="sendData()">Confirmar</button>-->

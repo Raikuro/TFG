@@ -1,18 +1,18 @@
-<header style="height: 10%;">
+<header class="header-style">
   <app-header [active]=2></app-header>
 </header>
-<div class="card" style="padding-left: 150px; padding-right: 150px;">
+<div class="card normal-padding">
   <div class="card-block">
     <div class="card">
       <div class="card-block">
         <h4 class="card-title">{{question?.title}}</h4>
-        <img style="max-width:100%; max-height:100%;" *ngIf="question?.contentImage" [src]="'data:image/jpg;base64,'+question?.contentImage" />
+        <img class="set-maximun-width-100 set-maximun-height-100" *ngIf="question?.contentImage" [src]="'data:image/jpg;base64,'+question?.contentImage" />
         <h6 class="card-text" style="font-style: italic; color: grey">{{question?.contentText}}</h6>
       </div>
     </div>
   </div>
   <div class="card-block">
-    <img style="max-width:100%; max-height:100%;" *ngIf="question?.responseImage" [src]="'data:image/jpg;base64,'+question?.responseImage" />
+    <img class="set-maximun-width-100 set-maximun-height-100" *ngIf="question?.responseImage" [src]="'data:image/jpg;base64,'+question?.responseImage" />
     <p class="card-text" *ngIf="question?.responseText">{{question?.responseText}}</p>
   </div>
   <div class="card-block">

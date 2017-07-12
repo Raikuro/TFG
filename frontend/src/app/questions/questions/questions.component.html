@@ -1,31 +1,31 @@
-<header style="height: 10%;">
+<header class="header-style">
   <app-header [active]=1></app-header>
 </header>
-<div style="padding-left: 150px; padding-right: 150px">
+<div class="normal-padding">
 
   <div *ngFor="let alert of alerts">
     <ngb-alert [type]="alert.type" (close)="closeAlert(alert)">{{ alert.msg }} <button (click)="deleteQuestion(alert.questionTitle)" class="btn btn-success">Confirmar</button> </ngb-alert>
   </div>
 
   <span (click)="doSome()">Buscar por contenido:</span>
-  <input class="form-control" type="search" style="width: 100%;" [(ngModel)]="searchText">
+  <input class="form-control max-width" type="search" [(ngModel)]="searchText">
   
   <div style="margin-bottom:15px; margin-top: 15px">
     <ngb-accordion [closeOthers]="true">
       <ngb-panel *ngFor="let question of getQuestions()" id={{question.title}}>
         <ng-template ngbPanelTitle>
-        <div style="width: 100%; height: 100%" class="acordionSection">
+        <div style="height: 100%" class="acordionSection max-width">
           {{question.title}}
         </div>
         </ng-template>
         <ng-template ngbPanelContent>
           <div class="card">
             <div class="card-block">
-              <img style="max-width:100%; max-height:100%;" *ngIf="question?.contentImage" [src]="'data:image/jpg;base64,'+question?.contentImage" />
+              <img class="set-maximun-width-100 set-maximun-height-100" *ngIf="question?.contentImage" [src]="'data:image/jpg;base64,'+question?.contentImage" />
               <h6 class="card-text" *ngIf="question?.contentText" style="font-style: italic; color: grey">"{{question.contentText}}"</h6>
             </div>
           </div>
-          <img style="max-width:100%; max-height:100%;" *ngIf="question?.responseImage" [src]="'data:image/jpg;base64,'+question?.responseImage" />
+          <img class="set-maximun-width-100 set-maximun-height-100" *ngIf="question?.responseImage" [src]="'data:image/jpg;base64,'+question?.responseImage" />
           <p *ngIf="isResponded(question)" class="card-text" style="margin-top: 10px">{{question.responseText}}</p>
           <div *ngIf="!isResponded(question)" style="margin-top: 10px; display: flex; flex-direction: row; justify-content: space-between">
             <p class="card-text" style="margin-top: 10px; color: red">Esta duda aun no ha sido resuelta</p>
@@ -60,20 +60,20 @@
           </div>
           <div class="form-group">
             <label for="content">Contenido: </label>
-            <div class="row" style="max-width:100%; margin-right: 0px; margin-left: 0px">
-              <input #inputImageQ class="form-control col-9" style="max-height:100%;" type="file" id="filePicker" (change)="handleFileSelectQ($event)" accept="image/x-png,image/gif,image/jpeg">
+            <div class="row set-maximun-width-100" style="margin-right: 0px; margin-left: 0px">
+              <input #inputImageQ class="form-control col-9 set-maximun-height-100" type="file" id="filePicker" (change)="handleFileSelectQ($event)" accept="image/x-png,image/gif,image/jpeg">
               <button [disabled]="!newQuestion?.contentImage" (click)="removeImageQ()" class="btn btn-danger col-3">Quitar</button>
             </div>
-            <img style="max-width:100%; max-height:100%;" *ngIf="newQuestion?.contentImage" [src]="'data:image/jpg;base64,'+newQuestion?.contentImage" />
+            <img class="set-maximun-width-100 set-maximun-height-100" *ngIf="newQuestion?.contentImage" [src]="'data:image/jpg;base64,'+newQuestion?.contentImage" />
             <textarea type="text" name="content" class="form-control" [ngModel]="newQuestion?.contentText" (ngModelChange)="newQuestion ? newQuestion.contentText = $event : null"></textarea>
           </div>
           <div class="form-group" *ngIf="!session.isAlumn">
             <label for="response">Respuesta: </label>
-            <div class="row" style="max-width:100%; margin-right: 0px; margin-left: 0px">
-              <input #inputImageR class="form-control col-9" style="max-height:100%;" type="file" id="filePicker" (change)="handleFileSelectR($event)" accept="image/x-png,image/gif,image/jpeg">
+            <div class="row set-maximun-width-100" style="margin-right: 0px; margin-left: 0px">
+              <input #inputImageR class="form-control col-9 set-maximun-height-100" type="file" id="filePicker" (change)="handleFileSelectR($event)" accept="image/x-png,image/gif,image/jpeg">
               <button [disabled]="!newQuestion?.responseImage" (click)="removeImageR()" class="btn btn-danger col-3">Quitar</button>
             </div>
-            <img style="max-width:100%; max-height:100%;" *ngIf="newQuestion?.responseImage" [src]="'data:image/jpg;base64,'+newQuestion?.responseImage" />
+            <img class="set-maximun-width-100 set-maximun-height-100" *ngIf="newQuestion?.responseImage" [src]="'data:image/jpg;base64,'+newQuestion?.responseImage" />
             <textarea type="text" name="response" class="form-control" [ngModel]="newQuestion?.responseText" (ngModelChange)="newQuestion ? newQuestion.responseText = $event : null"></textarea>
           </div>
           <button class="btn btn-success" (click)="sendForm()" [disabled]="!isReadyToSend()">

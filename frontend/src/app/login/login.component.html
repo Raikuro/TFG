@@ -1,41 +1,15 @@
-<!--<form style="flex-direction: column; display: flex; justify-content: center; height: 94%">
-  <div style="margin: 30px; display: flex; justify-content: space-around;">
-    <div style="display: flex; flex-direction: column; width: 70%">
-      <div style="margin-top: 20px; margin: 10px; display: flex; flex-direction: column">
-        Usuario:
-        <input type="text" name="user" [(ngModel)]="username"> 
-      </div>
-      <div style="margin: 10px; margin-bottom: 20px; display: flex; flex-direction: column">
-        Contraseña:
-        <input type="password" [(ngModel)]="password" name="pass">
-      </div>
-      <div style="margin: 10px; margin-bottom:0px">
-        <button type="button" style="width: 100%" (click)="login()">Entrar</button>
-      </div>
-    </div>
-  </div>
-  <div style="display: flex; justify-content: center; margin: 30px">
-    <button type="button" (click)="doSome()">Entrar como anónimo</button>
-  </div>
-</form>-->
-
-<div style="display: flex; align-items: center; height: 90%">
-  <form style="padding-left: 150px; padding-right: 150px; display: flex; flex-direction: column; width: 100%; align-items: center; ">
+<div class="main-div">
+  <form class="div2 max-width">
     <img class="text-center" src="assets/images/escudo.png" width="200px">
-    <div class="form-group" style="width: 100%">
+    <div class="form-group max-width">
       <label for="user">Usuario: </label>
       <input type="text" class="form-control" name="user" [(ngModel)]="username">
       <small class="form-text text-muted">Solo hace falta ser un alumno o profesor de la escuela</small>
     </div>
-    <div class="form-group" style="width: 100%">
+    <div class="form-group max-width">
       <label for="pass">Password</label>
       <input type="password" class="form-control" name="pass" [(ngModel)]="password">
     </div>
-    <button type="button" class="btn btn-primary" style="width: 100%" (click)="login()">Entrar</button>
+    <button type="button" class="btn btn-primary max-width" (click)="login()">Entrar</button>
   </form>
 </div>
-
-
-<!--<footer style="padding: 5px; height: 10%; width:100%;">
-  <app-footer></app-footer>
-</footer>-->

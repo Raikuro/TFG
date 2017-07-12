@@ -4,3 +4,12 @@
   background-color: #0275d8;
   border-color: #0275d8;
 }
+
+.margin-number{
+  margin-left: 2px
+}
+
+.nav-style{
+  background-color: #e3f2fd; padding-left: 155px;
+  padding-right: 155px;
+}

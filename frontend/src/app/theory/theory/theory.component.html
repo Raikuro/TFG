@@ -1,10 +1,8 @@
-<header style="height: 10%;">
+<header class="header-style">
   <app-header [active]=0></app-header>
 </header>
-<div style="height: 80%; padding-right: 150px; padding-left: 150px; margin-bottom: 5px">
-  <div style="display: flex; justify-content: space-between; padding: 5px; height: 7.6%">
-    <!--<input class="form-control" type="search" style="width: 90%" [(ngModel)]="searchText">
-    <button class="btn" style="width: 9%; padding: 0" (click)="doSome()">Buscar</button>-->
+<div class="normal-padding" style="height: 80%; margin-bottom: 5px">
+  <div class="mini-padding" style="display: flex; justify-content: space-between; height: 7.6%">
     <p style="width: 20%; padding: 0" (click)="doSome()">Buscar por concepto: </p>
     <input class="form-control" type="search" [(ngModel)]="searchText">
   </div>
@@ -12,19 +10,10 @@
   <div style="height: 90%;">
     <app-index-theory [initSectionId]="initSectionId" [isAlumn] = "session?.isAlumn" *ngIf="!searchActive()" (onKeywordClick)="onKeywordClick($event)" (onLessonChange)="onLessonChange($event)" (onSectionClick)="onSectionClick($event)" (onError)="onError($event)"></app-index-theory>
     <app-search-theory [isAlumn] = "session?.isAlumn" [searchQuery] = "searchText" (onKeywordClick)="onKeywordClick($event)" (onSectionClick)="onSectionClick($event)" (onError)="onError($event)" *ngIf="searchActive()"></app-search-theory>
-    
-    <!--<div style="display: flex; margin-top: 10px; padding: 5px; flex-direction: column" *ngIf="session?.isAlumn">
-      <button class="btn btn-warning" style="width: 100%; padding: 5px" (click)="goToQuestions()" [disabled]="!section">Tengo dudas</button>
-    </div>-->
-
     <div style="display: flex; padding: 0px 5px 0px 5px; flex-direction: column" *ngIf="!session?.isAlumn">
-      <div style="width: 100%">
-        <button class="btn btn-success" style="width: 100%; padding: 5px" (click)="goToTheoryEditorAdd()">Añadir</button>
+      <div class="max-width">
+        <button class="btn btn-success max-width mini-padding" (click)="goToTheoryEditorAdd()">Añadir</button>
       </div>
     </div>
   </div>
 </div>
-
-<!--<footer style="padding: 5px; height: 10%; position: fixed; width:100%; bottom: 0;">
-  <app-footer></app-footer>
-</footer>-->

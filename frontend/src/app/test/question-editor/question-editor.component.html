@@ -1,8 +1,8 @@
-<header style="height: 10%;">
+<header class="header-style">
   <app-header [active]=3></app-header>
 </header>
 
-<div style="padding-right: 150px; padding-left: 150px;">
+<div class="normal-padding">
   <div class="form-group">
     <select class="form-control" name="lesson" [ngModel]="lesson" (ngModelChange)="lesson ? lesson = $event : null">
       <option [ngValue]="lesson" *ngFor="let lesson of lessons">
@@ -13,11 +13,11 @@
 
   <div class="form-group">
     <label for="wording">Enunciado</label>
-    <div class="row" style="max-width:100%; margin-right: 0px; margin-left: 0px">
-      <input #imageInput class="form-control col-9" style=" max-height:100%;" type="file" id="filePicker" (change)="handleFileSelect($event)" accept="image/x-png,image/gif,image/jpeg">
+    <div class="row set-maximun-width-100" style="margin-right: 0px; margin-left: 0px">
+      <input #imageInput class="form-control col-9 set-maximun-height-100" type="file" id="filePicker" (change)="handleFileSelect($event)" accept="image/x-png,image/gif,image/jpeg">
       <button [disabled]="!question?.wordingImage" (click)="removeImage()" class="btn btn-danger col-3">Quitar</button>
     </div>
-    <img style="max-width:100%; max-height:100%;" *ngIf="question?.wordingImage" [src]="'data:image/jpg;base64,'+question?.wordingImage" />
+    <img class="set-maximun-width-100 set-maximun-height-100" *ngIf="question?.wordingImage" [src]="'data:image/jpg;base64,'+question?.wordingImage" />
     <textarea class="form-control" name="wording" rows="3" [ngModel]="question?.wordingText" (ngModelChange)="question ? question.wordingText = $event : null"></textarea>
   </div>
 
@@ -28,56 +28,15 @@
         <span class="col-1 text-center">{{i+1}}</span>
         <input class="form-control col-7" [ngModel]="option?.answer" (ngModelChange)="option ? option.answer = $event : null">
         <div class="col-2 text-center" (click)="changeBool(option)">
-          <!--{{option.isCorrect}}-->
           <i class="fa fa-2x" aria-hidden="true" [ngClass]="{true: 'fa-check text-success', false: 'fa-times text-danger'}[option.isCorrect]"></i>
         </div>
         <button class="col-2 btn btn-danger" style="width: 15%" (click)="deleteOption(option)">Borrar</button>
       </div>
     </div>
-    <button class="btn btn-success" style="width: 100%; margin-top: 15px" (click)="addOption()" [disabled]="!allOptionsFilled()" id="addOptionButton">Añadir opcion</button>
+    <button class="btn btn-success max-width" style="margin-top: 15px" (click)="addOption()" [disabled]="!allOptionsFilled()" id="addOptionButton">Añadir opcion</button>
   </div>
   <div class="alert alert-warning" role="alert" *ngIf="!isReadyToSend()">
     Todos los campos deben ser rellenados. No puede haber opciones vacías o repetidas. Es necesario que haya al menos una verdadera y una falsa.
   </div>
-  <button class="btn btn-warning" style="width: 100%;" (click)="goToConfirmation()" [disabled]="!isReadyToSend()">EDITAR</button>
+  <button class="btn btn-warning max-width" (click)="goToConfirmation()" [disabled]="!isReadyToSend()">EDITAR</button>
 </div>
-
-<!--<div style="height: 80%; padding-right: 15px; padding-left: 15px; margin-bottom: 5px">
-  
-  <div style="display: flex; margin-top: 10px; margin-bottom: 10px; padding: 5px">
-    <select style="padding :5px; width: 100%" [ngModel]="lesson" (ngModelChange)="lesson ? lesson = $event : null">
-      <option [ngValue]="lesson" *ngFor="let lesson of lessons">
-        {{lesson.title}}
-        </option>
-    </select>
-  </div>
-  
-  <div style="display: flex; justify-content: space-between; margin-bottom: 10px; padding: 5px">
-    <div style="width: 9%" (click)="doSome()">Enunciado:</div>
-    <textarea type="search" style="width: 90%" [ngModel]="question?.wording" (ngModelChange)="question ? question.wording = $event : null"></textarea>
-  </div>
-  
-
-  <div style="height: 80%; display: flex; justify-content: space-around; flex-direction: column; padding: 10px">
-    <div style="display: flex; flex-direction: column; justify-content: space-around; margin-bottom: 10px; padding: 5px; height: 75%">
-    
-    <div>Opciones:</div>
-    <div *ngFor="let option of question?.testOptions">
-      <input [ngModel]="option?.answer" (ngModelChange)="option ? option.answer = $event : null">
-      <div (click)="changeBool(option)">{{option.isCorrect}}</div>
-      <div (click)="deleteOption(option)">X</div>
-    </div>
-    <button (click)="addOption()" *ngIf="allOptionsFilled()">Añadir opcion</button>
-  
-    <div style="display: flex; margin-top: 10px; padding: 5px; flex-direction: column">
-      <div style="width: 100%">
-        <button style="width: 100%; padding: 5px" (click)="goToConfirmation()" [disabled]="!isReadyToSend()">{{getAction()}}</button>
-      </div>
-    </div>
-    
-  </div>
-</div>-->
-
-<!--<footer style="padding: 5px; height: 5%">
-  <app-footer></app-footer>
-</footer>-->

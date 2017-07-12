@@ -1,7 +1,7 @@
-<header style="height: 10%;">
+<header class="header-style">
   <app-header [active]=3></app-header>
 </header>
-<div style="padding-left: 150px; padding-right: 150px; ">
+<div class="normal-padding">
   <div *ngIf="!thereIsTest()">
     <ngb-alert [dismissible]="false">
       <strong>No se han encontrado tests.</strong> No hay tests para el concepto escogido.
@@ -14,7 +14,7 @@
         <button *ngFor="let question of test; let i = index" class="col-4 btn" [ngClass]="{ 'btn-secondary': !isQuestionAnswered(question), 'btn-primary': isQuestionAnswered(question)}" (click)="goToQuestion(i)">
           {{i+1}}
         </button>
-        <button class="btn btn-success" style="width:100%; margin-top: 10px" (click)="goToConfirmationExam()">Enviar</button>
+        <button class="btn btn-success max-width" style="margin-top: 10px" (click)="goToConfirmationExam()">Enviar</button>
       </div>
       <div class="offset-4 col-9">
         <div *ngFor="let question of test; let i = index" class="card" style="margin-bottom: 15px; padding: 10px">
@@ -22,7 +22,7 @@
           {{i+1}} - {{question.wordingText}}
           </div>
           <div *ngIf="question?.wordingImage" class="card-group" id="q{{i}}">
-          {{i+1}} - <img style="max-width:100%; max-height:100%;" *ngIf="question?.wordingImage" [src]="'data:image/jpg;base64,'+question?.wordingImage" />
+          {{i+1}} - <img class="set-maximun-width-100 set-maximun-height-100" *ngIf="question?.wordingImage" [src]="'data:image/jpg;base64,'+question?.wordingImage" />
           </div>
           <ul class="list-group card-group">
             <li class="list-group-item" *ngFor="let option of question.testOptions" (click)="option.isCorrect = !option.isCorrect" [ngClass]="{ 'active': option.isCorrect}" ngDefaultControl>
