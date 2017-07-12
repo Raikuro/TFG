@@ -5,8 +5,8 @@ satisfacer los requisitos del proyecto.
 La finalidad de esta sección es conocer los puntos básicos de los que consta el proyecto,
 proporcionar los fundamentos en los que se basa y transmitir los aspectos básicos tal y como han
 sido entendidos y formulados.
-A continuación se describirá la visión general del proyecto, que proporciona una descripción del propósito, alcance y objetivos; la gestión del proceso que explica el coste estimado y la
-planificación las fases principales e hitos del proyecto.
+A continuación se describirá la visión general del proyecto donde se detalla su propósito, alcance y objetivos y la gestión del proceso donde se explica el coste estimado y la
+planificación de las fases principales e hitos del proyecto.
 
 ## Vision general
 
@@ -15,7 +15,7 @@ planificación las fases principales e hitos del proyecto.
 El objetivo del presente proyecto es desarrollar un prototipo de aplicación que sirva de
 apoyo para la asignatura de Matemática Discreta. La aplicación será un complemento educativo que permitirá al alumno repasar los conceptos teóricos más importantes, evaluar sus conocimientos mediante unos cuestionarios de tipo test y realizar consultas al profesor. Por parte del profesor permitirá introducir contenidos teóricos, resolver dudas, plantear preguntas para formar los cuestionarios y monitorizar el desempeño de los alumnos en la misma.
 
-Toda esta información aparecerá de manera detallada en el apartado Análisis de Requisitos
+Toda esta información aparecerá de manera detallada en el apartado Análisis de Requisitos del siguiente capítulo
 
 ### Metodología utilizada
 
@@ -210,7 +210,7 @@ La lista de riesgos expuesta a continuación tiene las siguientes característic
 
 Teniendo en cuenta que un analista programador cobra 10 euros por hora y la aplicación se ha planificado para 492 horas, se fija el coste de la mano de obra en 4920 euros.
 
-Teniendo en cuenta que el coste de mi ordenador fue de 500 euros, los ordenadores portátiles tienen un período medio de vida útil de 4 años y el proyecto dura 4 meses, se fija el coste de hardware en 41.66 euros
+Teniendo en cuenta que el coste de mi ordenador fue de 500 euros, los ordenadores portátiles tienen un período medio de vida útil de 4 años y el proyecto dura 4 meses, se fija el coste de hardware en 41,66 euros
 
 **Presupuesto total:** 4961,66 euros
     

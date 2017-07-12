@@ -3,7 +3,7 @@ fecha: 22 de junio de 2017
 autor: Julio Gracia Gutiérrez
 tutor: María Felisa Pérez Martínez
 titulo: > 
-    Desarrollo de software educativo de apoyo a la docencia en la teoría de conjuntos. 
+    Desarrollo de software educativo de apoyo a la docencia en la Teoría de Conjuntos. 
 mencion: INGENIERÍA DE SOFTWARE
 dedicatoria: |
     A los amigos, que siempre están ahí cuando los necesito.
@@ -12,19 +12,19 @@ agradecimientos: |
 
     En primer lugar, querría dar las gracias a la Escuela y a sus profesores, por guiarme de la mejor forma que han podido a lo largo de los años que he estado aquí. También dar las gracias a mi tutora Marisa por ser un apoyo constante a lo largo del TFG.
 
-    Después, me gustaria dar las gracias a los miembros del GUI por ser amigos y constantes mentores, ayudandome y enseñandome cuando ha sido necesario.
+    Después, me gustaría dar las gracias a los miembros del GUI por ser amigos y constantes mentores, ayudándome y enseñándome cuando ha sido necesario.
 
     Por último, agradecer a Andrés, Guille, Jose, Isma, Lobo, Victor y Provecho por estar siempre ahí y conseguir que estos años sean inolvidables. No dudo de que si a día de hoy estoy escribiendo estas palabras se debe a su apoyo, comprensión y ayuda.
 resumen: |
-    En este Trabajo Fin de Grado se va a desarrollar un software de ayuda para la asignatura “Matemática Discreta” del Grado en Ingeniería Informática de la Escuela de Ingeniería Informática de Valladolid.
+    En este Trabajo Fin de Grado se va a desarrollar un software de ayuda para la docencia de la asignatura “Matemática Discreta” del Grado en Ingeniería Informática de la Escuela de Ingeniería Informática de la Universidad de Valladolid.
     
-    El objetivo del presente trabajo es desarrollar un prototipo funcional de una aplicación web orientada a mejorar el aprendizaje y el afianzamiento de los contenidos relativos a la Teoría de conjuntos impartidos en dicha asignatura.
+    El objetivo del presente trabajo es desarrollar un prototipo funcional de una aplicación web orientada a mejorar el aprendizaje y afianzar el conocimiento de los contenidos relativos a la Teoría de Conjuntos impartidos en dicha asignatura.
     
     En este contexto será necesario plantear la arquitectura de la aplicación que se va a implementar. La solución escogida consiste en utilizar Angular programado en TypeScript para el front-end, Node.js programado en JavaScript y una base de datos relacional MariaDB para el back-end. Angular es una plataforma de desarrollo para aplicaciones web de TypeScript de código abierto. Node.js es un entorno en tiempo de ejecución multiplataforma asíncrono, de código abierto, para la capa del servidor. MariaDB es un sistema de gestión de bases de datos derivado de MySQL.
 
 
 abstract: |
-    In the present thesis, a help software will be developed for the subject “Discrete Mathematics” in the Degree of Computer Science of the School of Computer Science of Valladolid.
+    In the present thesis, a help software will be developed for the subject “Discrete Mathematics” in the Degree of Computer Science of the School of Computer Science of the University of Valladolid.
     
     The aim of this project is to develop a functional prototype of an online application, oriented to the improvement in both, the processes of learning and of reinforcement of the contents related to the set theory given in the subject mentioned above.
     

@@ -10,11 +10,11 @@
   <span (click)="doSome()">Buscar por contenido:</span>
   <input class="form-control max-width" type="search" [(ngModel)]="searchText">
   
-  <div style="margin-bottom:15px; margin-top: 15px">
+  <div class="marginBottom15 marginTop15">
     <ngb-accordion [closeOthers]="true">
       <ngb-panel *ngFor="let question of getQuestions()" id={{question.title}}>
         <ng-template ngbPanelTitle>
-        <div style="height: 100%" class="acordionSection max-width">
+        <div class="acordionSection max-width max-height">
           {{question.title}}
         </div>
         </ng-template>
@@ -22,13 +22,13 @@
           <div class="card">
             <div class="card-block">
               <img class="set-maximun-width-100 set-maximun-height-100" *ngIf="question?.contentImage" [src]="'data:image/jpg;base64,'+question?.contentImage" />
-              <h6 class="card-text" *ngIf="question?.contentText" style="font-style: italic; color: grey">"{{question.contentText}}"</h6>
+              <h6 class="card-text grey-italic" *ngIf="question?.contentText">"{{question.contentText}}"</h6>
             </div>
           </div>
           <img class="set-maximun-width-100 set-maximun-height-100" *ngIf="question?.responseImage" [src]="'data:image/jpg;base64,'+question?.responseImage" />
-          <p *ngIf="isResponded(question)" class="card-text" style="margin-top: 10px">{{question.responseText}}</p>
-          <div *ngIf="!isResponded(question)" style="margin-top: 10px; display: flex; flex-direction: row; justify-content: space-between">
-            <p class="card-text" style="margin-top: 10px; color: red">Esta duda aun no ha sido resuelta</p>
+          <p *ngIf="isResponded(question)" class="card-text marginTop10">{{question.responseText}}</p>
+          <div *ngIf="!isResponded(question)" class="marginTop10 displayFlex flexRow justifyBetween">
+            <p class="card-text marginTop10 thisColorIsRed">Esta duda aun no ha sido resuelta</p>
             <button class="btn btn-warning" *ngIf="!session.isAlumn" (click)="goToQuestions()">
               Resolver
             </button>
@@ -60,7 +60,7 @@
           </div>
           <div class="form-group">
             <label for="content">Contenido: </label>
-            <div class="row set-maximun-width-100" style="margin-right: 0px; margin-left: 0px">
+            <div class="row set-maximun-width-100 noMarginRight noMarginLeft">
               <input #inputImageQ class="form-control col-9 set-maximun-height-100" type="file" id="filePicker" (change)="handleFileSelectQ($event)" accept="image/x-png,image/gif,image/jpeg">
               <button [disabled]="!newQuestion?.contentImage" (click)="removeImageQ()" class="btn btn-danger col-3">Quitar</button>
             </div>
@@ -69,7 +69,7 @@
           </div>
           <div class="form-group" *ngIf="!session.isAlumn">
             <label for="response">Respuesta: </label>
-            <div class="row set-maximun-width-100" style="margin-right: 0px; margin-left: 0px">
+            <div class="row set-maximun-width-100 noMarginRight noMarginLeft">
               <input #inputImageR class="form-control col-9 set-maximun-height-100" type="file" id="filePicker" (change)="handleFileSelectR($event)" accept="image/x-png,image/gif,image/jpeg">
               <button [disabled]="!newQuestion?.responseImage" (click)="removeImageR()" class="btn btn-danger col-3">Quitar</button>
             </div>

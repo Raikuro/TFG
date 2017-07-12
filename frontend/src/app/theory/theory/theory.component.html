@@ -1,16 +1,16 @@
 <header class="header-style">
   <app-header [active]=0></app-header>
 </header>
-<div class="normal-padding" style="height: 80%; margin-bottom: 5px">
-  <div class="mini-padding" style="display: flex; justify-content: space-between; height: 7.6%">
-    <p style="width: 20%; padding: 0" (click)="doSome()">Buscar por concepto: </p>
+<div class="normal-padding heightOfContent marginBottom5">
+  <div class="mini-padding height7-6 displayFlex justifyBetween">
+    <p class="noPadding width20" (click)="doSome()">Buscar por concepto: </p>
     <input class="form-control" type="search" [(ngModel)]="searchText">
   </div>
 
-  <div style="height: 90%;">
+  <div class="height90">
     <app-index-theory [initSectionId]="initSectionId" [isAlumn] = "session?.isAlumn" *ngIf="!searchActive()" (onKeywordClick)="onKeywordClick($event)" (onLessonChange)="onLessonChange($event)" (onSectionClick)="onSectionClick($event)" (onError)="onError($event)"></app-index-theory>
     <app-search-theory [isAlumn] = "session?.isAlumn" [searchQuery] = "searchText" (onKeywordClick)="onKeywordClick($event)" (onSectionClick)="onSectionClick($event)" (onError)="onError($event)" *ngIf="searchActive()"></app-search-theory>
-    <div style="display: flex; padding: 0px 5px 0px 5px; flex-direction: column" *ngIf="!session?.isAlumn">
+    <div class="displayFlex flexColumn weirdPadding" *ngIf="!session?.isAlumn">
       <div class="max-width">
         <button class="btn btn-success max-width mini-padding" (click)="goToTheoryEditorAdd()">Añadir</button>
       </div>

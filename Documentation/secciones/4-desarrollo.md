@@ -88,7 +88,7 @@
 
 \newpage
 
-#### Descripcion de los casos de uso
+#### Descripción de los casos de uso
 
 \vspace*{\fill}
 \begin{table}[H]
@@ -155,7 +155,7 @@
     \begin{center}
         \includegraphics[width=\textwidth]{img/astah/analisis/casos_de_uso/useCase07.png}
     \end{center}
-    \caption{Descripción del caso de uso Ver estadisticas}
+    \caption{Descripción del caso de uso Ver estadísticas}
 \end{table}
 \vspace*{\fill}
 
@@ -294,7 +294,7 @@
 \vspace*{\fill}
 \begin{figure}[H]
     \begin{center}
-        \includegraphics[width=\textwidth]{img/astah/disenio/descomposicion/front/descomposicion.png}
+        \includegraphics[width=\textwidth, angle=-90]{img/astah/disenio/descomposicion/front/descomposicion.png}
     \end{center}
     \caption{Diagrama de descomposición modular frontend}
 \end{figure}
@@ -304,9 +304,29 @@
 \vspace*{\fill}
 \begin{figure}[H]
     \begin{center}
-        \includegraphics[width=\textwidth]{img/astah/disenio/descomposicion/front/core.png}
+        \includegraphics[width=\textwidth, angle=-90]{img/astah/disenio/descomposicion/front/core.png}
     \end{center}
     \caption{Diagrama de descomposición modular frontend-core}
+\end{figure}
+\vspace*{\fill}
+\newpage
+
+\vspace*{\fill}
+\begin{figure}[H]
+    \begin{center}
+        \includegraphics[width=\textwidth, angle=-90]{img/astah/disenio/descomposicion/front/ejemploComponente.png}
+    \end{center}
+    \caption{Diagrama de ejemplo de un componente}
+\end{figure}
+\vspace*{\fill}
+\newpage
+
+\vspace*{\fill}
+\begin{figure}[H]
+    \begin{center}
+        \includegraphics[width=\textwidth, angle=-90]{img/astah/disenio/descomposicion/front/ejemploServicio.png}
+    \end{center}
+    \caption{Diagrama de ejemplo de un servicio}
 \end{figure}
 \vspace*{\fill}
 \newpage
@@ -324,7 +344,7 @@
 \vspace*{\fill}
 \begin{figure}[H]
     \begin{center}
-        \includegraphics[width=\textwidth]{img/astah/disenio/descomposicion/front/theory.png}
+        \includegraphics[width=\textwidth, angle=-90]{img/astah/disenio/descomposicion/front/theory.png}
     \end{center}
     \caption{Diagrama de descomposición modular frontend-theory}
 \end{figure}
@@ -334,7 +354,7 @@
 \vspace*{\fill}
 \begin{figure}[H]
     \begin{center}
-        \includegraphics[width=\textwidth]{img/astah/disenio/descomposicion/front/questions.png}
+        \includegraphics[width=\textwidth, angle=-90]{img/astah/disenio/descomposicion/front/questions.png}
     \end{center}
     \caption{Diagrama de descomposición modular frontend-questions}
 \end{figure}
@@ -344,7 +364,7 @@
 \vspace*{\fill}
 \begin{figure}[H]
     \begin{center}
-        \includegraphics[width=\textwidth]{img/astah/disenio/descomposicion/front/test.png}
+        \includegraphics[width=\textwidth, angle=-90]{img/astah/disenio/descomposicion/front/test.png}
     \end{center}
     \caption{Diagrama de descomposición modular frontend-test}
 \end{figure}
@@ -354,7 +374,7 @@
 \vspace*{\fill}
 \begin{figure}[H]
     \begin{center}
-        \includegraphics[width=\textwidth]{img/astah/disenio/descomposicion/front/statistics.png}
+        \includegraphics[width=\textwidth, angle=-90]{img/astah/disenio/descomposicion/front/statistics.png}
     \end{center}
     \caption{Diagrama de descomposición modular frontend-statistics}
 \end{figure}
@@ -384,7 +404,7 @@
 \vspace*{\fill}
 \begin{figure}[H]
     \begin{center}
-        \includegraphics[width=\textwidth]{img/astah/disenio/descomposicion/back/model.png}
+        \includegraphics[width=\textwidth, angle=-90]{img/astah/disenio/descomposicion/back/model.png}
     \end{center}
     \caption{Diagrama de descomposición modular backend-model}
 \end{figure}
@@ -392,6 +412,16 @@
 \newpage
 
 ### Diagrama de clases
+
+\vspace*{\fill}
+\begin{figure}[H]
+    \begin{center}
+        \includegraphics[width=\textwidth, angle=-90]{img/astah/disenio/clases/clasesNavegable.png}
+    \end{center}
+    \caption{Diagrama de clases}
+\end{figure}
+\vspace*{\fill}
+\newpage
 
 \vspace*{\fill}
 \begin{figure}[H]

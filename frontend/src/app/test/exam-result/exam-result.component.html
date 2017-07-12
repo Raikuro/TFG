@@ -3,15 +3,15 @@
 </header>
 <div class="normal-padding">
   <div class="row">
-    <div class="col-3" style="position: fixed">
+    <div class="col-3 positionFixed">
       <div class="col-12">Tu nota: {{mark}}</div>
       <button *ngFor="let question of exam?.examQuestions; let i = index" class="col-4 btn" [ngClass]="{ 'btn-success': checkAccuracy(question) === GOOD, 'btn-warning': checkAccuracy(question) === ALMOSTGOOD, 'btn-danger': checkAccuracy(question) === WRONG, 'btn-secondary': checkAccuracy(question) === UNRESPONDED}" (click)="goToQuestion(i)">
         {{i+1}}
       </button>
-      <button class="btn btn-danger max-width" style="margin-top: 10px" (click)="goToIndex()">Salir</button>
+      <button class="btn btn-danger max-width marginTop10" (click)="goToIndex()">Salir</button>
     </div>
     <div class="offset-4 col-9">
-      <div *ngFor="let examQuestion of exam?.examQuestions; let i = index" class="card" style="margin-bottom: 15px; padding: 10px;" [ngClass]="{ 'full-right': checkAccuracy(examQuestion) === GOOD, 'partial-right': checkAccuracy(examQuestion) === ALMOSTGOOD, 'wrong': checkAccuracy(examQuestion) === WRONG}">
+      <div *ngFor="let examQuestion of exam?.examQuestions; let i = index" class="card marginBottom15 generalPadding10" [ngClass]="{ 'full-right': checkAccuracy(examQuestion) === GOOD, 'partial-right': checkAccuracy(examQuestion) === ALMOSTGOOD, 'wrong': checkAccuracy(examQuestion) === WRONG}">
          <div *ngIf="examQuestion?.question?.wordingText" class="card-group" id="q{{i}}">
          {{i+1}} - {{examQuestion?.question?.wordingText}}
         </div>

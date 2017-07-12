@@ -7,7 +7,7 @@
       <h4 class="card-title"><strong>ACCIÓN: </strong>{{getMode()}}</h4>
     </div>
     <div class="card-block">
-      <h5 *ngIf="question?.wordingText" class="card-text"><span style="color: gray">{{question.wordingText}}</span></h5>
+      <h5 *ngIf="question?.wordingText" class="card-text"><span class="grey-italic">{{question.wordingText}}</span></h5>
       <img class="set-maximun-width-100 set-maximun-height-100" *ngIf="question?.wordingImage" [src]="'data:image/jpg;base64,'+question?.wordingImage" />
     </div>
     <div class="card-block">

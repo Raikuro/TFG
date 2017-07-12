@@ -1,9 +1,9 @@
 <header class="header-style">
   <app-header [active]=1></app-header>
 </header>
-<div class="normal-padding" style="margin-bottom: 5px">
+<div class="normal-padding marginBottom5">
 
-  <div class="card" style="padding: 10px">
+  <div class="card generalPadding10">
     <div class="card-block">
       <h4 class="card-title">{{question?.title}}</h4>
       <p *ngIf="question?.contentText" class="card-text">{{question?.contentText}}</p>
@@ -11,18 +11,18 @@
     </div>
   </div>
 
-  <div style="height: 80%; display: flex; justify-content: space-around; flex-direction: column; padding: 10px">
-    <div class="mini-padding" style="display: flex; flex-direction: column; justify-content: space-around; margin-bottom: 10px; height: 75%">
+  <div class="heightOfContent generalPadding10 displayFlex flexColumn justifyAround">
+    <div class="mini-padding height75 marginBottom10 displayFlex flexColumn justifyAround">
     <div>Respuesta:</div>
-    <div class="row set-maximun-width-100" style="margin-right: 0px; margin-left: 0px">
+    <div class="row set-maximun-width-100 noMarginRight noMarginLeft">
       <input #imageInput class="form-control col-9 set-maximun-height-100" type="file" id="filePicker" (change)="handleFileSelect($event)" accept="image/x-png,image/gif,image/jpeg">
       <button (click)="removeImage()" [disabled]="!question?.responseImage" class="btn btn-danger col-3">Quitar</button>
     </div>
     <img class="set-maximun-width-100 set-maximun-height-100" *ngIf="question?.responseImage" [src]="'data:image/jpg;base64,'+question.responseImage" />
-    <textarea class="max-width"type="search" style="height: inherit" [ngModel]="question?.responseText" (ngModelChange)="question ? question.responseText = $event : null"></textarea>
+    <textarea class="max-width inherit-height" type="search" [ngModel]="question?.responseText" (ngModelChange)="question ? question.responseText = $event : null"></textarea>
   </div>
     
-  <div class="mini-padding" style="display: flex; flex-direction: column">
+  <div class="mini-padding displayFlex flexColumn">
     <div class="max-width">
       <button class="btn btn-success max-width mini-padding" (click)="goToQuestionConfirmation()" [disabled]="!isReadyToSend()">Enviar</button>
     </div>

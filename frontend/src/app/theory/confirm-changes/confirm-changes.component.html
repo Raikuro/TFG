@@ -10,14 +10,14 @@
     <h5 class="card-text"><strong>TITULO DEL TEMA: </strong>{{data?.lesson?.title}}</h5>
     <h6 class="card-text"><strong>TITULO DE LA SECCIÓN: </strong>{{data?.section?.title}}</h6>
   </div>
-  <div class="card-block" style="display: flex; flex-direction: column">
+  <div class="card-block displayFlex flexColumn">
     <span class="card-text">
       <strong>CONTENIDO: </strong>
       <img class="set-maximun-width-100 set-maximun-height-100" *ngIf="data?.section?.contentImage" [src]="'data:image/jpg;base64,'+data?.section?.contentImage" />
-      <p style="white-space: pre-wrap;">{{data?.section?.contentText}}</p>
+      <p class="preWrapWhiteSpace">{{data?.section?.contentText}}</p>
     </span>
     <span class="card-text"><strong>PALABRAS CLAVE: </strong></span>
-    <span style="word-wrap: break-word;">{{getKeywordsString()}}</span>
+    <span class="word-wrapped">{{getKeywordsString()}}</span>
   </div>
   <div class="card-block">
     <button class="btn btn-success" (click)="sendData()">Confirmar</button>

@@ -7,7 +7,7 @@
     <button class="btn btn-success col-3" [disabled]="!username" (click)="getStatistics()">Buscar datos</button>
   </div>
   <small class="form-text text-muted">Introduce el nombre de usuario del alumno</small>
-  <div class="row justify-content-around" style="margin-top: 20px" *ngIf="thereIsData()">
+  <div class="row justify-content-around marginTop20" *ngIf="thereIsData()">
     <div class="card col-3 cursor-pointer" (click)="active=1" [ngClass]="{'active-div': active===1}">
       <div class="card-block" (click)="active=1" [ngClass]="{'active-div': active===1}">
         Conceptos visitados <span>{{records?.length}}</span>
@@ -25,7 +25,7 @@
     </div>
   </div>
 
-  <div class="row" *ngIf="active===1" style="margin-top: 20px">
+  <div class="row marginTop20" *ngIf="active===1">
     <div class="card col-12">
       <div class="card-block">
         <table class="table table-striped">
@@ -48,7 +48,7 @@
     </div>
   </div>
 
-  <div *ngIf="active===2" class="row" style="margin-top: 20px">
+  <div *ngIf="active===2" class="row marginTop20">
     <div class="card col-12">
       <div class="card-block">
         <table class="table">
@@ -69,7 +69,7 @@
     </div>
   </div>
 
-  <div class="row" *ngIf="active===3" style="margin-top: 20px">
+  <div class="row marginTop20" *ngIf="active===3">
     <div class="card col-12">
       <div class="card-block">
         <table class="table">

@@ -5,14 +5,14 @@
   </option>
 </select>
 
-<button (click)="showQuestions()" class="btn btn-success col-off-1 col-2" style="width: 20%">Revisar</button>
+<button (click)="showQuestions()" class="btn btn-success col-off-1 col-2 width20">Revisar</button>
 </div>
 
-<div *ngIf="shownQuestions" style="margin-top: 10px">
+<div *ngIf="shownQuestions" class="marginTop10">
   <ngb-accordion [closeOthers]="true">
     <ngb-panel *ngFor="let question of shownQuestions" id={{question.id}}>
       <ng-template ngbPanelTitle>
-      <div style="height: 100%" class="acordionSection max-width">
+      <div class="acordionSection max-width max-height">
         <span (click)="doSome(question)" *ngIf="question?.wordingText">{{question.wordingText}}</span>
         <img class="set-maximun-width-100 set-maximun-height-100" *ngIf="question?.wordingImage" [src]="'data:image/jpg;base64,'+question?.wordingImage" />
       </div>
@@ -30,7 +30,7 @@
             </div>
           </div>
         </div>
-        <div class="row justify-content-around" style="margin-top:10px">
+        <div class="row justify-content-around marginTop10">
           <button class="col-3 btn btn-warning" *ngIf="!session.isAlumn" (click)="editQuestion(question)">
             Editar
           </button>
@@ -42,7 +42,7 @@
     </ngb-panel>
   </ngb-accordion>
 
-  <div style="margin-top: 10px">
+  <div class="marginTop10">
     <ngb-pagination [collectionSize]="lesson?.questions?.length" pageSize="{{PAGESIZE}}" [(page)]="page" aria-label="Default pagination" (pageChange)="changeShownQuestions($event)"></ngb-pagination>
   </div>
   <button class="btn btn-success" (click)="addQuestion()">Añadir</button>

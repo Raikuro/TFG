@@ -3,7 +3,7 @@
 </header>
 <form class="normal-padding">
   <div class="form-group">
-    <select name="lesson" style="padding :5px;" class="form-control max-width" [ngModel]="lesson" (ngModelChange)="lesson ? lesson = $event : null">
+    <select name="lesson" class="form-control max-width mini-padding" [ngModel]="lesson" (ngModelChange)="lesson ? lesson = $event : null">
       <option [ngValue]="lesson" *ngFor="let lesson of lessons">
         {{lesson.title}}
         </option>
@@ -16,17 +16,17 @@
 
   <div class="form-group">
     <label for="content">Contenido: </label>
-    <div class="row set-maximun-width-100" style="margin-right: 0px; margin-left: 0px">
+    <div class="row set-maximun-width-100 noMarginRight noMarginLeft">
       <input #imageInput class="form-control col-9 set-maximun-height-100" type="file" id="filePicker" (change)="handleFileSelect($event)" accept="image/x-png,image/gif,image/jpeg">
       <button [disabled]="!section?.contentImage" (click)="removeImage()" class="btn btn-danger col-3">Quitar</button>
     </div>
     <img class="set-maximun-width-100 set-maximun-height-100" *ngIf="section?.contentImage" [src]="'data:image/jpg;base64,'+section?.contentImage" />
-    <textarea type="search" class="form-control max-width" rows="7" style="margin-top: 20px; resize: none" name="content" [ngModel]="section?.contentText" (ngModelChange)="section ? section.contentText = $event : null"></textarea>
+    <textarea type="search" class="form-control max-width noResize marginTop20" rows="7" name="content" [ngModel]="section?.contentText" (ngModelChange)="section ? section.contentText = $event : null"></textarea>
   </div>
 
   <div class="form-group">
     <label for="related">Palabras relacionadas: </label>
-    <textarea type="search" class="form-control max-width" rows="2" name="related" style="resize: none" [ngModel]="words" (ngModelChange)="changeKeywords($event)"></textarea>
+    <textarea type="search" class="form-control max-width noResize" rows="2" name="related" [ngModel]="words" (ngModelChange)="changeKeywords($event)"></textarea>
   </div>
 
   <button *ngIf="mode === 0" (click)="goToConfirmation()" class="btn btn-success max-width mini-padding" [disabled]="!isReadyToSend()">Añadir</button>

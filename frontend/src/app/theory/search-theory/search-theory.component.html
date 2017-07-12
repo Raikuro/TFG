@@ -1,22 +1,22 @@
-<div class="mini-padding" style="display: flex; margin-top: 10px; margin-bottom: 10px;">
-  <select class="form-control cursor-pointer max-width" style="padding :5px;"[ngModel]="lesson" (ngModelChange)=onLessonSelectorChange($event)>
+<div class="mini-padding marginTop10 marginBottom10 displayFlex">
+  <select class="form-control cursor-pointer max-width mini-padding" [ngModel]="lesson" (ngModelChange)=onLessonSelectorChange($event)>
     <option [ngValue]="lesson" *ngFor="let lesson of lessons">
       {{lesson.title}}
     </option>
   </select>
 </div>
 
-<div style="height: 80%; display: flex; flex-direction: column">
-  <div class="mini-padding" style="display: flex; justify-content: space-between; margin-bottom: 10px; height: 100%">
-    <div style="width: 22%; border: 2px solid #d9d9db; border-radius: 5px; overflow: auto">
+<div clas="heightOfContent displayFlex flexColumn">
+  <div class="mini-padding max-height marginBottom10 displayFlex justifyBetween">
+    <div class="standar-border width22">
       <div class="mini-padding" *ngFor="let section of sections" (click)="selectSection(section)" [ngClass]="{'active-div': imSelected(section)}">
         {{section.title}}
       </div>
     </div>
-    <div style="display: flex; flex-direction: column; width: 77%">
-      <div class="mini-padding" style="height: 100%; border: 2px solid #d9d9db; border-radius: 5px; overflow: auto">
+    <div class="width77 displayFlex flexColumn">
+      <div class="mini-padding max-height standar-border">
         <img class="set-maximun-width-100 set-maximun-height-100" *ngIf="section?.contentImage" [src]="'data:image/png;base64,'+section?.contentImage" />
-        <div style="white-space: pre-wrap;">{{section?.contentText}}</div>
+        <div class="preWrapWhiteSpace">{{section?.contentText}}</div>
         <hr>
         <div *ngFor='let keyword of section?.keywords' (click)="onKeywordClick.emit(keyword?.word)" >
           <div class="btn-link">
@@ -24,10 +24,10 @@
           </div>
         </div>
       </div>
-      <div *ngIf="isAlumn" style="padding-top: 5px">
+      <div *ngIf="isAlumn" class="paddingTop5">
         <button class="btn btn-warning max-width mini-padding" [disabled]="!section" (click)="goToQuestions()">Ver dudas</button>
       </div>
-      <div *ngIf="!isAlumn" style="padding-top: 5px; display: flex; flex-direction: row">
+      <div *ngIf="!isAlumn" class="paddingTop5 displayFlex flexRow">
         <div class="max-width padding-5-left-right">
           <button class="btn btn-warning max-width mini-padding" [disabled]="!section" (click)="goToQuestions()">Ver dudas</button>
         </div>

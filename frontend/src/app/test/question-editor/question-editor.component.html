@@ -13,7 +13,7 @@
 
   <div class="form-group">
     <label for="wording">Enunciado</label>
-    <div class="row set-maximun-width-100" style="margin-right: 0px; margin-left: 0px">
+    <div class="row set-maximun-width-100 noMarginRight noMarginLeft">
       <input #imageInput class="form-control col-9 set-maximun-height-100" type="file" id="filePicker" (change)="handleFileSelect($event)" accept="image/x-png,image/gif,image/jpeg">
       <button [disabled]="!question?.wordingImage" (click)="removeImage()" class="btn btn-danger col-3">Quitar</button>
     </div>
@@ -30,10 +30,10 @@
         <div class="col-2 text-center" (click)="changeBool(option)">
           <i class="fa fa-2x" aria-hidden="true" [ngClass]="{true: 'fa-check text-success', false: 'fa-times text-danger'}[option.isCorrect]"></i>
         </div>
-        <button class="col-2 btn btn-danger" style="width: 15%" (click)="deleteOption(option)">Borrar</button>
+        <button class="col-2 btn btn-danger width15" (click)="deleteOption(option)">Borrar</button>
       </div>
     </div>
-    <button class="btn btn-success max-width" style="margin-top: 15px" (click)="addOption()" [disabled]="!allOptionsFilled()" id="addOptionButton">Añadir opcion</button>
+    <button class="btn btn-success max-width marginTop15" (click)="addOption()" [disabled]="!allOptionsFilled()" id="addOptionButton">Añadir opcion</button>
   </div>
   <div class="alert alert-warning" role="alert" *ngIf="!isReadyToSend()">
     Todos los campos deben ser rellenados. No puede haber opciones vacías o repetidas. Es necesario que haya al menos una verdadera y una falsa.

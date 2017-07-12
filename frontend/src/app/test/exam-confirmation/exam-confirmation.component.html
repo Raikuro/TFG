@@ -4,13 +4,13 @@
 <div class="normal-padding">
   <div *ngFor="let question of test">
     <div class="card">
-      <div class="card-block row" style="padding-top: 5px; padding-bottom: 5px">
+      <div class="card-block row paddingTop5 paddingBottom5">
         <div class="col-3">{{test.indexOf(question) + 1}}</div>
         <div class="col-9">{{getState(question)}}</div>
       </div>
     </div>
   </div>
-  <div style="margin-top: 10px">
+  <div class="marginTop10">
     <button class="btn btn-danger" (click)="back()">Volver</button>
     <button class="btn btn-success" (click)="checkExam()">Confirmar</button>
   </div>

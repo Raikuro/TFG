@@ -10,14 +10,14 @@
   </div>
   <div *ngIf="thereIsTest()">
     <div class="row">
-      <div class="col-3" style="position: fixed">
+      <div class="col-3 positionFixed">
         <button *ngFor="let question of test; let i = index" class="col-4 btn" [ngClass]="{ 'btn-secondary': !isQuestionAnswered(question), 'btn-primary': isQuestionAnswered(question)}" (click)="goToQuestion(i)">
           {{i+1}}
         </button>
-        <button class="btn btn-success max-width" style="margin-top: 10px" (click)="goToConfirmationExam()">Enviar</button>
+        <button class="btn btn-success max-width marginTop10" (click)="goToConfirmationExam()">Enviar</button>
       </div>
       <div class="offset-4 col-9">
-        <div *ngFor="let question of test; let i = index" class="card" style="margin-bottom: 15px; padding: 10px">
+        <div *ngFor="let question of test; let i = index" class="card marginBottom15 generalPadding10">
           <div *ngIf="question?.wordingText" class="card-group" id="q{{i}}">
           {{i+1}} - {{question.wordingText}}
           </div>

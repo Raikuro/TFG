@@ -14,6 +14,10 @@ html, body{
     width: 100%
 }
 
+.max-height{
+    height: 100%
+}
+
 .set-maximun-width-100{
     max-width:100%
 }
@@ -32,4 +36,96 @@ html, body{
 
 .header-style{
     height: 10%
+}
+
+.word-wrapped{
+    word-wrap: break-word;
+}
+
+.standar-border{
+    border: 2px solid #d9d9db; border-radius: 5px; overflow: auto
+}
+
+.grey-italic{
+    font-style: italic; color: grey
+}
+
+.heightOfContent{
+    height:80%
+}
+
+.marginTop10{
+    margin-top: 10px
+}
+
+.noMarginRight{
+    margin-right: 0px
+}
+
+.noMarginLeft{
+    margin-left: 0px
+}
+
+.preWrapWhiteSpace{
+    white-space: pre-wrap;
+}
+
+.paddingTop5{
+    padding-top: 5px
+}
+
+.marginBottom15{
+  margin-bottom:15px
+}
+
+.generalPadding10{
+    padding: 10px
+}
+
+.width20{
+    width: 20%
+}
+
+.marginTop15{
+    margin-top: 15px
+}
+
+.marginBottom5{
+    margin-bottom: 5px
+}
+
+.marginTop20{
+    margin-top: 20
+}
+
+.width15{
+    width: 15%
+}
+
+.width22{
+    width: 22%
+}
+
+.width77{
+    width: 77%
+}
+
+.marginBottom10{
+    margin-bottom: 10px;
+}
+
+.displayFlex{
+    display: flex;
+}
+
+.flexColumn{
+    flex-direction: column
+}
+
+.justifyBetween{
+    justify-content: space-between
+}
+
+.positionFixed{
+    position: fixed
 }

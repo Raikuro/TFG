@@ -1,0 +1,11 @@
+.inherit-height{
+  height: inherit
+}
+
+.height75{
+  height: 75%
+}
+
+.justifyAround{
+  justify-content: space-around;
+}

@@ -4,7 +4,7 @@
 
 
 
-<div class="normal-padding" style="display: flex; justify-content: center; flex-direction: column;">
+<div class="normal-padding displayFlex flexColumn justifyCenter">
 
 
 <ngb-alert [dismissible]="false" *ngIf="!thereAreUnrespondedQuestions()" type="info">
@@ -24,14 +24,14 @@
     <ngb-accordion *ngIf="thereAreUnrespondedQuestions()">
       <ngb-panel *ngFor="let questionData of questionsData; let idx = index" id={{questionData.question.title}}>
         <ng-template ngbPanelTitle>
-          <div (click)="doSome(questionData.associatedSection)" style="height: 100%" class="max-width acordionSection">
+          <div (click)="doSome(questionData.associatedSection)" class="max-height max-width acordionSection">
             {{questionData.question.title}}
           </div>
           </ng-template>
           <ng-template ngbPanelContent>
-            <span>Duda sobre: <a style="color: #0275d8; cursor: pointer" (click)="goToTheoryRelated(questionData.associatedSection)">{{questionData.associatedSection.title}}</a></span>
+            <span>Duda sobre: <a class="questionRelated" (click)="goToTheoryRelated(questionData.associatedSection)">{{questionData.associatedSection.title}}</a></span>
             <img class="set-maximun-width-100 set-maximun-height-100" *ngIf="questionData?.question?.contentImage" [src]="'data:image/jpg;base64,'+questionData?.question?.contentImage" />
-            <div class="mini-padding" style="border: 2px solid #d9d9db; border-radius: 5px; overflow: auto; margin-bottom: 5px">
+            <div class="mini-padding standar-border marginBottom5">
               {{questionData.question.contentText}}
             </div>
             <button class="btn btn-danger" *ngIf="!session.isAlumn" (click)="reportQuestion(questionData.question.title, questionData.associatedSection.id, idx)">
