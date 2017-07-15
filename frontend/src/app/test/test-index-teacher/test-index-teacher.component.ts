@@ -52,6 +52,7 @@ export class TestIndexTeacherComponent extends ComponentWithSession {
 
   onLessonSelectorChange(lesson){
     this.lesson = lesson;
+    this.showQuestions()
   }
 
   showQuestions(){
