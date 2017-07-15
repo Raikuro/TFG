@@ -27,7 +27,8 @@ html, body{
 }
 
 .normal-padding{
-    padding-left: 150px; padding-right: 150px;
+    padding-left: 150px !important;
+    padding-right: 150px !important;
 }
 
 .mini-padding{
@@ -63,7 +64,7 @@ html, body{
 }
 
 .noMarginLeft{
-    margin-left: 0px
+    margin-left: 0px !important
 }
 
 .preWrapWhiteSpace{
