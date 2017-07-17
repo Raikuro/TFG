@@ -131,13 +131,14 @@ CREATE TABLE records (
 );
 
 INSERT INTO lessons(title) VALUES
+  ("TEMA 1: Conjuntos"),
   ("TEMA 2: Combinatoria"),
   ("TEMA 3: Relaciones");
 INSERT INTO sections(lesson, title, contentText) VALUES
-  (1, "2.1 Conjuntos", "Contenido de conjuntos"),
-  (1, "2.1.1 Operaciones. Propiedades", "Contenido de operaciones. Propiedades"),
-  (2, "3.1 Operaciones con relaciones", "Contenido de operaciones con relaciones"),
-  (2, "3.2 Propiedades de las relaciones binarias en A", "Contenido de propiedades de las relaciones binarias en A");
+  (2, "2.1 Conjuntos", "Contenido de conjuntos"),
+  (2, "2.1.1 Operaciones. Propiedades", "Contenido de operaciones. Propiedades"),
+  (3, "3.1 Operaciones con relaciones", "Contenido de operaciones con relaciones"),
+  (3, "3.2 Propiedades de las relaciones binarias en A", "Contenido de propiedades de las relaciones binarias en A");
 INSERT INTO keywords VALUES
   ("conjunto"),
   ("elemento"),
