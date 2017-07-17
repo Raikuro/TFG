@@ -8,12 +8,12 @@
 <button (click)="showQuestions()" class="btn btn-success col-off-1 col-2 width20">Revisar</button>
 </div>
 
-<div *ngIf="shownQuestions" class="marginTop10">
+<div *ngIf="shownQuestions?.length > 0" class="marginTop10">
   <ngb-accordion [closeOthers]="true">
     <ngb-panel *ngFor="let question of shownQuestions" id={{question.id}}>
       <ng-template ngbPanelTitle>
       <div class="acordionSection max-width max-height">
-        <span (click)="doSome(question)" *ngIf="question?.wordingText">{{question.wordingText}}</span>
+        <span *ngIf="question?.wordingText">{{question.wordingText}}</span>
         <img class="set-maximun-width-100 set-maximun-height-100" *ngIf="question?.wordingImage" [src]="'data:image/jpg;base64,'+question?.wordingImage" />
       </div>
       </ng-template>
@@ -45,5 +45,7 @@
   <div class="marginTop10">
     <ngb-pagination [collectionSize]="lesson?.questions?.length" pageSize="{{PAGESIZE}}" [(page)]="page" aria-label="Default pagination" (pageChange)="changeShownQuestions($event)"></ngb-pagination>
   </div>
+</div>
+<div class="marginTop10">
   <button class="btn btn-success" (click)="addQuestion()">Añadir</button>
 </div>

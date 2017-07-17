@@ -14,13 +14,14 @@ import { SessionService } from "app/core/session/session.service";
   styleUrls: ['./test-index-teacher.component.css']
 })
 export class TestIndexTeacherComponent extends ComponentWithSession {
+  
   protected onInitTasks() {
     this.page = 1;
-              
     this.theoryService.getLessonsTitle().subscribe(
       theory => {
         this.lessons = theory.lessons;
-        this.lesson = this.lessons[0];
+        let aux = this.testService.data ? this.testService.data.lessonId : 1
+        this.lesson = this.lessons[aux-1];
       },
       error => this.router.navigate(["/server-error", error])
     )
@@ -29,8 +30,6 @@ export class TestIndexTeacherComponent extends ComponentWithSession {
   private lessons;
   private lesson;
   private shownQuestions;
-  //private questions;
-  //private page = 1;
   private page;
   private PAGESIZE = PAGESIZE;
 
@@ -38,25 +37,12 @@ export class TestIndexTeacherComponent extends ComponentWithSession {
     super(sessionService, router);
   }
 
-  /*ngOnInit() {
-    this.page = 1;
-              
-    this.theoryService.getLessonsTitle().subscribe(
-      theory => {
-        this.lessons = theory.lessons;
-        this.lesson = this.lessons[0];
-      },
-      error => this.router.navigate(["/server-error", error])
-    )
-  }*/
-
   onLessonSelectorChange(lesson){
     this.lesson = lesson;
     this.showQuestions()
   }
 
   showQuestions(){
-    //this.router.navigate(['/test/' + this.lesson.id + '/questions']);
     if(!this.lesson.question){
       this.testService.getQuestions(this.lesson.id).subscribe(
             questions => {
@@ -65,14 +51,10 @@ export class TestIndexTeacherComponent extends ComponentWithSession {
                   return new TestOption(option.answer, option.isCorrect)
                 })
                 let aux = new TestQuestion(question.id, question.wordingText, question.wordingImage, question.testOptions)
-                console.log("----", question.wordingImage)
-                console.log("-->", aux)
                 return aux;
               });
-              //console.log(this.questions)
               this.page = 1;
               this.shownQuestions = this.lesson.questions.slice((this.page-1)*PAGESIZE, this.page*PAGESIZE);
-              //console.log(this.shownQuestions)
             },
             error => console.log("cc", error)
           )
@@ -84,27 +66,27 @@ export class TestIndexTeacherComponent extends ComponentWithSession {
 
   }
 
-//---------------------------------------------------
-
   changeShownQuestions(){
     if(this.lesson)
       this.shownQuestions = this.lesson.questions.slice((this.page-1)*PAGESIZE, this.page*PAGESIZE)
   }
-
-  /*constructor(private route: ActivatedRoute, private testService: TestService, sessionService: SessionService, router: Router) {
-    super(sessionService, router)
-  }*/
 
   getSymbol(option){
     return option.isCorrect;
   }
 
   editQuestion(question){
-    this.testService.data = question
+    this.testService.data = {
+      'question': question,
+      'lessonId': this.lesson.id
+    }
     this.router.navigate(['/test/questions/edit'])
   }
 
   addQuestion(){
+    this.testService.data = {
+      'lessonId': this.lesson.id
+    }
     this.router.navigate(['/test/questions/add/'])
   }
 
@@ -112,11 +94,5 @@ export class TestIndexTeacherComponent extends ComponentWithSession {
     this.testService.confirmationData = {lessonId: this.lesson.id, question: question, mode: DELETE}
     this.router.navigate(['/test/questions/confirmation'])
   }
-
-  doSome(a){
-    console.log(a)
-  }
-
-
 
 }

@@ -64,7 +64,7 @@ class ExamQuestion {
 
   getAllExamOptions () {
     return new Promise((resolve, reject) => {
-      mysqlConnection.query('SELECT DISTINCT T.* FROM testOptions T WHERE T.question = ?',
+      mysqlConnection.query('SELECT DISTINCT T.* FROM testOptions T WHERE T.question = ? ORDER BY dateOf',
       [this.question.id], (err, options) => {
         if (err) { reject(err) }
         options = options.map((option) => {

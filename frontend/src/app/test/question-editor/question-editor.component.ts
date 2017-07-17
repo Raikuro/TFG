@@ -27,14 +27,14 @@ export class QuestionEditorComponent extends ComponentWithSession {
     this.theoryService.getLessonsTitle().subscribe(
       theory => {
         this.lessons = theory.lessons;
-        this.lesson = this.lessons[0];
+        this.question = this.testService.data ? this.testService.data.question : undefined;
+        if(!this.question){
+          this.location.back()
+        } else {
+          this.lesson = this.lessons[this.testService.data.lessonId - 1] }
       },
       error => this.router.navigate(["/server-error", error])
     )
-    this.question = this.testService.data;
-    if(!this.question){
-      this.location.back()
-    }
   }
 
   constructor(sessionService: SessionService,

@@ -12,7 +12,7 @@ class TestQuestion {
 
   getAllOptions () {
     return new Promise((resolve, reject) => {
-      mysqlConnection.query('SELECT DISTINCT T.* FROM testOptions T WHERE T.question = ?',
+      mysqlConnection.query('SELECT DISTINCT T.* FROM testOptions T WHERE T.question = ? ORDER BY dateOf',
       [this.id], (err, options) => {
         if (err) { reject(err) }
         options = options.map((option) => {
@@ -29,16 +29,16 @@ class TestQuestion {
 
   update (lessonId) {
     return new Promise((resolve, reject) => {
-      Promise.all([this._updateBasics(), this._updateOptions()]).then(
+      Promise.all([this._updateBasics(lessonId), this._updateOptions()]).then(
         resolve(this)
       )
     })
   }
 
-  _updateBasics () {
+  _updateBasics (lessonId) {
     return new Promise((resolve, reject) => {
-      mysqlConnection.query('UPDATE testQuestions SET wordingText=?, wordingImage=? WHERE id=?',
-        [this.wordingText, this.wordingImage, this.id], (err) => {
+      mysqlConnection.query('UPDATE testQuestions SET wordingText=?, wordingImage=?, lesson=? WHERE id=?',
+        [this.wordingText, this.wordingImage, lessonId, this.id], (err) => {
           if (err) { reject(err) }
           resolve()
         })
@@ -51,8 +51,9 @@ class TestQuestion {
         actual.map((option) => {
           return new TestOption(actual.answer, actual.isCorrect)
         })
-        let needToAdd = utils.diffBtwOptionsArrays(this.testOptions, actual)
-        let needToDel = utils.diffBtwOptionsArrays(actual, this.testOptions)
+        utils.diffBtw
+        let needToAdd = utils.diffBtwTestOptionArrays(this.testOptions, actual)
+        let needToDel = utils.diffBtwTestOptionArrays(actual, this.testOptions)
         let promisesDel = needToDel.map((option) => {
           return new TestOption(option.answer, option.isCorrect).delete(this.id)
         })

@@ -51,7 +51,6 @@ export class TestQuestionConfirmationComponent extends ComponentWithSession {
   }
 
   sendData(){
-    console.log(this.question)
     this.testService.sendData(this.question, this.mode, this.lessonId).subscribe(
       () => this.router.navigate(['/test']),
       error => this.goToErrorPage(error)

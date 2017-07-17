@@ -87,6 +87,7 @@ CREATE TABLE testOptions (
   question INTEGER UNSIGNED NOT NULL,
   answer VARCHAR(255) NOT NULL,
   isCorrect BIT(1) NOT NULL,
+  dateOf DATETIME(6) DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (id),
   UNIQUE (question, answer),
   FOREIGN KEY (question) REFERENCES testQuestions(id)

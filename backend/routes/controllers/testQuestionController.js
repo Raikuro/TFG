@@ -22,7 +22,7 @@ exports.updateQuestion = (req, res) => {
     let bypassUrl = question.wordingImage.replace(/ /g, '+')
     question.wordingImage = Buffer.from(bypassUrl, 'base64')
   }
-  new TestQuestion(question.id, question.wordingText, question.wordingImage, options).update()
+  new TestQuestion(question.id, question.wordingText, question.wordingImage, options).update(req.params.lessonId)
   .then(res.status(204).send())
   .catch(error => res.status(500).send(error))
 }

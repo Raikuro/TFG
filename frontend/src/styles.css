@@ -130,3 +130,7 @@ html, body{
 .positionFixed{
     position: fixed
 }
+
+.height90{
+  height: 90%
+}

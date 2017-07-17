@@ -26,12 +26,12 @@ export class QuestionAddComponent extends ComponentWithSession {
     this.theoryService.getLessonsTitle().subscribe(
       theory => {
         this.lessons = theory.lessons;
-        this.lesson = this.lessons[0];
+        let aux = this.testService.data ? this.testService.data.lessonId : 1
+        this.lesson = this.lessons[aux-1];
       },
       error => this.router.navigate(["/server-error", error])
     )
     this.question = new TestQuestion(undefined, "", undefined, [new TestOption("", false)]);
-    //this.addOption();
   }
 
   constructor(sessionService: SessionService,
