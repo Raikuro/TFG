@@ -1,5 +1,6 @@
 .questionRelated{
-  color: #0275d8; cursor: pointer 
+  color: #0275d8 !important;
+  cursor: pointer 
 }
 
 .justifyCenter{

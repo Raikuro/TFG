@@ -16,7 +16,6 @@ export class QuestionDetailsComponent extends ComponentWithSession {
 
   protected onInitTasks() {
     this.question = this.statisticsService.getQuestionData()
-    console.log(this.question)
     if (this.question === undefined){
       this.goBack()
     }

@@ -40,10 +40,6 @@ export class TheoryEditorComponent extends ComponentWithSession {
     this.router.navigate(['/theory/change-confirmation']);
   }
 
-  doSome(a){
-    console.log(this.section, this.isReadyToSend());
-  }
-
   isReadyToSend(){
     let aux = false
     if(this.section){
@@ -83,37 +79,24 @@ export class TheoryEditorComponent extends ComponentWithSession {
             this.lessons = index.lessons;
             this.onInitTaskNext()
           },
-          error => console.log(error)
+          error => {}
         )
       }
-      // else{
-      //   this.lessons = (<Theory>index).lessons;
-      //   this.onInitTaskNext()
-      // }
     }
   }
 
   onInitTaskNext(){
     let data = this.theoryService.preparedData
-    /*if(data){
-      this.mode = data.mode
-      this.lesson = data.lesson
-      this.section = data.section
-      console.log("AAA", this.lesson)
-    }
-    else{*/
       this.route.params.subscribe(
         params => {
           this.lesson = this.lessons[params.lessonId-1];
           if(data){
             this.mode = data.mode
-            //this.lesson = data.lesson
             this.section = data.section
             this.words = this.section.keywords.map((keyword) => {
               return keyword.word
             })
             this.theoryService.deletePreparedData();
-            //console.log("AAA", this.lesson)
           }
           else{
             let sectionId = params.sectionId;
@@ -129,15 +112,9 @@ export class TheoryEditorComponent extends ComponentWithSession {
                         return keyword.word
                       })
                     },
-                    error => console.log(error)
+                    error => {}
                   )
                 }
-                // else{
-                //   this.section = (<Section>section);
-                //   this.words = this.section.keywords.map((keyword) => {
-                //     return keyword.word
-                //   })
-                // }
               }
               else{
                 this.mode = ADD;
@@ -149,9 +126,8 @@ export class TheoryEditorComponent extends ComponentWithSession {
             }
           }
         },
-        error => console.log(error)
+        error => {}
       )
-    //}
   }
 
   handleFileSelect(evt){
@@ -168,7 +144,6 @@ export class TheoryEditorComponent extends ComponentWithSession {
     let binaryString = readerEvt.target.result;
     if(this.section){
       this.section.contentImage = btoa(binaryString);
-      console.log(this.section.contentImage)
     }
   }
 

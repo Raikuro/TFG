@@ -63,18 +63,6 @@ export class ConfirmChangesComponent extends ComponentWithSession {
     );
   }
 
-  /*ensureNotRepeated(){
-    if(this.data && this.data.section){
-      console.log("--", this.data.section.keywords)
-      this.data.section.keywords = this.data.section.keywords.filter((keyword, i, arr) => {
-        let aux = arr.find((keyword2) => { keyword2.word === keyword.word}) === i;
-        console.log(aux)
-        return aux
-      })
-      console.log("--", this.data.section.keywords)
-    }
-  }*/
-
   getKeywordsString(){
     let res = '';
     if(this.data && this.data.section){

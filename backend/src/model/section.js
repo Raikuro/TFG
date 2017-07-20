@@ -24,9 +24,7 @@ class Section {
 
   _update (lessonId) {
     return new Promise((resolve, reject) => {
-      // let keyAux = this.keywords.split ? this.keywords.split(',') : this.keywords
       this._getKeywords(this.id).then((keywords) => {
-        // console.log(keywords, keyAux)
         let words = keywords.map((keyword) => { return keyword.word })
         let wordsAux = this.keywords.map((keyword) => { return keyword.word })
         Promise.all([
@@ -151,7 +149,7 @@ class Section {
                 return Section.getSection(sectionData.id)
               })
               Promise.all(promises)
-                .then((sections) => { console.log(sections); resolve(sections) })
+                .then((sections) => { resolve(sections) })
                 .catch((err) => reject(err))
             } else { resolve([]) }
           }

@@ -17,7 +17,6 @@ export class ExamComponent extends ComponentWithSession {
 
   onInitTasks() {
     this.test = this.testService.test
-    console.log("--", this.test)
     if(this.test === undefined){
       this.router.navigate(['/test'])
     }
@@ -40,7 +39,7 @@ export class ExamComponent extends ComponentWithSession {
   }
 
   thereIsTest(){
-    return this.test.length > 0
+    return this.test.length === 15
   }
 
   isQuestionAnswered(question){

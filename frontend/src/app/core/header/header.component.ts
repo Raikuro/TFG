@@ -48,7 +48,7 @@ export class HeaderComponent extends ComponentWithSession {
   logout(){
     this.sessionService.logout().then(
       () => {},
-      error => console.log(error)
+      error => {}
     );
     this.router.navigate(['/login']);
   }

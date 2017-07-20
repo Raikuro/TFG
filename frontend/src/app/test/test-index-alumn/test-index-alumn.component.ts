@@ -26,10 +26,6 @@ export class TestIndexAlumnComponent extends ComponentWithSession {
     )
   }
 
-  doSome(){
-    console.log(this.concept)
-  }
-
   constructor(private testService: TestService,
               sessionService: SessionService,
               router: Router,

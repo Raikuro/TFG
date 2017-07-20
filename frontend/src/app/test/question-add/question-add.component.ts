@@ -126,10 +126,6 @@ export class QuestionAddComponent extends ComponentWithSession {
     this.router.navigate(['/test/questions/confirmation'])
   }
 
-  private doSome(){
-    console.log(JSON.stringify(this.question))
-  }
-
   handleFileSelect(evt){
     let files = evt.target.files;
     let file = files[0];

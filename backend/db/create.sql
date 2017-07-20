@@ -23,7 +23,7 @@ CREATE TABLE sections (
   lesson INTEGER UNSIGNED NOT NULL, 
   title VARCHAR(200) NOT NULL,
   contentText TEXT,
-  contentImage BLOB,
+  contentImage LONGBLOB,
   PRIMARY KEY (id),
   UNIQUE (lesson, title),
   FOREIGN KEY (lesson) REFERENCES lessons(id)
@@ -62,9 +62,9 @@ CREATE TABLE questions (
   section INTEGER UNSIGNED NOT NULL,
   title VARCHAR(200) NOT NULL,
   contentText TEXT,
-  contentImage BLOB,
+  contentImage LONGBLOB,
   responseText TEXT,
-  responseImage BLOB,
+  responseImage LONGBLOB,
   reported BIT(1) DEFAULT 0,
   ignored BIT(1) DEFAULT 0,
   PRIMARY KEY (section, title),
@@ -76,7 +76,7 @@ CREATE TABLE testQuestions (
   id INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
   lesson INTEGER UNSIGNED NOT NULL,
   wordingText VARCHAR(255),
-  wordingImage BLOB,
+  wordingImage LONGBLOB,
   UNIQUE (lesson, wordingText, wordingImage(255)),
   PRIMARY KEY (id),
   FOREIGN KEY (lesson) REFERENCES lessons(id)
@@ -135,46 +135,56 @@ INSERT INTO lessons(title) VALUES
   ("TEMA 2: Combinatoria"),
   ("TEMA 3: Relaciones");
 INSERT INTO sections(lesson, title, contentText) VALUES
-  (2, "2.1 Conjuntos", "Contenido de conjuntos"),
-  (2, "2.1.1 Operaciones. Propiedades", "Contenido de operaciones. Propiedades"),
+  (1, "1.1 Conjuntos", "Un conjunto es una colección de objetos distintos bien definidos, en el sentido de que de
+cualquier objeto se pueda decir que pertenece o no al conjunto, pero no ambas cosas. A cada
+objeto de un conjunto se le llama elemento y usamos la notación a ∈ A para indicar que a
+es un elemento del conjunto A. El conjunto que no contiene elementos se denomina conjunto
+vacı́o y se denota por ∅."),
+  (1, "1.1.1 Operaciones. Propiedades", null),
   (3, "3.1 Operaciones con relaciones", "Contenido de operaciones con relaciones"),
   (3, "3.2 Propiedades de las relaciones binarias en A", "Contenido de propiedades de las relaciones binarias en A");
 INSERT INTO keywords VALUES
   ("conjunto"),
   ("elemento"),
+  ("vacío"),
   ("universal"),
   ("universo"),
   ("inversa"),
   ("compuesta"),
   ("reflexiva"),
-  ("antirreflexiva");
+  ("antirreflexiva"),
+  ("simétrica"),
+  ("antisimétrica"),
+  ("transitiva");
 INSERT INTO keywordRelations VALUES
   (1, "conjunto"),
   (1, "elemento"),
+  (1, "vacío"),
   (2, "conjunto"),
   (2, "universal"),
   (2, "universo"),
   (3, "inversa"),
   (3, "compuesta"),
   (4, "reflexiva"),
+  (4, "simétrica"),
+  (4, "antisimétrica"),
+  (4, "transitiva"),
   (4, "antirreflexiva");
 INSERT INTO uvaUsers(username, password, isAlumn) VALUES
   ("qwe", "qwe", 0),
   ("asd", "asd", 1),
   ("zxc", "zxc", 1),
   ("alumno", "alumno", 1),
-  ("profesor", "profesor", 0);
+  ("profesor", "profesor", 0),
+  ("julgrac", "julgrac", 1),
+  ("marisa", "marisa", 0);
 INSERT INTO users(username) VALUES
-  ("asd"),
-  ("qwe");
+  ("julgrac"),
+  ("marisa");
 INSERT INTO questions(user, section, title, contentText, responseText, reported, ignored) VALUES
-  (1, 1, "duda1", "contenido duda1", "respuesta duda1", 0, 0),
-  (1, 2, "duda2", "contenido duda2", "respuesta duda2", 0, 0),
-  (1, 3, "duda3", "contenido duda3", "respuesta duda3", 0, 0),
-  (1, 1, "duda4", "contenido duda4", "respuesta duda4", 0, 0),
-  (1, 1, "duda5", "contenido duda5", null, 0, 0),
-  (1, 1, "duda6", "contenido duda6", null, 0, 0),
-  (1, 1, "duda7", "contenido duda7", null, 0, 0);
+  (1, 1, "dudaOfensiva", "No entiendo una caca", null, 0, 0),
+  (1, 1, "dudaRepetida", "Esta duda está repetida", null, 0, 0),
+  (1, 1, "dudaRespondida", "Tengo una duda sobre....", "Esta duda está respondida", 0, 0);
 INSERT INTO testQuestions(lesson, wordingText) VALUES
   (1, "enunciado 1"),
   (1, "enunciado 2"),

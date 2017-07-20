@@ -18,17 +18,6 @@ function saveRecord (section, user) {
   return new Record(user, section).save()
 }
 
-/*
-exports.getSectionsByKeyword = (req, res) => {
-  Section.findByKeyword(req.params.query)
-  .then((sections) => {
-    console.log("----2>", sections)
-    res.status(200).send(sections)
-  })
-  .catch((e) => { res.status(500).send(e) })
-}
-*/
-
 exports.saveNewSection = (req, res) => {
   let section = JSON.parse(req.body.section)
   if (section.contentImage) {

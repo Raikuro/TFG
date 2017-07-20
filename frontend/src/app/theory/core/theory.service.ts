@@ -40,53 +40,21 @@ export class TheoryService extends BaseService{
     return this.http.get(ADDRESS + '/index/getTitles', this.options)
       .map(this.extractData)
       .catch((error:any) => {
-        console.log(error)
         return Observable.throw(this.extractError(error) || 'Server error')})
   }
 
 
   get index(){
-    //if(this._index === undefined){
       return this.getIndexData();
-    //}
-    //return this._index;
   }
-
-  /*set index(index){
-    this._index = <Theory>index;
-  }*/
 
   search(query){
-    //if(!this._searchCache[query]){
-      return this.http.get(ADDRESS + '/index/search/' + query, this.options)
-        .map(this.extractData)
-        .catch((error:any) => {
-          return Observable.throw(this.extractError(error) || 'Server error')})
-    //}
-    //return this._searchCache[query];
+   return this.http.get(ADDRESS + '/index/search/' + query, this.options)
+      .map(this.extractData)
+      .catch((error:any) => {
+        return Observable.throw(this.extractError(error) || 'Server error')})
   }
 
-  /*deleteIndexCache(){
-    this._index = undefined
-  }
-
-  deleteSectionsCache(){
-    this._sectionsCache = new Array<Array<Section>>();
-  }
-
-  deleteSearchCache(){
-    this._searchCache = undefined
-  }
-
-  deleteTheoryCache(){
-    return new Promise((resolve, reject) => {
-      this.deleteSearchCache();
-      this.deleteIndexCache();
-      this.deleteSectionsCache();
-      resolve(true)
-    })
-  }
-  */
   sendData(data){
     let body = new URLSearchParams();
     body.append('section', JSON.stringify(data.section));
@@ -128,26 +96,9 @@ export class TheoryService extends BaseService{
   set preparedData(data){
     this._preparedData = data;
   }
-/*
-  get sectionsCache(){
-    return this._sectionsCache;
-  }
 
-  updateSectionsCache(sectionData: Section, lessonId: number, sectionId: number){
-    this._sectionsCache[lessonId][sectionId] = sectionData;
-  }
-*/
   getSection(lessonId: number, sectionId: number){
-    //if(this._sectionsCache[lessonId]){
-    //  if(this._sectionsCache[lessonId][sectionId] === undefined){
-        return this._getSectionData(lessonId, sectionId);
-    //   }
-    //}
-    //else{
-      //this.sectionsCache[lessonId] = new Array<Section>();
-      //return this._getSectionData(lessonId, sectionId);
-    //}
-    //return this._sectionsCache[lessonId][sectionId];
+   return this._getSectionData(lessonId, sectionId);
   }
   
   private _getSectionData(lessonId: number, sectionId: number):Observable<Section>{
@@ -161,11 +112,6 @@ export class TheoryService extends BaseService{
     return this.http.get(ADDRESS + '/index', this.options)
       .map(this.extractData)
       .catch((error:any) => {
-        console.log(error)
         return Observable.throw(this.extractError(error) || 'Server error')})
   }
-
-  /*private extractData(res: Response) {
-    return res['_body'] ? res.json() : {}
-  } */
 }

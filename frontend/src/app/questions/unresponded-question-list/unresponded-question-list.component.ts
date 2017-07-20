@@ -83,14 +83,6 @@ export class UnrespondedQuestionListComponent extends ComponentWithSession {
 
   ignoreQuestion(questionTitle, sectionId, index){
     this.addAlert(IGNORE_ALERT, questionTitle, sectionId, index)
-        
-    /*this.questionService.ignoreQuestion(question).subscribe(
-      res => {
-        this.addAlert(IGNORE_ALERT)
-        this.questions.splice(index,1);
-      },
-      error => this.goToErrorPage(error)
-    )*/
   }
 
   addAlert(alert, questionTitle, sectionId, index){
@@ -98,20 +90,11 @@ export class UnrespondedQuestionListComponent extends ComponentWithSession {
     alert.sectionId = sectionId;
     alert.index = index;
     this.alerts.push(alert)
-    console.log(alert)
   }
-
-  /*reloadPage() {
-    window.location.reload();
-  }*/
 
   closeAlert(alert) {
     let index: number = this.alerts.indexOf(alert);
     this.alerts.splice(index, 1);
-  }
-
-  doSome(a){
-    console.log(a)
   }
 
 }

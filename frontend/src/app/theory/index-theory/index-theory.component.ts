@@ -33,45 +33,17 @@ export class IndexTheoryComponent implements OnInit {
 
   ngOnInit(){
     let index = this.theoryService.index;
-    // if((<Observable<Theory>> index).subscribe){
       (<Observable<Theory>> index).subscribe(
         index => {
           this.assignLessons(index)
-          //this.theoryService.index = index
         },
         error => this.router.navigate(['/server-error', error]))
-    // }
-    // else{
-    //   this.assignLessons(index)
-    // }
   }
 
   assignLessons(index){
     this.lessons = index.lessons;
     this.changeLesson(this.lessons[0]);
-    // if(this.initSectionId){
-    //   this.selectInitSection(this.initSectionId)
-    // }
-    // else{
-    //   this.selectSection(this.sections[0])
-    // }
   }
-
-  doSome(a){
-    console.log(a)
-  }
-
-  // selectInitSection(sectionId){
-  //   let initSection
-  //   let initLesson = this.lessons.find((lesson)=>{
-  //     initSection = lesson.sections.find((section)=>{
-  //       return section.id == sectionId
-  //     })
-  //     return initSection;
-  //   })
-  //   this.changeLesson(initLesson)
-  //   this.selectSection(initSection)
-  // }
   
   sendError(error){
     this.onError.emit(error)
@@ -92,18 +64,12 @@ export class IndexTheoryComponent implements OnInit {
   selectSection(section){
     this.section = section;
     let response = this.theoryService.getSection(this.lesson.id, this.section.id)
-    //if((<Observable<Section>>response).subscribe){
       response.subscribe(
         section => {
           this.assignSection(section);
-          //this.theoryService.updateSectionsCache(section, this.lesson.id, this.section.id);
         },
-        error => /*this.router.navigate(['/server-error', error])*/ this.sendError(error)
+        error => this.sendError(error)
       )
-    // }
-    // else{
-    //   this.assignSection(response);
-    // }
   }
 
   changeLesson(lesson){
@@ -111,9 +77,6 @@ export class IndexTheoryComponent implements OnInit {
     this.onLessonChange.emit(JSON.stringify(this.lesson))
     this.sections = this.lesson.sections;
     this.section = undefined
-    // if(this.sections && this.sections[0]){
-    //   this.selectSection(this.sections[0])
-    // }
   }
 
   goToQuestions(){

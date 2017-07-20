@@ -56,7 +56,7 @@ export class TestIndexTeacherComponent extends ComponentWithSession {
               this.page = 1;
               this.shownQuestions = this.lesson.questions.slice((this.page-1)*PAGESIZE, this.page*PAGESIZE);
             },
-            error => console.log("cc", error)
+            error => {}
           )
     }
     else{

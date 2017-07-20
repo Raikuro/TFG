@@ -63,10 +63,6 @@ export class QuestionConfirmationComponent extends ComponentWithSession {
     this.location.back();
   }
 
-  doSome() {
-    console.log(this.question);
-  }
-
   isValid(question){
     return true
   }

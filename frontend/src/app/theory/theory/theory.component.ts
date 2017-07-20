@@ -55,10 +55,6 @@ export class TheoryComponent extends ComponentWithSession {
     return this.searchText ? this.searchText.length > 0 : false;
   }
 
-  doSome(some){
-    console.log(this.section.contentImage + "");
-  }
-
   goToQuestions(){
     this.router.navigate(['/questions', {lessonId: this.lesson.id, sectionId: this.section.id}]);
   }

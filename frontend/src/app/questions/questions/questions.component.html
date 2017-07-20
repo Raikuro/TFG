@@ -7,7 +7,7 @@
     <ngb-alert [type]="alert.type" (close)="closeAlert(alert)">{{ alert.msg }} <button (click)="deleteQuestion(alert.questionTitle)" class="btn btn-success">Confirmar</button> </ngb-alert>
   </div>
 
-  <span (click)="doSome()">Buscar por contenido:</span>
+  <span>Buscar por contenido:</span>
   <input class="form-control max-width" type="search" [(ngModel)]="searchText">
   
   <div class="marginBottom15 marginTop15">

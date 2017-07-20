@@ -67,10 +67,6 @@ export class QuestionsComponent extends ComponentWithSession {
     }
   }
 
-  doSome(question){
-    console.log(question)
-  }
-
   openForm(){
     let aux = new Promise((resolve, reject) => {
      this.newQuestion = {}
@@ -89,7 +85,6 @@ export class QuestionsComponent extends ComponentWithSession {
   }
 
   sendForm(){
-    console.log(this.newQuestion)
     let question = new Question(this.newQuestion.title, this.session.username, this.newQuestion.contentText, this.newQuestion.contentImage, this.newQuestion.responseText, this.newQuestion.responseImage, undefined)
     this.questionsService.prepareData(question);
     this.router.navigate(['/questions/confirmation',{lessonId: this.lessonId, sectionId: this.sectionId}])
@@ -103,7 +98,6 @@ export class QuestionsComponent extends ComponentWithSession {
       questionTitle: questionTitle
     };
     this.alerts.push(alert)
-    console.log(alert)
   }
 
   closeAlert(alert) {

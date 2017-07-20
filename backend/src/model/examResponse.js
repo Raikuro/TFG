@@ -19,7 +19,7 @@ class ExamResponse {
   save (examQuestionId) {
     return new Promise((resolve, reject) => {
       mysqlConnection.query('INSERT INTO examResponses(option, question, selected) VALUES (?,?,?);', [this.testOption.id, examQuestionId, this.selected], (err, insertLog) => {
-        if (err) { console.log(err); reject(err) } else { resolve() }
+        if (err) { reject(err) } else { resolve() }
       })
     })
   }
@@ -30,7 +30,6 @@ class ExamResponse {
   }
 
   static getResponseByQuestionId (questionId) {
-    console.log(questionId)
     return new Promise((resolve, reject) => {
       mysqlConnection.query('SELECT R.id as rid, R.selected, O.* FROM examResponses R, testOptions O WHERE R.question = ? AND R.option = O.id;', [questionId], (err, responses) => {
         if (err) { reject(err) } else {

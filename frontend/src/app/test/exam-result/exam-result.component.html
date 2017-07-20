@@ -10,7 +10,7 @@
       </button>
       <button class="btn btn-danger max-width marginTop10" (click)="goToIndex()">Salir</button>
     </div>
-    <div class="offset-4 col-9">
+    <div class="col-9">
       <div *ngFor="let examQuestion of exam?.examQuestions; let i = index" class="card marginBottom15 generalPadding10" [ngClass]="{ 'full-right': checkAccuracy(examQuestion) === GOOD, 'partial-right': checkAccuracy(examQuestion) === ALMOSTGOOD, 'wrong': checkAccuracy(examQuestion) === WRONG}">
          <div *ngIf="examQuestion?.question?.wordingText" class="card-group" id="q{{i}}">
          {{i+1}} - {{examQuestion?.question?.wordingText}}
@@ -19,9 +19,9 @@
          {{i+1}} - <img class="set-maximun-width-100 set-maximun-height-100" *ngIf="examQuestion?.question?.wordingImage" [src]="'data:image/jpg;base64,'+examQuestion?.question?.wordingImage" />
         </div>
         <ul class="list-group card-group">
-          <li class="list-group-item justify-content-between" *ngFor="let response of examQuestion?.examResponses" [ngClass]="{'active': response?.selected}" ngDefaultControl>
+          <li class="list-group-item justify-content-between" *ngFor="let response of examQuestion?.examResponses; let j = index" [ngClass]="{'active': response?.selected}" ngDefaultControl>
             <div>
-              {{response?.testOption?.answer}}
+              {{i+1}}.{{j+1}} {{response?.testOption?.answer}}
             </div>
             <div class="col-2">
               <i class="fa" aria-hidden="true" [ngClass]="{true: 'fa-check text-success', false: 'fa-times text-danger'}[response?.testOption?.isCorrect]"></i>

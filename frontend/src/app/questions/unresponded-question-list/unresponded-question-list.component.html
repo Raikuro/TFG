@@ -24,7 +24,7 @@
     <ngb-accordion *ngIf="thereAreUnrespondedQuestions()">
       <ngb-panel *ngFor="let questionData of questionsData; let idx = index" id={{questionData.question.title}}>
         <ng-template ngbPanelTitle>
-          <div (click)="doSome(questionData.associatedSection)" class="max-height max-width acordionSection">
+          <div class="max-height max-width acordionSection">
             {{questionData.question.title}}
           </div>
           </ng-template>

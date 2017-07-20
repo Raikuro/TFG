@@ -4,7 +4,7 @@
 <div class="normal-padding">
   <div *ngIf="!thereIsTest()">
     <ngb-alert [dismissible]="false">
-      <strong>No se han encontrado tests.</strong> No hay tests para el concepto escogido.
+      <strong>No se han encontrado suficientes preguntas.</strong> No hay suficientes preguntas para el concepto escogido.
     </ngb-alert>
     <button (click)="goBack()" class="col-12 btn btn-success">Volver</button>
   </div>
@@ -16,7 +16,7 @@
         </button>
         <button class="btn btn-success max-width marginTop10" (click)="goToConfirmationExam()">Enviar</button>
       </div>
-      <div class="offset-4 col-9">
+      <div class="col-9">
         <div *ngFor="let question of test; let i = index" class="card marginBottom15 generalPadding10">
           <div *ngIf="question?.wordingText" class="card-group" id="q{{i}}">
           {{i+1}} - {{question.wordingText}}
@@ -25,8 +25,8 @@
           {{i+1}} - <img class="set-maximun-width-100 set-maximun-height-100" *ngIf="question?.wordingImage" [src]="'data:image/jpg;base64,'+question?.wordingImage" />
           </div>
           <ul class="list-group card-group">
-            <li class="list-group-item" *ngFor="let option of question.testOptions" (click)="option.isCorrect = !option.isCorrect" [ngClass]="{ 'active': option.isCorrect}" ngDefaultControl>
-              {{option.answer}}
+            <li class="list-group-item" *ngFor="let option of question.testOptions; let j = index" (click)="option.isCorrect = !option.isCorrect" [ngClass]="{ 'active': option.isCorrect}" ngDefaultControl>
+              {{i+1}}.{{j+1}} {{option.answer}}
             </li>
           </ul>
         </div>
