@@ -12,12 +12,11 @@ class Section {
     this.questions = questions
   }
 
-  _deleteKeyRelation (word) {
+  _deleteKeyRelation (keyword) {
     return new Promise((resolve, reject) => {
       mysqlConnection.query('DELETE FROM keywordRelations WHERE keyword = ? AND section = ?',
-      [word, this.id], (err, keyword) => {
-        if (err) { reject(err) }
-        resolve()
+      [keyword.word, this.id], (err, keyword) => {
+        if (err) { reject(err) } else { resolve() }
       })
     })
   }
@@ -98,12 +97,12 @@ class Section {
 
   delete () {
     return new Promise((resolve, reject) => {
-      Promise.all([this._deleteAllKeyRelations(), this._deleteAllQuestions()])
-        .then(() => {
+      Promise.all([this._deleteAllKeyRelations(), this._deleteAllQuestions(), this._deleteAllRecords()])
+        .then((a) => {
           this._deleteBasics()
             .then(() => resolve())
-            .catch((err) => reject(err))
-        }).catch((err) => reject(err))
+            .catch((err) => { reject(err) })
+        }).catch((err) => { reject(err) })
     })
   }
 
@@ -111,8 +110,16 @@ class Section {
     return new Promise((resolve, reject) => {
       mysqlConnection.query('DELETE FROM questions WHERE section = ?', [this.id],
         (err) => {
-          if (err) { reject(err) }
-          resolve()
+          if (err) { reject(err) } else { resolve() }
+        })
+    })
+  }
+
+  _deleteAllRecords () {
+    return new Promise((resolve, reject) => {
+      mysqlConnection.query('DELETE FROM records WHERE section = ?', [this.id],
+        (err) => {
+          if (err) { reject(err) } else { resolve() }
         })
     })
   }
@@ -121,8 +128,7 @@ class Section {
     return new Promise((resolve, reject) => {
       mysqlConnection.query('DELETE FROM sections WHERE id = ?', [this.id],
       (err) => {
-        if (err) { reject(err) }
-        resolve()
+        if (err) { reject(err) } else { resolve() }
       })
     })
   }
@@ -134,7 +140,7 @@ class Section {
           return this._deleteKeyRelation(keyword)
         })
       ).then(() => resolve())
-      .catch((err) => reject(err))
+      .catch((err) => { reject(err) })
     })
   }
 

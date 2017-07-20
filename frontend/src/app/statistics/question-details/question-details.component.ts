@@ -19,6 +19,7 @@ export class QuestionDetailsComponent extends ComponentWithSession {
     if (this.question === undefined){
       this.goBack()
     }
+    this.question.contentImage = this.question.contentImage + ''
   }
 
   constructor(private statisticsService: StatisticsService,

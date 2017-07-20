@@ -18,6 +18,9 @@ class Question {
       mysqlConnection.query('SELECT * FROM questions WHERE user = ?', [user], (err, questions) => {
         if (err) { reject(err) } else {
           resolve(questions.map((question) => {
+            if (question.contentImage) {
+              question.contentImage = new Buffer(question.contentImage).toString('base64')
+            }
             return new Question(question.title, question.contentText, question.contentImage, question.user, question.responseText, question.responseImage, question.reported, question.ignored, question.date)
           }))
         }
